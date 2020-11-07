@@ -1,0 +1,40 @@
+<div class="inner-content">
+  <nz-page-header [nzGhost]="false" class="page-header">
+    <nz-page-header-title>Accounts</nz-page-header-title>
+    <nz-page-header-extra>
+      <button nz-button>Operation</button>
+      <button nz-button>Operation</button>
+      <button nz-button nzType="primary">New account</button>
+    </nz-page-header-extra>
+    <nz-page-header-content>
+      <nz-descriptions nzSize="small" [nzColumn]="3">
+        <nz-descriptions-item nzTitle="Cantidad" [nzSpan]="3">3</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Balance Total" [nzSpan]="1"><a>$421421</a></nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Balance Promedio" [nzSpan]="1"><a>$45421</a></nz-descriptions-item>
+      </nz-descriptions>
+    </nz-page-header-content>
+  </nz-page-header>
+
+
+  <nz-table #basicTable [nzData]="listOfData">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Address</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.name }}</td>
+      <td>{{ data.balance }}</td>
+      <td>{{ data.address }}</td>
+      <td>
+        <i nz-icon nzType="edit" class="action-icon" nzTheme="outline"></i>
+        <i nz-icon nzType="delete" class="action-icon red" nzTheme="outline"></i>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

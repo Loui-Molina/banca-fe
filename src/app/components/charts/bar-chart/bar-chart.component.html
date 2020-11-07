@@ -1,0 +1,16 @@
+<div  #ContainerRef class="bar-chart-parent">
+    <ngx-charts-bar-vertical
+      [view]="[ContainerRef.offsetWidth, 400]"
+      [scheme]="colorScheme"
+      [results]="results"
+      [gradient]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="'Year'"
+      [yAxisLabel]="'Population'"
+    >
+    </ngx-charts-bar-vertical>
+</div>

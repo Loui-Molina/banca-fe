@@ -1,0 +1,129 @@
+.layout {
+  min-height: 100vh;
+}
+
+.logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+@media only screen and (max-width: 415px) {
+  nz-sider{
+    position: fixed;
+    height: 100%;
+    z-index: 99;
+
+  }
+}
+@media only screen and (min-width: 415px) {
+  nz-sider{
+    height: auto;
+    position: initial;
+  }
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+nz-content {
+  margin: 24px 16px 0;
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  min-height: 360px;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+.sidebar-logo {
+  position: relative;
+  height: 64px;
+  padding-left: 24px;
+  overflow: hidden;
+  line-height: 64px;
+  background: #0000002e;
+  transition: all .3s;
+  &.sidebar-logo-header{
+    padding-left: 60px;
+  }
+}
+
+.sidebar-logo img {
+  display: inline-block;
+  height: 50%;
+  vertical-align: middle;
+}
+
+.sidebar-logo h1 {
+  display: inline-block;
+  margin: 0 0 0 20px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+  vertical-align: middle;
+}
+
+::ng-deep{
+  .game-layout{
+    .ant-layout-sider-zero-width-trigger{
+      top: 11px;
+      right: -50px;
+    }
+    .ant-menu{
+      background-color: #0000003b;
+      color: #fff;
+      border-right: 0;
+      .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left{
+        border-right-color: #0000003b;
+      }
+    }
+    .ant-menu-item:hover{
+      color: #ffffff;
+      background-color: #65656569;
+    }
+    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
+      background-color: #696969;
+      color: white;
+    }
+  }
+}
+
+
+.name-container{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  h5{
+    margin: 0;
+  }
+}
+
+.nz-content-container{
+
+}
+
+.categorys{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 1px solid #cccccc94;
+  padding: 24px;
+
+  app-category{
+    margin: 20px;
+  }
+}
+
+
+.mb-20{
+  margin-bottom: 20px;
+}

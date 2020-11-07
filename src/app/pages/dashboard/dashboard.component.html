@@ -1,0 +1,123 @@
+<app-title-divider title="Estadisticas de las ventas del dia"></app-title-divider>
+<div class="mb-20">
+  <div nz-row [nzGutter]="8">
+    <div nz-col nzMd="24" nzXl="6" class="mb-20">
+      <app-widget [title]="'Tickets POS + WEB'" [value]="346" [icon]="'stock'"></app-widget>
+    </div>
+    <div nz-col nzMd="24" nzXl="6" class="mb-20">
+      <app-widget [title]="'VENTA + DEPOSITOS'" [backgroundColor]="'orange'" [value]="36389.00"
+                  [icon]="'rise'"></app-widget>
+    </div>
+    <div nz-col nzMd="24" nzXl="6" class="mb-20">
+      <app-widget [title]="'PREMIOS + COMISION + RETIROS'" [backgroundColor]="'grey'" [value]="10922.50"
+                  [icon]="'fall'"></app-widget>
+    </div>
+    <div nz-col nzMd="24" nzXl="6" class="mb-20">
+      <app-widget [title]="'BALANCE'" [backgroundColor]="'green'" [value]="25466.50" [icon]="'fund'"></app-widget>
+    </div>
+  </div>
+</div>
+
+
+<div nz-row [nzGutter]="8">
+  <div nz-col nzMd="24" nzXl="14">
+    <div class="inner-content mb-20" style="min-height: 460px;">
+      <app-title-divider title="Estadistica detallada de la semana en curso"></app-title-divider>
+      <app-bar-chart [results]="barChartData"></app-bar-chart>
+    </div>
+  </div>
+  <div nz-col nzMd="24" nzXl="10">
+    <div class="inner-content mb-20">
+      <app-title-divider title="Ventas por loteria del dia"></app-title-divider>
+      <nz-list nzItemLayout="horizontal">
+        <nz-list-item *ngFor="let item of dataEvents">
+          <nz-list-item-meta
+            nzAvatar="{{item.avatar}}"
+          >
+            <nz-list-item-meta-title>
+              <a href="">{{ item.title }}</a>
+            </nz-list-item-meta-title>
+            <nz-list-item-meta-description>
+              {{ item.description }}
+            </nz-list-item-meta-description>
+          </nz-list-item-meta>
+
+          <nz-list-item-extra>
+
+          </nz-list-item-extra>
+          <ul nz-list-item-actions>
+            <nz-list-item-action><i nz-icon nzType="star-o" style="margin-right: 8px;"></i> {{item.count}}
+            </nz-list-item-action>
+            <nz-list-item-action><i nz-icon nzType="stock" style="margin-right: 8px;"></i> {{item.balance}}
+            </nz-list-item-action>
+            <nz-list-item-action><a>Show details</a></nz-list-item-action>
+          </ul>
+        </nz-list-item>
+        <nz-list-empty *ngIf="data.length === 0"></nz-list-empty>
+      </nz-list>
+    </div>
+  </div>
+</div>
+
+<div nz-row [nzGutter]="8">
+  <div nz-col nzXl="24" nzXXl="16">
+    <div class="inner-content mb-20">
+      <app-title-divider title="Proximos eventos"></app-title-divider>
+      <div nz-row [nzGutter]="8">
+        <div nz-col nzSpan="14">
+          <nz-list nzItemLayout="horizontal">
+            <nz-list-item *ngFor="let item of dataEvents">
+              <nz-list-item-meta
+                nzAvatar="{{item.avatar}}"
+              >
+                <nz-list-item-meta-title>
+                  <a href="">{{ item.title }}</a>
+                </nz-list-item-meta-title>
+                <nz-list-item-meta-description>
+                  {{ item.description }}
+                </nz-list-item-meta-description>
+              </nz-list-item-meta>
+
+              <nz-list-item-extra>
+
+              </nz-list-item-extra>
+              <ul nz-list-item-actions>
+                <nz-list-item-action><i nz-icon nzType="star-o" style="margin-right: 8px;"></i> {{item.count}}
+                </nz-list-item-action>
+                <nz-list-item-action><i nz-icon nzType="stock" style="margin-right: 8px;"></i> {{item.balance}}
+                </nz-list-item-action>
+                <nz-list-item-action><a>Show details</a></nz-list-item-action>
+              </ul>
+            </nz-list-item>
+            <nz-list-empty *ngIf="data.length === 0"></nz-list-empty>
+          </nz-list>
+        </div>
+        <div nz-col nzSpan="10">
+          <div [ngStyle]="{ width: '100%', border: '1px solid #d9d9d9', borderRadius: '4px' }">
+            <nz-calendar [nzFullscreen]="false" (nzSelectChange)="onValueChange($event)"
+                         (nzPanelChange)="onPanelChange($event)"></nz-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div nz-col nzMd="24" nzXl="12" nzXXl="8">
+    <div class="inner-content mb-20" style="min-height: 360px;">
+      <app-title-divider title="Estadistica detallada de la semana en curso"></app-title-divider>
+      <app-pie-chart [height]="300" [results]="single"></app-pie-chart>
+    </div>
+  </div>
+  <div nz-col nzMd="24" nzXl="12" nzXXl="24">
+    <div class="inner-content mb-20" style="min-height: 360px;">
+      <app-title-divider title="TOP 10 numeros mas jugados durante el dia"></app-title-divider>
+      <div class="balls-container">
+        <app-ball [title]="'11'" [description]="'91 veces'" [background]="'red'"></app-ball>
+        <app-ball [title]="'00'" [description]="'86 veces'" [background]="'red'"></app-ball>
+        <app-ball [title]="'47'" [description]="'60 veces'" [background]="'red'"></app-ball>
+        <app-ball [title]="'74'" [description]="'58 veces'" [background]="'grey'"></app-ball>
+        <app-ball [title]="'22'" [description]="'49 veces'" [background]="'grey'"></app-ball>
+        <app-ball [title]="'25'" [description]="'44 veces'" [background]="'grey'"></app-ball>
+      </div>
+    </div>
+  </div>
+</div>

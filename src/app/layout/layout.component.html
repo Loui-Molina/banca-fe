@@ -1,0 +1,86 @@
+<nz-layout class="app-layout">
+
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <img src="assets/imgs/betting.svg" alt="logo">
+      <h1>BAPP</h1>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="Home" nzIcon="home">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="dashboard" nzTheme="outline"></i>
+            <a routerLink="/dashboard">{{'Dashboard' | translate}}</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Settings" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="team"></i>
+            <a routerLink="/accounts">Accounts</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="logout"></i>
+            <a routerLink="/authentication/login">Logout</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <div  class="app-header-left">
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+          </span>
+          <span class="header-trigger">
+            <a target="_blank" routerLink="/game">
+              <i class="trigger"
+                 nz-icon
+                [nzType]="'shop'"
+              ></i>
+            </a>
+          </span>
+        </div>
+        <div  class="app-header-right">
+          <span class="header-trigger" >
+            <nz-badge [nzCount]="5" nz-dropdown [nzDropdownMenu]="menuNotifications">
+              <i  style="font-size: 20px;"  nz-icon [nzType]="'alert'"></i>
+            </nz-badge>
+          </span>
+          <nz-dropdown-menu #menuNotifications="nzDropdownMenu">
+            <ul nz-menu nzSelectable>
+              <li nz-menu-item>QASD</li>
+              <li nz-menu-item>SDASD</li>
+            </ul>
+          </nz-dropdown-menu>
+
+
+          <span class="header-trigger">
+            <i nz-dropdown [nzDropdownMenu]="menu" nz-icon nzType="translation" nzTheme="outline"></i>
+          </span>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu nzSelectable>
+              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'en' === langSelected" (click)="selectLanguage('en')">English</li>
+              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'es' === langSelected"  (click)="selectLanguage('es')">Español</li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+      </div>
+
+    </nz-header>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

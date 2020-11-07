@@ -1,0 +1,27 @@
+.ball-container{
+  height: 100px;
+  width: 100px;
+  min-height: 100px;
+  min-width: 100px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 4px 6px 0 #0000001a;
+  margin: 0;
+
+  .title-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    h4{
+      margin:0;
+      margin-bottom: 10px;
+    }
+    h5{
+      margin:0;
+    }
+  }
+}

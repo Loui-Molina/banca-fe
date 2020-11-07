@@ -1,0 +1,12 @@
+<div  #ContainerRef class="pie-chart-parent">
+  <ngx-charts-pie-chart
+    [view]="[ContainerRef.offsetWidth, height]"
+    [scheme]="colorScheme"
+    [results]="results"
+    [legend]="false"
+    [labels]="true"
+    [doughnut]="true"
+    [animations]="true"
+  >
+  </ngx-charts-pie-chart>
+</div>
