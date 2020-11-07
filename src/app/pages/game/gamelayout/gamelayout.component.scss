@@ -8,7 +8,7 @@
   margin: 16px;
 }
 
-@media only screen and (max-width: 415px) {
+@media only screen and (max-width: 992px) {
   nz-sider{
     position: fixed;
     height: 100%;
@@ -16,7 +16,7 @@
 
   }
 }
-@media only screen and (min-width: 415px) {
+@media only screen and (min-width: 992px) {
   nz-sider{
     height: auto;
     position: initial;
@@ -93,22 +93,18 @@ nz-footer {
       background-color: #696969;
       color: white;
     }
+    .ant-menu-item a{
+      color:white;
+    }
+    .ant-menu-item-selected a, .ant-menu-item-selected a:hover{
+      color:white;
+    }
   }
 }
 
-
-.name-container{
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-  h5{
-    margin: 0;
-  }
-}
 
 .nz-content-container{
-
+  margin:0px;
 }
 
 .categorys{

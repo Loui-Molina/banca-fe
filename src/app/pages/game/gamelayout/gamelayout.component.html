@@ -10,17 +10,25 @@
       </a>
     </div>
     <ul nz-menu nzMode="inline">
-      <li nz-menu-item>
-        <i nz-icon nzType="user"></i>
-        <span>Mi balance</span>
+      <li nz-menu-item nzMatchRouter>
+        <i nz-icon nzType="user" nzTheme="outline"></i>
+        <a routerLink="/game/dashboard">{{'Balance' | translate}}</a>
       </li>
       <li nz-menu-item>
-        <i nz-icon nzType="question"></i>
-        <span>How it works</span>
+        <i nz-icon nzType="bars"></i>
+        <span>Historial</span>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <i nz-icon nzType="question" nzTheme="outline"></i>
+        <a routerLink="/game/howitworks">{{'Como funciona' | translate}}</a>
       </li>
       <li nz-menu-item>
         <i nz-icon nzType="alert"></i>
         <span>Events</span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="setting"></i>
+        <span>settings</span>
       </li>
       <li nz-menu-item nzMatchRouter>
         <i nz-icon nzType="logout"></i>
@@ -35,22 +43,9 @@
           <img src="assets/imgs/love-sports-betting-logo.png" alt="logo">
         </a>
       </div>
-      <div class="name-container">
-        <h5 nz-typography>JUAN PABLO</h5>
-      </div>
     </nz-header>
     <nz-content class="nz-content-container">
-
-      <div nz-row [nzGutter]="20">
-        <div nz-col  nzXs="24" nzSm="24" nzMd="6" class="mb-20">
-          <app-widget [title]="'Balance'" [value]="1000.11" [icon]="'stock'"></app-widget>
-        </div>
-        <div nz-col  nzXs="24" nzSm="24" nzMd="18" class="categorys">
-          <app-category *ngFor="let item of data" [title]="item.title" [disabled]="item.disabled" [description]="'Eventos: '+item.events" [background]="item.background">
-          </app-category>
-        </div>
-
-      </div>
+        <router-outlet></router-outlet>
     </nz-content>
   </nz-layout>
 </nz-layout>

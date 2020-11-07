@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
+import { PlayRoutingModule } from './play-routing.module';
+import { PlayComponent } from './play.component';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -14,11 +14,12 @@ import {NzLayoutModule} from 'ng-zorro-antd/layout';
 import {NzTypographyModule} from 'ng-zorro-antd/typography';
 import {CommonModule} from '@angular/common';
 import {ComponentsModule} from '../../../components/components.module';
+import {NzListModule} from "ng-zorro-antd/list";
 
 @NgModule({
   imports: [
     NzInputModule,
-    HomeRoutingModule,
+    PlayRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     NzGridModule,
@@ -31,9 +32,10 @@ import {ComponentsModule} from '../../../components/components.module';
     NzLayoutModule,
     NzTypographyModule,
     CommonModule,
-    ComponentsModule
+    ComponentsModule,
+    NzListModule
   ],
-  declarations: [HomeComponent],
-  exports: [HomeComponent]
+  declarations: [PlayComponent],
+  exports: [PlayComponent]
 })
-export class HomeModule { }
+export class PlayModule { }

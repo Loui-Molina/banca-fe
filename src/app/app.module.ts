@@ -14,6 +14,7 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import {LayoutModule} from './layout/layout.module';
+import {GameLayoutModule} from './pages/game/gamelayout/gamelayout.module';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {Page404Component} from './pages/problems/404/page404.component';
@@ -42,6 +43,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     CommonModule,
     AppRoutingModule,
     LayoutModule,
+    GameLayoutModule,
     RouterModule,
     AppRoutingModule,
     IconsProviderModule,

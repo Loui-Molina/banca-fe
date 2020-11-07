@@ -16,12 +16,25 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    h4{
+    h3{
       margin:0;
-      margin-bottom: 10px;
     }
     h5{
       margin:0;
+    }
+  }
+  &.small{
+    height: 50px;
+    width: 50px;
+    min-height: 50px;
+    min-width: 50px;
+    .title-container{
+      h3{
+        font-size:18px;
+      }
+      h5{
+        font-size:12px;
+      }
     }
   }
 }

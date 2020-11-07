@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class BallComponent implements OnInit {
   @Input('title') title: string;
   @Input('description') description: string;
+  @Input('size') size: string = 'medium';
   @Input('background') background: string;
   @Input('disabled') disabled: boolean;
   @Input('color') color = '#fff';
