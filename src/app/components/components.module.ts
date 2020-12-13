@@ -13,6 +13,16 @@ import { TitleDividerComponent } from './widgets/title-divider/title-divider.com
 import {BarChartComponent} from './charts/bar-chart/bar-chart.component';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
 import { BallComponent } from './widgets/ball/ball.component';
+import { AbmComponent } from './abm/abm.component';
+import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
+import {NzPageHeaderModule} from 'ng-zorro-antd/page-header';
+import {NzTableModule} from 'ng-zorro-antd/table';
+import {NzFormModule} from 'ng-zorro-antd/form';
+import {NzInputModule} from 'ng-zorro-antd/input';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import {NzSelectModule} from 'ng-zorro-antd/select';
+import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
+import {NzModalService} from 'ng-zorro-antd/modal';
 
 
 const components = [
@@ -22,7 +32,8 @@ const components = [
   CategoryComponent,
   BarChartComponent,
   TitleDividerComponent,
-  BallComponent
+  BallComponent,
+  AbmComponent
 ];
 
 
@@ -36,10 +47,19 @@ const components = [
     NzIconModule,
     NzTypographyModule,
     BarChartModule,
-    NzDividerModule
+    NzDividerModule,
+    NzDescriptionsModule,
+    NzPageHeaderModule,
+    NzDrawerModule,
+    NzTableModule,
+    NzFormModule,
+    NzInputModule,
+    NzSelectModule,
+    NzDatePickerModule
   ],
   declarations: [...components],
-  exports: [...components]
+  exports: [...components],
+  providers: [NzModalService]
 })
 export class ComponentsModule {
 }

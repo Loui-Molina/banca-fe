@@ -1,40 +1,73 @@
-<div class="inner-content">
-  <nz-page-header [nzGhost]="false" class="page-header">
-    <nz-page-header-title>Accounts</nz-page-header-title>
-    <nz-page-header-extra>
-      <button nz-button>Operation</button>
-      <button nz-button>Operation</button>
-      <button nz-button nzType="primary">New account</button>
-    </nz-page-header-extra>
-    <nz-page-header-content>
-      <nz-descriptions nzSize="small" [nzColumn]="3">
-        <nz-descriptions-item nzTitle="Cantidad" [nzSpan]="3">3</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Balance Total" [nzSpan]="1"><a>$421421</a></nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Balance Promedio" [nzSpan]="1"><a>$45421</a></nz-descriptions-item>
-      </nz-descriptions>
-    </nz-page-header-content>
-  </nz-page-header>
 
 
-  <nz-table #basicTable [nzData]="listOfData">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Address</th>
-      <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let data of basicTable.data">
-      <td>{{ data.name }}</td>
-      <td>{{ data.balance }}</td>
-      <td>{{ data.address }}</td>
-      <td>
-        <i nz-icon nzType="edit" class="action-icon" nzTheme="outline"></i>
-        <i nz-icon nzType="delete" class="action-icon red" nzTheme="outline"></i>
-      </td>
-    </tr>
-    </tbody>
-  </nz-table>
+<div>
+  <app-abm [title]="'Accounts'"
+           [formTemplate]="formTemplate"
+           [viewTemplate]="viewTemplate"
+           [defaultForm]="defaultForm"
+           [onSubmit]="onSubmit"
+           [form]="formABM"
+           [columns]="columns"
+           [controller]="listOfData">
+  </app-abm>
 </div>
+
+
+<ng-template #formTemplate>
+  <form [formGroup]="formABM">
+
+    <div>
+      <label for="id">
+        Id
+      </label>
+      <input nz-input id="id" type="text" formControlName="id">
+    </div>
+
+    <div>
+      <label for="name">
+        Name
+      </label>
+      <input nz-input id="name" type="text" formControlName="name">
+    </div>
+
+    <div>
+      <label for="address">
+        Address
+      </label>
+      <input nz-input id="address" type="text" formControlName="address">
+    </div>
+
+  </form>
+</ng-template>
+
+<ng-template #viewTemplate let-viewItem>
+  <ng-container *ngIf="viewItem">
+    <div>
+      <span>
+        Id
+      </span>
+      {{viewItem.id}}
+    </div>
+
+    <div>
+      <span>
+        Name
+      </span>
+      {{viewItem.name}}
+    </div>
+
+    <div>
+      <span>
+        Address
+      </span>
+      {{viewItem.address}}
+    </div>
+
+    <div>
+      <span>
+        Balance
+      </span>
+      {{viewItem.balance}}
+    </div>
+  </ng-container>
+</ng-template>

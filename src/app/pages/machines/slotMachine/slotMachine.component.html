@@ -1,0 +1,51 @@
+<div [style.background]="'url(' + background + ') center'"
+     [style.backgroundColor]="'#000000e3'"
+     [style.backgroundSize]="'cover'"
+     style="width: 100%; height: 100%; position: absolute; z-index: -1; ">
+
+</div>
+<div class="container-game">
+
+  <div class="box-game">
+    <div class="winchart" [style.width]="'150px'" [style.left]="'-35%'">
+      <div class="rate" *ngFor="let item of getRates()">
+        <ng-container *ngFor="let a of ([].constructor(BOXES)).reverse(); let i = index">
+          <ng-container *ngIf="i+1 > (WINNERMIN-1)">
+            <img [style.right]="(120*(i-2))+(5*j)+70+'px'" *ngFor="let a of [].constructor(i+1); let j = index" [src]="item.image" alt="Image"/>
+            <div [style.right]="(120*(i-2))+20+'px'" class="ratio">{{item.value}}x{{i+1}}</div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="machine" [style.background]="'url(' + machine + ') center no-repeat'" [style.backgroundSize]="'contain'"></div>
+    <div class="game">
+      <div class="game-area" *ngFor="let item of multipleCards">
+        <div [style.background]="'url(' + card.background + ') center no-repeat'"
+             [style.backgroundSize]="'contain'" class="card" *ngFor="let card of item.cards" [@cardSpinner]="card.state">
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="autospin">
+        AUTOSPIN
+        <nz-switch nzSize="small" [(ngModel)]="autoSpin"></nz-switch>
+      </div>
+      <button type="button" (click)="play()" [disabled]="status === 'PLAYING' || bet > score" [class.disabled]="status === 'PLAYING' || bet > score">
+      </button>
+      <div class="score">
+        <span class="description">SCORE <span style="color:yellow" *ngIf="lastWin"> LAST WIN: ${{lastWin}}</span></span>
+        ${{score}}
+      </div>
+      <div class="bet">
+        <span class="description">BET</span>
+        <i nz-icon nzType="up" (click)="changeBet(1)" [class.disabled]="status === 'PLAYING'" nzTheme="outline"></i>
+        <i nz-icon nzType="down" (click)="changeBet(-1)" [class.disabled]="status === 'PLAYING'" nzTheme="outline"></i>
+        ${{bet}}
+      </div>
+    </div>
+  </div>
+
+  <div class="container-chart" *ngIf="showChart">
+    <app-line-chart xAxisLabel="COUNT" yAxisLabel="BET" [results]="lineChartData"></app-line-chart>
+  </div>
+</div>

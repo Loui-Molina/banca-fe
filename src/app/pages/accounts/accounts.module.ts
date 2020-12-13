@@ -10,19 +10,23 @@ import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import {ComponentsModule} from '../../components/components.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NzInputModule} from 'ng-zorro-antd/input';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AccountsRoutingModule,
-    NzDescriptionsModule,
-    NzTableModule,
-    NzPageHeaderModule,
-    NzDividerModule,
-    NzButtonModule,
-    NzIconModule,
-    ComponentsModule
-  ],
+    imports: [
+        CommonModule,
+        AccountsRoutingModule,
+        NzDescriptionsModule,
+        NzTableModule,
+        NzPageHeaderModule,
+        NzDividerModule,
+        NzButtonModule,
+        NzIconModule,
+        ComponentsModule,
+        ReactiveFormsModule,
+        NzInputModule
+    ],
   declarations: [AccountsComponent],
   exports: [AccountsComponent]
 })

@@ -1,0 +1,220 @@
+.container-game{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 1px -1px 14px 8px #000;
+  position: relative;
+  overflow: hidden;
+  .winchart{
+    top: 21%;
+    position: absolute;
+    box-shadow: 1px -1px 11px 7px #1d1d1b;
+    background: linear-gradient(0deg, #1c2127 27%, #444442 49%, #1c2127 75%);
+    border-radius: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 5px solid #000;
+    .rate{
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #4c4b4b;
+      min-height: 50px;
+      img{
+        position: absolute;
+        top:0;
+        width:50px;
+        height:50px;
+      }
+      .ratio{
+        position: absolute;
+        top:9px;
+        font-size: 20px;
+        margin-left: 10px;
+        color:white;
+        font-family: sans-serif;
+      }
+    }
+  }
+  .box-game{
+    height: 475px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    .game{
+      display: flex;
+      position: absolute;
+      top: 157px;
+      width: 300px;
+      height: 200px;
+      justify-content: space-around;
+      align-items: center;
+      background-color: #353432;
+      z-index: 1;
+    }
+    .game-area{
+    }
+    .machine{
+      z-index: 2;
+      position: absolute;
+      bottom: -33%;
+      height: 636px;
+      width: 641px;
+      right: -64px;
+    }
+  }
+  .footer{
+    width: 100%;
+    position: absolute;
+    bottom: -100px;
+    z-index: 3;
+    .autospin{
+      position: absolute;
+      right: 10px;
+      bottom: 88px;
+      padding: 5px;
+      border-radius: 15px;
+      background-color: #656464;
+      box-shadow: inset 1px 1px 6px 0px #00000080;
+      color: white;
+    }
+    .score{
+      width: 150px;
+      height: 74px;
+      position: absolute;
+      left: 10px;
+      bottom: 9px;
+      border: 0px solid #e05329;
+      color: white;
+      font-size: 27px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 10px;
+      border-radius: 15px;
+      background-color: #656464;
+      box-shadow: inset 1px 1px 6px 0px #00000080;
+      font-family: sans-serif;
+      .description{
+        position: absolute;
+        color: white;
+        left: 10px;
+        bottom: 73px;
+        font-size: 12px;
+      }
+    }
+    .bet{
+      width: 101px;
+      height: 74px;
+      position: absolute;
+      left: 170px;
+      bottom: 9px;
+      border: 0px solid #e05329;
+      color: white;
+      font-size: 27px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 10px;
+      border-radius: 15px;
+      background-color: #656464;
+      box-shadow: inset 1px 1px 6px 0px #00000080;
+      font-family: sans-serif;
+      .anticon-up{
+        position: absolute;
+        color: white;
+        right: 10px;
+        top: 10px;
+        font-size: 21px;
+        cursor: pointer;
+        .disabled{
+          color:grey;
+          cursor: default;
+        }
+      }
+      .anticon-down{
+        position: absolute;
+        color: white;
+        right: 10px;
+        bottom: 10px;
+        font-size: 21px;
+        cursor: pointer;
+        .disabled{
+          color:grey;
+          cursor: default;
+        }
+      }
+      .description{
+        position: absolute;
+        color: white;
+        left: 10px;
+        bottom: 73px;
+        font-size: 12px;
+      }
+    }
+    button{
+      width: 113px;
+      height: 74px;
+      background-image: url("../../../../assets/imgs/slotMachine/spin_button.png");
+      -webkit-transition:background-position 0s ease;
+      -moz-transition:background-position 0s ease;
+      -o-transition:background-position 0s ease;
+      transition:background-position 0s ease;
+      border: 0;
+      background-position: -7px -7px;
+      background-color: transparent;
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      padding: 0;
+      cursor: pointer;
+
+      &:hover{
+        background-position: -7px -107px;
+      }
+      &:focus{
+        outline:none !important;
+        outline-width: 0 !important;
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+      }
+      &.disabled{
+        background-position: -7px -307px;
+        cursor: default;
+      }
+    }
+  }
+
+}
+
+.container-chart{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 700px;
+  background-color: rgb(255, 255, 255);
+}
+
+.game-area {
+  box-sizing: border-box;
+  position: relative;
+  height: 80px;
+  width:80px;
+  overflow: hidden;
+
+  .card {
+    bottom: 0;
+    box-sizing: border-box;
+    height: 80px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    width: 80px;
+  }
+}

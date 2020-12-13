@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import {LayoutComponent} from './layout/layout.component';
-import {GameLayoutComponent} from './pages/game/gamelayout/gamelayout.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {Page404Component} from './pages/problems/404/page404.component';
+import {SlotMachineComponent} from './pages/machines/slotMachine/slotMachine.component';
 
 const routes: Routes = [
   {
@@ -19,19 +19,13 @@ const routes: Routes = [
       { path: 'accounts', loadChildren: () => import('./pages/accounts/accounts.module').then(m => m.AccountsModule) }
     ]
   },
+  { path: 'machines', loadChildren: () => import('./pages/machines/slotMachine/slotMachine.module').then(m => m.SlotMachineModule) },
   {
     path: 'game',
     redirectTo: 'game/dashboard',
     pathMatch: 'full'
   },
-  { path: 'game',
-    component: GameLayoutComponent,
-    children: [
-      { path: 'dashboard', loadChildren:  () => import('./pages/game/dashboard/dashboard.module').then(m => m.DashboardModule) },
-      { path: 'play', loadChildren:  () => import('./pages/game/play/play.module').then(m => m.PlayModule) },
-      { path: 'howitworks', loadChildren:  () => import('./pages/game/howitworks/howitworks.module').then(m => m.HowitworksModule) },
-    ]
-  },
+  { path: 'bettingPanel', loadChildren: () => import('./pages/bettingPanel/bettingPanel.module').then(m => m.BettingPanelModule) },
   {path: '404', component: Page404Component},
   {path: '**', redirectTo: '/404'}
 ];

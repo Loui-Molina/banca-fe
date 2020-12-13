@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PlayComponent } from './play.component';
+import {SlotMachineComponent} from './slotMachine.component';
 
 const routes: Routes = [
-  { path: '', component: PlayComponent },
+  { path: '', component: SlotMachineComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PlayRoutingModule { }
+export class SlotMachineRoutingModule { }

@@ -1,0 +1,347 @@
+$Primary: #BB86FC;
+$PrimaryVariant: #3700B3;
+$Secondary: #03DAC6;
+$DarkBlack: #121212;
+$DarkGrey: #1f1f1f;
+$Grey: #757575;
+$Error: #CF6679;
+$White: #FFFFFF;
+$Black: #000000;
+
+
+$headerHeight: 50px;
+$borderRadius: 5px;
+$boxShadow: 0px 1px 4px 0px #00000090;
+
+.panel-container {
+  height: 100%;
+}
+
+.header {
+  background-color: $DarkGrey;
+  color: $White;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: $headerHeight;
+  max-height: $headerHeight;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  .left-side{
+    .topbar-action{
+      font-size: 20px;
+      color: $Primary;
+      margin-right: 10px;
+      cursor: pointer;
+      transition: color 0.3s ease-in-out;
+      &:hover{
+        color: $Secondary;
+      }
+    }
+  }
+
+  .right-side {
+    display: flex;
+    align-items: center;
+
+    .date, .total {
+      margin-left: 20px;
+    }
+
+    .total {
+      border-radius: $borderRadius;
+      background-color: $Primary;
+      box-shadow: $boxShadow;
+      color: $Black;
+      font-weight: bold;
+      padding: 5px 10px;
+      margin-bottom: 0;
+    }
+
+    .date {
+      border-radius: $borderRadius;
+      background-color: $Secondary;
+      box-shadow: $boxShadow;
+      color: $Black;
+      padding: 5px 10px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.panel-body {
+  height: calc(100% - #{$headerHeight});
+
+  .panel-body-row {
+    height: 100%;
+    background-color: $DarkBlack;
+
+    .column {
+      height: 100%;
+      padding: 10px;
+
+      .left-panel {
+        height: 100%;
+        padding: 10px;
+        border-radius: $borderRadius;
+        background-color: $DarkGrey;
+        color: $White;
+        box-shadow: $boxShadow;
+
+        .control-panel {
+          height: 35%;
+
+          .description{
+            color: $Grey;
+          }
+          .play-insert{
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .select{
+              width: 30%;
+            }
+            .left-input{
+              width: 50%;
+            }
+            .center-input{
+              width: 30%;
+            }
+            .right-input{
+              width: 50%;
+            }
+            .play-enter{
+              width: 10%;
+              margin-left:5px;
+            }
+          }
+          .clean-button{
+            background-color: $Error;
+            color: $Black;
+            &.disabled{
+              background-color: $Grey;
+              color: $White;
+            }
+          }
+        }
+
+        .lottery-panel {
+          height: 35%;
+          background-color: #ffffff0f;
+
+          .lottery-panel-header {
+            height: 20%;
+            background-color: $DarkBlack;
+          }
+
+          .lottery-panel-body {
+            height: 80%;
+            overflow-y: auto;
+            .lottery{
+              padding: 5px;
+              height: 30px;
+              width: 100%;
+              background-color: #ffffff0f;
+              margin-bottom: 1px;
+              color: $White;
+              cursor: pointer;
+              &.closed{
+                color: $White;
+                background-color: #ffffff0f !important;
+              }
+            }
+          }
+        }
+
+        .last-plays-panel {
+          height: 30%;
+          background-color: #ffffff0f;
+          .last-plays-panel-header {
+            height: 20%;
+            background-color: $DarkBlack;
+          }
+          .last-plays-panel-body {
+            height: 80%;
+            overflow-y: auto;
+            .play{
+              height: 30px;
+              width: 100%;
+              background-color: #ffffff0f;
+              margin-bottom: 1px;
+              color: $White;
+              .play-result{
+                color: $Black;
+                background-color: $Primary;
+                border-radius: $borderRadius;
+                box-shadow: $boxShadow;
+                padding: 0 14px;
+                font-weight: bold;
+                &.error{
+                  background-color: $Error;
+                }
+              }
+            }
+          }
+        }
+
+
+      }
+      &.bet-column {
+        height: 100%;
+
+        .bet-column-header {
+          height: 10%;
+
+          .bet-column-header-title {
+            background-color: $DarkGrey;
+            box-shadow: $boxShadow;
+            color: $White;
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 4px;
+          }
+
+          .bet-column-header-columns {
+            height: 50%;
+            width: 100%;
+            padding: 5px;
+            background-color: $DarkGrey;
+            box-shadow: $boxShadow;
+            color: white;
+          }
+        }
+
+        .bet-column-body {
+          margin-top: 8px;
+          background-color: $DarkGrey;
+          box-shadow: $boxShadow;
+          height: calc(80% - 8px);
+          overflow-y: auto;
+
+          .bet {
+            padding: 5px;
+            min-height: 30px;
+            width: 100%;
+            background-color: #ffffff0f;
+            margin-bottom: 1px;
+            color: $White;
+            .last-column{
+              text-align: right;
+            }
+          }
+        }
+
+        .bet-column-footer {
+          margin-top: 4px;
+          height: calc(10% - 4px);
+          display: flex;
+          background-color: $DarkGrey;
+          box-shadow: $boxShadow;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px;
+
+          .counter {
+            text-align: center;
+            margin: 5px;
+            width: 30%;
+            background-color: $Primary;
+            box-shadow: $boxShadow;
+            border-radius: $borderRadius;
+            padding: 5px;
+            color: $Black;
+            font-weight: bold;
+          }
+
+          .amount {
+            text-align: right;
+            margin: 5px;
+            width: 70%;
+            background-color: $Secondary;
+            box-shadow: $boxShadow;
+            border-radius: $borderRadius;
+            padding: 5px;
+            color: $Black;
+            font-weight: bold;
+          }
+        }
+      }
+
+    }
+  }
+
+
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+.center-column{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon{
+  &.primary {
+    color: $Primary;
+  }
+  &.error {
+    color: $Error;
+  }
+}
+.action-icon {
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+  &.primary {
+    color: $Primary;
+  }
+  &.error {
+    color: $Error;
+  }
+}
+
+.custom-button{
+  background-color: $Primary;
+  box-shadow: $boxShadow;
+  border-radius: $borderRadius;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  color: $Black;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out;
+
+  &.disabled{
+    cursor: default;
+    background-color: $Grey;
+    color: $White;
+  }
+}
+
+::ng-deep{
+  .drawer-bets-wrap{
+    .ant-drawer-header{
+      background-color: $DarkGrey;
+      border-bottom: 0px;
+      box-shadow: $boxShadow;
+
+      .ant-drawer-title{
+        color: $White;
+      }
+      .anticon-close{
+        color: $White;
+      }
+    }
+    .ant-drawer-body{
+      background-color: $DarkBlack;
+      color: $White;
+    }
+  }
+}
+

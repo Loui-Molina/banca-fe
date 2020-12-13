@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { PlayRoutingModule } from './play-routing.module';
-import { PlayComponent } from './play.component';
 import {NzInputModule} from 'ng-zorro-antd/input';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -14,13 +13,15 @@ import {NzLayoutModule} from 'ng-zorro-antd/layout';
 import {NzTypographyModule} from 'ng-zorro-antd/typography';
 import {CommonModule} from '@angular/common';
 import {ComponentsModule} from '../../../components/components.module';
-import {NzListModule} from "ng-zorro-antd/list";
+import {SlotMachineComponent} from './slotMachine.component';
+import {SlotMachineRoutingModule} from './slotMachine-routing.module';
 
 @NgModule({
   imports: [
+    CommonModule,
     NzInputModule,
-    PlayRoutingModule,
     ReactiveFormsModule,
+    SlotMachineRoutingModule,
     FormsModule,
     NzGridModule,
     NzFormModule,
@@ -31,11 +32,10 @@ import {NzListModule} from "ng-zorro-antd/list";
     NzMenuModule,
     NzLayoutModule,
     NzTypographyModule,
-    CommonModule,
-    ComponentsModule,
-    NzListModule
+    NzSwitchModule,
+    ComponentsModule
   ],
-  declarations: [PlayComponent],
-  exports: [PlayComponent]
+  declarations: [SlotMachineComponent],
+  exports: [SlotMachineComponent]
 })
-export class PlayModule { }
+export class SlotMachineModule { }

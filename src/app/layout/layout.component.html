@@ -44,7 +44,7 @@
             ></i>
           </span>
           <span class="header-trigger">
-            <a target="_blank" routerLink="/game">
+            <a target="_blank" routerLink="/bettingPanel">
               <i class="trigger"
                  nz-icon
                 [nzType]="'shop'"
@@ -53,19 +53,6 @@
           </span>
         </div>
         <div  class="app-header-right">
-          <span class="header-trigger" >
-            <nz-badge [nzCount]="5" nz-dropdown [nzDropdownMenu]="menuNotifications">
-              <i  style="font-size: 20px;"  nz-icon [nzType]="'alert'"></i>
-            </nz-badge>
-          </span>
-          <nz-dropdown-menu #menuNotifications="nzDropdownMenu">
-            <ul nz-menu nzSelectable>
-              <li nz-menu-item>QASD</li>
-              <li nz-menu-item>SDASD</li>
-            </ul>
-          </nz-dropdown-menu>
-
-
           <span class="header-trigger">
             <i nz-dropdown [nzDropdownMenu]="menu" nz-icon nzType="translation" nzTheme="outline"></i>
           </span>

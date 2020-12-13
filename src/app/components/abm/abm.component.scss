@@ -1,0 +1,30 @@
+.action-icon{
+  cursor: pointer;
+  margin-right: 5px;
+  &.red{
+    color: red
+  }
+}
+
+.page-header{
+  border-bottom: 1px solid #d0d0d0;
+  margin-bottom: 20px;
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+}
+
+
+.table-td{
+  &.numeric{
+    text-align: right;
+  }
+}
+
+.table-th{
+  &.numeric{
+    text-align: right;
+  }
+}
