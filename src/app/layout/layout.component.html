@@ -11,23 +11,23 @@
       <h1>BAPP</h1>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Home" nzIcon="home">
+      <li nz-submenu nzOpen nzTitle="{{'HOME.TITLE' | translate}}" nzIcon="home">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="dashboard" nzTheme="outline"></i>
-            <a routerLink="/dashboard">{{'Dashboard' | translate}}</a>
+            <a routerLink="/dashboard">{{'HOME.DASHBOARD.TITLE' | translate}}</a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Settings" nzIcon="form">
+      <li nz-submenu nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}" nzIcon="form">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="team"></i>
-            <a routerLink="/accounts">Accounts</a>
+            <a routerLink="/accounts">{{'SETTINGS.ACCOUNTS.TITLE' | translate}}</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <i nz-icon nzType="logout"></i>
-            <a routerLink="/authentication/login">Logout</a>
+            <a routerLink="/authentication/login">{{'SETTINGS.LOGOUT.TITLE' | translate}}</a>
           </li>
         </ul>
       </li>
@@ -58,8 +58,12 @@
           </span>
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu nzSelectable>
-              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'en' === langSelected" (click)="selectLanguage('en')">English</li>
-              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'es' === langSelected"  (click)="selectLanguage('es')">Español</li>
+              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'en' === langSelected" (click)="selectLanguage('en')">
+                {{'TRANSLATION.ENGLISH' | translate}}
+              </li>
+              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'es' === langSelected"  (click)="selectLanguage('es')">
+                {{'TRANSLATION.SPANISH' | translate}}
+              </li>
             </ul>
           </nz-dropdown-menu>
         </div>

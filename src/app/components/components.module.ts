@@ -23,6 +23,10 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import {NzSelectModule} from 'ng-zorro-antd/select';
 import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
 import {NzModalService} from 'ng-zorro-antd/modal';
+import {NzSpinModule} from 'ng-zorro-antd/spin';
+import {TranslateModule} from '@ngx-translate/core';
+import {NzMessageService} from 'ng-zorro-antd/message';
+import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 
 
 const components = [
@@ -55,11 +59,14 @@ const components = [
     NzFormModule,
     NzInputModule,
     NzSelectModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    NzSpinModule,
+    TranslateModule,
+    NzToolTipModule
   ],
   declarations: [...components],
   exports: [...components],
-  providers: [NzModalService]
+  providers: [NzModalService, NzMessageService]
 })
 export class ComponentsModule {
 }

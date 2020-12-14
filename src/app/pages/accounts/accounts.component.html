@@ -1,27 +1,19 @@
 
 
-<div>
-  <app-abm [title]="'Accounts'"
-           [formTemplate]="formTemplate"
-           [viewTemplate]="viewTemplate"
-           [defaultForm]="defaultForm"
-           [onSubmit]="onSubmit"
-           [form]="formABM"
-           [columns]="columns"
-           [controller]="listOfData">
-  </app-abm>
-</div>
+<app-abm [title]="'SETTINGS.ACCOUNTS.TITLE'"
+         [fetcher]="fetcher"
+         [fetcherSave]="fetcherSave"
+         [fetcherDelete]="fetcherDelete"
+         [formTemplate]="formTemplate"
+         [viewTemplate]="viewTemplate"
+         [defaultForm]="defaultForm"
+         [form]="formABM"
+         [columns]="columns">
+</app-abm>
 
 
 <ng-template #formTemplate>
   <form [formGroup]="formABM">
-
-    <div>
-      <label for="id">
-        Id
-      </label>
-      <input nz-input id="id" type="text" formControlName="id">
-    </div>
 
     <div>
       <label for="name">
@@ -40,34 +32,34 @@
   </form>
 </ng-template>
 
-<ng-template #viewTemplate let-viewItem>
-  <ng-container *ngIf="viewItem">
+<ng-template #viewTemplate let-visibleObject>
+  <ng-container *ngIf="visibleObject">
     <div>
       <span>
         Id
       </span>
-      {{viewItem.id}}
+      {{visibleObject.id}}
     </div>
 
     <div>
       <span>
         Name
       </span>
-      {{viewItem.name}}
+      {{visibleObject.name}}
     </div>
 
     <div>
       <span>
         Address
       </span>
-      {{viewItem.address}}
+      {{visibleObject.address}}
     </div>
 
     <div>
       <span>
         Balance
       </span>
-      {{viewItem.balance}}
+      {{visibleObject.balance}}
     </div>
   </ng-container>
 </ng-template>

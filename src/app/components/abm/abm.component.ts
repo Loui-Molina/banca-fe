@@ -1,6 +1,10 @@
-import {Component, Input, OnInit, TemplateRef} from '@angular/core';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
+import {NzModalService} from 'ng-zorro-antd/modal';
 import {FormGroup} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {HttpErrorResponse} from '@angular/common/http';
+import {TranslateService} from '@ngx-translate/core';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -10,24 +14,47 @@ import {FormGroup} from '@angular/forms';
 })
 export class AbmComponent implements OnInit {
 
-  constructor(private modal: NzModalService) {
+  constructor(private modal: NzModalService, private translateService: TranslateService, private messageService: NzMessageService) {
   }
-  @Input('controller') controller: any[] = [];
-  @Input('title') title: string;
-  @Input('formTemplate') formTemplate: TemplateRef<any>;
-  @Input('viewTemplate') viewTemplate: TemplateRef<any>;
-  @Input('columns') columns: Column[] = [];
-  // tslint:disable-next-line:ban-types
-  @Input('onSubmit') onSubmit: Function;
-  @Input('form') form: FormGroup;
-  @Input('defaultForm') defaultForm: any;
+
+  @Input() title: string;
+  @Input() formTemplate: TemplateRef<any>;
+  @Input() viewTemplate: TemplateRef<any>;
+  @Input() columns: Column[] = [];
+  @Input() form: FormGroup;
+  @Input() defaultForm: any;
+  @Input() fetcher: Observable<any[]>;
+  @Input() fetcherSave: (item) => Observable<any>;
+  @Input() fetcherDelete: (item) => Observable<Response>;
+  // @Output() refreshFetcher: EventEmitter<any> = new EventEmitter();
 
   visibleForm = false;
   visibleView = false;
   mode: 'C' | 'U';
-  viewItem;
+  visibleObject;
+  data: any[] = [];
+  loadingSave = false;
+  loading = false;
 
   ngOnInit(): void {
+    this.loadFetcher();
+  }
+
+  loadFetcher(): void{
+    if (this.fetcher){
+      this.loading = true;
+      this.fetcher.subscribe(data => {
+        this.loading = false;
+        this.data = data;
+      }, error => {
+        this.loading = false;
+        throw new HttpErrorResponse(error);
+      });
+    }
+  }
+
+  refresh(): void{
+    this.loadFetcher();
   }
 
 
@@ -41,39 +68,48 @@ export class AbmComponent implements OnInit {
 
   onDelete = (item: any) => {
     this.modal.warning({
-      nzTitle: 'Eliminar',
-      nzContent: '¿Estas seguro que desea eliminarlo?',
+      nzTitle: this.ts('UTILS.DELETE'),
+      nzContent: this.ts('UTILS.ARE_YOU_SURE'),
       nzOnOk: () => this.onSubmitDelete(item),
-      nzOkText: 'Eliminar',
-      nzCancelText: 'Cancelar'
+      nzOkText: this.ts('UTILS.CONFIRM'),
+      nzCancelText: this.ts('UTILS.CANCEL')
     });
   }
 
   onSubmitDelete = (item: any) => {
-
+    this.loading = true;
+    this.fetcherDelete(item.id).subscribe(response => {
+      this.messageService.create('success', this.ts('UTILS.DELETED'));
+      this.refresh();
+    }, error => {
+      this.loading = false;
+      throw new HttpErrorResponse(error);
+    });
   }
 
   onSave = () => {
-    if (this.onSubmit){
-      this.onSubmit(this.mode, this.onSaveCB, this.onSaveCBError);
+    if (this.form.valid) {
+      this.loadingSave = true;
+      this.fetcherSave({id: this.visibleObject.id, ...this.form.value}).subscribe(data => {
+        this.messageService.create('success', this.ts('UTILS.SAVED'));
+        this.loadingSave = false;
+        this.onCancel();
+        this.refresh();
+      }, error => {
+        this.loadingSave = false;
+        throw new HttpErrorResponse(error);
+      });
     }
   }
 
-  onSaveCB = () => {
-    this.onCancel();
-  }
-
-  onSaveCBError = () => {
-
-  }
-
   onCancel = () => {
+    this.visibleObject = null;
     this.clearForm();
     this.close();
   }
 
   onCancelView = () => {
-    this.viewItem = null;
+    this.visibleObject = null;
     this.closeView();
   }
 
@@ -84,18 +120,17 @@ export class AbmComponent implements OnInit {
   openMode(mode: 'C' | 'U', item): void {
     this.visibleForm = true;
     const obj = {};
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < Object.keys(this.defaultForm).length; i++) {
-      const key = Object.keys(this.defaultForm)[i];
-      obj[key] = item[key];
+    for (const key of Object.keys(this.defaultForm)){
+      obj[key] = item[key] ? item[key] : this.defaultForm[key];
     }
     this.form.setValue(obj);
     this.mode = mode;
+    this.visibleObject = item;
   }
 
   openView(item): void {
     this.visibleView = true;
-    this.viewItem = item;
+    this.visibleObject = item;
   }
 
   close(): void {
@@ -105,6 +140,10 @@ export class AbmComponent implements OnInit {
   closeView(): void {
     this.visibleView = false;
   }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
+  }
 }
 
 
@@ -112,8 +151,6 @@ export interface Column {
   key?: string;
   title?: string;
   type?: 'numeric' | 'string';
-  prefix?: string;
-  suffix?: string;
   // tslint:disable-next-line:ban-types
   valueFormatter?: Function;
 }

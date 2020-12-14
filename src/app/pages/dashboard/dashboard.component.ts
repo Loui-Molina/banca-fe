@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {multi} from './data';
 
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
 @Component({
   selector: 'app-welcome',
   templateUrl: './dashboard.component.html',

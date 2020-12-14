@@ -9,11 +9,11 @@ import {TranslateService} from '@ngx-translate/core';
 export class AppComponent {
   constructor(
     translate: TranslateService) {
-    translate.addLangs(['en', 'fr', 'es', 'it']);
-    translate.setDefaultLang('it');
+    translate.addLangs(['en', 'es']);
+    translate.setDefaultLang('es');
     const browserLang: string = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|fr|esp|it/) ? browserLang : 'it');
-    translate.use('en'); //  QUITAR ESTO AL FINALIZAR TRADUCCIONES
+    translate.use(browserLang.match(/esp|en/) ? browserLang : 'es');
+    translate.use('es'); //  QUITAR ESTO AL FINALIZAR TRADUCCIONES
   }
 
 
