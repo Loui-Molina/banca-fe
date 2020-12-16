@@ -19,8 +19,9 @@ export function getCombinations(chars: string[], length: number = null, separato
   for (const char of chars){
     for (const char2 of chars){
       if (char !== char2){
-        result.push(reverseString(char) + separator + char2);
-        result.push(char + separator + reverseString(char2));
+        if (!result.includes(char + separator + char2) && !result.includes(char2 + separator + char)){
+          result.push(char + separator + char2);
+        }
       }
     }
   }
