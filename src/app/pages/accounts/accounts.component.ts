@@ -3,8 +3,7 @@ import {Column} from '../../components/abm/abm.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
-import {DefaultService} from '../../../../openApi/package';
-
+import {User, UsersService} from '../../../../local-packages/banca-api';
 
 
 
@@ -15,7 +14,7 @@ import {DefaultService} from '../../../../openApi/package';
 })
 export class AccountsComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private defaultService: DefaultService, private translateService: TranslateService) {
+  constructor(private formBuilder: FormBuilder, private userService: UsersService, private translateService: TranslateService) {
     this.formABM = this.formBuilder.group(this.defaultForm);
   }
   columns: Column[] = [
@@ -25,14 +24,14 @@ export class AccountsComponent implements OnInit {
     {key: 'password', title: 'SETTINGS.USERS.COLUMNS.PASSWORD'}
   ];
   formABM: FormGroup;
-  defaultForm: User = {
+  defaultForm = {
     name: '',
     username: '',
     password: ''
   };
-  fetcher: Observable<User[]> = this.defaultService.userControllerGetAll();
-  fetcherSave: (item) => Observable<User> = (item) => this.defaultService.userControllerSave(item);
-  fetcherDelete: (id: string) => Observable<Response> = (id) => this.defaultService.userControllerDelete(id);
+  fetcher: Observable<User[]> = this.userService.userControllerGetAll();
+  fetcherSave: (item) => Observable<User> = (item) => this.userService.userControllerSave(item);
+  fetcherDelete: (id: string) => Observable<User> = (id) => this.userService.userControllerDelete(id);
 
   ngOnInit(): void {
   }

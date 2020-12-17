@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { DefaultService } from './api/default.service';
+import { UsersService } from './api/users.service';
 
 @NgModule({
   imports:      [],
