@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Column} from '../../components/abm/abm.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {User, UserService} from '../../../rest/user.service';
 import {Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
+import {DefaultService} from '../../../../openApi/package';
 
 
 
@@ -15,7 +15,7 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class AccountsComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private translateService: TranslateService) {
+  constructor(private formBuilder: FormBuilder, private defaultService: DefaultService, private translateService: TranslateService) {
     this.formABM = this.formBuilder.group(this.defaultForm);
   }
   columns: Column[] = [
@@ -30,9 +30,9 @@ export class AccountsComponent implements OnInit {
     username: '',
     password: ''
   };
-  fetcher: Observable<User[]> = this.userService.getAll();
-  fetcherSave: (item) => Observable<User> = (item) => this.userService.save(item);
-  fetcherDelete: (id: string) => Observable<Response> = (id) => this.userService.delete(id);
+  fetcher: Observable<User[]> = this.defaultService.userControllerGetAll();
+  fetcherSave: (item) => Observable<User> = (item) => this.defaultService.userControllerSave(item);
+  fetcherDelete: (id: string) => Observable<Response> = (id) => this.defaultService.userControllerDelete(id);
 
   ngOnInit(): void {
   }
