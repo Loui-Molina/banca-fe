@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import {ErrorHandler, NgModule} from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -20,6 +21,8 @@ import {Page404Component} from './pages/problems/404/page404.component';
 import {NzSwitchModule} from 'ng-zorro-antd/switch';
 import {ErrorsHandler} from '../utils/ErrorsHandler';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {environment} from "../environments/environment";
+import { BASE_PATH as BASE_PATH_API } from '../../local-packages/banca-api';
 
 
 registerLocaleData(es);
@@ -57,6 +60,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     { provide: ErrorHandler, useClass: ErrorsHandler },
+    { provide: BASE_PATH_API, useValue: environment.urlApi },
     NzNotificationService
     ],
   bootstrap: [AppComponent]
