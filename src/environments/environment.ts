@@ -2,9 +2,29 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import {User} from "../../local-packages/banca-api";
+
 export const environment = {
   production: false,
-  urlApi: 'http://localhost:3000/'
+  urlApi: 'http://localhost:3000',
+  users: [
+    {
+      username: 'banking',
+      name: 'Seba',
+      role: 'banker',
+      password: 'banking'
+    } as User,
+    {
+      username: 'consortium',
+      name: 'Engelbert',
+      role: 'consortium',
+      password: 'consortium'
+    } as User, {
+      username: 'admin',
+      name: 'Loui',
+      role: 'admin',
+      password: 'admin'
+    } as User],
 };
 
 /*
