@@ -119,7 +119,7 @@ export class UsersService {
             responseType = 'text';
         }
 
-        return this.httpClient.delete<User>(`${this.configuration.basePath}/users/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<User>(`${this.configuration.basePath}/api/users/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -163,7 +163,7 @@ export class UsersService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/users/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -203,7 +203,7 @@ export class UsersService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/users`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -261,7 +261,7 @@ export class UsersService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/users/search`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/users/search`,
             {
                 params: queryParameters,
                 responseType: <any>responseType,
@@ -315,7 +315,7 @@ export class UsersService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<User>(`${this.configuration.basePath}/users`,
+        return this.httpClient.post<User>(`${this.configuration.basePath}/api/users`,
             userReq,
             {
                 responseType: <any>responseType,

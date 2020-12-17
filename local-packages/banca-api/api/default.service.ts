@@ -114,7 +114,7 @@ export class DefaultService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/profile`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/profile`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -153,7 +153,7 @@ export class DefaultService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/auth/login`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/api/auth/login`,
             null,
             {
                 responseType: <any>responseType,
@@ -194,7 +194,7 @@ export class DefaultService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<InlineResponse200>(`${this.configuration.basePath}/health`,
+        return this.httpClient.get<InlineResponse200>(`${this.configuration.basePath}/api/health`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
