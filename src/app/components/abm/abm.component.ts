@@ -78,7 +78,7 @@ export class AbmComponent implements OnInit {
 
   onSubmitDelete = (item: any) => {
     this.loading = true;
-    this.fetcherDelete(item.id).subscribe(response => {
+    this.fetcherDelete(item._id).subscribe(response => {
       this.messageService.create('success', this.ts('UTILS.DELETED'));
       this.refresh();
     }, error => {
@@ -90,7 +90,7 @@ export class AbmComponent implements OnInit {
   onSave = () => {
     if (this.form.valid) {
       this.loadingSave = true;
-      this.fetcherSave({id: this.visibleObject.id, ...this.form.value}).subscribe(data => {
+      this.fetcherSave({_id: this.visibleObject._id, ...this.form.value}).subscribe(data => {
         this.messageService.create('success', this.ts('UTILS.SAVED'));
         this.loadingSave = false;
         this.onCancel();

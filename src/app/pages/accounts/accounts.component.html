@@ -23,10 +23,17 @@
     </div>
 
     <div>
-      <label for="address">
-        Address
+      <label for="username">
+        Username
       </label>
-      <input nz-input id="address" type="text" formControlName="address">
+      <input nz-input id="username" type="text" formControlName="username">
+    </div>
+
+    <div>
+      <label for="password">
+        Password
+      </label>
+      <input nz-input id="password" type="text" formControlName="password">
     </div>
 
   </form>
@@ -50,16 +57,16 @@
 
     <div>
       <span>
-        Address
+        Username
       </span>
-      {{visibleObject.address}}
+      {{visibleObject.username}}
     </div>
 
     <div>
       <span>
-        Balance
+        Password
       </span>
-      {{visibleObject.balance}}
+      {{visibleObject.password}}
     </div>
   </ng-container>
 </ng-template>
