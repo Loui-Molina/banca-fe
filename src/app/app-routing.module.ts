@@ -25,7 +25,7 @@ const routes: Routes = [
     redirectTo: 'game/dashboard',
     pathMatch: 'full'
   },
-  { path: 'bettingPanel', canActivate: ['banking'], loadChildren: () => import('./pages/bettingPanel/bettingPanel.module').then(m => m.BettingPanelModule) },
+  { path: 'bettingPanel', canActivate: ['banker'], loadChildren: () => import('./pages/bettingPanel/bettingPanel.module').then(m => m.BettingPanelModule) },
   {path: '404', component: Page404Component},
   {path: '**', redirectTo: '/404'}
 ];
