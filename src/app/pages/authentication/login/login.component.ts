@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {environment} from "../../../../environments/environment";
 
 
 @Component({
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
+      username: [null, [Validators.required]],
       password: [null, [Validators.required]],
       remember: [true]
     });
@@ -29,8 +30,23 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     if (this.validateForm.valid) {
-      this.router.navigate(['']);
+
+      debugger
+      let actualUser = null;
+      let username = this.validateForm.value.username;
+      let password = this.validateForm.value.password;
+      environment.users.forEach(value => {
+          if (value.username === username && value.password === password) {
+            actualUser = value
+          }
+        }
+      )
+      if (actualUser) {
+        localStorage.setItem('actualUser', actualUser.toString())
+        this.router.navigate(['']);
+      }else{
+        //TODO THROW ERROR
+      }
     }
   }
-
 }
