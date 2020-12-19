@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {environment} from "../../../../environments/environment";
+import {MockUserService} from "../../../services/user.service";
 
 
 @Component({
@@ -12,7 +12,8 @@ import {environment} from "../../../../environments/environment";
 export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private userService: MockUserService) {
+    userService.logout();
   }
 
   ngOnInit(): void {
@@ -24,29 +25,14 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(): void {
-    // tslint:disable-next-line:forin
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
     if (this.validateForm.valid) {
-
-      debugger
-      let actualUser = null;
-      let username = this.validateForm.value.username;
-      let password = this.validateForm.value.password;
-      environment.users.forEach(value => {
-          if (value.username === username && value.password === password) {
-            actualUser = value
-          }
-        }
-      )
-      if (actualUser) {
-        localStorage.setItem('actualUser', actualUser.toString())
-        this.router.navigate(['']);
-      }else{
-        //TODO THROW ERROR
-      }
+      this.userService.login(this.validateForm.value.username,
+        this.validateForm.value.password);
+      this.userService.isLogged().then(value => (value) ? this.router.navigate(['']) : undefined).catch(reason => console.log(reason));
     }
   }
 }
