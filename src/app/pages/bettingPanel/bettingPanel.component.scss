@@ -6,7 +6,10 @@ $DarkGrey: #1f1f1f;
 $Grey: #757575;
 $Error: #CF6679;
 $White: #FFFFFF;
+$LightWhite: #f0f2f5;
 $Black: #000000;
+$DarkBlue: #001529;
+$DarkBlue2: #000c17;
 
 
 $headerHeight: 50px;
@@ -18,7 +21,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 }
 
 .header {
-  background-color: $DarkGrey;
+  background-color: $DarkBlue;
   color: $White;
   display: flex;
   justify-content: space-between;
@@ -31,12 +34,12 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   .left-side{
     .topbar-action{
       font-size: 20px;
-      color: $Primary;
+      color: $White;
       margin-right: 10px;
       cursor: pointer;
       transition: color 0.3s ease-in-out;
       &:hover{
-        color: $Secondary;
+        color: $Primary;
       }
     }
   }
@@ -50,8 +53,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
     }
 
     .total {
-      border-radius: $borderRadius;
-      background-color: $Primary;
+      background-color: $Secondary;
       box-shadow: $boxShadow;
       color: $Black;
       font-weight: bold;
@@ -60,8 +62,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
     }
 
     .date {
-      border-radius: $borderRadius;
-      background-color: $Secondary;
+      background-color: $White;
       box-shadow: $boxShadow;
       color: $Black;
       padding: 5px 10px;
@@ -75,7 +76,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
   .panel-body-row {
     height: 100%;
-    background-color: $DarkBlack;
+    background-color: $LightWhite;
 
     .column {
       height: 100%;
@@ -83,20 +84,22 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
       .left-panel {
         height: 100%;
-        padding: 10px;
-        border-radius: $borderRadius;
-        background-color: $DarkGrey;
-        color: $White;
-        box-shadow: $boxShadow;
+
+        background-color: $White;
+        color: $Black;
+
 
         .control-panel {
           height: 35%;
+          padding: 10px;
+          box-shadow: $boxShadow;
+          margin-bottom: 4px;
 
           .description{
             color: $Grey;
           }
           .play-insert{
-            height: 50px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -117,6 +120,21 @@ $boxShadow: 0px 1px 4px 0px #00000090;
               margin-left:5px;
             }
           }
+          .play-insert-buttons{
+            display: flex;
+            margin-bottom: 10px;
+            .action-icon{
+              margin-right: 5px;
+              background-color: $Primary;
+              color: $White;
+              padding: 5px;
+              box-shadow: $boxShadow;
+              border-radius: $borderRadius;
+            }
+            .custom-button{
+              margin-right: 5px;
+            }
+          }
           .clean-button{
             background-color: $Error;
             color: $Black;
@@ -129,11 +147,13 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
         .lottery-panel {
           height: 35%;
-          background-color: #ffffff0f;
+          box-shadow: $boxShadow;
+          margin-bottom: 4px;
 
           .lottery-panel-header {
-            height: 20%;
-            background-color: $DarkBlack;
+            height: 15%;
+            background-color: $DarkBlue;
+            color: $White;
           }
 
           .lottery-panel-body {
@@ -141,36 +161,36 @@ $boxShadow: 0px 1px 4px 0px #00000090;
             overflow-y: auto;
             .lottery{
               padding: 5px;
-              height: 30px;
               width: 100%;
               background-color: #ffffff0f;
-              margin-bottom: 1px;
-              color: $White;
+              border-bottom: 1px solid #ccc;
+              color: $Black;
               cursor: pointer;
               &.closed{
                 color: $White;
-                background-color: #ffffff0f !important;
+                background-color: #757575 !important;
               }
             }
           }
         }
 
         .last-plays-panel {
-          height: 30%;
-          background-color: #ffffff0f;
+          height: calc(30% - 8px);
+          box-shadow: $boxShadow;
+
           .last-plays-panel-header {
-            height: 20%;
-            background-color: $DarkBlack;
+            height: 17%;
+            background-color: $DarkBlue;
+            color: $White;
           }
           .last-plays-panel-body {
             height: 80%;
             overflow-y: auto;
             .play{
-              height: 30px;
+              padding: 5px;
               width: 100%;
-              background-color: #ffffff0f;
-              margin-bottom: 1px;
-              color: $White;
+              border-bottom: 1px solid #ccc;
+              color: $Black;
               .play-result{
                 color: $Black;
                 background-color: $Primary;
@@ -195,7 +215,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
           height: 10%;
 
           .bet-column-header-title {
-            background-color: $DarkGrey;
+            background-color: $DarkBlue;
             box-shadow: $boxShadow;
             color: $White;
             height: 50%;
@@ -209,15 +229,15 @@ $boxShadow: 0px 1px 4px 0px #00000090;
             height: 50%;
             width: 100%;
             padding: 5px;
-            background-color: $DarkGrey;
+            background-color: $DarkBlue;
             box-shadow: $boxShadow;
-            color: white;
+            color: $White;
           }
         }
 
         .bet-column-body {
           margin-top: 8px;
-          background-color: $DarkGrey;
+          background-color: $White;
           box-shadow: $boxShadow;
           height: calc(80% - 8px);
           overflow-y: auto;
@@ -226,9 +246,9 @@ $boxShadow: 0px 1px 4px 0px #00000090;
             padding: 5px;
             min-height: 30px;
             width: 100%;
-            background-color: #ffffff0f;
+            border-bottom: 1px solid #ccc;
             margin-bottom: 1px;
-            color: $White;
+            color: $Black;
             .last-column{
               text-align: right;
             }
@@ -239,7 +259,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
           margin-top: 4px;
           height: calc(10% - 4px);
           display: flex;
-          background-color: $DarkGrey;
+          background-color: $White;
           box-shadow: $boxShadow;
           justify-content: space-between;
           align-items: center;
@@ -249,9 +269,8 @@ $boxShadow: 0px 1px 4px 0px #00000090;
             text-align: center;
             margin: 5px;
             width: 30%;
-            background-color: $Primary;
-            box-shadow: $boxShadow;
-            border-radius: $borderRadius;
+            background-color: $White;
+            border: 1px solid #ccc;
             padding: 5px;
             color: $Black;
             font-weight: bold;
@@ -261,9 +280,8 @@ $boxShadow: 0px 1px 4px 0px #00000090;
             text-align: right;
             margin: 5px;
             width: 70%;
-            background-color: $Secondary;
-            box-shadow: $boxShadow;
-            border-radius: $borderRadius;
+            background-color: $White;
+            border: 1px solid #ccc;
             padding: 5px;
             color: $Black;
             font-weight: bold;

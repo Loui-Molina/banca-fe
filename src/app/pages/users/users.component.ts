@@ -8,11 +8,11 @@ import {User, UsersService} from '../../../../local-packages/banca-api';
 
 
 @Component({
-  selector: 'app-accounts',
-  templateUrl: './accounts.component.html',
-  styleUrls: ['./accounts.component.scss']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss']
 })
-export class AccountsComponent implements OnInit {
+export class UsersComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private userService: UsersService, private translateService: TranslateService) {
     this.formABM = this.formBuilder.group(this.defaultForm);

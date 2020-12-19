@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
-import {AccountsRoutingModule} from './accounts-routing.module';
+import {UsersRoutingModule} from './users-routing.module';
 
-import {AccountsComponent} from './accounts.component';
+import {UsersComponent} from './users.component';
 import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzPageHeaderModule} from 'ng-zorro-antd/page-header';
 import {CommonModule} from '@angular/common';
@@ -12,23 +12,25 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import {ComponentsModule} from '../../components/components.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NzInputModule} from 'ng-zorro-antd/input';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AccountsRoutingModule,
-        NzDescriptionsModule,
-        NzTableModule,
-        NzPageHeaderModule,
-        NzDividerModule,
-        NzButtonModule,
-        NzIconModule,
-        ComponentsModule,
-        ReactiveFormsModule,
-        NzInputModule
-    ],
-  declarations: [AccountsComponent],
-  exports: [AccountsComponent]
+  imports: [
+    CommonModule,
+    UsersRoutingModule,
+    NzDescriptionsModule,
+    NzTableModule,
+    NzPageHeaderModule,
+    NzDividerModule,
+    NzButtonModule,
+    NzIconModule,
+    ComponentsModule,
+    ReactiveFormsModule,
+    NzInputModule,
+    TranslateModule
+  ],
+  declarations: [UsersComponent],
+  exports: [UsersComponent]
 })
-export class AccountsModule {
+export class UsersModule {
 }

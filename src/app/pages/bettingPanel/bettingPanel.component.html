@@ -33,17 +33,37 @@
               <input placeholder="MONTO" nz-input #inputAmount [type]="'number'" [(ngModel)]="amount" class="right-input" (keyup.enter)="onKeyEnter()"/>
               <span class="custom-button play-enter" [class.disabled]="!validateBet()" (click)="onKeyEnter()"><i nz-icon nzType="caret-right" nzTheme="outline"></i></span>
             </div>
-            <span class="custom-button" [class.disabled]="this.bets.length <= 0" (click)="onKeyPrint()">
-              <i nz-icon nzType="printer" nzTheme="outline"></i>
-              CONFIRMAR E IMPRIMIR
-            </span>
-            <span class="custom-button clean-button" style="margin-left: 5px;" [class.disabled]="this.bets.length <= 0" (click)="cleanAll()">
-              <i nz-icon nzType="rollback" nzTheme="outline"></i>
-              LIMPIAR
-            </span>
-            <div style="margin-top: 10px;">
-
+            <div class="play-insert-buttons">
+              <i nz-icon nz-tooltip="Limpiar" nzType="clear" [class.disabled]="this.bets.length <= 0" (click)="cleanAll()" class="action-icon" nzTheme="outline"></i>
+              <i nz-icon nz-tooltip="Duplicar ticket" nzType="file-add" class="action-icon" nzTheme="outline"></i>
+              <i nz-icon nz-tooltip="Imprimir ultimo ticket" nzType="printer" class="action-icon" nzTheme="outline"></i>
+              <i nz-icon nz-tooltip="Buscar ticket" nzType="file-search" class="action-icon" nzTheme="outline"></i>
+              <i nz-icon nz-tooltip="Cuadre de caja" nzType="wallet" class="action-icon" nzTheme="outline"></i>
+              <i nz-icon nz-tooltip="Opciones de ticket" nzType="setting" class="action-icon" nzTheme="outline"></i>
             </div>
+            <div class="play-insert-buttons">
+              <span class="custom-button">
+                <i nz-icon nzType="fire" nzTheme="outline"></i>
+                QUICK PICK
+              </span>
+              <span class="custom-button"  nz-tooltip="Enviar email" [class.disabled]="this.bets.length <= 0" (click)="onKeyPrint()">
+                <i nz-icon nzType="mail" nzTheme="outline"></i>
+                DESC
+              </span>
+              <span class="custom-button"  nz-tooltip="Enviar whatsapp" [class.disabled]="this.bets.length <= 0" (click)="onKeyPrint()">
+                <i nz-icon nzType="whats-app" nzTheme="outline"></i>
+                WS
+              </span>
+              <span class="custom-button"  nz-tooltip="Enviar whatsapp" [class.disabled]="this.bets.length <= 0" (click)="onKeyPrint()">
+                <i nz-icon nzType="printer" nzTheme="outline"></i>
+                PRINT
+              </span>
+              <span class="custom-button"  nz-tooltip="Cnf1" [class.disabled]="this.bets.length <= 0" (click)="onKeyPrint()">
+                <i nz-icon nzType="printer" nzTheme="outline"></i>
+                CNF1
+              </span>
+            </div>
+
           </div>
           <div class="lottery-panel">
             <div class="lottery-panel-header">

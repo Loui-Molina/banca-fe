@@ -1,6 +1,6 @@
 
 
-<app-abm [title]="'SETTINGS.ACCOUNTS.TITLE'"
+<app-abm [title]="'SETTINGS.USERS.TITLE'"
          [fetcher]="fetcher"
          [fetcherSave]="fetcherSave"
          [fetcherDelete]="fetcherDelete"
@@ -17,21 +17,21 @@
 
     <div>
       <label for="name">
-        Name
+        {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}
       </label>
       <input nz-input id="name" type="text" formControlName="name">
     </div>
 
     <div>
       <label for="username">
-        Username
+        {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
       </label>
       <input nz-input id="username" type="text" formControlName="username">
     </div>
 
     <div>
       <label for="password">
-        Password
+        {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
       </label>
       <input nz-input id="password" type="text" formControlName="password">
     </div>
@@ -43,28 +43,21 @@
   <ng-container *ngIf="visibleObject">
     <div>
       <span>
-        Id
-      </span>
-      {{visibleObject.id}}
-    </div>
-
-    <div>
-      <span>
-        Name
+        {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}
       </span>
       {{visibleObject.name}}
     </div>
 
     <div>
       <span>
-        Username
+        {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
       </span>
       {{visibleObject.username}}
     </div>
 
     <div>
       <span>
-        Password
+        {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
       </span>
       {{visibleObject.password}}
     </div>

@@ -29,12 +29,12 @@
   },
   "SETTINGS": {
     "TITLE": "Configuracion",
-    "ACCOUNTS": {
-      "TITLE": "Cuentas",
+    "USERS": {
+      "TITLE": "Usuarios",
       "COLUMNS": {
         "NAME": "Nombre",
-        "BALANCE": "Balance",
-        "ADDRESS": "Direccion"
+        "USERNAME": "Usuario",
+        "PASSWORD": "Contraseña"
       }
     },
     "LOGOUT": {

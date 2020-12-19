@@ -18,6 +18,7 @@ import {BettingPanelRoutingModule} from './bettingPanel-routing.module';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzSelectModule} from 'ng-zorro-antd/select';
 import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
+import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 
 @NgModule({
     imports: [
@@ -39,7 +40,8 @@ import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
         ComponentsModule,
         NzDrawerModule,
         NzSelectModule,
-        NzDropDownModule
+        NzDropDownModule,
+        NzToolTipModule
     ],
   declarations: [BettingPanelComponent],
   exports: [BettingPanelComponent]

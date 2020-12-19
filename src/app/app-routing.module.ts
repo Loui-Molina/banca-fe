@@ -16,7 +16,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule) },
-      { path: 'accounts', loadChildren: () => import('./pages/accounts/accounts.module').then(m => m.AccountsModule) }
+      { path: 'users', loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule) }
     ]
   },
   { path: 'machines', loadChildren: () => import('./pages/machines/slotMachine/slotMachine.module').then(m => m.SlotMachineModule) },
