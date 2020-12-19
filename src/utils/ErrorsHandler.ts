@@ -18,7 +18,7 @@ export class ErrorsHandler implements ErrorHandler {
   }
 
   // generic error handling, will handle exceptions and network errors
-  // this method is called from angular, not thought to be called maually
+  // this method is called from angular, not thought to be called manually
   handleError(error: Error | HttpErrorResponse): void {
     console.log(error);
     if (!navigator.onLine && (error instanceof HttpErrorResponse || ErrorsHandler.chunkFailedMatch.test(error.message))) {

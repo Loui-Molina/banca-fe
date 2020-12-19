@@ -8,7 +8,7 @@
     [nzTrigger]="null">
     <div class="sidebar-logo">
       <img src="assets/imgs/betting.svg" alt="logo">
-      <h1>BAPP</h1>
+      <h1>{{bankingName}}</h1>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="{{'HOME.TITLE' | translate}}" nzIcon="home">
@@ -68,7 +68,6 @@
           </nz-dropdown-menu>
         </div>
       </div>
-
     </nz-header>
     <nz-content>
       <router-outlet></router-outlet>

@@ -64,15 +64,4 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-
-  constructor() {
-    localStorage.clear();
-
-    this.setHardcodedData();
-  }
-
-  private setHardcodedData() {
-    // TODO populate local storage with data
-  }
-}
+export class AppModule {}

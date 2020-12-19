@@ -5,19 +5,24 @@ import {User} from "../../../local-packages/banca-api";
 @Injectable({providedIn: "root"})
 export class MockUserService implements UserServiceI {
 
+  getLoggedUser(): User {
+    let user = localStorage.getItem('loggedUser');
+    return user ? JSON.parse(user) : undefined;
+  }
+
   checkRoles(requiredRoles: string[]): boolean {
-    let loggedUser: User = localStorage.getItem('loggedUser') as unknown as User;
+    let loggedUser: User = this.getLoggedUser();
     return loggedUser ? requiredRoles.includes(loggedUser.role) : false;
   }
 
   isLogged(): Promise<boolean> {
-    let loggedUser = localStorage.getItem('loggedUser');
+    let loggedUser: User = this.getLoggedUser();
     return Promise.resolve(!!loggedUser);
   }
 
   login(username: string, password: string) {
     const actualUser = environment.users.find(value => value.username === username && value.password === password);
-    if (actualUser) localStorage.setItem('loggedUser', actualUser.toString());
+    if (actualUser) localStorage.setItem('loggedUser', JSON.stringify(actualUser));
   }
 
   logout(): boolean {

@@ -9,6 +9,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class LayoutComponent implements OnInit {
   isCollapsed = false;
   langSelected = null;
+  bankingName = 'BAPP';
 
   constructor(
     private translate: TranslateService) {
