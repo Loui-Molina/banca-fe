@@ -3,7 +3,10 @@
     <span class="title"><b>{{title}}</b></span>
   </div>
   <div class="body">
-    <nz-statistic [nzValueStyle]="{color:color}" [nzPrefix]="'$'" [nzValue]="(value | number: '1.0-2')!"></nz-statistic>
+    <nz-statistic [nzValueStyle]="{color:color}"
+                  [nzPrefix]="prefix?'$':''"
+                  [nzValue]="(value | number: '1.0-2')!">
+    </nz-statistic>
     <i nz-icon [nzType]="icon" *ngIf="icon" nzTheme="outline"></i>
   </div>
 </div>

@@ -16,9 +16,9 @@ export class RoleGuard implements CanActivate {
 
   constructor(private router: Router,
               private userService: MockUserService) {
+    // TODO REFACTOR INTO ACTUAL USERSERVICE AFTER PROTO IS DONE
   }
 
-  // TODO REFACTOR INTO ACTUAL USER AFTER PROTO IS DONE
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 

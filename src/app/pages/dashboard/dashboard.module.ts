@@ -11,6 +11,7 @@ import {ComponentsModule} from '../../components/components.module';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzCalendarModule} from 'ng-zorro-antd/calendar';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {NzDividerModule} from 'ng-zorro-antd/divider';
     ComponentsModule,
     NzIconModule,
     NzCalendarModule,
-    NzDividerModule
+    NzDividerModule,
+    TranslateModule
   ],
   declarations: [DashboardComponent],
   exports: [DashboardComponent]

@@ -11,6 +11,7 @@ export class WidgetComponent implements OnInit {
   @Input('color') color = '#fff';
   @Input('icon') icon: string;
   @Input('value') value: number;
+  @Input('prefix')prefix: boolean = true;
 
   constructor() {
   }

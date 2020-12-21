@@ -32,7 +32,19 @@ export class LoginComponent implements OnInit {
     if (this.validateForm.valid) {
       this.userService.login(this.validateForm.value.username,
         this.validateForm.value.password);
-      this.userService.isLogged().then(value => (value) ? this.router.navigate(['']) : undefined).catch(reason => console.log(reason));
+      this.userService.isLogged().then(value => (value) ? this.navigate() : undefined).catch(reason => console.log(reason));
     }
+  }
+
+  private navigate() {
+    let routeCommands;
+    if (this.userService.checkRoles(['banker'])) {
+      routeCommands = ['banker'];
+    } else if (this.userService.checkRoles(['consortium'])) {
+      routeCommands = ['consortium'];
+    } else if (this.userService.checkRoles(['admin'])) {
+      routeCommands = ['admin'];
+    }
+    return this.router.navigate(['']);
   }
 }

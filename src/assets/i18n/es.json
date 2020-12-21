@@ -24,7 +24,14 @@
   "HOME": {
     "TITLE": "Home",
     "DASHBOARD": {
-      "TITLE": "Dashboard"
+      "TITLE": "Dashboard",
+      "DAILY_STATS": "Estadisticas de las ventas del dia",
+      "WEEKLY_STATS": "Estadistica detallada de la semana en curso",
+      "DAILY_STATS": "Estadisticas de las ventas del dia",
+      "BALANCE":  "Balance",
+      "INGRESS":  "VENTA + DEPOSITOS",
+      "EGRESS":  "PREMIOS + COMISION + RETIROS",
+      "TICKETS":  "Tickets POS + WEB"
     }
   },
   "SETTINGS": {
