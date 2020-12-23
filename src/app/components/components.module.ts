@@ -27,6 +27,8 @@ import {NzSpinModule} from 'ng-zorro-antd/spin';
 import {TranslateModule} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
+import {BankingsTableComponent} from "../pages/consortium/bankings-table/bankings-table.component";
+import {MenuComponent} from './menues/menu/menu.component';
 
 
 const components = [
@@ -37,7 +39,9 @@ const components = [
   BarChartComponent,
   TitleDividerComponent,
   BallComponent,
-  AbmComponent];
+  AbmComponent,
+  BankingsTableComponent,
+  MenuComponent];
 
 
 @NgModule({

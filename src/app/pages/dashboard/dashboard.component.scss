@@ -1,11 +1,6 @@
-.inner-content {
-  padding: 24px;
-  background: #fff;
-}
+@import 'src/styles';
 
-.mb-20{
-  margin-bottom: 20px;
-}
+
 
 #pie-chart-parent { display: grid; }
 
@@ -17,3 +12,4 @@
     margin: 10px;
   }
 }
+

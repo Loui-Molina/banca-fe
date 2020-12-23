@@ -8,12 +8,14 @@
     [nzTrigger]="null">
     <div class="sidebar-logo">
       <img src="assets/imgs/betting.svg" alt="logo">
-      <h1>{{bankingName}}</h1>
+      <h1>{{name}}</h1>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+    <!--
+    TODO USE APP-MENU COMPONENT
+    <ul nz-menues nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="{{'HOME.TITLE' | translate}}" nzIcon="home">
         <ul>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menues-item nzMatchRouter>
             <i nz-icon nzType="dashboard" nzTheme="outline"></i>
             <a routerLink="/dashboard">{{'HOME.DASHBOARD.TITLE' | translate}}</a>
           </li>
@@ -21,17 +23,17 @@
       </li>
       <li nz-submenu nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}" nzIcon="form">
         <ul>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menues-item nzMatchRouter>
             <i nz-icon nzType="team"></i>
             <a routerLink="/users">{{'SETTINGS.USERS.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menues-item nzMatchRouter>
             <i nz-icon nzType="logout"></i>
             <a  routerLink="/login">{{'SETTINGS.LOGOUT.TITLE' | translate}}</a>
           </li>
         </ul>
       </li>
-    </ul>
+    </ul>-->
   </nz-sider>
   <nz-layout>
     <nz-header>
@@ -40,7 +42,7 @@
           <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <i class="trigger"
                nz-icon
-              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+              [nzType]="isCollapsed ? 'menues-unfold' : 'menues-fold'"
             ></i>
           </span>
           <span class="header-trigger">

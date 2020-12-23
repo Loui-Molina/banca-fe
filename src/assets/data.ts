@@ -66,3 +66,53 @@ export let multi = [
     ]
   }
 ];
+
+
+export let bankings: banking[] = [];
+
+export let lotteries = [{
+  name: 'Nueva York AM',
+  nickname: 'NYAM',
+  open: '08:00',
+  close: '12:00',
+}, {
+  name: 'Nueva York PM',
+  nickname: 'NYPM',
+  open: '13:00',
+  close: '20:00',
+}
+
+]
+
+// consortium  hardcoded values
+export let consortium = {
+  name: 'Un Consorcio', bankings: ['banca-0','banca-1', 'banca-2', 'banca-3'],
+};
+
+
+export function updateConsortium(newConsortium) {
+  consortium = newConsortium
+}
+
+export function addBankings(banking) {
+  bankings.push(banking)
+}
+
+export function addLotteries(lottery) {
+  lotteries.push(lottery)
+}
+
+export interface banking {
+  name: string;
+  winningTks: number;
+  losingTks: number;
+  pendingTks: number;
+  canceledTks: number;
+  totalTickets: number;
+  earnings: number;
+  prizes: number;
+  percentage: number;
+  discount: number;
+  net: number;
+  balance: number;
+}

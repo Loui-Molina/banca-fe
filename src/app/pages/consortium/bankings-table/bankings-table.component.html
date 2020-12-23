@@ -1,0 +1,73 @@
+<div>
+  <nz-table #bankingsTable
+            nzLoading="false"
+            [nzData]="bankingList"
+            nzTableLayout="auto"
+            [nzPageSize]="40"
+            [nzHideOnSinglePage]="true"
+  >
+    <thead>
+    <tr>
+      <th *ngFor="let column of columns">
+        {{column.name}}
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of bankingsTable.data">
+      <td>{{ data.name }}</td>
+      <td>{{ data.winningTks }}</td>
+      <td>{{ data.pendingTks }}</td>
+      <td>{{ data.losingTks }}</td>
+      <td>{{ data.canceledTks }}</td>
+      <td>{{ '$' + data.totalTickets }}</td>
+      <td>{{ '$' + data.earnings }}</td>
+      <td>{{ '$' + data.prizes }}</td>
+      <td>{{ '$' + data.percentage }}</td>
+      <td>{{ '$' + data.discount }}</td>
+      <td>{{ '$' + data.net }}</td>
+      <td>{{ '$' + data.balance }}</td>
+    </tr>
+    </tbody>
+    <tfoot *ngIf="bankingList && bankingList.length > 0">
+    <tr>
+      <td class="tableFooter">
+        {{'Total'}}
+      </td>
+      <td class="tableFooter">
+        {{getColumnTotal('winningTks')}}
+      </td>
+      <td class="tableFooter">
+        {{getColumnTotal('pendingTks')}}
+      </td>
+      <td class="tableFooter">
+        {{getColumnTotal('losingTks')}}
+      </td>
+      <td class="tableFooter">
+        {{getColumnTotal('canceledTks')}}
+      </td>
+      <td class="tableFooter">
+        {{getColumnTotal('totalTickets')}}
+      </td>
+      <td class="tableFooter">
+        {{'$' + getColumnTotal('earnings')}}
+      </td>
+      <td class="tableFooter">
+        {{'$' + getColumnTotal('prizes')}}
+      </td>
+      <td class="tableFooter">
+        {{'$' + getColumnTotal('percentage')}}
+      </td>
+      <td class="tableFooter">
+        {{'$' + getColumnTotal('discount')}}
+      </td>
+      <td class="tableFooter">
+        {{'$' + getColumnTotal('net')}}
+      </td>
+      <td class="tableFooter">
+        {{'$' + getColumnTotal('balance')}}
+      </td>
+    </tr>
+    </tfoot>
+  </nz-table>
+</div>
