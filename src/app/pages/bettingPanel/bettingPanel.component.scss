@@ -10,6 +10,7 @@ $LightWhite: #f0f2f5;
 $Black: #000000;
 $DarkBlue: #001529;
 $DarkBlue2: #000c17;
+$Orange: #e8d711;
 
 
 $headerHeight: 50px;
@@ -31,16 +32,14 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   padding-left: 10px;
   padding-right: 10px;
 
-  .left-side{
-    .topbar-action{
-      font-size: 20px;
-      color: $White;
-      margin-right: 10px;
-      cursor: pointer;
-      transition: color 0.3s ease-in-out;
-      &:hover{
-        color: $Primary;
-      }
+  .topbar-action{
+    font-size: 20px;
+    color: $White;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    &:hover{
+      color: $Primary;
     }
   }
 
@@ -48,12 +47,41 @@ $boxShadow: 0px 1px 4px 0px #00000090;
     display: flex;
     align-items: center;
 
-    .date, .total {
-      margin-left: 20px;
+
+    .confirm-button{
+      cursor: pointer;
+      background-color: $Primary;
+      box-shadow: $boxShadow;
+      color: $Black;
+      font-weight: bold;
+      padding: 5px 10px;
+      margin-bottom: 0;
+      &.disabled{
+        background-color: $Grey;
+        cursor: default;
+      }
+    }
+
+    .clean-button{
+      cursor: pointer;
+      background-color: $Secondary;
+      box-shadow: $boxShadow;
+      color: $Black;
+      font-weight: bold;
+      padding: 5px 10px;
+      margin-bottom: 0;
+      &.disabled{
+        background-color: $Grey;
+        cursor: default;
+      }
+    }
+
+    .date, .total, .confirm-button, .clean-button {
+      margin-left: 10px;
     }
 
     .total {
-      background-color: $Secondary;
+      background-color: $Orange;
       box-shadow: $boxShadow;
       color: $Black;
       font-weight: bold;
@@ -87,19 +115,19 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
         background-color: $White;
         color: $Black;
-
+        display: flex;
+        flex-direction: column;
 
         .control-panel {
-          height: 35%;
           padding: 10px;
           box-shadow: $boxShadow;
+
           margin-bottom: 4px;
 
           .description{
             color: $Grey;
           }
           .play-insert{
-            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -108,56 +136,34 @@ $boxShadow: 0px 1px 4px 0px #00000090;
             }
             .left-input{
               width: 50%;
-            }
-            .center-input{
-              width: 30%;
+              margin-right: 5px;
             }
             .right-input{
               width: 50%;
+              margin-left: 5px;
             }
             .play-enter{
               width: 10%;
-              margin-left:5px;
-            }
-          }
-          .play-insert-buttons{
-            display: flex;
-            margin-bottom: 10px;
-            .action-icon{
-              margin-right: 5px;
-              background-color: $Primary;
-              color: $White;
-              padding: 5px;
-              box-shadow: $boxShadow;
-              border-radius: $borderRadius;
-            }
-            .custom-button{
-              margin-right: 5px;
-            }
-          }
-          .clean-button{
-            background-color: $Error;
-            color: $Black;
-            &.disabled{
-              background-color: $Grey;
-              color: $White;
+              margin-left:10px;
             }
           }
         }
 
         .lottery-panel {
-          height: 35%;
+          flex: 3;
           box-shadow: $boxShadow;
           margin-bottom: 4px;
 
           .lottery-panel-header {
-            height: 15%;
+            min-height: 40px;
+            max-height: 40px;
             background-color: $DarkBlue;
             color: $White;
+            height: 100%;
           }
 
           .lottery-panel-body {
-            height: 80%;
+            height: 100%;
             overflow-y: auto;
             .lottery{
               padding: 5px;
@@ -175,16 +181,19 @@ $boxShadow: 0px 1px 4px 0px #00000090;
         }
 
         .last-plays-panel {
-          height: calc(30% - 8px);
+          flex: 2;
           box-shadow: $boxShadow;
 
           .last-plays-panel-header {
-            height: 17%;
+            min-height: 40px;
+            max-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color: $DarkBlue;
             color: $White;
           }
           .last-plays-panel-body {
-            height: 80%;
             overflow-y: auto;
             .play{
               padding: 5px;
@@ -194,8 +203,6 @@ $boxShadow: 0px 1px 4px 0px #00000090;
               .play-result{
                 color: $Black;
                 background-color: $Primary;
-                border-radius: $borderRadius;
-                box-shadow: $boxShadow;
                 padding: 0 14px;
                 font-weight: bold;
                 &.error{
@@ -209,10 +216,11 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
       }
       &.bet-column {
-        height: 100%;
+        display: flex;
+        flex-direction: column;
 
         .bet-column-header {
-          height: 10%;
+          flex: 2;
 
           .bet-column-header-title {
             background-color: $DarkBlue;
@@ -239,7 +247,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
           margin-top: 8px;
           background-color: $White;
           box-shadow: $boxShadow;
-          height: calc(80% - 8px);
+          flex: 10;
           overflow-y: auto;
 
           .bet {
@@ -257,7 +265,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
         .bet-column-footer {
           margin-top: 4px;
-          height: calc(10% - 4px);
+          flex: 1;
           display: flex;
           background-color: $White;
           box-shadow: $boxShadow;
@@ -326,8 +334,6 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
 .custom-button{
   background-color: $Primary;
-  box-shadow: $boxShadow;
-  border-radius: $borderRadius;
   padding: 5px;
   text-align: center;
   cursor: pointer;
@@ -342,24 +348,53 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   }
 }
 
-::ng-deep{
-  .drawer-bets-wrap{
-    .ant-drawer-header{
-      background-color: $DarkGrey;
-      border-bottom: 0px;
-      box-shadow: $boxShadow;
-
-      .ant-drawer-title{
-        color: $White;
-      }
-      .anticon-close{
-        color: $White;
-      }
+.drawer-help{
+  p{
+    margin: 0;
+    &.bold{
+      font-weight: bold;
     }
-    .ant-drawer-body{
-      background-color: $DarkBlack;
-      color: $White;
+  }
+  span{
+    &.bold{
+      font-weight: bold;
+    }
+  }
+  ul{
+    margin: 0;
+  }
+}
+
+.drawer-tickets{
+  nz-list-item{
+    font-size: 12px;
+    .left-side{
+      width: 50%;
+    }
+    .right-side{
+      width: 50%;
+      text-align: right;
+      nz-tag{
+        font-size: 8px;
+      }
     }
   }
 }
 
+.drawer-ticket{
+  position: relative;
+  .status{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+}
+
+.drawer-pagar-ticket{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  button{
+    margin-top: 10px;
+  }
+}

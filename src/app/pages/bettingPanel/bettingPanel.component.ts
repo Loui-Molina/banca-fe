@@ -1,5 +1,8 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {getCombinations, reverseString, uuidv4} from '../../../utils/utilFunctions';
+import {NzModalService} from 'ng-zorro-antd/modal';
+import {TranslateService} from '@ngx-translate/core';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-betting-panel',
@@ -8,7 +11,7 @@ import {getCombinations, reverseString, uuidv4} from '../../../utils/utilFunctio
 })
 export class BettingPanelComponent implements OnInit {
 
-  constructor() {
+  constructor(private modalService: NzModalService, private translateService: TranslateService,  private messageService: NzMessageService) {
     setInterval(() => {
       this.now = new Date();
     }, 1000);
@@ -17,10 +20,25 @@ export class BettingPanelComponent implements OnInit {
   @ViewChild('inputNumber', {static: false}) inputNumber: ElementRef;
   @ViewChild('inputAmount', {static: false}) inputAmount: ElementRef;
 
+
   now = new Date();
   number: string = null;
   amount: number = null;
-  visibleTickets = false;
+  payTicketValue: number = null;
+  selectedTicket = null;
+  drawerTickets = false;
+  drawerCaja = false;
+  drawerPagar = false;
+  drawerHelp = false;
+  drawerTicket = false;
+  modalOpened = false;
+
+  tickets = [
+    {sn: '10366-9236980', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 0, status: 'pending', winner: false},
+    {sn: '10366-9236981', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 0, status: 'canceled', winner: false},
+    {sn: '10366-9236982', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 0, status: 'finished', winner: true},
+    {sn: '10366-9236983', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 100, status: 'finished', winner: false},
+  ];
 
   panels = [
     {title: 'DIRECTO', types: [BetType.directo]},
@@ -32,10 +50,10 @@ export class BettingPanelComponent implements OnInit {
   ];
 
   lotterys = [
-    {id: 1, color: '#2a549a80', name: 'NEW YORK PM', letters: 'NY-PM', time: '01:28:51'},
-    {id: 2, color: '#0c7b5580', name: 'LPM', letters: 'LPM', time: '01:28:51'},
-    {id: 3, color: '#d8ff2880', name: 'LA-SUERTE', letters: 'LS', time: '01:28:51'},
-    {id: 4, color: '#ff1c1c80', name: 'NEW YORK AM', letters: 'NY-AM', time: 'CLOSED', closed: true}
+    {id: 1, color: '#2a549a80', name: 'NEW YORK PM', letters: 'NY-PM', leftTime: 234},
+    {id: 2, color: '#0c7b5580', name: 'LPM', letters: 'LPM', leftTime: 2343},
+    {id: 3, color: '#d8ff2880', name: 'LA-SUERTE', letters: 'LS', leftTime: 4545},
+    {id: 4, color: '#ff1c1c80', name: 'NEW YORK AM', letters: 'NY-AM', closed: true}
   ];
 
   selectedLotterys: number[] = [1];
@@ -46,20 +64,49 @@ export class BettingPanelComponent implements OnInit {
   ];
 
   bets: Bet[] = [];
+  lastClick = null;
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
-    console.log('EVENT2', event);
-    if (event.key === '/') {
-      this.switchLotterys('B');
+    if ([this.drawerTickets, this.drawerCaja, this.drawerPagar, this.drawerHelp, this.drawerTicket].includes(true) || this.modalOpened){
+      return;
     }
-    if (event.key === '*') {
+
+    if (event.key === '/') {
       this.switchLotterys('A');
     }
 
     if (event.key === 'l' || event.key === 'L') {
       this.cleanAll();
     }
+
+    if (event.key === '*') {
+      if (this.lastClick === '*'){
+        this.onKeyPrint();
+      }
+    }
+
+    if (event.key === 'b' || event.key === 'B') {
+      this.openDrawer('drawerTickets');
+    }
+
+    if (event.key === 'h' || event.key === 'H') {
+      this.openDrawer('drawerHelp');
+    }
+
+    if (event.key === 'c' || event.key === 'C') {
+      this.openDrawer('drawerCaja');
+    }
+
+    if (event.key === 'p' || event.key === 'P') {
+      this.openDrawer('drawerPagar');
+    }
+
+    if (event.key === ' ') {
+      this.onKeyPrint();
+    }
+
+    this.lastClick = event.key;
   }
 
   switchLotterys(type: string): void {
@@ -102,10 +149,6 @@ export class BettingPanelComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openTickets = () => {
-    this.visibleTickets = true;
-  }
-
   onKeyEnter = () => {
     if (this.validateBet()) {
       for (const lottery of this.lotterys) {
@@ -118,7 +161,24 @@ export class BettingPanelComponent implements OnInit {
   }
 
   onKeyPrint = () => {
+    if (this.bets.length <= 0){
+      return;
+    }
+    this.modalOpened = true;
+    this.modalService.success({
+      nzTitle: 'Confirmar e imprimir',
+      nzContent: this.ts('UTILS.ARE_YOU_SURE'),
+      nzOnOk: () => this.onSubmitPrint(),
+      nzOnCancel: () => {
+        this.modalOpened = false;
+      },
+      nzOkText: this.ts('UTILS.CONFIRM'),
+      nzCancelText: this.ts('UTILS.CANCEL')
+    });
+  }
 
+  onSubmitPrint = () => {
+    this.modalOpened = false;
   }
 
   cleanAll = () => {
@@ -243,7 +303,7 @@ export class BettingPanelComponent implements OnInit {
       });
     }
     if (type === null) {
-      alert('Format error');
+      this.messageService.create('error', 'Error de formato');
       return;
     }
     for (const play of playsToCreate) {
@@ -265,8 +325,12 @@ export class BettingPanelComponent implements OnInit {
     this.inputNumber.nativeElement.focus();
   }
 
-  onCancelTicket = () => {
-    this.visibleTickets = !this.visibleTickets;
+  openDrawer = (drawerName: string) => {
+    this[drawerName] = true;
+  }
+
+  closeDrawer = (drawerName: string) => {
+    this[drawerName] = false;
   }
 
   validateBet(): boolean {
@@ -297,6 +361,44 @@ export class BettingPanelComponent implements OnInit {
     this.bets = this.bets.filter(item => item.uuid !== bet.uuid);
   }
 
+  openTicket = (ticket) => {
+    this.selectedTicket = ticket;
+    this.openDrawer('drawerTicket');
+  }
+
+  cloneTicket = (ticket) => {
+
+  }
+
+  payTicket = () => {
+    if (!this.payTicketValue){
+      return;
+    }
+    this.modalOpened = true;
+    this.modalService.success({
+      nzTitle: 'Pagar ticket',
+      nzContent: this.ts('UTILS.ARE_YOU_SURE'),
+      nzOnOk: () => this.onSubmitPayTicket(),
+      nzOnCancel: () => {
+        this.modalOpened = false;
+      },
+      nzOkText: this.ts('UTILS.CONFIRM'),
+      nzCancelText: this.ts('UTILS.CANCEL')
+    });
+  }
+
+  onSubmitPayTicket = () => {
+    this.closeDrawer('drawerPagar');
+  }
+
+  printTicket = (ticket) => {
+
+  }
+
+  cancelTicket = (ticket) => {
+
+  }
+
   getPanelSize = (size) => {
     const a = Math.floor(size);
     return a;
@@ -308,6 +410,10 @@ export class BettingPanelComponent implements OnInit {
       sum += item.amount;
     });
     return sum;
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }
 
