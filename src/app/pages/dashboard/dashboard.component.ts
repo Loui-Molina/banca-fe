@@ -1,63 +1,25 @@
 import {Component} from '@angular/core';
-import {
-  bankings,
-  multi
-} from '../../../assets/data';
+import {UserRole} from '../../../../local-packages/banca-api';
+import {Router} from '@angular/router';
+import {MockUserService} from '../../services/user.service';
 
 @Component({
-  selector: 'app-welcome',
+  selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-
-  multi: any[];
-
-  // options
-  balance: number;
-  loses: number;
-  earnings: number;
-  soldTickets: number;
-
-  constructor() {
-    Object.assign(this, {multi});
-    this.initData();
+  constructor(private router: Router,
+              private userService: MockUserService) {
+    const routeCommands = ['dashboard'];
+    if (this.userService.checkRoles([UserRole.banker])) {
+      routeCommands.push('banker');
+    } else if (this.userService.checkRoles([UserRole.consortium])) {
+      routeCommands.push('consortium');
+    } else if (this.userService.checkRoles([UserRole.admin])) {
+      routeCommands.push('admin');
+    }
+    this.router.navigate(routeCommands);
   }
 
-  single = [
-    {
-      name: 'Ganancias',
-      value: 541
-    },
-    {
-      name: 'Perdidas',
-      value: 233
-    }
-  ];
-
-  barChartData = [
-    {
-      name: 'Banca 1',
-      value: 2323
-    },
-    {
-      name: 'Banca 2',
-      value: 455
-    },
-    {
-      name: 'Banca 3',
-      value: 2355
-    },
-    {
-      name: 'Banca 4',
-      value: 10
-    }
-  ];
-
-  private initData() {
-    this.balance = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);
-    this.earnings = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.earnings, 0);
-    this.loses = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.prizes, 0);
-    this.soldTickets = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.totalTickets, 0);
-  }
 }

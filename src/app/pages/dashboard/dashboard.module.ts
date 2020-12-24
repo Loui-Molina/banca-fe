@@ -12,6 +12,9 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzCalendarModule} from 'ng-zorro-antd/calendar';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
 import {TranslateModule} from "@ngx-translate/core";
+import { BankingComponent } from './banking/banking.component';
+import { ConsortiumComponent } from './consortium/consortium.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   imports: [
@@ -28,7 +31,7 @@ import {TranslateModule} from "@ngx-translate/core";
     NzDividerModule,
     TranslateModule
   ],
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, BankingComponent, ConsortiumComponent, AdminComponent],
   exports: [DashboardComponent]
 })
 export class DashboardModule {
