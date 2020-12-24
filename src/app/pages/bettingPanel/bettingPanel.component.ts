@@ -1,5 +1,5 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
-import {getCombinations, reverseString, uuidv4} from '../../../utils/utilFunctions';
+import {getCombinations, printTicket, reverseString, uuidv4} from '../../../utils/utilFunctions';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
@@ -179,6 +179,8 @@ export class BettingPanelComponent implements OnInit {
 
   onSubmitPrint = () => {
     this.modalOpened = false;
+    printTicket({});
+    this.cleanAll();
   }
 
   cleanAll = () => {
@@ -370,6 +372,10 @@ export class BettingPanelComponent implements OnInit {
 
   }
 
+  printTicket = (ticket) => {
+    printTicket(ticket)
+  }
+
   payTicket = () => {
     if (!this.payTicketValue){
       return;
@@ -389,10 +395,6 @@ export class BettingPanelComponent implements OnInit {
 
   onSubmitPayTicket = () => {
     this.closeDrawer('drawerPagar');
-  }
-
-  printTicket = (ticket) => {
-
   }
 
   cancelTicket = (ticket) => {

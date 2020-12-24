@@ -336,6 +336,7 @@
       <h1>#{{selectedTicket.sn}}</h1>
       <p>Fecha: {{selectedTicket.date | date: 'dd/MM/yyyy'}}</p>
       <p>Hora: {{selectedTicket.date | date: 'HH:mm:ss'}}</p>
+      <button (click)="printTicket(selectedTicket)">IMPRIMIR</button>
     </ng-container>
   </div>
 </nz-drawer>

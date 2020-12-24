@@ -21,46 +21,38 @@ export class DashboardComponent {
 
   constructor() {
     Object.assign(this, {multi});
-
     this.initData();
   }
 
-  barChartData = [
+  single = [
     {
-      name: 'Germany',
-      value: 8940000
+      name: 'Ganancias',
+      value: 541
     },
     {
-      name: 'Argentina',
-      value: 3212121
-    },
-    {
-      name: 'Bolivia',
-      value: 123233
-    },
-    {
-      name: 'Paraguay',
-      value: 2343434
-    },
-    {
-      name: 'USA',
-      value: 5000000
-    },
-    {
-      name: 'France',
-      value: 7200000
+      name: 'Perdidas',
+      value: 233
     }
   ];
 
-
-  onValueChange(value: Date): void {
-    console.log(`Current value: ${value}`);
-  }
-
-  onPanelChange(change: { date: Date; mode: string }): void {
-    console.log(`Current value: ${change.date}`);
-    console.log(`Current mode: ${change.mode}`);
-  }
+  barChartData = [
+    {
+      name: 'Banca 1',
+      value: 2323
+    },
+    {
+      name: 'Banca 2',
+      value: 455
+    },
+    {
+      name: 'Banca 3',
+      value: 2355
+    },
+    {
+      name: 'Banca 4',
+      value: 10
+    }
+  ];
 
   private initData() {
     this.balance = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);

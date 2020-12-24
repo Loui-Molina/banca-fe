@@ -35,15 +35,14 @@
   <div nz-col nzXs="24" nzXl="12">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider
-        title="{{'HOME.DASHBOARD.WEEKLY_STATS' | translate}}"></app-title-divider>
-      <app-bar-chart [results]="barChartData"></app-bar-chart>
+        title="{{'Balance del dia por banca' | translate}}"></app-title-divider>
+      <app-bar-chart xAxisLabel="Bancas" yAxisLabel="Balance" [results]="barChartData"></app-bar-chart>
     </div>
   </div>
   <div nz-col nzXs="24" nzXl="12">
     <div class="inner-content mb-20" style="min-height: 460px;">
-      <app-title-divider
-        title="{{'HOME.DASHBOARD.WEEKLY_STATS' | translate}}"></app-title-divider>
-      <app-bar-chart [results]="barChartData"></app-bar-chart>
+      <app-title-divider title="Ganancias vs Perdidas"></app-title-divider>
+      <app-pie-chart [height]="400" [results]="single"></app-pie-chart>
     </div>
   </div>
 </div>
@@ -120,14 +119,8 @@
       </div>
     </div>
   </div>-->
-<!--<div nz-col nzMd="24" nzXl="12" nzXXl="8">
-  <div class="inner-content mb-20" style="min-height: 360px;">
-    <app-title-divider title="Estadistica detallada de la semana en curso"></app-title-divider>
-    <app-pie-chart [height]="300" [results]="single"></app-pie-chart>
-  </div>
-</div>-->
-<div nz-col nzXs="24">
-  <div class="inner-content mb-20" style="min-height: 360px;">
+<div nz-col nzXs="24" style="padding-bottom: 10px;">
+  <div class="inner-content mb-20">
     <app-title-divider title="TOP 10 numeros mas jugados durante el dia"></app-title-divider>
     <div class="balls-container">
       <app-ball [title]="'11'" [description]="'91 veces'" [background]="'red'"></app-ball>
