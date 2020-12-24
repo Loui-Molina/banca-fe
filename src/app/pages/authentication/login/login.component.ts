@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MockUserService} from '../../../services/user.service';
 import {UserRole} from '../../../../../local-packages/banca-api';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -13,7 +14,10 @@ import {UserRole} from '../../../../../local-packages/banca-api';
 export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: MockUserService) {
+  constructor(private fb: FormBuilder,
+              private router: Router,
+              private userService: MockUserService,
+              private messageService: NzMessageService) {
     if (this.userService.isLogged()){
       this.router.navigate(['dashboard']);
     }
@@ -37,6 +41,8 @@ export class LoginComponent implements OnInit {
         this.validateForm.value.password);
       if (this.userService.isLogged()){
         this.navigate();
+      } else {
+        this.messageService.create('error', 'Usuario o contraseña incorrectos');
       }
     }
   }

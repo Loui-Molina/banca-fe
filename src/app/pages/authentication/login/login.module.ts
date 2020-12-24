@@ -8,6 +8,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
     NzButtonModule
   ],
   declarations: [LoginComponent],
-  exports: [LoginComponent]
+  exports: [LoginComponent],
+  providers: [NzMessageService]
 })
 export class LoginModule { }
