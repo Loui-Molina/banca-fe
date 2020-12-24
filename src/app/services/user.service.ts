@@ -9,7 +9,7 @@ export class MockUserService implements UserServiceI {
 
   getLoggedUser(): User {
     const user = localStorage.getItem('loggedUser');
-    return user ? JSON.parse(atob(user)) : undefined;
+    return user ? JSON.parse(user) : undefined;
   }
 
   checkRoles(requiredRoles: UserRole[]): boolean {
@@ -25,7 +25,7 @@ export class MockUserService implements UserServiceI {
   login(username: string, password: string): void {
     const actualUser = environment.users.find(value => value.username === username && value.password === password);
     if (actualUser) {
-      localStorage.setItem('loggedUser', btoa(JSON.stringify(actualUser)));
+      localStorage.setItem('loggedUser', JSON.stringify(actualUser));
     }
   }
 

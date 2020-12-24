@@ -1,25 +1,25 @@
 <div class="inner-content mb-20">
-<app-title-divider title="{{'HOME.DASHBOARD.DAILY_STATS' |translate}}"></app-title-divider>
+  <app-title-divider title="{{'HOME.DASHBOARD.DAILY_STATS' |translate}}"></app-title-divider>
   <div nz-row class="fit-height" [nzGutter]="8">
-    <div nz-col nzSm="24" nzMd="24" nzXl="6" class="mb-20">
+    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
       <app-widget [title]="'HOME.DASHBOARD.TICKETS'| translate | uppercase"
                   [value]="soldTickets"
                   [prefix]="false"
                   [icon]="'stock'"></app-widget>
     </div>
-    <div nz-col nzSm="24" nzMd="24" nzXl="6" class="mb-20">
+    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
       <app-widget [title]="'HOME.DASHBOARD.INGRESS'| translate | uppercase"
                   [backgroundColor]="'orange'"
                   [value]="earnings"
                   [icon]="'rise'"></app-widget>
     </div>
-    <div nz-col nzSm="24" nzMd="24" nzXl="6" class="mb-20">
+    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
       <app-widget [title]="'HOME.DASHBOARD.EGRESS'| translate | uppercase"
                   [backgroundColor]="'grey'"
                   [value]="loses"
                   [icon]="'fall'"></app-widget>
     </div>
-    <div nz-col nzSm="24" nzMd="24" nzXl="6" class="mb-20">
+    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
       <app-widget [title]="'HOME.DASHBOARD.BALANCE' | translate | uppercase"
                   [backgroundColor]="'green'"
                   [value]="balance"
@@ -32,52 +32,53 @@
   <app-bankings-panel></app-bankings-panel>
 </div>
 <div nz-row [nzGutter]="8">
-<div nz-col nzSm="24" nzMd="24" nzXl="12">
-  <div class="inner-content mb-20" style="min-height: 460px;">
-    <app-title-divider
-      title="{{'HOME.DASHBOARD.WEEKLY_STATS' | translate}}"></app-title-divider>
-    <app-bar-chart [results]="barChartData"></app-bar-chart>
-  </div>
-</div>
-  <div nz-col nzSm="24" nzMd="24" nzXl="12">
+  <div nz-col nzXs="24" nzXl="12">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider
         title="{{'HOME.DASHBOARD.WEEKLY_STATS' | translate}}"></app-title-divider>
       <app-bar-chart [results]="barChartData"></app-bar-chart>
     </div>
   </div>
-  <!--
-  <div nz-col nzMd="24" nzXl="10">
-    <div class="inner-content mb-20">
-      <app-title-divider title="Ventas por loteria del dia"></app-title-divider>
-      <nz-list nzItemLayout="horizontal">
-        <nz-list-item *ngFor="let item of dataEvents">
-          <nz-list-item-meta
-            nzAvatar="{{item.avatar}}">
-            <nz-list-item-meta-title>
-              <a href="">{{ item.title }}</a>
-            </nz-list-item-meta-title>
-            <nz-list-item-meta-description>
-              {{ item.description }}
-            </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <nz-list-item-extra>
-          </nz-list-item-extra>
-          <ul nz-list-item-actions>
-            <nz-list-item-action><i nz-icon nzType="star-o"
-                                    style="margin-right: 8px;"></i> {{item.count}}
-            </nz-list-item-action>
-            <nz-list-item-action><i nz-icon nzType="stock"
-                                    style="margin-right: 8px;"></i> {{item.balance}}
-            </nz-list-item-action>
-            <nz-list-item-action><a>Show details</a></nz-list-item-action>
-          </ul>
-        </nz-list-item>
-        <nz-list-empty *ngIf="data.length === 0"></nz-list-empty>
-      </nz-list>
+  <div nz-col nzXs="24" nzXl="12">
+    <div class="inner-content mb-20" style="min-height: 460px;">
+      <app-title-divider
+        title="{{'HOME.DASHBOARD.WEEKLY_STATS' | translate}}"></app-title-divider>
+      <app-bar-chart [results]="barChartData"></app-bar-chart>
     </div>
   </div>
-  </div>-->
+</div>
+<!--
+<div nz-col nzMd="24" nzXl="10">
+  <div class="inner-content mb-20">
+    <app-title-divider title="Ventas por loteria del dia"></app-title-divider>
+    <nz-list nzItemLayout="horizontal">
+      <nz-list-item *ngFor="let item of dataEvents">
+        <nz-list-item-meta
+          nzAvatar="{{item.avatar}}">
+          <nz-list-item-meta-title>
+            <a href="">{{ item.title }}</a>
+          </nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            {{ item.description }}
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        <nz-list-item-extra>
+        </nz-list-item-extra>
+        <ul nz-list-item-actions>
+          <nz-list-item-action><i nz-icon nzType="star-o"
+                                  style="margin-right: 8px;"></i> {{item.count}}
+          </nz-list-item-action>
+          <nz-list-item-action><i nz-icon nzType="stock"
+                                  style="margin-right: 8px;"></i> {{item.balance}}
+          </nz-list-item-action>
+          <nz-list-item-action><a>Show details</a></nz-list-item-action>
+        </ul>
+      </nz-list-item>
+      <nz-list-empty *ngIf="data.length === 0"></nz-list-empty>
+    </nz-list>
+  </div>
+</div>
+</div>-->
 <!--<div nz-row [nzGutter]="8">
   <div nz-col nzXl="24" nzXXl="16">
     <div class="inner-content mb-20">
@@ -125,7 +126,7 @@
     <app-pie-chart [height]="300" [results]="single"></app-pie-chart>
   </div>
 </div>-->
-<div nz-col nzSm="24" nzMd="24" nzXXl="24">
+<div nz-col nzXs="24">
   <div class="inner-content mb-20" style="min-height: 360px;">
     <app-title-divider title="TOP 10 numeros mas jugados durante el dia"></app-title-divider>
     <div class="balls-container">

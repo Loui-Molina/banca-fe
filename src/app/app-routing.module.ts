@@ -35,6 +35,16 @@ const routes: Routes = [
         path: 'transactions',
         canActivate: [AuthGuard],
         loadChildren: () => import('./pages/transactions/transactions.module').then(m => m.TransactionsModule)
+      },
+      {
+        path: 'bankings',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./pages/transactions/transactions.module').then(m => m.TransactionsModule)
+      },
+      {
+        path: 'lotteries',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./pages/transactions/transactions.module').then(m => m.TransactionsModule)
       }
     ]
   },
