@@ -21,11 +21,11 @@
             <i nz-icon nzType="wallet"></i>
             <a routerLink="/transactions">{{'HOME.TRANSACTIONS.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.consortium">
             <i nz-icon nzType="shop"></i>
             <a routerLink="/bankings">{{'HOME.BANKINGS.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.consortium">
             <i nz-icon nzType="trophy"></i>
             <a routerLink="/lotteries">{{'HOME.LOTTERIES.TITLE' | translate}}</a>
           </li>
