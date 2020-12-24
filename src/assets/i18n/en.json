@@ -5,44 +5,5 @@
     "DIMENSION_ERROR": "Dimension error",
     "NOT_AUTHORIZED": "Not authorised",
     "ERROR_UNRECOGNIZED": "Unknown error"
-  },
-  "UTILS": {
-    "LOADING": "Loading...",
-    "NEW": "New",
-    "EDIT": "Edit",
-    "DETAIL": "Detail",
-    "SAVED": "Saved",
-    "DELETED": "Deleted",
-    "CANCEL": "Cancel",
-    "CONFIRM": "Confirm",
-    "SAVE": "Save",
-    "DELETE": "Delete",
-    "ARE_YOU_SURE": "Are you sure?",
-    "ACTIONS": "Actions",
-    "AMOUNT": "Amount"
-  },
-  "HOME": {
-    "TITLE": "Home",
-    "DASHBOARD": {
-      "TITLE": "Dashboard"
-    }
-  },
-  "SETTINGS": {
-    "TITLE": "Settings",
-    "ACCOUNTS": {
-      "TITLE": "Accounts",
-      "COLUMNS": {
-        "NAME": "Name",
-        "BALANCE": "Balance",
-        "ADDRESS": "Address"
-      }
-    },
-    "LOGOUT": {
-      "TITLE": "Logout"
-    }
-  },
-  "TRANSLATION": {
-    "ENGLISH": "English",
-    "SPANISH": "Spanish"
   }
 }

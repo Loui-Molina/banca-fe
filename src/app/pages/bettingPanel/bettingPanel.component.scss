@@ -398,3 +398,16 @@ $boxShadow: 0px 1px 4px 0px #00000090;
     margin-top: 10px;
   }
 }
+
+.drawer-caja{
+  .item{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    margin: 10px 5px;
+    padding: 10px;
+    &.neto{
+      background-color: #cfd4f9;
+    }
+  }
+}

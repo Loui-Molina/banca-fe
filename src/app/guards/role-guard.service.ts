@@ -1,16 +1,17 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
   RouterStateSnapshot,
   UrlTree
-} from "@angular/router";
-import {Observable} from "rxjs";
-import {MockUserService} from "../services/user.service";
+} from '@angular/router';
+import {Observable} from 'rxjs';
+import {MockUserService} from '../services/user.service';
+import {UserRole} from '../../../local-packages/banca-api';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class RoleGuard implements CanActivate {
 
@@ -22,18 +23,18 @@ export class RoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    const requiredRoles: string[] = route.data.requiredRoles;
+    const requiredRoles: UserRole[] = route.data.requiredRoles;
 
     if (!requiredRoles || requiredRoles.length < 1) {
-      console.log('No required roles')
+      console.log('No required roles');
       return true;
     }
 
     if (this.userService.checkRoles(requiredRoles)) {
-      console.log('Has required roles')
+      console.log('Has required roles');
       return true;
     }
-    console.log('Missing required roles')
+    console.log('Missing required roles');
     return false;
   }
 

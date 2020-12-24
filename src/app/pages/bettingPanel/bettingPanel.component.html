@@ -269,12 +269,20 @@
   [nzMaskClosable]="true"
   [nzWidth]="500"
   [nzVisible]="drawerCaja"
-  [nzTitle]="'CAJA'"
+  [nzTitle]="'RESUMEN DE VENTAS'"
   (nzOnClose)="closeDrawer('drawerCaja')"
 >
-  <div>
+  <div class="drawer-caja">
     <ng-container>
-      <h1>CAJA</h1>
+      <div class="item"><b>Balance al cierre:</b><span>$3905.00</span></div>
+      <div class="item"><b>Pendientes de pago:</b><span>$2150.00</span></div>
+      <div class="item"><b>Tickets pendientes:</b><span>19</span></div>
+      <div class="item"><b>Tickets perdedores:</b><span>30</span></div>
+      <div class="item"><b>Tickets ganadores:</b><span>5</span></div>
+      <div class="item"><b>Total tickets:</b><span>54</span></div>
+      <div class="item"><b>Total ventas:</b><span>$6605.00</span></div>
+      <div class="item"><b>Total premios:</b><span>$2150.00</span></div>
+      <div class="item neto"><b>NETO:</b><span>$4455.00</span></div>
     </ng-container>
   </div>
 </nz-drawer>

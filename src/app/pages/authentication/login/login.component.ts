@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {MockUserService} from "../../../services/user.service";
+import {MockUserService} from '../../../services/user.service';
+import {UserRole} from '../../../../../local-packages/banca-api';
 
 
 @Component({
@@ -13,7 +14,9 @@ export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private router: Router, private userService: MockUserService) {
-    userService.logout();
+    if (this.userService.isLogged()){
+      this.router.navigate(['dashboard']);
+    }
   }
 
   ngOnInit(): void {
@@ -32,17 +35,19 @@ export class LoginComponent implements OnInit {
     if (this.validateForm.valid) {
       this.userService.login(this.validateForm.value.username,
         this.validateForm.value.password);
-      this.userService.isLogged().then(value => (value) ? this.navigate() : undefined).catch(reason => console.log(reason));
+      if (this.userService.isLogged()){
+        this.navigate();
+      }
     }
   }
 
   private navigate() {
     let routeCommands;
-    if (this.userService.checkRoles(['banker'])) {
+    if (this.userService.checkRoles([UserRole.banker])) {
       routeCommands = ['banker'];
-    } else if (this.userService.checkRoles(['consortium'])) {
+    } else if (this.userService.checkRoles([UserRole.consortium])) {
       routeCommands = ['consortium'];
-    } else if (this.userService.checkRoles(['admin'])) {
+    } else if (this.userService.checkRoles([UserRole.admin])) {
       routeCommands = ['admin'];
     }
     return this.router.navigate(['']);

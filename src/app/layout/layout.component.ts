@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {addBankings, consortium, banking} from "../../assets/data";
+import {addBankings, consortium, banking} from '../../assets/data';
 import NumberFormat = Intl.NumberFormat;
-import {DecimalPipe} from "@angular/common";
+import {DecimalPipe} from '@angular/common';
+import {MockUserService} from '../services/user.service';
+import {User, UserRole} from '../../../local-packages/banca-api';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -12,17 +15,20 @@ import {DecimalPipe} from "@angular/common";
 export class LayoutComponent implements OnInit {
   isCollapsed = false;
   langSelected = null;
-  name;
+  user: User;
+  userRole = UserRole;
 
   bankingMenu: MenuItem[];
   ConsortiumMenu: MenuItem[];
   AdminMenu: MenuItem[];
+
   constructor(
+    private router: Router,
+    private userService: MockUserService,
     private translate: TranslateService) {
   }
 
   ngOnInit(): void {
-    this.initMenuItem();
     if (this.translate && this.translate.store) {
       this.langSelected = this.translate.store.currentLang;
     }
@@ -32,10 +38,11 @@ export class LayoutComponent implements OnInit {
   selectLanguage(lang: string): void {
     this.langSelected = lang;
     this.translate.use(lang);
+    localStorage.setItem('language', lang);
   }
 
-  private initData() {
-    this.name = consortium.name;
+  private initData(): void {
+    this.user = this.userService.getLoggedUser();
     this.initMockBankingData();
   }
 
@@ -54,9 +61,9 @@ export class LayoutComponent implements OnInit {
         prizes: number;
         totalTickets: number;
         winningTks: number;
-      }
+      };
 
-      banking.name = 'Banca-' + (i+1);
+      banking.name = 'Banca-' + (i + 1);
 
       banking.canceledTks = Math.floor(Math.random() * 10);
       banking.winningTks = Math.floor(Math.random() * 30);
@@ -69,10 +76,10 @@ export class LayoutComponent implements OnInit {
       banking.prizes = Math.floor(banking.losingTks * Math.random() * 1000);
       banking.net = Math.floor(banking.earnings - banking.prizes);
 
-      banking.percentage = Math.floor((Math.random() * 10)/2);
-      banking.discount = Math.floor((Math.random() * 10)/2);
+      banking.percentage = Math.floor((Math.random() * 10) / 2);
+      banking.discount = Math.floor((Math.random() * 10) / 2);
 
-      banking.balance = Math.floor(banking.net + (banking.net * (banking.percentage/100)) - (banking.net * (banking.discount/100)));
+      banking.balance = Math.floor(banking.net + (banking.net * (banking.percentage / 100)) - (banking.net * (banking.discount / 100)));
 
       console.log('banking ', banking);
       addBankings(banking);
@@ -80,10 +87,12 @@ export class LayoutComponent implements OnInit {
 
   }
 
-  private initMenuItem() {
-    this
+  logout(): void {
+    this.userService.logout();
+    this.router.navigate(['login']);
   }
 }
+
 export interface MenuItem {
   text?: string
   routerLink?: string[]
