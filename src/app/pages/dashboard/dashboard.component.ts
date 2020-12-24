@@ -25,6 +25,33 @@ export class DashboardComponent {
     this.initData();
   }
 
+  barChartData = [
+    {
+      name: 'Germany',
+      value: 8940000
+    },
+    {
+      name: 'Argentina',
+      value: 3212121
+    },
+    {
+      name: 'Bolivia',
+      value: 123233
+    },
+    {
+      name: 'Paraguay',
+      value: 2343434
+    },
+    {
+      name: 'USA',
+      value: 5000000
+    },
+    {
+      name: 'France',
+      value: 7200000
+    }
+  ];
+
 
   onValueChange(value: Date): void {
     console.log(`Current value: ${value}`);
