@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {addBankings, consortium, banking} from '../../assets/data';
+import {addBankings, consortium, Banking} from '../../assets/data';
 import NumberFormat = Intl.NumberFormat;
 import {DecimalPipe} from '@angular/common';
 import {MockUserService} from '../services/user.service';
@@ -48,7 +48,7 @@ export class LayoutComponent implements OnInit {
 
   private initMockBankingData() {
     for (let i = 0; i < 4; i++) {
-      let banking: banking = new class implements banking {
+      let banking: Banking = new class implements Banking {
         balance: number;
         canceledTks: number;
         discount: number;

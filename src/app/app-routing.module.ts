@@ -39,12 +39,12 @@ const routes: Routes = [
       {
         path: 'bankings',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./pages/transactions/transactions.module').then(m => m.TransactionsModule)
+        loadChildren: () => import('./pages/consortium/bankings/bankings.module').then(m => m.BankingsModule)
       },
       {
         path: 'lotteries',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./pages/transactions/transactions.module').then(m => m.TransactionsModule)
+        loadChildren: () => import('./pages/consortium/lotteries/lotteries.module').then(m => m.LotteriesModule)
       }
     ]
   },

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder} from "ng-zorro-antd/table";
-import {banking, bankings} from "../../../../assets/data";
+import {Banking, bankings} from "../../../../assets/data";
 
 @Component({
   selector: 'app-bankings-panel',
@@ -21,7 +21,7 @@ export class BankingsTableComponent implements OnInit {
     {name: 'DESC'},
     {name: 'NETO'},
     {name: 'Balance'}];
-  bankingList: banking[] = bankings;
+  bankingList: Banking[] = bankings;
   tableTotal;
 
   constructor() {

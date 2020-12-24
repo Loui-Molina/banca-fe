@@ -36,7 +36,14 @@
       "TITLE": "Transacciones"
     },
     "BANKINGS": {
-      "TITLE": "Bancas"
+      "TITLE": "Bancas",
+      "BANKING": {
+        "NAME": "Nombre",
+        "PHONE": "Telefono",
+        "EMAIL": "Email",
+        "STATUS": "Estatus",
+        "LANGUAGE": "Lenguaje"
+      }
     },
     "LOTTERIES": {
       "TITLE": "Loterias"

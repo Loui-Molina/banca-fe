@@ -68,7 +68,7 @@ export let multi = [
 ];
 
 
-export let bankings: banking[] = [];
+export let bankings: Banking[] = [];
 export let transactions: Transaction[] = [];
 
 export let lotteries = [{
@@ -105,7 +105,7 @@ export function addLotteries(lottery) {
   lotteries.push(lottery);
 }
 
-export interface banking {
+export interface Banking {
   name: string;
   winningTks: number;
   losingTks: number;
@@ -118,6 +118,11 @@ export interface banking {
   discount: number;
   net: number;
   balance: number;
+  phone?: number;
+  email?: string;
+  status?: boolean;
+  language?: 'ES' | 'EN';
+  user?: string;
 }
 
 export interface Transaction {
