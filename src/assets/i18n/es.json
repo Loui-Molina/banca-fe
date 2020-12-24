@@ -27,11 +27,13 @@
       "TITLE": "Dashboard",
       "DAILY_STATS": "Estadisticas de las ventas del dia",
       "WEEKLY_STATS": "Estadistica detallada de la semana en curso",
-      "DAILY_STATS": "Estadisticas de las ventas del dia",
       "BALANCE": "Balance",
       "INGRESS": "Ganacias",
       "EGRESS": "Perdidas",
       "TICKETS": "Tickets vendidos"
+    },
+    "TRANSACTIONS": {
+      "TITLE": "Transacciones"
     }
   },
   "SETTINGS": {

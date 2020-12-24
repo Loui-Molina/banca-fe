@@ -27,8 +27,14 @@ const routes: Routes = [
       },
       {
         path: 'users',
-        canActivate: [AuthGuard],
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [UserRole.admin]},
         loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule)
+      },
+      {
+        path: 'transactions',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./pages/transactions/transactions.module').then(m => m.TransactionsModule)
       }
     ]
   },
@@ -40,7 +46,7 @@ const routes: Routes = [
   {
     path: 'bettingPanel',
     canActivate: [RoleGuard, AuthGuard],
-    data: {requiredRoles: UserRole.banker},
+    data: {requiredRoles: [UserRole.banker]},
     loadChildren: () => import('./pages/bettingPanel/bettingPanel.module').then(m => m.BettingPanelModule)
   },
   {path: '404', component: Page404Component},

@@ -17,14 +17,19 @@
             <i nz-icon nzType="dashboard" nzTheme="outline"></i>
             <a routerLink="/dashboard">{{'HOME.DASHBOARD.TITLE' | translate}}</a>
           </li>
+          <li nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="wallet"></i>
+            <a routerLink="/transactions">{{'HOME.TRANSACTIONS.TITLE' | translate}}</a>
+          </li>
         </ul>
       </li>
       <li nz-submenu nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}" nzIcon="form">
         <ul>
-          <!--<li nz-menu-item nzMatchRouter>
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.admin">
             <i nz-icon nzType="team"></i>
             <a routerLink="/users">{{'SETTINGS.USERS.TITLE' | translate}}</a>
-          </li>-->
+          </li>
+
           <li nz-menu-item (click)="logout()">
             <i nz-icon nzType="logout"></i>
             <a>{{'SETTINGS.LOGOUT.TITLE' | translate}}</a>

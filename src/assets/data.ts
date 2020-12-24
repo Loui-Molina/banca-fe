@@ -69,6 +69,7 @@ export let multi = [
 
 
 export let bankings: banking[] = [];
+export let transactions: Transaction[] = [];
 
 export let lotteries = [{
   name: 'Nueva York AM',
@@ -80,26 +81,28 @@ export let lotteries = [{
   nickname: 'NYPM',
   open: '13:00',
   close: '20:00',
-}
-
-]
+}];
 
 // consortium  hardcoded values
 export let consortium = {
-  name: 'Un Consorcio', bankings: ['banca-0','banca-1', 'banca-2', 'banca-3'],
+  name: 'Un Consorcio', bankings: ['banca-0', 'banca-1', 'banca-2', 'banca-3'],
 };
 
 
 export function updateConsortium(newConsortium) {
-  consortium = newConsortium
+  consortium = newConsortium;
 }
 
 export function addBankings(banking) {
-  bankings.push(banking)
+  bankings.push(banking);
+}
+
+export function addTransaction(item: Transaction): void {
+  transactions.unshift(item);
 }
 
 export function addLotteries(lottery) {
-  lotteries.push(lottery)
+  lotteries.push(lottery);
 }
 
 export interface banking {
@@ -115,4 +118,21 @@ export interface banking {
   discount: number;
   net: number;
   balance: number;
+}
+
+export interface Transaction {
+  date: Date;
+  amount: number;
+  lastBalance: number;
+  actualBalance: number;
+  type?: TransactionType;
+}
+
+export enum TransactionType {
+  // Deposito realizado por el Boludo, puede ser el pago de una apuesta o addicion al balance
+  deposit = 'deposit',
+  // Extraccion realizada por el boludo puede ser una extraccion de una cuenta o el pago de un premio
+  extraction = 'extraction',
+  // en caso de robo, imprevisto, etc
+  adjust = 'adjust',
 }

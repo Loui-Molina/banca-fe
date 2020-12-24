@@ -1,0 +1,24 @@
+<div class="inner-content mb-20">
+  <div class="inner-content fit-height mb-20" style="min-height: 300px;">
+    <app-title-divider title="{{'Ultimas transacciones' |translate}}"></app-title-divider>
+    <nz-table #basicTable [nzData]="data">
+      <thead>
+      <tr>
+        <th class="table-th" [class.numeric]="column.type === 'numeric'"
+            *ngFor="let column of columns">{{column.title | translate}}</th>
+        <th>{{'UTILS.ACTIONS' | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of basicTable.data">
+        <td class="table-td" *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'">
+          {{ column.valueFormatter ? column.valueFormatter(item, column) : item[column.key] }}
+        </td>
+        <td>
+          ASDASD
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
