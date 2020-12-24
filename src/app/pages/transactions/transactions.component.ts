@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {addTransaction, Transaction, transactions, TransactionType} from '../../../assets/data';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-welcome',
@@ -8,17 +9,35 @@ import {addTransaction, Transaction, transactions, TransactionType} from '../../
 })
 export class TransactionsComponent {
 
-  constructor() {
+  constructor(private datePipe: DatePipe) {
     this.initData();
   }
 
   columns = [
-    {title: 'Monto', key: 'amount'},
-    {title: 'Ultimo balance', key: 'lastBalance'},
-    {title: 'Balance actual', key: 'actualBalance'},
-    {title: 'Tipo', key: 'type'}
+    {title: 'Fecha', key: 'date', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
+    {title: 'Monto', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Ultimo balance', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Balance actual', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
   ];
   data: Transaction[] = transactions;
+
+  valueFormatter(data: Transaction, column): any{
+    return '$' + data[column.key];
+  }
+
+  valueFormatterDate(data: Transaction, column): any{
+    return this.datePipe.transform(data[column.key], 'dd/mm/yyyy hh:MM:ss');
+  }
+
+  valueFormatterTipo(data: Transaction, column): any{
+    switch (data[column.key]) {
+      case 'extraction':
+        return 'Extraccion';
+      case 'deposit':
+        return 'Deposito';
+    }
+  }
 
   private initData(): void {
     let b = 3000;

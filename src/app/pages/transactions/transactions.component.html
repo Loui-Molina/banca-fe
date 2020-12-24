@@ -14,9 +14,6 @@
         <td class="table-td" *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'">
           {{ column.valueFormatter ? column.valueFormatter(item, column) : item[column.key] }}
         </td>
-        <td>
-          ASDASD
-        </td>
       </tr>
       </tbody>
     </nz-table>

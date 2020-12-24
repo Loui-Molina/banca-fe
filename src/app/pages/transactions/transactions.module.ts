@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {TransactionsRoutingModule} from './transactions-routing.module';
 import {TransactionsComponent} from './transactions.component';
 import {NzListModule} from 'ng-zorro-antd/list';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {NzTypographyModule} from 'ng-zorro-antd/typography';
 import {LineChartModule, PieChartModule} from '@swimlane/ngx-charts';
 import {NzGridModule} from 'ng-zorro-antd/grid';
@@ -33,7 +33,8 @@ import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
     NzToolTipModule
   ],
   declarations: [TransactionsComponent],
-  exports: [TransactionsComponent]
+  exports: [TransactionsComponent],
+  providers: [DatePipe]
 })
 export class TransactionsModule {
 }
