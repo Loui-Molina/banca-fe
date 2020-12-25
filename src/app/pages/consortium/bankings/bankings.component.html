@@ -1,108 +1,106 @@
-<div class="inner-content mb-20">
-  <div class="inner-content fit-height mb-20" style="min-height: 300px;">
-    <app-abm [title]="'HOME.BANKINGS.TITLE'"
-             [fetcher]="fetcher"
-             [fetcherSave]="fetcherSave"
-             [fetcherDelete]="fetcherDelete"
-             [formTemplate]="formTemplate"
-             [viewTemplate]="viewTemplate"
-             [defaultForm]="defaultForm"
-             [form]="formABM"
-             [columns]="columns">
-    </app-abm>
+<div class="inner-content fit-height mb-20" style="min-height: 300px;">
+  <app-abm [title]="'HOME.BANKINGS.TITLE'"
+           [fetcher]="fetcher"
+           [fetcherSave]="fetcherSave"
+           [fetcherDelete]="fetcherDelete"
+           [formTemplate]="formTemplate"
+           [viewTemplate]="viewTemplate"
+           [defaultForm]="defaultForm"
+           [form]="formABM"
+           [columns]="columns">
+  </app-abm>
 
 
-    <ng-template #formTemplate>
-      <form [formGroup]="formABM">
+  <ng-template #formTemplate>
+    <form [formGroup]="formABM">
 
-        <div class="form-element">
-          <label for="name">
-            {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}
-          </label>
-          <input nz-input id="name" type="text" formControlName="name">
-        </div>
+      <div class="form-element">
+        <label for="name">
+          {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}
+        </label>
+        <input nz-input id="name" type="text" formControlName="name">
+      </div>
 
-        <div class="form-element">
-          <label for="user">
-            {{'User'|translate}}
-          </label>
-          <nz-select id="user" formControlName="user">
-            <nz-option nzValue="X" nzLabel="X" nzDisabled></nz-option>
-          </nz-select>
-        </div>
+      <div class="form-element">
+        <label for="user">
+          {{'User'|translate}}
+        </label>
+        <nz-select id="user" formControlName="user">
+          <nz-option nzValue="X" nzLabel="X" nzDisabled></nz-option>
+        </nz-select>
+      </div>
 
-        <div class="form-element">
-          <label for="phone">
-            {{'HOME.BANKINGS.BANKING.PHONE'|translate}}
-          </label>
-          <input nz-input id="phone" type="tel" formControlName="phone">
-        </div>
+      <div class="form-element">
+        <label for="phone">
+          {{'HOME.BANKINGS.BANKING.PHONE'|translate}}
+        </label>
+        <input nz-input id="phone" type="tel" formControlName="phone">
+      </div>
 
-        <div class="form-element">
-          <label for="email">
-            {{'HOME.BANKINGS.BANKING.EMAIL'|translate}}
-          </label>
-          <input nz-input id="email" type="email" formControlName="email">
-        </div>
+      <div class="form-element">
+        <label for="email">
+          {{'HOME.BANKINGS.BANKING.EMAIL'|translate}}
+        </label>
+        <input nz-input id="email" type="email" formControlName="email">
+      </div>
 
 
+      <div class="form-element">
+        <label for="language">
+          {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
+        </label>
+        <nz-select id="language" formControlName="language">
+          <nz-option nzValue="EN" nzLabel="Ingles"></nz-option>
+          <nz-option nzValue="ES" nzLabel="Español"></nz-option>
+        </nz-select>
+      </div>
 
-        <div class="form-element">
-          <label for="language">
-            {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
-          </label>
-          <nz-select id="language" formControlName="language">
-            <nz-option nzValue="EN" nzLabel="Ingles"></nz-option>
-            <nz-option nzValue="ES" nzLabel="Español"></nz-option>
-          </nz-select>
-        </div>
+      <div class="form-element">
+        <label for="status">
+          {{'Habilitada'|translate}}
+        </label>
+        <!--TODO CHANGE TO SWITCH-->
+        <label id="status" nz-checkbox [nzChecked]="true" formControlName="status"></label>
+      </div>
+    </form>
+  </ng-template>
 
-        <div class="form-element">
-          <label for="status">
-            {{'Habilitada'|translate}}
-          </label>
-          <label id="status" nz-checkbox  [nzChecked]="true" formControlName="status"></label>
-        </div>
-      </form>
-    </ng-template>
-
-    <ng-template #viewTemplate let-visibleObject>
-      <ng-container *ngIf="visibleObject">
-        <div>
+  <ng-template #viewTemplate let-visibleObject>
+    <ng-container *ngIf="visibleObject">
+      <div>
           <span>
             {{'HOME.BANKINGS.BANKING.NAME'|translate}}
           </span>
-          {{visibleObject.name}}
-        </div>
+        {{visibleObject.name}}
+      </div>
 
-        <div>
+      <div>
           <span>
               {{'HOME.BANKINGS.BANKING.PHONE'|translate}}
           </span>
-          {{visibleObject.phone}}
-        </div>
-        <div>
+        {{visibleObject.phone}}
+      </div>
+      <div>
           <span>
               {{'HOME.BANKINGS.BANKING.EMAIL'|translate}}
           </span>
-          {{visibleObject.email}}
-        </div>
+        {{visibleObject.email}}
+      </div>
 
-        <div>
+      <div>
           <span>
             {{'HOME.BANKINGS.BANKING.STATUS'|translate}}
           </span>
-          {{visibleObject.status}}
-        </div>
+        {{visibleObject.status}}
+      </div>
 
-        <div>
+      <div>
           <span>
             {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
           </span>
-          {{visibleObject.language}}
-        </div>
-      </ng-container>
-    </ng-template>
+        {{visibleObject.language}}
+      </div>
+    </ng-container>
+  </ng-template>
 
-  </div>
 </div>

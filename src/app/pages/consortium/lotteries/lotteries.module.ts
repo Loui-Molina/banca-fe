@@ -18,28 +18,30 @@ import {NzSelectModule} from "ng-zorro-antd/select";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
+import {NzSwitchModule} from "ng-zorro-antd/switch";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    LotteriesRoutingModule,
-    NzListModule,
-    NzTypographyModule,
-    LineChartModule,
-    PieChartModule,
-    NzGridModule,
-    ComponentsModule,
-    NzIconModule,
-    NzCalendarModule,
-    NzDividerModule,
-    TranslateModule,
-    NzTableModule,
-    NzToolTipModule,
-    NzSelectModule,
-    NzInputModule,
-    ReactiveFormsModule,
-    NzCheckboxModule
-  ],
+    imports: [
+        CommonModule,
+        LotteriesRoutingModule,
+        NzListModule,
+        NzTypographyModule,
+        LineChartModule,
+        PieChartModule,
+        NzGridModule,
+        ComponentsModule,
+        NzIconModule,
+        NzCalendarModule,
+        NzDividerModule,
+        TranslateModule,
+        NzTableModule,
+        NzToolTipModule,
+        NzSelectModule,
+        NzInputModule,
+        ReactiveFormsModule,
+        NzCheckboxModule,
+        NzSwitchModule
+    ],
   declarations: [LotteriesComponent],
   exports: [LotteriesComponent],
   providers: [DatePipe]

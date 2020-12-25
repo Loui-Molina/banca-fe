@@ -85,7 +85,7 @@ export let lotteries = [{
 
 // consortium  hardcoded values
 export let consortium = {
-  name: 'Un Consorcio', bankings: ['banca-0', 'banca-1', 'banca-2', 'banca-3'],
+  name: 'Un Consorcio', bankings: ['banca-1', 'banca-2', 'banca-3', 'banca-4'],
 };
 
 

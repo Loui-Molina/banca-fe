@@ -1,108 +1,186 @@
-<div class="inner-content mb-20">
-  <div class="inner-content fit-height mb-20" style="min-height: 300px;">
-    <app-abm [title]="'HOME.BANKINGS.TITLE'"
-             [fetcher]="fetcher"
-             [fetcherSave]="fetcherSave"
-             [fetcherDelete]="fetcherDelete"
-             [formTemplate]="formTemplate"
-             [viewTemplate]="viewTemplate"
-             [defaultForm]="defaultForm"
-             [form]="formABM"
-             [columns]="columns">
-    </app-abm>
+<div class="inner-content fit-height mb-20" style="min-height: 300px;">
+  <app-abm [title]="'Loterias'"
+           [fetcher]="fetcher"
+           [fetcherSave]="fetcherSave"
+           [fetcherDelete]="fetcherDelete"
+           [formTemplate]="formTemplate"
+           [viewTemplate]="viewTemplate"
+           [defaultForm]="defaultForm"
+           [form]="formABM"
+           [columns]="columns">
+  </app-abm>
 
 
-    <ng-template #formTemplate>
-      <form [formGroup]="formABM">
+  <ng-template #formTemplate>
+    <form [formGroup]="formABM">
 
-        <div class="form-element">
-          <label for="name">
-            {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}
-          </label>
-          <input nz-input id="name" type="text" formControlName="name">
+      <div class="form-element">
+        <label for="name">
+          {{'name'|translate}}
+        </label>
+        <nz-select id="name" nzMode="tags" nzPlaceHolder="Seleccione la loteria a agregar" formControlName="name">
+          <nz-option *ngFor="let option of lotteries" [nzLabel]="option.name" [nzValue]="option.name"></nz-option>
+        </nz-select>
+      </div>
+
+
+
+      <div class="form-element">
+        <label for="status">
+          {{'status'|translate}}
+        </label>
+        <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
+      </div>
+
+
+      <div class="form-element">
+        <label for="bankings">
+          {{'bankings'|translate}}
+        </label>
+        <nz-select id="bankings" nzMode="tags" nzPlaceHolder="Bancas a aplicar, dejar vacio selecciona todas" formControlName="bankings">
+          <nz-option *ngFor="let option of bankings" [nzLabel]="option.name" [nzValue]="option.name"></nz-option>
+        </nz-select>
+      </div>
+
+
+      <div class="form-element">
+        <label for="limits">
+          <h3>{{'Limites'|translate}}</h3>
+        </label>
+      </div>
+
+      <div id="limits" nz-row nzGutter="8">
+        <div class="form-element" nz-col nzXs="12">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="straightPlay" nzAddOnBefore="{{'Directo'|translate}}">
+            <input  type="text" nz-input formControlName="straightPlay"/>
+          </nz-input-group>
         </div>
 
-        <div class="form-element">
-          <label for="user">
-            {{'User'|translate}}
-          </label>
-          <nz-select id="user" formControlName="user">
-            <nz-option nzValue="X" nzLabel="X" nzDisabled></nz-option>
-          </nz-select>
+        <div class="form-element" nz-col nzXs="12">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="palePlay" nzAddOnBefore="{{'Pale'|translate}}">
+            <input type="text" nz-input formControlName="palePlay"/>
+          </nz-input-group>
         </div>
 
-        <div class="form-element">
-          <label for="phone">
-            {{'HOME.BANKINGS.BANKING.PHONE'|translate}}
-          </label>
-          <input nz-input id="phone" type="tel" formControlName="phone">
+        <div class="form-element" nz-col nzXs="12">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="tripletPlay" nzAddOnBefore="{{'Tripleta'|translate}}">
+            <input type="text" nz-input formControlName="tripletPlay"/>
+          </nz-input-group>
+        </div>
+      </div>
+
+      <div class="form-element">
+        <label for="prizes">
+          <h3>{{'prizes'|translate}}</h3>
+        </label>
+      </div>
+            <!--TODO Agregar a todos un tooltip para dejar en 0 si quieren desabilitar-->
+
+      <div id="prizes" nz-row nzGutter="8">
+        <div nz-col nzXs="12" class="form-element">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="firstPrize" nzAddOnBefore="{{'Primera'|translate}}">
+            <input type="number" nz-input formControlName="firstPrize"/>
+          </nz-input-group>
         </div>
 
-        <div class="form-element">
-          <label for="email">
-            {{'HOME.BANKINGS.BANKING.EMAIL'|translate}}
-          </label>
-          <input nz-input id="email" type="email" formControlName="email">
+
+        <div nz-col nzXs="12" class="form-element">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="secondPrize" nzAddOnBefore="{{'Segunda'|translate}}">
+            <input type="number" nz-input formControlName="secondPrize"/>
+          </nz-input-group>
         </div>
 
 
-
-        <div class="form-element">
-          <label for="language">
-            {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
-          </label>
-          <nz-select id="language" formControlName="language">
-            <nz-option nzValue="EN" nzLabel="Ingles"></nz-option>
-            <nz-option nzValue="ES" nzLabel="Español"></nz-option>
-          </nz-select>
+        <div nz-col nzXs="12" class="form-element">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="thirdPrize" nzAddOnBefore="{{'Tercera'|translate}}">
+            <input type="number" nz-input formControlName="thirdPrize"/>
+          </nz-input-group>
         </div>
 
-        <div class="form-element">
-          <label for="status">
-            {{'Habilitada'|translate}}
-          </label>
-          <label id="status" nz-checkbox  [nzChecked]="true" formControlName="status"></label>
-        </div>
-      </form>
-    </ng-template>
 
-    <ng-template #viewTemplate let-visibleObject>
-      <ng-container *ngIf="visibleObject">
-        <div>
+        <div nz-col nzXs="12" class="form-element">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="doublePrize" nzAddOnBefore="{{'Dobles'|translate}}">
+            <input type="number" nz-input formControlName="doublePrize"/>
+          </nz-input-group>
+        </div>
+
+
+        <div nz-col nzXs="12" class="form-element">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="palePrize" nzAddOnBefore="{{'Pale'|translate}}">
+            <input type="number" nz-input formControlName="palePrize"/>
+          </nz-input-group>
+        </div>
+
+
+        <div nz-col nzXs="12" class="form-element">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="paleTwoThreePrize" nzAddOnBefore="{{'Pale 2-3'|translate}}">
+            <input type="number" nz-input formControlName="paleTwoThreePrize"/>
+          </nz-input-group>
+        </div>
+
+
+        <div nz-col nzXs="12" class="form-element">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="tripletPrize" nzAddOnBefore="{{'Tripleta'|translate}}">
+            <input type="number" nz-input formControlName="tripletPrize"/>
+          </nz-input-group>
+        </div>
+
+
+        <div nz-col nzXs="12" class="form-element">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="twoNumbersPrize" nzAddOnBefore="{{'2 Numeros'|translate}}">
+            <input type="number" nz-input formControlName="twoNumbersPrize"/>
+          </nz-input-group>
+        </div>
+
+
+        <div nz-col nzXs="12" class="form-element">
+          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="superPalePrize" nzAddOnBefore="{{'Super Pale'|translate}}">
+            <input type="number" nz-input formControlName="superPalePrize"/>
+          </nz-input-group>
+        </div>
+      </div>
+
+      <ng-template #PrizeLimitsExtraInfo><i nz-icon nz-tooltip nzTooltipTitle="Ingrese 0 para desabilitar" nzType="info-circle"></i></ng-template>
+    </form>
+  </ng-template>
+
+  <ng-template #viewTemplate let-visibleObject>
+    <ng-container *ngIf="visibleObject">
+      <!--TODO que es esto exactamente?-->
+      <div>
           <span>
             {{'HOME.BANKINGS.BANKING.NAME'|translate}}
           </span>
-          {{visibleObject.name}}
-        </div>
+        {{visibleObject.name}}
+      </div>
 
-        <div>
+      <div>
           <span>
               {{'HOME.BANKINGS.BANKING.PHONE'|translate}}
           </span>
-          {{visibleObject.phone}}
-        </div>
-        <div>
+        {{visibleObject.phone}}
+      </div>
+      <div>
           <span>
               {{'HOME.BANKINGS.BANKING.EMAIL'|translate}}
           </span>
-          {{visibleObject.email}}
-        </div>
+        {{visibleObject.email}}
+      </div>
 
-        <div>
+      <div>
           <span>
             {{'HOME.BANKINGS.BANKING.STATUS'|translate}}
           </span>
-          {{visibleObject.status}}
-        </div>
+        {{visibleObject.status}}
+      </div>
 
-        <div>
+      <div>
           <span>
             {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
           </span>
-          {{visibleObject.language}}
-        </div>
-      </ng-container>
-    </ng-template>
+        {{visibleObject.language}}
+      </div>
+    </ng-container>
+  </ng-template>
 
-  </div>
 </div>

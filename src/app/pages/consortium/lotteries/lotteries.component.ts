@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Observable} from "rxjs";
-import {lotteries} from "../../../../assets/data";
+import {Banking, bankings, lotteries} from "../../../../assets/data";
 
 @Component({
   selector: 'app-lotteries',
@@ -21,15 +21,20 @@ export class LotteriesComponent {
     },
     {
       title: 'Alias',
-      key: 'name'
+      key: 'nickname'
     },
     {
-      title: 'Nombre',
-      key: 'name'
+      title: 'Apertura',
+      key: 'open'
     }, {
-      title: 'Nombre',
-      key: 'name'
-    },];
+      title: 'Cierre',
+      key: 'close'
+    },
+    {
+      title: 'Estado',
+      key: '',
+      valueFormatter: () => 'Operando'
+    }];
   fetcher: Observable<any[]> = this.getData();
   fetcherSave: (item) => Observable<any> = (item) => this.saveLottery(item);
   fetcherDelete: (id: string) => Observable<any> = (id) => this.deleteLottery(id)
@@ -39,8 +44,23 @@ export class LotteriesComponent {
     nickname: null,
     color: null,
     status: null,
-    bankings: 'ALL'
+    bankings: null,
+    limits: null,
+    straightPlay: null,
+    palePlay: null,
+    tripletPlay: null,
+    firstPrize: null,
+    secondPrize: null,
+    thirdPrize: null,
+    doublePrize: null,
+    palePrize: null,
+    paleTwoThreePrize: null,
+    tripletPrize: null,
+    twoNumbersPrize: null,
+    superPalePrize: null,
   };
+  bankings:Banking[] = bankings;
+  lotteries = lotteries;
 
   private getData(): Observable<any[]> {
     return new Observable(subscriber => subscriber.next(lotteries));
