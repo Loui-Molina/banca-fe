@@ -4,8 +4,8 @@
             nzCollapsible
             nzWidth="256px"
             nzBreakpoint="md"
-    [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null">
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
     <div class="sidebar-logo">
       <img src="assets/imgs/betting.svg" alt="logo">
       <h1>{{user?.name}}</h1>
@@ -29,6 +29,10 @@
             <i nz-icon nzType="trophy"></i>
             <a routerLink="/lotteries">{{'HOME.LOTTERIES.TITLE' | translate}}</a>
           </li>
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.admin">
+            <i nz-icon nzType="reconciliation"></i>
+            <a routerLink="/resultados">{{'Resultados' | translate}}</a>
+          </li>
         </ul>
       </li>
       <li nz-submenu nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}" nzIcon="form">
@@ -49,32 +53,34 @@
   <nz-layout>
     <nz-header>
       <div class="app-header">
-        <div  class="app-header-left">
+        <div class="app-header-left">
           <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <i class="trigger"
                nz-icon
-              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></i>
           </span>
           <span class="header-trigger" *ngIf="user?.role === userRole.banker">
             <a routerLink="/bettingPanel">
               <i class="trigger"
                  nz-icon
-                [nzType]="'shop'"
+                 [nzType]="'shop'"
               ></i>
             </a>
           </span>
         </div>
-        <div  class="app-header-right">
+        <div class="app-header-right">
           <span class="header-trigger">
             <i nz-dropdown [nzDropdownMenu]="menu" nz-icon nzType="translation" nzTheme="outline"></i>
           </span>
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu nzSelectable>
-              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'en' === langSelected" (click)="selectLanguage('en')">
+              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'en' === langSelected"
+                  (click)="selectLanguage('en')">
                 {{'TRANSLATION.ENGLISH' | translate}}
               </li>
-              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'es' === langSelected"  (click)="selectLanguage('es')">
+              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'es' === langSelected"
+                  (click)="selectLanguage('es')">
                 {{'TRANSLATION.SPANISH' | translate}}
               </li>
             </ul>

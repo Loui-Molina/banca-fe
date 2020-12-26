@@ -45,6 +45,11 @@ const routes: Routes = [
         path: 'lotteries',
         canActivate: [AuthGuard],
         loadChildren: () => import('./pages/lotteries/lotteries.module').then(m => m.LotteriesModule)
+      },
+      {
+        path: 'results',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./pages/resultados/results.module').then(m => m.ResultsModule)
       }
     ]
   },

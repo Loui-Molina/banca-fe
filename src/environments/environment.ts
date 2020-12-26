@@ -12,18 +12,18 @@ export const environment = {
       username: 'banking',
       name: 'Seba',
       role: UserRole.banker,
-      password: 'banking'
+      password: 'h9M4duPk'
     } as User,
     {
       username: 'consortium',
       name: 'Engelbert',
       role: UserRole.consortium,
-      password: 'consortium'
+      password: 'h9M4duPk'
     } as User, {
       username: 'admin',
       name: 'Loui',
       role: UserRole.admin,
-      password: 'admin'
+      password: 'h9M4duPk'
     } as User],
 };
 
