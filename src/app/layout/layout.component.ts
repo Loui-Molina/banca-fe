@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {addBankings, consortium, Banking} from '../../assets/data';
+import {addBankings, consortium, Banking, Consortium, addConsortium} from '../../assets/data';
 import NumberFormat = Intl.NumberFormat;
 import {DecimalPipe} from '@angular/common';
 import {MockUserService} from '../services/user.service';
@@ -44,6 +44,7 @@ export class LayoutComponent implements OnInit {
   private initData(): void {
     this.user = this.userService.getLoggedUser();
     this.initMockBankingData();
+    this.initMockConsortiumData();
   }
 
   private initMockBankingData() {
@@ -83,6 +84,46 @@ export class LayoutComponent implements OnInit {
 
       console.log('banking ', banking);
       addBankings(banking);
+    }
+
+  }
+
+  private initMockConsortiumData() {
+    for (let i = 0; i < 4; i++) {
+      const cons: Consortium = new class implements Consortium {
+        balance: number;
+        canceledTks: number;
+        discount: number;
+        earnings: number;
+        losingTks: number;
+        name: string;
+        net: number;
+        pendingTks: number;
+        percentage: number;
+        prizes: number;
+        totalTickets: number;
+        winningTks: number;
+      };
+      cons.name = 'Consorcio-' + (i + 1);
+
+      cons.canceledTks = Math.floor(Math.random() * 10);
+      cons.winningTks = Math.floor(Math.random() * 30);
+      cons.losingTks = Math.floor(Math.random() * 90);
+      cons.pendingTks = Math.floor(Math.random() * 80);
+      cons.totalTickets = Math.floor(cons.canceledTks + cons.winningTks + cons.losingTks + cons.pendingTks);
+
+
+      cons.earnings = Math.floor(cons.totalTickets * Math.random() * 1000);
+      cons.prizes = Math.floor(cons.losingTks * Math.random() * 1000);
+      cons.net = Math.floor(cons.earnings - cons.prizes);
+
+      cons.percentage = Math.floor((Math.random() * 10) / 2);
+      cons.discount = Math.floor((Math.random() * 10) / 2);
+
+      cons.balance = Math.floor(cons.net + (cons.net * (cons.percentage / 100)) - (cons.net * (cons.discount / 100)));
+
+      console.log('cons ', cons);
+      addConsortium(cons);
     }
 
   }

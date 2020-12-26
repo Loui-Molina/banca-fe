@@ -60,6 +60,12 @@
         </label>
         <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
       </div>
+      <div class="form-element">
+        <label for="porcCuadreCaja">
+          {{'Mostrar porcentaje cuadre de caja'|translate}}
+        </label>
+        <label id="porcCuadreCaja" nz-checkbox  [nzChecked]="true" formControlName="porcCuadreCaja"></label>
+      </div>
     </form>
   </ng-template>
 

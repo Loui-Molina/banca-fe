@@ -13,14 +13,15 @@ import {en_US, NZ_I18N} from 'ng-zorro-antd/i18n';
 import {registerLocaleData} from '@angular/common';
 import es from '@angular/common/locales/es';
 import {LayoutModule} from './layout/layout.module';
-import {TranslateLoader, TranslateModule, TranslatePipe} from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {Page404Component} from './pages/problems/404/page404.component';
 import {NzSwitchModule} from 'ng-zorro-antd/switch';
 import {ErrorsHandler} from '../utils/ErrorsHandler';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
-import {environment} from "../environments/environment";
+import {environment} from '../environments/environment';
 import {BASE_PATH as BASE_PATH_API} from '../../local-packages/banca-api';
+import {NgxPermissionsModule} from "ngx-permissions";
 
 
 registerLocaleData(es);
@@ -54,7 +55,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     NzMenuModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPermissionsModule.forRoot()
   ],
   providers: [
     {provide: NZ_I18N, useValue: en_US},
