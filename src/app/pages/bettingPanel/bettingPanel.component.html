@@ -64,7 +64,7 @@
             </div>
             <div class="lottery-panel-body">
               <div class="lottery" [style]="{backgroundColor: lottery.color}"
-                   (click)="onChangeLottery(lottery, !this.selectedLotterys.includes(lottery.id))"
+                   (click)="!lottery.closed && onChangeLottery(lottery, !this.selectedLotterys.includes(lottery.id))"
                    *ngFor="let lottery of lotterys" [class.closed]="lottery.closed">
                 <div nz-row class="row-style panel-container">
                   <div nz-col nzSpan="12" class="col-style">{{lottery.name}}</div>

@@ -14,6 +14,9 @@ import {NzDividerModule} from 'ng-zorro-antd/divider';
 import {TranslateModule} from "@ngx-translate/core";
 import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
+import {NzDrawerModule} from 'ng-zorro-antd/drawer';
+import {NzInputModule} from 'ng-zorro-antd/input';
+import {NzButtonModule} from 'ng-zorro-antd/button';
 
 @NgModule({
   imports: [
@@ -30,7 +33,10 @@ import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
     NzDividerModule,
     TranslateModule,
     NzTableModule,
-    NzToolTipModule
+    NzToolTipModule,
+    NzDrawerModule,
+    NzInputModule,
+    NzButtonModule
   ],
   declarations: [TransactionsComponent],
   exports: [TransactionsComponent],
