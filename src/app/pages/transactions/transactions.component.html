@@ -1,6 +1,12 @@
 <div class="inner-content mb-20">
   <div class="inner-content fit-height mb-20" style="min-height: 300px;">
-    <app-title-divider title="{{'Ultimas transacciones' |translate}}"></app-title-divider>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px">
+      <app-title-divider title="{{'Ultimas transacciones' |translate}}"></app-title-divider>
+      <button nz-button (click)="openDrawer('drawerTransaction')" *ngIf="user?.role === userRole.admin || user?.role === userRole.consortium">
+        {{'Crear transaccion'|translate}}
+      </button>
+    </div>
+
     <nz-table #basicTable [nzData]="data">
       <thead>
       <tr>
@@ -18,3 +24,23 @@
     </nz-table>
   </div>
 </div>
+
+
+<nz-drawer
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzMaskClosable]="true"
+  [nzWidth]="500"
+  [nzVisible]="drawerTransaction"
+  [nzTitle]="'CREAR TRANSACCION'"
+  (nzOnClose)="closeDrawer('drawerTransaction')"
+>
+  <div class="drawer-transaction">
+    <ng-container>
+      <input style="margin-bottom: 10px" nz-input type="text" placeholder="Origen">
+      <input style="margin-bottom: 10px" nz-input type="text" placeholder="Destino">
+      <input style="margin-bottom: 10px" nz-input type="number" placeholder="Monto">
+      <button (click)="onClickAccept()">{{'Aceptar'|translate}}</button>
+    </ng-container>
+  </div>
+</nz-drawer>

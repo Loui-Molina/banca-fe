@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {addTransaction, Transaction, transactions, TransactionType} from '../../../assets/data';
 import {DatePipe} from '@angular/common';
+import {User, UserRole} from '../../../../local-packages/banca-api';
+import {MockUserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-welcome',
@@ -9,10 +11,12 @@ import {DatePipe} from '@angular/common';
 })
 export class TransactionsComponent {
 
-  constructor(private datePipe: DatePipe) {
+  constructor(private datePipe: DatePipe, private userService: MockUserService) {
     this.initData();
   }
-
+  drawerTransaction = false;
+  user: User;
+  userRole = UserRole;
   columns = [
     {title: 'Fecha', key: 'date', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
     {title: 'Monto', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
@@ -30,6 +34,19 @@ export class TransactionsComponent {
     return this.datePipe.transform(data[column.key], 'dd/mm/yyyy hh:MM:ss');
   }
 
+  openDrawer = (drawerName: string) => {
+    this[drawerName] = true;
+  }
+
+  closeDrawer = (drawerName: string) => {
+    this[drawerName] = false;
+  }
+
+  onClickAccept(): void{
+    this.closeDrawer('drawerTicket');
+  }
+
+
   valueFormatterTipo(data: Transaction, column): any{
     switch (data[column.key]) {
       case 'extraction':
@@ -40,6 +57,7 @@ export class TransactionsComponent {
   }
 
   private initData(): void {
+    this.user = this.userService.getLoggedUser();
     let b = 3000;
     for (let i = 0; i < 30; i++){
       // tslint:disable-next-line:radix
