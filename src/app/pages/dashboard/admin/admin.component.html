@@ -29,7 +29,7 @@
 </div>
 
 <div nz-col nzXs="24">
-  <div class="inner-content mb-20" style="min-height: 250px;overflow: hidden;">
+  <div class="inner-content mb-20" style="min-height: 400px;max-height: 400px;overflow: hidden;">
     <app-title-divider title="Diagrama de organizacion"></app-title-divider>
     <ngx-graph
       class="chart-container"
@@ -134,15 +134,15 @@
 </div>
 
 <div class="inner-content fit-height mb-20" style="min-height: 300px;">
-  <app-title-divider title="{{'Resumen Bancas diario' |translate}}"></app-title-divider>
-  <app-bankings-panel></app-bankings-panel>
+  <app-title-divider title="{{'Resumen Consorcios diario' |translate}}"></app-title-divider>
+  <app-consortiums-panel></app-consortiums-panel>
 </div>
 <div nz-row [nzGutter]="8">
   <div nz-col nzXs="24" nzXl="12">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider
-        title="{{'Balance del dia por banca' | translate}}"></app-title-divider>
-      <app-bar-chart xAxisLabel="Bancas" yAxisLabel="Balance" [results]="barChartData"></app-bar-chart>
+        title="{{'Balance del dia por consorcio' | translate}}"></app-title-divider>
+      <app-bar-chart xAxisLabel="Consorcio" yAxisLabel="Balance" [results]="barChartData"></app-bar-chart>
     </div>
   </div>
   <div nz-col nzXs="24" nzXl="12">
@@ -152,18 +152,4 @@
     </div>
   </div>
 </div>
-<div nz-col nzXs="24" style="padding-bottom: 10px;">
-  <div class="inner-content mb-20">
-    <app-title-divider title="TOP 10 numeros mas jugados durante el dia"></app-title-divider>
-    <div class="balls-container">
-      <app-ball [title]="'11'" [description]="'91 veces'" [background]="'red'"></app-ball>
-      <app-ball [title]="'00'" [description]="'86 veces'" [background]="'red'"></app-ball>
-      <app-ball [title]="'47'" [description]="'60 veces'" [background]="'red'"></app-ball>
-      <app-ball [title]="'74'" [description]="'58 veces'" [background]="'grey'"></app-ball>
-      <app-ball [title]="'22'" [description]="'49 veces'" [background]="'grey'"></app-ball>
-      <app-ball [title]="'25'" [description]="'44 veces'" [background]="'grey'"></app-ball>
-    </div>
-  </div>
-</div>
-
 

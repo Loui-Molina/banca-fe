@@ -69,6 +69,7 @@ export let multi = [
 
 
 export let bankings: Banking[] = [];
+export let consortiums: Consortium[] = [];
 export let transactions: Transaction[] = [];
 
 export let lotteries = [{
@@ -97,6 +98,10 @@ export function addBankings(banking) {
   bankings.push(banking);
 }
 
+export function addConsortium(consortium) {
+  consortiums.push(consortium);
+}
+
 export function addTransaction(item: Transaction): void {
   transactions.unshift(item);
 }
@@ -106,6 +111,26 @@ export function addLotteries(lottery) {
 }
 
 export interface Banking {
+  name: string;
+  winningTks: number;
+  losingTks: number;
+  pendingTks: number;
+  canceledTks: number;
+  totalTickets: number;
+  earnings: number;
+  prizes: number;
+  percentage: number;
+  discount: number;
+  net: number;
+  balance: number;
+  phone?: number;
+  email?: string;
+  status?: boolean;
+  language?: 'ES' | 'EN';
+  user?: string;
+}
+
+export interface Consortium {
   name: string;
   winningTks: number;
   losingTks: number;
