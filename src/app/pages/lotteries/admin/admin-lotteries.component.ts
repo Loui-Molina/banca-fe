@@ -45,19 +45,9 @@ export class AdminLotteriesComponent {
     color: null,
     status: null,
     bankings: null,
-    limits: null,
-    straightPlay: null,
-    palePlay: null,
-    tripletPlay: null,
-    firstPrize: null,
-    secondPrize: null,
-    thirdPrize: null,
-    doublePrize: null,
-    palePrize: null,
-    paleTwoThreePrize: null,
-    tripletPrize: null,
-    twoNumbersPrize: null,
-    superPalePrize: null,
+    closeTime:null,
+    openTime:null,
+    days:null,
   };
   bankings:Banking[] = bankings;
   lotteries = lotteries;

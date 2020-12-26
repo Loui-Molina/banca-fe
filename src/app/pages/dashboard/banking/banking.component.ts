@@ -15,11 +15,10 @@ export class BankingComponent implements OnInit {
 
   multi: any[];
 
-  // options
-  balance: number;
-  loses: number;
-  earnings: number;
-  soldTickets: number;
+  balance: number= bankings.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);
+  loses: number= bankings.reduce((previousValue, currentValue) => previousValue + currentValue.prizes, 0);
+  earnings: number= bankings.reduce((previousValue, currentValue) => previousValue + currentValue.earnings, 0);
+  soldTickets: number= bankings.reduce((previousValue, currentValue) => previousValue + currentValue.totalTickets, 0);
 
   single = [
     {
@@ -64,10 +63,6 @@ export class BankingComponent implements OnInit {
   }
 
   private initData(): void {
-    this.balance = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);
-    this.earnings = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.earnings, 0);
-    this.loses = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.prizes, 0);
-    this.soldTickets = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.totalTickets, 0);
   }
 
   ngOnInit(): void {

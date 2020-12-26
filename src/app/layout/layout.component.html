@@ -31,7 +31,7 @@
           </li>
           <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.admin">
             <i nz-icon nzType="reconciliation"></i>
-            <a routerLink="/resultados">{{'Resultados' | translate}}</a>
+            <a routerLink="/results">{{'Resultados' | translate}}</a>
           </li>
         </ul>
       </li>
@@ -62,10 +62,10 @@
           </span>
           <span class="header-trigger" *ngIf="user?.role === userRole.banker">
             <a routerLink="/bettingPanel">
-              <i class="trigger"
-                 nz-icon
-                 [nzType]="'shop'"
-              ></i>
+              <button nz-button  nzType="primary"   [nzSize]="'large'">
+                <i nz-icon nzType="shop"></i>
+                Panel de apuestas
+              </button>
             </a>
           </span>
         </div>

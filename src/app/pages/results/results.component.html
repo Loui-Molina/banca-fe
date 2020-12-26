@@ -16,55 +16,37 @@
 
       <div class="form-element">
         <label for="name">
-          {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}
+          {{'Loteria'|translate}}
         </label>
         <input nz-input id="name" type="text" formControlName="name">
       </div>
 
       <div class="form-element">
-        <label for="user">
-          {{'User'|translate}}
+        <label for="firt">
+          {{'Primero'|translate}}
         </label>
-        <nz-select id="user" formControlName="user">
-          <nz-option nzValue="X" nzLabel="X" nzDisabled></nz-option>
-        </nz-select>
+        <input nz-input id="firt" type="number" formControlName="firt">
       </div>
 
       <div class="form-element">
-        <label for="phone">
-          {{'HOME.BANKINGS.BANKING.PHONE'|translate}}
+        <label for="second">
+          {{'Segundo'|translate}}
         </label>
-        <input nz-input id="phone" type="tel" formControlName="phone">
+        <input nz-input id="second" type="number" formControlName="second">
       </div>
 
       <div class="form-element">
-        <label for="email">
-          {{'HOME.BANKINGS.BANKING.EMAIL'|translate}}
+        <label for="third">
+          {{'Tercero'|translate}}
         </label>
-        <input nz-input id="email" type="email" formControlName="email">
+        <input nz-input id="third" type="number" formControlName="third">
       </div>
 
-
       <div class="form-element">
-        <label for="language">
-          {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
+        <label for="date">
+          {{'Fecha'|translate}}
         </label>
-        <nz-select id="language" formControlName="language">
-          <nz-option nzValue="EN" nzLabel="Ingles"></nz-option>
-          <nz-option nzValue="ES" nzLabel="Español"></nz-option>
-        </nz-select>
-      </div>
-      <div class="form-element">
-        <label for="status">
-          {{'status'|translate}}
-        </label>
-        <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
-      </div>
-      <div class="form-element">
-        <label for="porcCuadreCaja">
-          {{'Mostrar porcentaje cuadre de caja'|translate}}
-        </label>
-        <label id="porcCuadreCaja" nz-checkbox  [nzChecked]="true" formControlName="porcCuadreCaja"></label>
+        <nz-date-picker id="date" formControlName="date"></nz-date-picker>
       </div>
     </form>
   </ng-template>

@@ -13,23 +13,25 @@ import {CommonModule, DecimalPipe} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
 import {NzBadgeModule} from 'ng-zorro-antd/badge';
+import {NzButtonModule} from "ng-zorro-antd/button";
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    BrowserModule,
-    IconsProviderModule,
-    NzLayoutModule,
-    NzMenuModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    TranslateModule,
-    NzDropDownModule,
-    NzBadgeModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        BrowserModule,
+        IconsProviderModule,
+        NzLayoutModule,
+        NzMenuModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        TranslateModule,
+        NzDropDownModule,
+        NzBadgeModule,
+        NzButtonModule
+    ],
   providers: [DecimalPipe],
   declarations: [LayoutComponent],
   exports: [

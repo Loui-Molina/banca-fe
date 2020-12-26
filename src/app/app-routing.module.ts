@@ -49,7 +49,7 @@ const routes: Routes = [
       {
         path: 'results',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./pages/resultados/results.module').then(m => m.ResultsModule)
+        loadChildren: () => import('./pages/results/results.module').then(m => m.ResultsModule)
       }
     ]
   },
