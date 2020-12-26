@@ -5,7 +5,7 @@ import {
 } from 'src/assets/data';
 
 @Component({
-  selector: 'app-consortium',
+  selector: 'app-dashboard-consortium',
   templateUrl: './consortium.component.html',
   styleUrls: ['./consortium.component.scss']
 })

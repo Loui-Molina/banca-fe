@@ -13,7 +13,7 @@ import {en_US, NZ_I18N} from 'ng-zorro-antd/i18n';
 import {registerLocaleData} from '@angular/common';
 import es from '@angular/common/locales/es';
 import {LayoutModule} from './layout/layout.module';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule, TranslatePipe} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {Page404Component} from './pages/problems/404/page404.component';
 import {NzSwitchModule} from 'ng-zorro-antd/switch';

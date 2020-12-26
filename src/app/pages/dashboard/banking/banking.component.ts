@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-banking',
+  selector: 'app-dashboard-banking',
   templateUrl: './banking.component.html',
   styleUrls: ['./banking.component.scss']
 })

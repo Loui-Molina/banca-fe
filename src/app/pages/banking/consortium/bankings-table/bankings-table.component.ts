@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder} from "ng-zorro-antd/table";
-import {Banking, bankings} from "../../../../assets/data";
+import {Banking, bankings} from "../../../../../assets/data";
 
 @Component({
   selector: 'app-bankings-panel',

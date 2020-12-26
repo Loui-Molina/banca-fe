@@ -54,13 +54,11 @@
           <nz-option nzValue="ES" nzLabel="Español"></nz-option>
         </nz-select>
       </div>
-
       <div class="form-element">
         <label for="status">
-          {{'Habilitada'|translate}}
+          {{'status'|translate}}
         </label>
-        <!--TODO CHANGE TO SWITCH-->
-        <label id="status" nz-checkbox [nzChecked]="true" formControlName="status"></label>
+        <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
       </div>
     </form>
   </ng-template>

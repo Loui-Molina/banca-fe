@@ -3,7 +3,7 @@
             nzLoading="false"
             [nzData]="bankingList"
             nzTableLayout="auto"
-            [nzPageSize]="40"
+            [nzPageSize]="10"
             [nzHideOnSinglePage]="true"
   >
     <thead>
@@ -20,7 +20,7 @@
       <td>{{ data.pendingTks }}</td>
       <td>{{ data.losingTks }}</td>
       <td>{{ data.canceledTks }}</td>
-      <td>{{ '$' + data.totalTickets }}</td>
+      <td>{{ data.totalTickets }}</td>
       <td>{{ '$' + data.earnings }}</td>
       <td>{{ '$' + data.prizes }}</td>
       <td>{{ '$' + data.percentage }}</td>

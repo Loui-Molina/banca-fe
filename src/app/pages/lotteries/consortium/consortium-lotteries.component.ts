@@ -4,11 +4,11 @@ import {Observable} from "rxjs";
 import {Banking, bankings, lotteries} from "../../../../assets/data";
 
 @Component({
-  selector: 'app-lotteries',
-  templateUrl: './lotteries.component.html',
-  styleUrls: ['./lotteries.component.scss']
+  selector: 'app-lotteries-consortium',
+  templateUrl: './consortium-lotteries.component.html',
+  styleUrls: ['./consortium-lotteries.component.scss']
 })
-export class LotteriesComponent {
+export class ConsortiumLotteriesComponent {
 
   constructor(private formBuilder: FormBuilder) {
     this.formABM = this.formBuilder.group(this.defaultForm);
@@ -59,7 +59,7 @@ export class LotteriesComponent {
     twoNumbersPrize: null,
     superPalePrize: null,
   };
-  bankings:Banking[] = bankings;
+  bankings: Banking[] = bankings;
   lotteries = lotteries;
 
   private getData(): Observable<any[]> {

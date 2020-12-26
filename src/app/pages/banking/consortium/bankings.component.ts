@@ -51,7 +51,7 @@ export class BankingsComponent {
     name: null,
     phone: null,
     email: null,
-    status: null,
+    status: 1,
     language: 'ES',
     user: 'X'
   };

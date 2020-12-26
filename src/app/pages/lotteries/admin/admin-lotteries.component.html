@@ -1,0 +1,109 @@
+<div class="inner-content fit-height mb-20" style="min-height: 300px;">
+  <app-abm [title]="'Loterias'"
+           [fetcher]="fetcher"
+           [fetcherSave]="fetcherSave"
+           [fetcherDelete]="fetcherDelete"
+           [formTemplate]="formTemplate"
+           [viewTemplate]="viewTemplate"
+           [defaultForm]="defaultForm"
+           [form]="formABM"
+           [columns]="columns">
+  </app-abm>
+
+
+  <ng-template #formTemplate>
+    <form [formGroup]="formABM">
+
+      <div class="form-element">
+        <label for="name">
+          {{'Nombre'|translate}}
+        </label>
+        <input nz-input id="name" type="text" formControlName="name">
+      </div>
+
+
+      <div class="form-element">
+        <label for="nickname">
+          {{'Apodo'|translate}}
+        </label>
+        <input nz-input id="nickname" type="text" formControlName="nickname">
+      </div>
+
+      <div nz-row nzGutter="8">
+        <div nz-col nzXs="8" class="form-element">
+          <label for="openTime">
+            {{'Apertura'|translate}}
+          </label>
+          <nz-time-picker id="openTime" nzPlaceHolder="Hora de apertura" nzFormat="HH:mm" [nzMinuteStep]="5" formControlName="openTime"></nz-time-picker>
+        </div>
+
+
+        <div nz-col nzXs="8" class="form-element">
+          <label for="closeTime">
+            {{'Cierre'|translate}}
+          </label>
+          <nz-time-picker id="closeTime" nzPlaceHolder="Hora de cierre" nzFormat="HH:mm" [nzMinuteStep]="5"
+                          formControlName="closeTime"></nz-time-picker>
+        </div>
+
+        <div nz-col nzXs="8" class="form-element">
+          <label for="days">
+            {{'dias'|translate}}
+          </label>
+          <nz-select class="day-selector" id="days" nzMode="tags" nzPlaceHolder="Seleccione los dias de apertura" formControlName="days">
+            <nz-option *ngFor="let option of days" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+
+      <div class="form-element">
+        <label for="status">
+          {{'status'|translate}}
+        </label>
+        <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
+      </div>
+
+
+    </form>
+  </ng-template>
+
+  <ng-template #viewTemplate let-visibleObject>
+    <ng-container *ngIf="visibleObject">
+      <!--TODO que es esto exactamente?-->
+      <div>
+          <span>
+            {{'HOME.BANKINGS.BANKING.NAME'|translate}}
+          </span>
+        {{visibleObject.name}}
+      </div>
+
+      <div>
+          <span>
+              {{'HOME.BANKINGS.BANKING.PHONE'|translate}}
+          </span>
+        {{visibleObject.phone}}
+      </div>
+      <div>
+          <span>
+              {{'HOME.BANKINGS.BANKING.EMAIL'|translate}}
+          </span>
+        {{visibleObject.email}}
+      </div>
+
+      <div>
+          <span>
+            {{'HOME.BANKINGS.BANKING.STATUS'|translate}}
+          </span>
+        {{visibleObject.status}}
+      </div>
+
+      <div>
+          <span>
+            {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
+          </span>
+        {{visibleObject.language}}
+      </div>
+    </ng-container>
+  </ng-template>
+
+</div>

@@ -18,6 +18,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
 import {NzSelectModule} from "ng-zorro-antd/select";
+import {NzSwitchModule} from "ng-zorro-antd/switch";
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import {NzSelectModule} from "ng-zorro-antd/select";
     ReactiveFormsModule,
     NzInputModule,
     NzCheckboxModule,
-    NzSelectModule
+    NzSelectModule,
+    NzSwitchModule
   ],
   declarations: [BankingsComponent],
   exports: [BankingsComponent],
