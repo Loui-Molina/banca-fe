@@ -33,9 +33,11 @@
     <app-title-divider title="Diagrama de organizacion"></app-title-divider>
     <ngx-graph
       class="chart-container"
-      [showMiniMap]="false"
+      [showMiniMap]="true"
+      [miniMapPosition]="miniMapPosition.UpperLeft"
       [autoCenter]="true"
       [autoZoom]="true"
+      [draggingEnabled]="false"
       layout="dagreCluster"
       [links]="[
     {

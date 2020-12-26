@@ -27,7 +27,7 @@ import {NzSpinModule} from 'ng-zorro-antd/spin';
 import {TranslateModule} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
-import {BankingsTableComponent} from "../pages/consortium/bankings-table/bankings-table.component";
+import {BankingsTableComponent} from "../pages/dashboard/consortium/bankings-table/bankings-table.component";
 import {MenuComponent} from './menues/menu/menu.component';
 import {ConsortiumsTableComponent} from '../pages/dashboard/admin/consortiums-table/consortiums-table.component';
 

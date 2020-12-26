@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder} from 'ng-zorro-antd/table';
-import {Banking, bankings, Consortium, consortiums} from '../../../../../assets/data';
+import {Consortium, consortiums} from '../../../../../assets/data';
 
 @Component({
   selector: 'app-consortiums-panel',

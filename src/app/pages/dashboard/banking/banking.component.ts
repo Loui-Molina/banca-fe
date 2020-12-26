@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {bankings, multi} from '../../../../assets/data';
 
 @Component({
@@ -8,6 +8,11 @@ import {bankings, multi} from '../../../../assets/data';
 })
 export class BankingComponent implements OnInit {
 
+  constructor() {
+    Object.assign(this, {multi});
+    this.initData();
+  }
+
   multi: any[];
 
   // options
@@ -15,11 +20,6 @@ export class BankingComponent implements OnInit {
   loses: number;
   earnings: number;
   soldTickets: number;
-
-  constructor() {
-    Object.assign(this, {multi});
-    this.initData();
-  }
 
   single = [
     {
@@ -31,25 +31,37 @@ export class BankingComponent implements OnInit {
       value: 233
     }
   ];
-
-  barChartData = [
+  lineChartData = [
     {
-      name: 'Banca 1',
-      value: 2323
-    },
-    {
-      name: 'Banca 2',
-      value: 455
-    },
-    {
-      name: 'Banca 3',
-      value: 2355
-    },
-    {
-      name: 'Banca 4',
-      value: 10
+      name: 'Balance',
+      series: [
+        {
+          value: 3423,
+          name: '2016-09-22T03:02:10.066Z'
+        },
+        {
+          value: 5791,
+          name: '2016-09-18T16:18:36.101Z'
+        },
+        {
+          value: 3115,
+          name: '2016-09-22T06:26:23.563Z'
+        },
+        {
+          value: 4393,
+          name: '2016-09-18T08:16:17.334Z'
+        },
+        {
+          value: 4432,
+          name: '2016-09-19T10:02:33.465Z'
+        }
+      ]
     }
   ];
+
+  dateTickFormatting(val: string): string {
+    return new Date(val).toDateString();
+  }
 
   private initData(): void {
     this.balance = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);

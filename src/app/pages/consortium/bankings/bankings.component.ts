@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {addBankings, Banking, bankings} from '../../../../assets/data';
 import {DatePipe} from '@angular/common';
-import {Observable} from "rxjs";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Observable} from 'rxjs';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-bankings',
@@ -45,8 +45,6 @@ export class BankingsComponent {
     }
   ];
   fetcher: Observable<any[]> = this.getData();
-  fetcherSave: (item) => Observable<Banking> = (item) => this.saveBanking(item);
-  fetcherDelete: (id: string) => Observable<Banking> = (id) => this.deleteBanking(id);
   defaultForm = {
     name: null,
     phone: null,
@@ -56,6 +54,8 @@ export class BankingsComponent {
     user: 'X'
   };
   formABM: FormGroup;
+  fetcherSave: (item) => Observable<Banking> = (item) => this.saveBanking(item);
+  fetcherDelete: (id: string) => Observable<Banking> = (id) => this.deleteBanking(id);
 
   private getData(): Observable<Banking[]> { // TODO REPLACE
     return new Observable(subscriber => {
@@ -71,7 +71,7 @@ export class BankingsComponent {
   }
 
   private saveBanking(item): Observable<Banking> {
-    let banking: Banking ={
+    const banking: Banking = {
       balance: 0,
       canceledTks: 0,
       discount: 0,
@@ -89,8 +89,8 @@ export class BankingsComponent {
       status: item.status,
       language: item.language,
       user: item.user
-    }
-    addBankings(banking)
+    };
+    addBankings(banking);
     return new Observable(subscriber => {
       subscriber.next(banking);
       subscriber.complete();

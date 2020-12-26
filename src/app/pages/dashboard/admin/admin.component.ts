@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {consortiums, multi} from '../../../../assets/data';
+import {MiniMapPosition} from '@swimlane/ngx-graph';
 
 @Component({
   selector: 'app-admin',
@@ -9,7 +10,7 @@ import {consortiums, multi} from '../../../../assets/data';
 export class AdminComponent implements OnInit {
 
   multi: any[];
-
+  miniMapPosition = MiniMapPosition;
   // options
   balance: number;
   loses: number;
