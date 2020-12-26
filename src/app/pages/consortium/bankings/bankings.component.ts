@@ -50,6 +50,7 @@ export class BankingsComponent {
     phone: null,
     email: null,
     status: null,
+    porcCuadreCaja: null,
     language: 'ES',
     user: 'X'
   };
