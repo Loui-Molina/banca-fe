@@ -48,7 +48,7 @@
 
       <div class="form-element">
         <label for="language">
-          {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
+          {{'Lenguaje'|translate}}
         </label>
         <nz-select id="language" formControlName="language">
           <nz-option nzValue="EN" nzLabel="Ingles"></nz-option>
@@ -60,12 +60,6 @@
           {{'status'|translate}}
         </label>
         <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
-      </div>
-      <div class="form-element">
-        <label for="porcCuadreCaja">
-          {{'Mostrar porcentaje cuadre de caja'|translate}}
-        </label>
-        <label id="porcCuadreCaja" nz-checkbox  [nzChecked]="true" formControlName="porcCuadreCaja"></label>
       </div>
     </form>
   </ng-template>

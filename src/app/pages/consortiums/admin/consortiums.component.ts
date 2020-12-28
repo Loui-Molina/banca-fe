@@ -19,7 +19,7 @@ export class ConsortiumsComponent {
 
   columns = [
     {
-      title: 'Banca',
+      title: 'Consorcio',
       key: 'name'
     },
     {
