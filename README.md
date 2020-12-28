@@ -27,3 +27,13 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+## Pages directory structure 
+Pages use the following structure
+ 
+- pages: pages folder inside src/app directory
+  - page: name of the page in plural
+    - role: subfolder for the page based on the role
+      - component and router
+    - shared: folder with components shared between roles

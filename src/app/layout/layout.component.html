@@ -22,6 +22,10 @@
             <a routerLink="/transactions">{{'HOME.TRANSACTIONS.TITLE' | translate}}</a>
           </li>
           <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.admin || user?.role === userRole.consortium">
+            <i nz-icon nzType="apartment" ></i>
+            <a routerLink="/consortiums">{{'Consorcios' | translate}}</a>
+          </li>
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.admin || user?.role === userRole.consortium">
             <i nz-icon nzType="shop"></i>
             <a routerLink="/bankings">{{'HOME.BANKINGS.TITLE' | translate}}</a>
           </li>
@@ -62,7 +66,7 @@
           </span>
           <span class="header-trigger" *ngIf="user?.role === userRole.banker">
             <a routerLink="/bettingPanel">
-              <button nz-button  nzType="primary"   [nzSize]="'large'">
+              <button nz-button nzType="primary" [nzSize]="'large'">
                 <i nz-icon nzType="shop"></i>
                 Panel de apuestas
               </button>

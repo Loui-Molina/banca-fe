@@ -37,9 +37,14 @@ const routes: Routes = [
         loadChildren: () => import('./pages/transactions/transactions.module').then(m => m.TransactionsModule)
       },
       {
+        path: 'consortiums',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./pages/consortiums/admin/consortiums.module').then(m => m.ConsortiumsModule)
+      },
+      {
         path: 'bankings',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./pages/banking/consortium/bankings.module').then(m => m.BankingsModule)
+        loadChildren: () => import('./pages/bankings/consortium/bankings.module').then(m => m.BankingsModule)
       },
       {
         path: 'lotteries',
