@@ -2,7 +2,8 @@
 
 <app-abm [title]="'SETTINGS.USERS.TITLE'"
          [fetcher]="fetcher"
-         [fetcherSave]="fetcherSave"
+         [fetcherUpdate]="fetcherUpdate"
+         [fetcherCreate]="fetcherCreate"
          [fetcherDelete]="fetcherDelete"
          [formTemplate]="formTemplate"
          [viewTemplate]="viewTemplate"
@@ -13,7 +14,7 @@
 </app-abm>
 
 
-<ng-template #formTemplate let-mode="mode">
+<ng-template #formTemplate let-mode>
   <form [formGroup]="formABM">
 
     <div>

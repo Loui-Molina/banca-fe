@@ -55,7 +55,8 @@ export class BankingsComponent {
     user: 'X'
   };
   formABM: FormGroup;
-  fetcherSave: (item) => Observable<Banking> = (item) => this.saveBanking(item);
+  fetcherCreate: (item) => Observable<Banking> = (item) => this.saveBanking(item);
+  fetcherUpdate: (item) => Observable<Banking> = (item) => this.saveBanking(item);
   fetcherDelete: (id: string) => Observable<Banking> = (id) => this.deleteBanking(id);
 
   private getData(): Observable<Banking[]> { // TODO REPLACE

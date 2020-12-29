@@ -26,7 +26,8 @@ export class AbmComponent implements OnInit {
   @Input() getValidators: Function;
   @Input() defaultForm: any;
   @Input() fetcher: Observable<any[]>;
-  @Input() fetcherSave: (item) => Observable<any>;
+  @Input() fetcherCreate: (item) => Observable<any>;
+  @Input() fetcherUpdate: (item) => Observable<any>;
   @Input() fetcherDelete: (item) => Observable<Response>;
 
   visibleForm = false;
@@ -93,15 +94,27 @@ export class AbmComponent implements OnInit {
   onSave = () => {
     if (this.form.valid) {
       this.loadingSave = true;
-      this.fetcherSave({_id: this.visibleObject._id, ...this.form.value}).subscribe(data => {
-        this.messageService.create('success', this.ts('UTILS.SAVED'));
-        this.loadingSave = false;
-        this.onCancel();
-        this.refresh();
-      }, error => {
-        this.loadingSave = false;
-        throw new HttpErrorResponse(error);
-      });
+      if (this.mode === 'C'){
+        this.fetcherCreate(this.form.value).subscribe(data => {
+          this.messageService.create('success', this.ts('UTILS.SAVED'));
+          this.loadingSave = false;
+          this.onCancel();
+          this.refresh();
+        }, error => {
+          this.loadingSave = false;
+          throw new HttpErrorResponse(error);
+        });
+      } else {
+        this.fetcherUpdate({_id: this.visibleObject._id, ...this.form.value}).subscribe(data => {
+          this.messageService.create('success', this.ts('UTILS.SAVED'));
+          this.loadingSave = false;
+          this.onCancel();
+          this.refresh();
+        }, error => {
+          this.loadingSave = false;
+          throw new HttpErrorResponse(error);
+        });
+      }
     }
   }
 
@@ -131,20 +144,22 @@ export class AbmComponent implements OnInit {
     if (this.form){
       this.form.setValue(obj);
       if (this.getValidators){
-        this.setValidators(this.getValidators());
+        this.setValidators(this.getValidators(mode));
       }
     }
     this.mode = mode;
     this.visibleObject = item;
   }
 
-  setValidators(validators: FormGroup): void{
-    console.log(validators);
+  setValidators(validators): void{
     for (const control in this.form.controls){
       if (validators[control]){
+        console.log(this.form.controls[control]);
+        console.log(validators[control]);
         this.form.controls[control].setValidators(validators[control]);
       }
     }
+    console.log(this.form.controls);
   }
 
   openView(item): void {

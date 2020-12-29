@@ -36,7 +36,8 @@ export class ConsortiumLotteriesComponent {
       valueFormatter: () => 'Operando'
     }];
   fetcher: Observable<any[]> = this.getData();
-  fetcherSave: (item) => Observable<any> = (item) => this.saveLottery(item);
+  fetcherCreate: (item) => Observable<any> = (item) => this.saveLottery(item);
+  fetcherUpdate: (item) => Observable<any> = (item) => this.saveLottery(item);
   fetcherDelete: (id: string) => Observable<any> = (id) => this.deleteLottery(id)
   formABM: FormGroup;
   defaultForm = {

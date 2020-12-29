@@ -53,7 +53,8 @@ export class ResultsComponent {
     date: new Date()
   };
   formABM: FormGroup;
-  fetcherSave: (item) => Observable<Banking> = (item) => this.saveResult(item);
+  fetcherCreate: (item) => Observable<Banking> = (item) => this.saveResult(item);
+  fetcherUpdate: (item) => Observable<Banking> = (item) => this.saveResult(item);
   fetcherDelete: (id: string) => Observable<Banking> = (id) => this.deleteBanking(id);
 
 

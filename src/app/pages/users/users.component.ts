@@ -31,17 +31,18 @@ export class UsersComponent implements OnInit {
     role: null
   };
   fetcher: Observable<User[]> = this.userService.userControllerGetAll();
-  fetcherSave: (item) => Observable<ResponseDto> = (item) => this.defaultService.authControllerSingUp(item);
+  fetcherCreate: (item) => Observable<ResponseDto> = (item) => this.defaultService.authControllerSingUp(item);
+  fetcherUpdate: (item) => Observable<User> = (item) => this.userService.userControllerUpdate(item);
   fetcherDelete: (id: string) => Observable<User> = (id) => this.userService.userControllerDelete(id);
-  getValidators(mode: string): FormGroup{
+  getValidators(mode: string): any{
     if (mode === 'C'){
       return {
         name: [Validators.required],
         username: [Validators.required, Validators.minLength(4)],
         password: [Validators.required,
           Validators.minLength(8),
-          Validators.maxLength(35),
-          Validators.pattern(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
+          Validators.maxLength(35)
+          // Validators.pattern(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
         ],
         role: [Validators.required]
       };
@@ -49,6 +50,7 @@ export class UsersComponent implements OnInit {
       return {
         name: [Validators.required],
         username: [Validators.required, Validators.minLength(4)],
+        password: [],
         role: [Validators.required]
       };
     }
