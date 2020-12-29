@@ -1,20 +1,22 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {addBankings, Banking, bankings} from '../../../../assets/data';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {Consortium, ConsortiumsService, User, UsersService} from '../../../../../local-packages/banca-api';
 
 @Component({
-  selector: 'app-bankings',
+  selector: 'app-consortiums',
   templateUrl: './consortiums.component.html',
   styleUrls: ['./consortiums.component.scss']
 })
-export class ConsortiumsComponent {
+export class ConsortiumsComponent implements OnInit {
 
   constructor(private datePipe: DatePipe,
+              private usersService: UsersService,
+              private consortiumsService: ConsortiumsService,
               private formBuilder: FormBuilder) {
     this.formABM = this.formBuilder.group(this.defaultForm);
-
   }
 
   columns = [
@@ -44,58 +46,26 @@ export class ConsortiumsComponent {
       valueFormatter: () => 'Operando'
     }
   ];
-  fetcher: Observable<any[]> = this.getData();
   defaultForm = {
     name: null,
-    phone: null,
-    email: null,
-    status: null,
-    porcCuadreCaja: null,
-    language: 'ES',
-    user: 'X'
+    ownerUserId: null
+    // phone: null,
+    // email: null,
+    // status: null,
+    // porcCuadreCaja: null,
+    // language: 'ES',
+    //
   };
+  enumUsers: User[] = [];
   formABM: FormGroup;
-  fetcherCreate: (item) => Observable<Banking> = (item) => this.saveBanking(item);
-  fetcherUpdate: (item) => Observable<Banking> = (item) => this.saveBanking(item);
-  fetcherDelete: (id: string) => Observable<Banking> = (id) => this.deleteBanking(id);
+  fetcher: Observable<Consortium[]> = this.consortiumsService.consortiumControllerGetAll();
+  fetcherCreate: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerCreate(item);
+  fetcherUpdate: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerUpdate(item);
+  fetcherDelete: (id: string) => Observable<Consortium> = (id) => this.consortiumsService.consortiumControllerDelete(id);
 
-  private getData(): Observable<Banking[]> { // TODO REPLACE
-    return new Observable(subscriber => {
-      subscriber.next(bankings);
-    });
-  }
-
-  private deleteBanking(id: string): Observable<Banking> {
-    return new Observable(subscriber => {
-      subscriber.next(bankings[0]);
-      subscriber.complete();
-    });
-  }
-
-  private saveBanking(item): Observable<Banking> {
-    const banking: Banking = {
-      balance: 0,
-      canceledTks: 0,
-      discount: 0,
-      earnings: 0,
-      losingTks: 0,
-      net: 0,
-      pendingTks: 0,
-      percentage: 0,
-      prizes: 0,
-      totalTickets: 0,
-      winningTks: 0,
-      name: item.name,
-      phone: item.phone,
-      email: item.email,
-      status: item.status,
-      language: item.language,
-      user: item.user
-    };
-    addBankings(banking);
-    return new Observable(subscriber => {
-      subscriber.next(banking);
-      subscriber.complete();
+  ngOnInit(): void {
+    this.usersService.userControllerGetAll().subscribe(res => {
+      this.enumUsers = res;
     });
   }
 }

@@ -1,4 +1,6 @@
 export * from './authCredentialsDto';
+export * from './consortium';
+export * from './consortiumDto';
 export * from './inlineResponse200';
 export * from './inlineResponse503';
 export * from './responseDto';

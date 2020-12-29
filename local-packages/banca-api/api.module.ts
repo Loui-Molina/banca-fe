@@ -3,6 +3,7 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
+import { ConsortiumsService } from './api/consortiums.service';
 import { DefaultService } from './api/default.service';
 import { UsersService } from './api/users.service';
 

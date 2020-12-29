@@ -8,6 +8,7 @@
            [formTemplate]="formTemplate"
            [viewTemplate]="viewTemplate"
            [defaultForm]="defaultForm"
+           [form]="formABM"
            [columns]="columns">
   </app-abm>
 
@@ -23,15 +24,45 @@
       </div>
 
       <div class="form-element">
-        <label for="user">
+        <label for="ownerUserId">
           {{'User'|translate}}
         </label>
-        <nz-select id="user" formControlName="user">
-          <nz-option nzValue="X" nzLabel="X" nzDisabled></nz-option>
+        <nz-select id="ownerUserId" formControlName="ownerUserId" style="width: 100%">
+          <nz-option [nzValue]="user._id" [nzLabel]="user.username" *ngFor="let user of enumUsers"></nz-option>
         </nz-select>
       </div>
 
+      <!--
+ <div class="form-element">
+        <label for="phone">
+          {{'Numero'|translate}}
+        </label>
+        <input nz-input id="phone" type="tel" formControlName="phone">
+      </div>
+
       <div class="form-element">
+        <label for="email">
+          {{'Email'|translate}}
+        </label>
+        <input nz-input id="email" type="email" formControlName="email">
+      </div>
+
+
+      <div class="form-element">
+        <label for="language">
+          {{'Lenguaje'|translate}}
+        </label>
+        <nz-select id="language" formControlName="language">
+          <nz-option nzValue="EN" nzLabel="Ingles"></nz-option>
+          <nz-option nzValue="ES" nzLabel="Español"></nz-option>
+        </nz-select>
+      </div>
+      <div class="form-element">
+        <label for="status">
+          {{'status'|translate}}
+        </label>
+        <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
+      </div> <div class="form-element">
         <label for="phone">
           {{'Numero'|translate}}
         </label>
@@ -61,6 +92,9 @@
         </label>
         <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
       </div>
+      -->
+
+
     </form>
   </ng-template>
 
