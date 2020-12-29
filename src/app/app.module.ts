@@ -22,6 +22,8 @@ import {NzNotificationService} from 'ng-zorro-antd/notification';
 import {environment} from '../environments/environment';
 import {BASE_PATH as BASE_PATH_API} from '../../local-packages/banca-api';
 import {NgxPermissionsModule} from "ngx-permissions";
+import {JWTUserService, MockUserService, UserService} from './services/user.service';
+import {httpInterceptorProviders} from './interceptors';
 
 
 registerLocaleData(es);
@@ -62,6 +64,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     {provide: NZ_I18N, useValue: en_US},
     {provide: BASE_PATH_API, useValue: environment.urlApi},
     {provide: ErrorHandler, useClass: ErrorsHandler},
+    { provide: UserService, useClass: environment.jwtEnabled ? JWTUserService : MockUserService },
+    httpInterceptorProviders,
     NzNotificationService
   ],
   bootstrap: [AppComponent]

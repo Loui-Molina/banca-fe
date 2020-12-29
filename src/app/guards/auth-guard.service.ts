@@ -7,7 +7,7 @@ import {
   UrlTree
 } from '@angular/router';
 import {Observable} from 'rxjs';
-import {MockUserService} from '../services/user.service';
+import {UserService} from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ import {MockUserService} from '../services/user.service';
 export class AuthGuard implements CanActivate {
 
   constructor(private router: Router,
-              private userService: MockUserService) {
+              private userService: UserService) {
   }
 
   // TODO REFACTOR INTO ACTUAL USER AFTER PROTO IS DONE
@@ -23,10 +23,8 @@ export class AuthGuard implements CanActivate {
               state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const isLogged = this.userService.isLogged();
     if (isLogged) {
-      console.log('User logged in');
       return true;
     } else {
-      console.log('User not logged in');
       this.router.navigate(['login']);
       return false;
     }

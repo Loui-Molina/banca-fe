@@ -4,7 +4,7 @@ import {LayoutComponent} from './layout/layout.component';
 import {Page404Component} from './pages/problems/404/page404.component';
 import {RoleGuard} from './guards/role-guard.service';
 import {AuthGuard} from './guards/auth-guard.service';
-import {UserRole} from '../../local-packages/banca-api';
+import {User} from '@banca-api/model/user';
 
 const routes: Routes = [
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
       {
         path: 'users',
         canActivate: [RoleGuard, AuthGuard],
-        data: {requiredRoles: [UserRole.admin]},
+        data: {requiredRoles: [User.RoleEnum.Admin]},
         loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule)
       },
       {
@@ -66,7 +66,7 @@ const routes: Routes = [
   {
     path: 'bettingPanel',
     canActivate: [RoleGuard, AuthGuard],
-    data: {requiredRoles: [UserRole.banker]},
+    data: {requiredRoles: [User.RoleEnum.Banker]},
     loadChildren: () => import('./pages/bettingPanel/bettingPanel.module').then(m => m.BettingPanelModule)
   },
   {path: '404', component: Page404Component},

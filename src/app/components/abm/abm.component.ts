@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
 import {NzModalService} from 'ng-zorro-antd/modal';
-import {FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
@@ -14,7 +14,7 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 })
 export class AbmComponent implements OnInit {
 
-  constructor(private modal: NzModalService, private translateService: TranslateService, private messageService: NzMessageService) {
+  constructor(private formBuilder: FormBuilder, private modal: NzModalService, private translateService: TranslateService, private messageService: NzMessageService) {
   }
 
   @Input() title: string;
@@ -22,11 +22,12 @@ export class AbmComponent implements OnInit {
   @Input() viewTemplate: TemplateRef<any>;
   @Input() columns: Column[] = [];
   @Input() form: FormGroup;
+  // tslint:disable-next-line:ban-types
+  @Input() getValidators: Function;
   @Input() defaultForm: any;
   @Input() fetcher: Observable<any[]>;
   @Input() fetcherSave: (item) => Observable<any>;
   @Input() fetcherDelete: (item) => Observable<Response>;
-  // @Output() refreshFetcher: EventEmitter<any> = new EventEmitter();
 
   visibleForm = false;
   visibleView = false;
@@ -59,11 +60,13 @@ export class AbmComponent implements OnInit {
 
 
   onAdd = () => {
-    this.openMode('C', this.defaultForm);
+    const mode = 'C';
+    this.openMode(mode, this.defaultForm);
   }
 
   onEdit = (item: any) => {
-    this.openMode('U', item);
+    const mode = 'U';
+    this.openMode(mode, item);
   }
 
   onDelete = (item: any) => {
@@ -114,7 +117,9 @@ export class AbmComponent implements OnInit {
   }
 
   clearForm = () => {
-    this.form.reset(this.defaultForm);
+    if (this.form){
+      this.form.reset(this.defaultForm);
+    }
   }
 
   openMode(mode: 'C' | 'U', item): void {
@@ -123,9 +128,23 @@ export class AbmComponent implements OnInit {
     for (const key of Object.keys(this.defaultForm)){
       obj[key] = item[key] ? item[key] : this.defaultForm[key];
     }
-    this.form.setValue(obj);
+    if (this.form){
+      this.form.setValue(obj);
+      if (this.getValidators){
+        this.setValidators(this.getValidators());
+      }
+    }
     this.mode = mode;
     this.visibleObject = item;
+  }
+
+  setValidators(validators: FormGroup): void{
+    console.log(validators);
+    for (const control in this.form.controls){
+      if (validators[control]){
+        this.form.controls[control].setValidators(validators[control]);
+      }
+    }
   }
 
   openView(item): void {

@@ -8,7 +8,7 @@
             [nzTrigger]="null">
     <div class="sidebar-logo">
       <img src="assets/imgs/betting.svg" alt="logo">
-      <h1>{{user?.name}}</h1>
+      <h1>{{user?.username}}</h1>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="{{'HOME.TITLE' | translate}}" nzIcon="home">
@@ -21,19 +21,19 @@
             <i nz-icon nzType="wallet"></i>
             <a routerLink="/transactions">{{'HOME.TRANSACTIONS.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.admin || user?.role === userRole.consortium">
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium">
             <i nz-icon nzType="apartment" ></i>
             <a routerLink="/consortiums">{{'Consorcios' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.admin || user?.role === userRole.consortium">
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium">
             <i nz-icon nzType="shop"></i>
             <a routerLink="/bankings">{{'HOME.BANKINGS.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.admin || user?.role === userRole.consortium">
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium">
             <i nz-icon nzType="trophy"></i>
             <a routerLink="/lotteries">{{'HOME.LOTTERIES.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.admin">
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin">
             <i nz-icon nzType="reconciliation"></i>
             <a routerLink="/results">{{'Resultados' | translate}}</a>
           </li>
@@ -41,7 +41,7 @@
       </li>
       <li nz-submenu nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}" nzIcon="form">
         <ul>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.admin">
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin">
             <i nz-icon nzType="team"></i>
             <a routerLink="/users">{{'SETTINGS.USERS.TITLE' | translate}}</a>
           </li>
@@ -64,7 +64,7 @@
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></i>
           </span>
-          <span class="header-trigger" *ngIf="user?.role === userRole.banker">
+          <span class="header-trigger" *ngIf="user?.role === userRole.Banker">
             <a routerLink="/bettingPanel">
               <button nz-button nzType="primary" [nzSize]="'large'">
                 <i nz-icon nzType="shop"></i>

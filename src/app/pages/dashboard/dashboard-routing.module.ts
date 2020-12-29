@@ -6,7 +6,7 @@ import {AdminComponent} from './admin/admin.component';
 import {ConsortiumComponent} from './consortium/consortium.component';
 import {RoleGuard} from '../../guards/role-guard.service';
 import {AuthGuard} from '../../guards/auth-guard.service';
-import {UserRole} from '../../../../local-packages/banca-api';
+import {User} from '@banca-api/model/user';
 
 const routes: Routes = [
   {
@@ -15,17 +15,17 @@ const routes: Routes = [
   {
     path: 'admin', component: AdminComponent,
     canActivate: [RoleGuard, AuthGuard],
-    data: {requiredRoles: [UserRole.admin]},
+    data: {requiredRoles: [User.RoleEnum.Admin]},
   },
   {
     path: 'consortium', component: ConsortiumComponent,
     canActivate: [RoleGuard, AuthGuard],
-    data: {requiredRoles: [UserRole.consortium]},
+    data: {requiredRoles: [User.RoleEnum.Consortium]},
   },
   {
     path: 'banker', component: BankingComponent,
     canActivate: [RoleGuard, AuthGuard],
-    data: {requiredRoles: [UserRole.banker]},
+    data: {requiredRoles: [User.RoleEnum.Banker]},
   },
 ];
 

@@ -9,22 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { UserPreference } from './userPreference';
 
 
-export interface User { 
-    lastLogin: string;
-    name: string;
+export interface AuthCredentialsDto { 
     username: string;
     password: string;
-    role: User.RoleEnum;
-    preferences: UserPreference;
-    salt: string;
-    creationUserId: string;
-    deletionDate: string;
-    modificationUserId: string;
+    role: AuthCredentialsDto.RoleEnum;
 }
-export namespace User {
+export namespace AuthCredentialsDto {
     export type RoleEnum = 'admin' | 'banker' | 'punter' | 'supervisor' | 'consortium' | 'carrier';
     export const RoleEnum = {
         Admin: 'admin' as RoleEnum,

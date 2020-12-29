@@ -13,22 +13,24 @@ import {ComponentsModule} from '../../components/components.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {TranslateModule} from '@ngx-translate/core';
+import {NzSelectModule} from 'ng-zorro-antd/select';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    UsersRoutingModule,
-    NzDescriptionsModule,
-    NzTableModule,
-    NzPageHeaderModule,
-    NzDividerModule,
-    NzButtonModule,
-    NzIconModule,
-    ComponentsModule,
-    ReactiveFormsModule,
-    NzInputModule,
-    TranslateModule
-  ],
+    imports: [
+        CommonModule,
+        UsersRoutingModule,
+        NzDescriptionsModule,
+        NzTableModule,
+        NzPageHeaderModule,
+        NzDividerModule,
+        NzButtonModule,
+        NzIconModule,
+        ComponentsModule,
+        ReactiveFormsModule,
+        NzInputModule,
+        TranslateModule,
+        NzSelectModule
+    ],
   declarations: [UsersComponent],
   exports: [UsersComponent]
 })

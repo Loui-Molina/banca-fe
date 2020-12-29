@@ -8,11 +8,12 @@
          [viewTemplate]="viewTemplate"
          [defaultForm]="defaultForm"
          [form]="formABM"
+         [getValidators]="getValidators"
          [columns]="columns">
 </app-abm>
 
 
-<ng-template #formTemplate>
+<ng-template #formTemplate let-mode="mode">
   <form [formGroup]="formABM">
 
     <div>
@@ -26,18 +27,32 @@
       <label for="username">
         {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
       </label>
-      <input nz-input id="username" type="text" formControlName="username">
+      <input nz-input [minLength]="4" id="username" type="text" formControlName="username">
     </div>
 
-    <div>
+    <ng-container *ngIf="mode === 'C'">
       <label for="password">
         {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
       </label>
-      <input nz-input id="password" type="text" formControlName="password">
-    </div>
+      <input nz-input [minLength]="8" [maxLength]="35" id="password" type="text" formControlName="password">
+    </ng-container>
 
+    <div>
+      <label for="role">
+        {{'SETTINGS.USERS.COLUMNS.ROL'|translate}}
+      </label>
+      <nz-select id="role" formControlName="role" style="width: 100%;">
+        <nz-option [nzValue]="roleEnum.Admin" [nzLabel]="roleEnum.Admin"></nz-option>
+        <nz-option [nzValue]="roleEnum.Consortium" [nzLabel]="roleEnum.Consortium"></nz-option>
+        <nz-option [nzValue]="roleEnum.Banker" [nzLabel]="roleEnum.Banker"></nz-option>
+        <nz-option [nzValue]="roleEnum.Carrier" [nzLabel]="roleEnum.Carrier"></nz-option>
+        <nz-option [nzValue]="roleEnum.Punter" [nzLabel]="roleEnum.Punter"></nz-option>
+        <nz-option [nzValue]="roleEnum.Supervisor" [nzLabel]="roleEnum.Supervisor"></nz-option>
+      </nz-select>
+    </div>
   </form>
 </ng-template>
+
 
 <ng-template #viewTemplate let-visibleObject>
   <ng-container *ngIf="visibleObject">
@@ -57,9 +72,9 @@
 
     <div>
       <span>
-        {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
+        {{'SETTINGS.USERS.COLUMNS.ROL'|translate}}
       </span>
-      {{visibleObject.password}}
+      {{visibleObject.role}}
     </div>
   </ng-container>
 </ng-template>

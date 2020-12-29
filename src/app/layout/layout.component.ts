@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {addBankings, consortium, Banking, Consortium, addConsortium} from '../../assets/data';
-import NumberFormat = Intl.NumberFormat;
-import {DecimalPipe} from '@angular/common';
-import {MockUserService} from '../services/user.service';
-import {User, UserRole} from '../../../local-packages/banca-api';
+import {addBankings, Banking, Consortium, addConsortium} from '../../assets/data';
 import {Router} from '@angular/router';
+import {UserInterface, UserService} from '../services/user.service';
+import {User} from '@banca-api/model/user';
 
 @Component({
   selector: 'app-layout',
@@ -15,16 +13,12 @@ import {Router} from '@angular/router';
 export class LayoutComponent implements OnInit {
   isCollapsed = false;
   langSelected = null;
-  user: User;
-  userRole = UserRole;
-
-  bankingMenu: MenuItem[];
-  ConsortiumMenu: MenuItem[];
-  AdminMenu: MenuItem[];
+  user: UserInterface;
+  userRole = User.RoleEnum;
 
   constructor(
     private router: Router,
-    private userService: MockUserService,
+    private userService: UserService,
     private translate: TranslateService) {
   }
 
@@ -135,9 +129,9 @@ export class LayoutComponent implements OnInit {
 }
 
 export interface MenuItem {
-  text?: string
-  routerLink?: string[]
-  hidden?: boolean
-  enable?: boolean
-  innerItems?: MenuItem[]
+  text?: string;
+  routerLink?: string[];
+  hidden?: boolean;
+  enable?: boolean;
+  innerItems?: MenuItem[];
 }

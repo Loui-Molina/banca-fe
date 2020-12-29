@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {UserRole} from '../../../../local-packages/banca-api';
 import {Router} from '@angular/router';
-import {MockUserService} from '../../services/user.service';
+import {UserService} from '../../services/user.service';
+import {User} from '@banca-api/model/user';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,14 +10,16 @@ import {MockUserService} from '../../services/user.service';
 })
 export class DashboardComponent {
   constructor(private router: Router,
-              private userService: MockUserService) {
+              private userService: UserService) {
     const routeCommands = ['dashboard'];
-    if (this.userService.checkRoles([UserRole.banker])) {
+    if (this.userService.checkRoles([User.RoleEnum.Banker])) {
       routeCommands.push('banker');
-    } else if (this.userService.checkRoles([UserRole.consortium])) {
+    } else if (this.userService.checkRoles([User.RoleEnum.Consortium])) {
       routeCommands.push('consortium');
-    } else if (this.userService.checkRoles([UserRole.admin])) {
+    } else if (this.userService.checkRoles([User.RoleEnum.Admin])) {
       routeCommands.push('admin');
+    } else {
+      alert('No role');
     }
     this.router.navigate(routeCommands);
   }

@@ -29,6 +29,7 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {ConsortiumsTableComponent} from "../pages/dashboard/shared/consortiums-table/consortiums-table.component";
 import {BankingsTableComponent} from "../pages/bankings/consortium/bankings-table/bankings-table.component";
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 const components = [
@@ -45,28 +46,29 @@ const components = [
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    NzButtonModule,
-    LineChartModule,
-    PieChartModule,
-    NzStatisticModule,
-    NzIconModule,
-    NzTypographyModule,
-    BarChartModule,
-    NzDividerModule,
-    NzDescriptionsModule,
-    NzPageHeaderModule,
-    NzDrawerModule,
-    NzTableModule,
-    NzFormModule,
-    NzInputModule,
-    NzSelectModule,
-    NzDatePickerModule,
-    NzSpinModule,
-    TranslateModule,
-    NzToolTipModule
-  ],
+    imports: [
+        CommonModule,
+        NzButtonModule,
+        LineChartModule,
+        PieChartModule,
+        NzStatisticModule,
+        NzIconModule,
+        NzTypographyModule,
+        BarChartModule,
+        NzDividerModule,
+        NzDescriptionsModule,
+        NzPageHeaderModule,
+        NzDrawerModule,
+        NzTableModule,
+        NzFormModule,
+        NzInputModule,
+        NzSelectModule,
+        NzDatePickerModule,
+        NzSpinModule,
+        TranslateModule,
+        NzToolTipModule,
+        ReactiveFormsModule
+    ],
   declarations: [...components],
   exports: [...components],
   providers: [NzModalService, NzMessageService]

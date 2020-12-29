@@ -11,10 +11,10 @@
  */
 
 
-export interface InlineResponse503 { 
-    status?: string;
-    info?: { [key: string]: { [key: string]: string; }; } | null;
-    error?: { [key: string]: { [key: string]: string; }; } | null;
-    details?: { [key: string]: { [key: string]: string; }; };
+export interface UserDto { 
+    _id: string;
+    name: string;
+    username: string;
+    password: string;
 }
 

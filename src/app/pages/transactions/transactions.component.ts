@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {addTransaction, Transaction, transactions, TransactionType} from '../../../assets/data';
 import {DatePipe} from '@angular/common';
-import {User, UserRole} from '../../../../local-packages/banca-api';
-import {MockUserService} from '../../services/user.service';
+import {User} from '../../../../local-packages/banca-api';
+import {UserInterface, UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-welcome',
@@ -11,12 +11,12 @@ import {MockUserService} from '../../services/user.service';
 })
 export class TransactionsComponent {
 
-  constructor(private datePipe: DatePipe, private userService: MockUserService) {
+  constructor(private datePipe: DatePipe, private userService: UserService) {
     this.initData();
   }
   drawerTransaction = false;
-  user: User;
-  userRole = UserRole;
+  user: UserInterface;
+  userRole = User.RoleEnum;
   columns = [
     {title: 'Fecha', key: 'date', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
     {title: 'Monto', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},

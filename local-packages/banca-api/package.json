@@ -1,6 +1,6 @@
 {
   "name": "banca-api",
-  "version": "1.0.4",
+  "version": "1.0.1",
   "description": "OpenAPI client for banca-api",
   "author": "OpenAPI-Generator Contributors",
   "keywords": [

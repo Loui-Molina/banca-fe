@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {MockUserService} from '../../../services/user.service';
-import {UserRole} from '../../../../../local-packages/banca-api';
+import {UserService} from '../../../services/user.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {User} from '@banca-api/model/user';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private userService: MockUserService,
+              private userService: UserService,
               private messageService: NzMessageService) {
     if (this.userService.isLogged()){
       this.router.navigate(['dashboard']);
@@ -38,23 +38,24 @@ export class LoginComponent implements OnInit {
     }
     if (this.validateForm.valid) {
       this.userService.login(this.validateForm.value.username,
-        this.validateForm.value.password);
-      if (this.userService.isLogged()){
+        this.validateForm.value.password).then(apiToken => {
         this.navigate();
-      } else {
+      }).catch(err => {
         this.messageService.create('error', 'Usuario o contraseña incorrectos');
-      }
+      });
     }
   }
 
   private navigate() {
     let routeCommands;
-    if (this.userService.checkRoles([UserRole.banker])) {
+    if (this.userService.checkRoles([User.RoleEnum.Banker])) {
       routeCommands = ['banker'];
-    } else if (this.userService.checkRoles([UserRole.consortium])) {
+    } else if (this.userService.checkRoles([User.RoleEnum.Consortium])) {
       routeCommands = ['consortium'];
-    } else if (this.userService.checkRoles([UserRole.admin])) {
+    } else if (this.userService.checkRoles([User.RoleEnum.Admin])) {
       routeCommands = ['admin'];
+    } else {
+      alert('No role');
     }
     return this.router.navigate(['']);
   }
