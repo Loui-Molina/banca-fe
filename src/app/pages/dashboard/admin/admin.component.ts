@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {consortiums, multi} from '../../../../assets/data';
 import {MiniMapPosition} from '@swimlane/ngx-graph';
+import {DashboardService} from '../../../../../local-packages/banca-api';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -17,11 +19,13 @@ export class AdminComponent implements OnInit {
   earnings: number;
   soldTickets: number;
 
-  constructor() {
+  constructor(private dashboardService: DashboardService) {
     Object.assign(this, {multi});
     this.initData();
   }
-
+  clusters = [];
+  nodes = [];
+  links = [];
   single = [
     {
       name: 'Ganancias',
@@ -53,6 +57,7 @@ export class AdminComponent implements OnInit {
   ];
 
   private initData(): void {
+
     this.balance = consortiums.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);
     this.earnings = consortiums.reduce((previousValue, currentValue) => previousValue + currentValue.earnings, 0);
     this.loses = consortiums.reduce((previousValue, currentValue) => previousValue + currentValue.prizes, 0);
@@ -60,5 +65,12 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dashboardService.dashboardControllerGetDashboardDiagram().subscribe(res => {
+      this.clusters = res.clusters;
+      this.links = res.links;
+      this.nodes = res.nodes;
+    }, error => {
+      throw new HttpErrorResponse(error);
+    });
   }
 }

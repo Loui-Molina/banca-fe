@@ -39,85 +39,9 @@
       [autoZoom]="true"
       [draggingEnabled]="false"
       layout="dagreCluster"
-      [links]="[
-    {
-      id: 'a',
-      source: '1',
-      target: '2'
-    }, {
-      id: 'b',
-      source: '1',
-      target: '3'
-    }, {
-      id: 'c',
-      source: '3',
-      target: '4'
-    }, {
-      id: 'c',
-      source: '3',
-      target: '5'
-    }, {
-      id: 'f',
-      source: '2',
-      target: '6'
-    }, {
-      id: 'g',
-      source: 'a1',
-      target: 'a2'
-    }, {
-      id: 'h',
-      source: 's1',
-      target: 'a1'
-    }
-  ]"
-      [nodes]="[
-      {
-      id: 'a1',
-      label: 'Consorcio 2'
-    }, {
-      id: 'a2',
-      label: 'Banca Pedro'
-    }, {
-      id: 's1',
-      label: 'Supervisor'
-    },
-    {
-      id: '1',
-      label: 'Consorcio 1'
-    }, {
-      id: '2',
-      label: 'Banca 1'
-    }, {
-      id: '3',
-      label: 'Banca 2'
-    }, {
-      id: '4',
-      label: 'Usuario 1'
-    }, {
-      id: '5',
-      label: 'Usuario 2'
-    }, {
-      id: '6',
-      label: 'Usuario 3'
-    }
-  ]"
-      [clusters]="[
-      {
-      id: 'cluster',
-      label: 'Consorcios',
-      childNodeIds: ['a1', '1']
-    },
-    {
-      id: 'cluster0',
-      label: 'Bancas',
-      childNodeIds: ['2', '3', 'a2']
-    },
-    {
-      id: 'cluster1',
-      label: 'Usuarios',
-      childNodeIds: ['4', '5', '6']
-    }
-  ]"
+      [links]="links"
+      [nodes]="nodes"
+      [clusters]="clusters"
     >
       <ng-template #nodeTemplate let-node>
         <svg:g class="node">

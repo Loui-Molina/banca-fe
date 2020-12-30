@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { ConsortiumsService } from './api/consortiums.service';
+import { DashboardService } from './api/dashboard.service';
 import { DefaultService } from './api/default.service';
 import { UsersService } from './api/users.service';
 
