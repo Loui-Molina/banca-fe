@@ -12,7 +12,11 @@
 
 
 export interface ConsortiumDto { 
-    _id: string;
+    creationUserId: object;
+    modificationUserId: object;
+    ownerUserId: object;
+    _id: object;
     name: string;
+    createdAt: string;
 }
 

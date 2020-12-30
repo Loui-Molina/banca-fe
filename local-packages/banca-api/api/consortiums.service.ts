@@ -22,13 +22,16 @@ import { ConsortiumDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import {
+    ConsortiumsServiceInterface
+} from './consortiums.serviceInterface';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConsortiumsService {
+export class ConsortiumsService implements ConsortiumsServiceInterface {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();

@@ -26,24 +26,22 @@ export class ConsortiumsComponent implements OnInit {
     },
     {
       title: 'Usuario',
-      key: '',
-      valueFormatter: () => 'X'
+      key: 'ownerName',
     },
     {
       title: 'Creacion',
-      key: '',
-      valueFormatter: () => this.datePipe.transform(new Date())
+      key: 'createdAt',
+      valueFormatter: (data) => this.datePipe.transform(data.createdAt,'dd/MM/yyyy')
     },
     {
       title: 'Inicio Operacion',
-      key: '',
-      valueFormatter: () => this.datePipe.transform(new Date())
+      key: 'firstTransactionDate',
+      valueFormatter: (data) => this.datePipe.transform(data.firstTransactionDate, 'dd/MM/yyyy')
     },
     {
       title: 'Estado',
-      key: '',
-      valueGetter: () => 1,
-      valueFormatter: () => 'Operando'
+      key: 'status',
+      valueFormatter: (data) => (data.status)?'Habilitado':'Inhabilitada'
     }
   ];
   defaultForm = {
@@ -69,3 +67,13 @@ export class ConsortiumsComponent implements OnInit {
     });
   }
 }
+
+/*
+creationUserId
+modificationUserId
+ownerUserId
+ownerName
+_id
+name
+createdAt
+*/
