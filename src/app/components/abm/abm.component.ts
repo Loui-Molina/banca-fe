@@ -139,7 +139,7 @@ export class AbmComponent implements OnInit {
     this.visibleForm = true;
     const obj = {};
     for (const key of Object.keys(this.defaultForm)){
-      obj[key] = item[key] ? item[key] : this.defaultForm[key];
+      obj[key] = (item[key] !== null || item[key] !== undefined) ? item[key] : this.defaultForm[key];
     }
     if (this.form){
       this.form.setValue(obj);
@@ -154,12 +154,11 @@ export class AbmComponent implements OnInit {
   setValidators(validators): void{
     for (const control in this.form.controls){
       if (validators[control]){
-        console.log(this.form.controls[control]);
-        console.log(validators[control]);
+        this.form.controls[control].clearValidators();
         this.form.controls[control].setValidators(validators[control]);
+        this.form.controls[control].updateValueAndValidity();
       }
     }
-    console.log(this.form.controls);
   }
 
   openView(item): void {

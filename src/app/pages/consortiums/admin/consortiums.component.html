@@ -8,6 +8,7 @@
            [formTemplate]="formTemplate"
            [viewTemplate]="viewTemplate"
            [defaultForm]="defaultForm"
+           [getValidators]="getValidators"
            [form]="formABM"
            [columns]="columns">
   </app-abm>
@@ -30,6 +31,13 @@
         <nz-select id="ownerUserId" formControlName="ownerUserId" style="width: 100%">
           <nz-option [nzValue]="user._id" [nzLabel]="user.username" *ngFor="let user of enumUsers"></nz-option>
         </nz-select>
+      </div>
+
+      <div class="form-element">
+        <label for="status">
+          {{'Estado'|translate}}
+        </label>
+        <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
       </div>
 
       <!--
@@ -57,12 +65,7 @@
           <nz-option nzValue="ES" nzLabel="Español"></nz-option>
         </nz-select>
       </div>
-      <div class="form-element">
-        <label for="status">
-          {{'status'|translate}}
-        </label>
-        <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
-      </div> <div class="form-element">
+       <div class="form-element">
         <label for="phone">
           {{'Numero'|translate}}
         </label>

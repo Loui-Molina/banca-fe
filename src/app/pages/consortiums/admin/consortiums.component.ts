@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {addBankings, Banking, bankings} from '../../../../assets/data';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Consortium, ConsortiumsService, User, UsersService} from '../../../../../local-packages/banca-api';
 
 @Component({
@@ -31,7 +31,7 @@ export class ConsortiumsComponent implements OnInit {
     {
       title: 'Creacion',
       key: 'createdAt',
-      valueFormatter: (data) => this.datePipe.transform(data.createdAt,'dd/MM/yyyy')
+      valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy')
     },
     {
       title: 'Inicio Operacion',
@@ -41,18 +41,17 @@ export class ConsortiumsComponent implements OnInit {
     {
       title: 'Estado',
       key: 'status',
-      valueFormatter: (data) => (data.status)?'Habilitado':'Inhabilitada'
+      valueFormatter: (data) => (data.status) ? 'Habilitado' : 'Inhabilitada'
     }
   ];
   defaultForm = {
     name: null,
-    ownerUserId: null
+    ownerUserId: null,
+    status: true
     // phone: null,
     // email: null,
-    // status: null,
     // porcCuadreCaja: null,
     // language: 'ES',
-    //
   };
   enumUsers: User[] = [];
   formABM: FormGroup;
@@ -60,7 +59,13 @@ export class ConsortiumsComponent implements OnInit {
   fetcherCreate: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerCreate(item);
   fetcherUpdate: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerUpdate(item);
   fetcherDelete: (id: string) => Observable<Consortium> = (id) => this.consortiumsService.consortiumControllerDelete(id);
-
+  getValidators(mode: string): any{
+    return {
+      name: [Validators.required],
+      ownerUserId: [Validators.required],
+      status: [Validators.required]
+    };
+  }
   ngOnInit(): void {
     this.usersService.userControllerGetAll().subscribe(res => {
       this.enumUsers = res;

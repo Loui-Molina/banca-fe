@@ -15,8 +15,11 @@ export interface ConsortiumDto {
     creationUserId: object;
     modificationUserId: object;
     ownerUserId: object;
+    ownerName: string;
     _id: object;
     name: string;
     createdAt: string;
+    status: boolean;
+    firstTransactionDate: string;
 }
 

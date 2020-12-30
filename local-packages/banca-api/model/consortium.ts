@@ -18,6 +18,8 @@ export interface Consortium {
     lotteries: Array<string>;
     ownerUserId: object;
     name: string;
+    status: boolean;
+    firstTransactionDate: string;
     transactions: Array<string>;
     creationUserId: object;
     modificationUserId: object;

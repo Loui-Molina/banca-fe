@@ -24,16 +24,13 @@ import { ResponseDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
-import {
-    DefaultServiceInterface
-} from './default.serviceInterface';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class DefaultService implements DefaultServiceInterface {
+export class DefaultService {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();
