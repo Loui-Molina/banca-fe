@@ -28,7 +28,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class LotterysService {
+export class LotteriesService {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();
@@ -128,7 +128,7 @@ export class LotterysService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<Lottery>(`${this.configuration.basePath}/api/lotterys`,
+        return this.httpClient.post<Lottery>(`${this.configuration.basePath}/api/lotteries`,
             lotteryDto,
             {
                 responseType: <any>responseType,
@@ -173,7 +173,7 @@ export class LotterysService {
             responseType = 'text';
         }
 
-        return this.httpClient.delete<Lottery>(`${this.configuration.basePath}/api/lotterys/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<Lottery>(`${this.configuration.basePath}/api/lotteries/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -217,7 +217,7 @@ export class LotterysService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/lotterys/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/lotteries/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -257,7 +257,7 @@ export class LotterysService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/lotterys`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/lotteries`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -315,7 +315,7 @@ export class LotterysService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/lotterys/search`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/lotteries/search`,
             {
                 params: queryParameters,
                 responseType: <any>responseType,
@@ -369,7 +369,7 @@ export class LotterysService {
             responseType = 'text';
         }
 
-        return this.httpClient.put<Lottery>(`${this.configuration.basePath}/api/lotterys`,
+        return this.httpClient.put<Lottery>(`${this.configuration.basePath}/api/lotteries`,
             lotteryDto,
             {
                 responseType: <any>responseType,

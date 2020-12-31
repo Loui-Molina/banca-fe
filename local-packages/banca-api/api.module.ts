@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConsortiumsService } from './api/consortiums.service';
 import { DashboardService } from './api/dashboard.service';
 import { DefaultService } from './api/default.service';
-import { LotterysService } from './api/lotterys.service';
+import { LotteriesService } from './api/lotteries.service';
 import { UsersService } from './api/users.service';
 
 @NgModule({
