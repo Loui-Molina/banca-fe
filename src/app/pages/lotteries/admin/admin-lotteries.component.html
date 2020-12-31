@@ -9,6 +9,7 @@
            [defaultForm]="defaultForm"
            [parseData]="parseData"
            [getValidators]="getValidators"
+           [setValueForm]="setValueForm"
            [form]="formABM"
            [columns]="columns">
   </app-abm>
@@ -55,10 +56,10 @@
         </div>
 
         <div nz-col nzXs="8" class="form-element">
-          <label for="days">
+          <label for="day">
             {{'dias'|translate}}
           </label>
-          <nz-select class="day-selector" id="days" nzMode="tags" nzPlaceHolder="Seleccione los dias de apertura" formControlName="days">
+          <nz-select class="day-selector" id="day" nzMode="tags" nzPlaceHolder="Seleccione los dias de apertura" formControlName="day">
             <nz-option  [nzLabel]="days.Mon" [nzValue]="days.Mon"></nz-option>
             <nz-option  [nzLabel]="days.Tue" [nzValue]="days.Tue"></nz-option>
             <nz-option  [nzLabel]="days.Wed" [nzValue]="days.Wed"></nz-option>

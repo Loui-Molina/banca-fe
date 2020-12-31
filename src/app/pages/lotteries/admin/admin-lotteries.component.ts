@@ -73,4 +73,15 @@ export class AdminLotteriesComponent {
       status: [Validators.required]
     };
   }
+  setValueForm = (mode: string, defaultForm, item) => {
+    return {
+      closeTime: new Date(`1900-01-01T${item.closeTime}:00`),
+      openTime: new Date(`1900-01-01T${item.openTime}:00`),
+      day: item.day,
+      name: item.name,
+      nickname: item.nickname,
+      color: item.color,
+      status: item.status
+    };
+  }
 }

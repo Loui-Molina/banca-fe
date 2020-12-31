@@ -26,6 +26,8 @@ export class AbmComponent implements OnInit {
   @Input() getValidators: Function;
   // tslint:disable-next-line:ban-types
   @Input() parseData: Function;
+  // tslint:disable-next-line:ban-types
+  @Input() setValueForm: Function;
   @Input() defaultForm: any;
   @Input() fetcher: Observable<any[]>;
   @Input() fetcherCreate: (item) => Observable<any>;
@@ -59,10 +61,6 @@ export class AbmComponent implements OnInit {
       }
     }
     return null;
-  }
-
-  getValue(item, key: string): any {
-    return item[key];
   }
 
   loadFetcher(): void {
@@ -168,11 +166,14 @@ export class AbmComponent implements OnInit {
 
   openMode(mode: 'C' | 'U', item): void {
     this.visibleForm = true;
-    const obj = {};
+    let obj = {};
     for (const key of Object.keys(this.defaultForm)) {
       obj[key] = (item[key] !== null || item[key] !== undefined) ? item[key] : this.defaultForm[key];
     }
     if (this.form) {
+      if (this.setValueForm){
+        obj = this.setValueForm(mode, this.defaultForm, item);
+      }
       this.form.setValue(obj);
       if (this.getValidators) {
         this.setValidators(this.getValidators(mode));
