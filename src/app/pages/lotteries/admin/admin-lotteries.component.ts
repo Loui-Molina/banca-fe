@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {Lottery, LotteryDto, LotterysService, LotteryTimeDto} from '../../../../../local-packages/banca-api';
+import {Lottery, LotteryDto, LotterysService} from '../../../../../local-packages/banca-api';
 import {DatePipe} from '@angular/common';
 
 @Component({
@@ -26,28 +26,28 @@ export class AdminLotteriesComponent {
     },
     {
       title: 'Apertura',
-      key: 'time.openTime'
+      key: 'openTime'
     }, {
       title: 'Cierre',
-      key: 'time.closeTime'
+      key: 'closeTime'
     },
     {
       title: 'Estado',
-      key: '',
-      valueFormatter: () => 'Operando'
+      key: 'status',
+      valueFormatter: (data) => (data.status) ? 'Habilitado' : 'Inhabilitada'
     }];
   fetcher: Observable<Lottery[]> = this.lotterysService.lotteryControllerGetAll();
   formABM: FormGroup;
   defaultForm = {
     closeTime: null,
     openTime: null,
-    days: [],
+    day: [],
     name: null,
     nickname: null,
     color: '#000',
     status: true
   };
-  days = LotteryTimeDto.DayEnum;
+  days = LotteryDto.DayEnum;
   fetcherCreate: (item) => Observable<Lottery> = (item) => this.lotterysService.lotteryControllerCreate(item);
   fetcherUpdate: (item) => Observable<Lottery> = (item) => this.lotterysService.lotteryControllerUpdate(item);
   fetcherDelete: (id: string) => Observable<Lottery> = (id) => this.lotterysService.lotteryControllerDelete(id);
@@ -57,18 +57,16 @@ export class AdminLotteriesComponent {
       nickname: valueForm.nickname,
       color: valueForm.color,
       status: valueForm.status,
-      time: {
-        day: valueForm.days,
-        openTime: this.datePipe.transform(new Date(valueForm.openTime), 'HH:mm'),
-        closeTime: this.datePipe.transform(new Date(valueForm.closeTime), 'HH:mm')
-      }
+      day: valueForm.day,
+      openTime: this.datePipe.transform(new Date(valueForm.openTime), 'HH:mm'),
+      closeTime: this.datePipe.transform(new Date(valueForm.closeTime), 'HH:mm')
     };
   }
   getValidators = (mode: string) => {
     return {
       closeTime: [Validators.required],
       openTime: [Validators.required],
-      days: [Validators.required],
+      day: [Validators.required],
       name: [Validators.required],
       nickname: [Validators.required],
       color: [Validators.required],

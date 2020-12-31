@@ -7,7 +7,6 @@ export * from './inlineResponse503';
 export * from './lottery';
 export * from './lotteryDto';
 export * from './lotteryTime';
-export * from './lotteryTimeDto';
 export * from './responseDto';
 export * from './user';
 export * from './userDto';

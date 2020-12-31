@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { LotteryTimeDto } from './lotteryTimeDto';
 
 
 export interface LotteryDto { 
@@ -18,6 +17,21 @@ export interface LotteryDto {
     nickname: string;
     color: string;
     status: boolean;
-    time: LotteryTimeDto;
+    openTime?: string;
+    closeTime?: string;
+    day: Array<LotteryDto.DayEnum>;
 }
+export namespace LotteryDto {
+    export type DayEnum = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
+    export const DayEnum = {
+        Mon: 'mon' as DayEnum,
+        Tue: 'tue' as DayEnum,
+        Wed: 'wed' as DayEnum,
+        Thu: 'thu' as DayEnum,
+        Fri: 'fri' as DayEnum,
+        Sat: 'sat' as DayEnum,
+        Sun: 'sun' as DayEnum
+    };
+}
+
 
