@@ -9,11 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { LotteryTimeDto } from './lotteryTimeDto';
 
 
-export interface DashboardDiagramDto { 
-    nodes: Array<string>;
-    links: Array<string>;
-    clusters: Array<string>;
+export interface LotteryDto { 
+    _id?: object;
+    name: string;
+    nickname: string;
+    color: string;
+    status: boolean;
+    time: LotteryTimeDto;
 }
 

@@ -24,6 +24,8 @@ export class AbmComponent implements OnInit {
   @Input() form: FormGroup;
   // tslint:disable-next-line:ban-types
   @Input() getValidators: Function;
+  // tslint:disable-next-line:ban-types
+  @Input() parseData: Function;
   @Input() defaultForm: any;
   @Input() fetcher: Observable<any[]>;
   @Input() fetcherCreate: (item) => Observable<any>;
@@ -42,8 +44,29 @@ export class AbmComponent implements OnInit {
     this.loadFetcher();
   }
 
-  loadFetcher(): void{
-    if (this.fetcher){
+  getValueKey(item, key: string): any {
+    const keyArray = key.split('.');
+    let c = keyArray.length;
+    let aux = item;
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < keyArray.length; i++){
+      // tslint:disable-next-line:no-shadowed-variable
+      const key = keyArray[i];
+      aux = aux[key];
+      c -= 1;
+      if (c <= 0){
+        return aux;
+      }
+    }
+    return null;
+  }
+
+  getValue(item, key: string): any {
+    return item[key];
+  }
+
+  loadFetcher(): void {
+    if (this.fetcher) {
       this.loading = true;
       this.fetcher.subscribe(data => {
         this.loading = false;
@@ -55,7 +78,7 @@ export class AbmComponent implements OnInit {
     }
   }
 
-  refresh(): void{
+  refresh(): void {
     this.loadFetcher();
   }
 
@@ -63,12 +86,12 @@ export class AbmComponent implements OnInit {
   onAdd = () => {
     const mode = 'C';
     this.openMode(mode, this.defaultForm);
-  }
+  };
 
   onEdit = (item: any) => {
     const mode = 'U';
     this.openMode(mode, item);
-  }
+  };
 
   onDelete = (item: any) => {
     this.modal.warning({
@@ -78,7 +101,7 @@ export class AbmComponent implements OnInit {
       nzOkText: this.ts('UTILS.CONFIRM'),
       nzCancelText: this.ts('UTILS.CANCEL')
     });
-  }
+  };
 
   onSubmitDelete = (item: any) => {
     this.loading = true;
@@ -89,13 +112,17 @@ export class AbmComponent implements OnInit {
       this.loading = false;
       throw new HttpErrorResponse(error);
     });
-  }
+  };
 
   onSave = () => {
     if (this.form.valid) {
       this.loadingSave = true;
-      if (this.mode === 'C'){
-        this.fetcherCreate(this.form.value).subscribe(data => {
+      if (this.mode === 'C') {
+        let body = this.form.value;
+        if (this.parseData) {
+          body = this.parseData(this.mode, this.form.value);
+        }
+        this.fetcherCreate(body).subscribe(data => {
           this.messageService.create('success', this.ts('UTILS.SAVED'));
           this.loadingSave = false;
           this.onCancel();
@@ -105,7 +132,11 @@ export class AbmComponent implements OnInit {
           throw new HttpErrorResponse(error);
         });
       } else {
-        this.fetcherUpdate({_id: this.visibleObject._id, ...this.form.value}).subscribe(data => {
+        let body = this.form.value;
+        if (this.parseData) {
+          body = this.parseData(this.mode, this.form.value);
+        }
+        this.fetcherUpdate({_id: this.visibleObject._id, ...body}).subscribe(data => {
           this.messageService.create('success', this.ts('UTILS.SAVED'));
           this.loadingSave = false;
           this.onCancel();
@@ -116,34 +147,34 @@ export class AbmComponent implements OnInit {
         });
       }
     }
-  }
+  };
 
   onCancel = () => {
     this.visibleObject = null;
     this.clearForm();
     this.close();
-  }
+  };
 
   onCancelView = () => {
     this.visibleObject = null;
     this.closeView();
-  }
+  };
 
   clearForm = () => {
-    if (this.form){
+    if (this.form) {
       this.form.reset(this.defaultForm);
     }
-  }
+  };
 
   openMode(mode: 'C' | 'U', item): void {
     this.visibleForm = true;
     const obj = {};
-    for (const key of Object.keys(this.defaultForm)){
+    for (const key of Object.keys(this.defaultForm)) {
       obj[key] = (item[key] !== null || item[key] !== undefined) ? item[key] : this.defaultForm[key];
     }
-    if (this.form){
+    if (this.form) {
       this.form.setValue(obj);
-      if (this.getValidators){
+      if (this.getValidators) {
         this.setValidators(this.getValidators(mode));
       }
     }
@@ -151,9 +182,9 @@ export class AbmComponent implements OnInit {
     this.visibleObject = item;
   }
 
-  setValidators(validators): void{
-    for (const control in this.form.controls){
-      if (validators[control]){
+  setValidators(validators): void {
+    for (const control in this.form.controls) {
+      if (validators[control]) {
         this.form.controls[control].clearValidators();
         this.form.controls[control].setValidators(validators[control]);
         this.form.controls[control].updateValueAndValidity();

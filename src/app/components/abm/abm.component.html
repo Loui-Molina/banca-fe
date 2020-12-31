@@ -26,7 +26,7 @@
       <tbody>
       <tr *ngFor="let item of basicTable.data">
         <td class="table-td" *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'">
-          {{ column.valueFormatter ? column.valueFormatter(item, column) : item[column.key] }}
+          {{ column.valueFormatter ? column.valueFormatter(item, column) : getValueKey(item, column.key) }}
         </td>
         <td>
           <i nz-icon nzType="eye" [nz-tooltip]="'UTILS.DETAIL' | translate" (click)="openView(item)" class="action-icon" nzTheme="outline"></i>

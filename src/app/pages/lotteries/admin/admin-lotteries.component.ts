@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {Observable} from "rxjs";
-import {Banking, bankings, lotteries} from "../../../../assets/data";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {Lottery, LotteryDto, LotterysService, LotteryTimeDto} from '../../../../../local-packages/banca-api';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-lotteries-admin',
@@ -10,7 +11,7 @@ import {Banking, bankings, lotteries} from "../../../../assets/data";
 })
 export class AdminLotteriesComponent {
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private datePipe: DatePipe, private formBuilder: FormBuilder, private lotterysService: LotterysService) {
     this.formABM = this.formBuilder.group(this.defaultForm);
   }
 
@@ -25,44 +26,53 @@ export class AdminLotteriesComponent {
     },
     {
       title: 'Apertura',
-      key: 'open'
+      key: 'time.openTime'
     }, {
       title: 'Cierre',
-      key: 'close'
+      key: 'time.closeTime'
     },
     {
       title: 'Estado',
       key: '',
       valueFormatter: () => 'Operando'
     }];
-  fetcher: Observable<any[]> = this.getData();
-  fetcherCreate: (item) => Observable<any> = (item) => this.saveLottery(item);
-  fetcherUpdate: (item) => Observable<any> = (item) => this.saveLottery(item);
-  fetcherDelete: (id: string) => Observable<any> = (id) => this.deleteLottery(id);
+  fetcher: Observable<Lottery[]> = this.lotterysService.lotteryControllerGetAll();
   formABM: FormGroup;
   defaultForm = {
+    closeTime: null,
+    openTime: null,
+    days: [],
     name: null,
     nickname: null,
-    color: null,
-    status: null,
-    bankings: null,
-    closeTime:null,
-    openTime:null,
-    days:null,
+    color: '#000',
+    status: true
   };
-  bankings:Banking[] = bankings;
-  lotteries = lotteries;
-  days: string[] = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo'];
-
-  private getData(): Observable<any[]> {
-    return new Observable(subscriber => subscriber.next(lotteries));
+  days = LotteryTimeDto.DayEnum;
+  fetcherCreate: (item) => Observable<Lottery> = (item) => this.lotterysService.lotteryControllerCreate(item);
+  fetcherUpdate: (item) => Observable<Lottery> = (item) => this.lotterysService.lotteryControllerUpdate(item);
+  fetcherDelete: (id: string) => Observable<Lottery> = (id) => this.lotterysService.lotteryControllerDelete(id);
+  parseData = (mode: string, valueForm): LotteryDto => {
+    return {
+      name: valueForm.name,
+      nickname: valueForm.nickname,
+      color: valueForm.color,
+      status: valueForm.status,
+      time: {
+        day: valueForm.days,
+        openTime: this.datePipe.transform(new Date(valueForm.openTime), 'HH:mm'),
+        closeTime: this.datePipe.transform(new Date(valueForm.closeTime), 'HH:mm')
+      }
+    };
   }
-
-  private saveLottery(item): Observable<any> {
-    return new Observable(subscriber => subscriber.next(item));
-  }
-
-  private deleteLottery(id: string): Observable<any> {
-    return new Observable(subscriber => subscriber.next(id));
+  getValidators = (mode: string) => {
+    return {
+      closeTime: [Validators.required],
+      openTime: [Validators.required],
+      days: [Validators.required],
+      name: [Validators.required],
+      nickname: [Validators.required],
+      color: [Validators.required],
+      status: [Validators.required]
+    };
   }
 }

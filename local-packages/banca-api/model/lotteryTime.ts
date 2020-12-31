@@ -11,9 +11,9 @@
  */
 
 
-export interface DashboardDiagramDto { 
-    nodes: Array<string>;
-    links: Array<string>;
-    clusters: Array<string>;
+export interface LotteryTime { 
+    day: Array<string>;
+    openTime: string;
+    closeTime: string;
 }
 

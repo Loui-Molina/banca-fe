@@ -57,7 +57,6 @@ export class AdminComponent implements OnInit {
   ];
 
   private initData(): void {
-
     this.balance = consortiums.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);
     this.earnings = consortiums.reduce((previousValue, currentValue) => previousValue + currentValue.earnings, 0);
     this.loses = consortiums.reduce((previousValue, currentValue) => previousValue + currentValue.prizes, 0);

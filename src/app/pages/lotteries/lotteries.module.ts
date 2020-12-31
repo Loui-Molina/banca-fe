@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 
 import {LotteriesRoutingModule} from './lotteries-routing.module';
 import {LotteriesComponent} from './lotteries.component';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {AdminLotteriesComponent} from "./admin/admin-lotteries.component";
 import {ConsortiumLotteriesComponent} from "./consortium/consortium-lotteries.component";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
@@ -31,7 +31,7 @@ import {NzTimePickerModule} from "ng-zorro-antd/time-picker";
     NzToolTipModule,
     NzTimePickerModule
   ],
-  providers: [FormBuilder],
+  providers: [FormBuilder, DatePipe],
   declarations: [LotteriesComponent, AdminLotteriesComponent, ConsortiumLotteriesComponent],
   exports: [LotteriesComponent, TranslateModule]
 })
