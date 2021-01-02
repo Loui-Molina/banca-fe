@@ -76,7 +76,6 @@ export class LayoutComponent implements OnInit {
 
       banking.balance = Math.floor(banking.net + (banking.net * (banking.percentage / 100)) - (banking.net * (banking.discount / 100)));
 
-      console.log('banking ', banking);
       addBankings(banking);
     }
 
@@ -116,7 +115,6 @@ export class LayoutComponent implements OnInit {
 
       cons.balance = Math.floor(cons.net + (cons.net * (cons.percentage / 100)) - (cons.net * (cons.discount / 100)));
 
-      console.log('cons ', cons);
       addConsortium(cons);
     }
 

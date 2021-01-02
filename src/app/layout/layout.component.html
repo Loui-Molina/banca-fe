@@ -41,7 +41,7 @@
       </li>
       <li nz-submenu nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}" nzIcon="form">
         <ul>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin">
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium">
             <i nz-icon nzType="team"></i>
             <a routerLink="/users">{{'SETTINGS.USERS.TITLE' | translate}}</a>
           </li>

@@ -28,7 +28,7 @@ const routes: Routes = [
       {
         path: 'users',
         canActivate: [RoleGuard, AuthGuard],
-        data: {requiredRoles: [User.RoleEnum.Admin]},
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
         loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule)
       },
       {

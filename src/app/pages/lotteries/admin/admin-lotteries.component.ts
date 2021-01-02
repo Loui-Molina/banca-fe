@@ -27,7 +27,8 @@ export class AdminLotteriesComponent {
     {
       title: 'Apertura',
       key: 'openTime'
-    }, {
+    },
+    {
       title: 'Cierre',
       key: 'closeTime'
     },

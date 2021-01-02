@@ -72,13 +72,3 @@ export class ConsortiumsComponent implements OnInit {
     });
   }
 }
-
-/*
-creationUserId
-modificationUserId
-ownerUserId
-ownerName
-_id
-name
-createdAt
-*/

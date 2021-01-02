@@ -168,7 +168,7 @@ export class AbmComponent implements OnInit {
     this.visibleForm = true;
     let obj = {};
     for (const key of Object.keys(this.defaultForm)) {
-      obj[key] = (item[key] !== null || item[key] !== undefined) ? item[key] : this.defaultForm[key];
+      obj[key] = (item[key] !== undefined) ? item[key] : this.defaultForm[key];
     }
     if (this.form) {
       if (this.setValueForm){
