@@ -11,12 +11,13 @@ import {ComponentsModule} from '../../components/components.module';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzCalendarModule} from 'ng-zorro-antd/calendar';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule} from '@ngx-translate/core';
 import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {NzButtonModule} from 'ng-zorro-antd/button';
+import {NzSpinModule} from 'ng-zorro-antd/spin';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import {NzButtonModule} from 'ng-zorro-antd/button';
     NzToolTipModule,
     NzDrawerModule,
     NzInputModule,
-    NzButtonModule
+    NzButtonModule,
+    NzSpinModule
   ],
   declarations: [TransactionsComponent],
   exports: [TransactionsComponent],

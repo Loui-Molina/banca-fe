@@ -1,13 +1,15 @@
+<app-page-loader-bouncing [loading]="loading"></app-page-loader-bouncing>
 <div class="inner-content mb-20">
   <div class="inner-content fit-height mb-20" style="min-height: 300px;">
     <div style="display: flex; justify-content: space-between; margin-bottom: 20px">
       <app-title-divider title="{{'Ultimas transacciones' |translate}}"></app-title-divider>
-      <button nz-button (click)="openDrawer('drawerTransaction')" *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium">
+      <button nz-button (click)="openDrawer('drawerTransaction')"
+              *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium">
         {{'Crear transaccion'|translate}}
       </button>
     </div>
 
-    <nz-table #basicTable [nzData]="data">
+    <nz-table #basicTable [nzData]="transactions">
       <thead>
       <tr>
         <th class="table-th" [class.numeric]="column.type === 'numeric'"

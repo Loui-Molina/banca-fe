@@ -1,0 +1,7 @@
+<ng-template #indicatorTemplate>
+  <div class="cp-spinner cp-balls spinner">
+  </div>
+</ng-template>
+<nz-spin [nzSpinning]="loader" [nzIndicator]="indicatorTemplate">
+  <ng-content></ng-content>
+</nz-spin>

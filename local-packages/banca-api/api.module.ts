@@ -7,6 +7,8 @@ import { ConsortiumsService } from './api/consortiums.service';
 import { DashboardService } from './api/dashboard.service';
 import { DefaultService } from './api/default.service';
 import { LotteriesService } from './api/lotteries.service';
+import { ResultsService } from './api/results.service';
+import { TransactionsService } from './api/transactions.service';
 import { UsersService } from './api/users.service';
 
 @NgModule({

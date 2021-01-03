@@ -15,7 +15,7 @@ export interface Consortium {
     supervisors: Array<string>;
     consortiumPrefs: object;
     bankings: Array<string>;
-    lotteries: Array<string>;
+    consortiumLotteries: Array<string>;
     ownerUserId: object;
     name: string;
     status: boolean;

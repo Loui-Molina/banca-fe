@@ -46,12 +46,9 @@ export class ConsortiumsComponent implements OnInit {
   ];
   defaultForm = {
     name: null,
-    ownerUserId: null,
+    username: null,
+    password: null,
     status: true
-    // phone: null,
-    // email: null,
-    // porcCuadreCaja: null,
-    // language: 'ES',
   };
   enumUsers: User[] = [];
   formABM: FormGroup;
@@ -62,8 +59,12 @@ export class ConsortiumsComponent implements OnInit {
   getValidators(mode: string): any{
     return {
       name: [Validators.required],
-      ownerUserId: [Validators.required],
-      status: [Validators.required]
+      status: [Validators.required],
+      username: [Validators.required, Validators.minLength(4)],
+      password: (mode === 'C') ? [Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(35)
+      ] : []
     };
   }
   ngOnInit(): void {

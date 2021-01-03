@@ -13,8 +13,10 @@ import {NzMessageService} from 'ng-zorro-antd/message';
   styleUrls: ['./abm.component.scss']
 })
 export class AbmComponent implements OnInit {
-
-  constructor(private formBuilder: FormBuilder, private modal: NzModalService, private translateService: TranslateService, private messageService: NzMessageService) {
+  constructor(private formBuilder: FormBuilder,
+              private modal: NzModalService,
+              private translateService: TranslateService,
+              private messageService: NzMessageService) {
   }
 
   @Input() title: string;
@@ -29,6 +31,7 @@ export class AbmComponent implements OnInit {
   // tslint:disable-next-line:ban-types
   @Input() setValueForm: Function;
   @Input() defaultForm: any;
+  @Input() extraButtons: ExtraButton[];
   @Input() fetcher: Observable<any[]>;
   @Input() fetcherCreate: (item) => Observable<any>;
   @Input() fetcherUpdate: (item) => Observable<any>;
@@ -218,4 +221,11 @@ export interface Column {
   type?: 'numeric' | 'string';
   // tslint:disable-next-line:ban-types
   valueFormatter?: Function;
+}
+
+export interface ExtraButton {
+  icon: string;
+  tooltip: string;
+  // tslint:disable-next-line:ban-types
+  onClick?: Function;
 }

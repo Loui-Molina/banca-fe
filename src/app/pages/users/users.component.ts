@@ -20,7 +20,7 @@ export class UsersComponent implements OnInit {
   columns: Column[] = [
     {key: 'name', title: 'SETTINGS.USERS.COLUMNS.NAME'},
     {key: 'username', title: 'SETTINGS.USERS.COLUMNS.USERNAME'},
-    {key: 'role', title: 'SETTINGS.USERS.COLUMNS.ROL'}
+    {key: 'role', title: 'Rol'}
   ];
   formABM: FormGroup;
   roleEnum = User.RoleEnum;
@@ -35,25 +35,15 @@ export class UsersComponent implements OnInit {
   fetcherUpdate: (item) => Observable<User> = (item) => this.userService.userControllerUpdate(item);
   fetcherDelete: (id: string) => Observable<User> = (id) => this.userService.userControllerDelete(id);
   getValidators(mode: string): any{
-    if (mode === 'C'){
-      return {
-        name: [Validators.required],
-        username: [Validators.required, Validators.minLength(4)],
-        password: [Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(35)
-          // Validators.pattern(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
-        ],
-        role: [Validators.required]
-      };
-    } else {
-      return {
-        name: [Validators.required],
-        username: [Validators.required, Validators.minLength(4)],
-        password: [],
-        role: [Validators.required]
-      };
-    }
+    return {
+      name: [Validators.required],
+      username: [Validators.required, Validators.minLength(4)],
+      password: (mode === 'C') ? [Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(35)
+      ] : [],
+      role: [Validators.required]
+    };
   }
 
   ngOnInit(): void {

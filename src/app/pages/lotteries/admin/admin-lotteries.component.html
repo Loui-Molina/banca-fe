@@ -10,6 +10,7 @@
            [parseData]="parseData"
            [getValidators]="getValidators"
            [setValueForm]="setValueForm"
+           [extraButtons]="extraButtons"
            [form]="formABM"
            [columns]="columns">
   </app-abm>
@@ -45,7 +46,8 @@
           <label for="openTime">
             {{'Apertura'|translate}}
           </label>
-          <nz-time-picker id="openTime" nzPlaceHolder="Hora de apertura" nzFormat="HH:mm" [nzMinuteStep]="5" formControlName="openTime"></nz-time-picker>
+          <nz-time-picker id="openTime" nzPlaceHolder="Hora de apertura" nzFormat="HH:mm" [nzMinuteStep]="5"
+                          formControlName="openTime"></nz-time-picker>
         </div>
         <div nz-col nzXs="8" class="form-element">
           <label for="closeTime">
@@ -59,14 +61,15 @@
           <label for="day">
             {{'dias'|translate}}
           </label>
-          <nz-select class="day-selector" id="day" nzMode="tags" nzPlaceHolder="Seleccione los dias de apertura" formControlName="day">
-            <nz-option  [nzLabel]="days.Mon" [nzValue]="days.Mon"></nz-option>
-            <nz-option  [nzLabel]="days.Tue" [nzValue]="days.Tue"></nz-option>
-            <nz-option  [nzLabel]="days.Wed" [nzValue]="days.Wed"></nz-option>
-            <nz-option  [nzLabel]="days.Thu" [nzValue]="days.Thu"></nz-option>
-            <nz-option  [nzLabel]="days.Fri" [nzValue]="days.Fri"></nz-option>
-            <nz-option  [nzLabel]="days.Sat" [nzValue]="days.Sat"></nz-option>
-            <nz-option  [nzLabel]="days.Sun" [nzValue]="days.Sun"></nz-option>
+          <nz-select class="day-selector" id="day" nzMode="tags" nzPlaceHolder="Seleccione los dias de apertura"
+                     formControlName="day">
+            <nz-option [nzLabel]="days.Mon" [nzValue]="days.Mon"></nz-option>
+            <nz-option [nzLabel]="days.Tue" [nzValue]="days.Tue"></nz-option>
+            <nz-option [nzLabel]="days.Wed" [nzValue]="days.Wed"></nz-option>
+            <nz-option [nzLabel]="days.Thu" [nzValue]="days.Thu"></nz-option>
+            <nz-option [nzLabel]="days.Fri" [nzValue]="days.Fri"></nz-option>
+            <nz-option [nzLabel]="days.Sat" [nzValue]="days.Sat"></nz-option>
+            <nz-option [nzLabel]="days.Sun" [nzValue]="days.Sun"></nz-option>
           </nz-select>
         </div>
       </div>
@@ -84,39 +87,88 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <!--TODO que es esto exactamente?-->
-      <div>
-          <span>
-            {{'HOME.BANKINGS.BANKING.NAME'|translate}}
-          </span>
-        {{visibleObject.name}}
+      <div class="description">
+        <span>
+          {{'Nombre'|translate}}:
+        </span>
+        <b>{{visibleObject.name}}</b>
       </div>
 
-      <div>
-          <span>
-              {{'HOME.BANKINGS.BANKING.PHONE'|translate}}
-          </span>
-        {{visibleObject.phone}}
+      <div class="description">
+        <span>
+            {{'Alias'|translate}}:
+        </span>
+        <b>{{visibleObject.nickname}}</b>
       </div>
-      <div>
-          <span>
-              {{'HOME.BANKINGS.BANKING.EMAIL'|translate}}
-          </span>
-        {{visibleObject.email}}
-      </div>
-
-      <div>
-          <span>
-            {{'HOME.BANKINGS.BANKING.STATUS'|translate}}
-          </span>
-        {{visibleObject.status}}
+      <div class="description">
+        <span>
+            {{'Horario apertura'|translate}}:
+        </span>
+        <b>{{visibleObject.openTime}}</b>
       </div>
 
-      <div>
-          <span>
-            {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
-          </span>
-        {{visibleObject.language}}
+      <div class="description">
+        <span>
+          {{'Horario cierre'|translate}}:
+        </span>
+        <b>{{visibleObject.closeTime}}</b>
+      </div>
+
+      <div class="description">
+        <span>
+          {{'Estado'|translate}}:
+        </span>
+        <b>{{visibleObject.status ? 'Habilitada' : 'Inhabilitada'}}</b>
+      </div>
+      <div class="description color">
+        <span>
+          {{'Color'|translate}}:
+        </span>
+        <div class="box" [ngStyle]="{backgroundColor:visibleObject.color}"></div>
+      </div>
+      <div class="schedule">
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Mon)">
+          <span class="title">{{days.Mon}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Mon)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Tue)">
+          <span class="title">{{days.Tue}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Tue)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Wed)">
+          <span class="title">{{days.Wed}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Wed)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Thu)">
+          <span class="title">{{days.Thu}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Thu)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Fri)">
+          <span class="title">{{days.Fri}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Fri)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sat)">
+          <span class="title">{{days.Sat}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sat)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sun)">
+          <span class="title">{{days.Sun}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sun)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
       </div>
     </ng-container>
   </ng-template>

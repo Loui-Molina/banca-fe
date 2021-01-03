@@ -1,17 +1,27 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {LotteriesService, Lottery, LotteryDto} from '../../../../../local-packages/banca-api';
 import {DatePipe} from '@angular/common';
+import {ExtraButton} from '../../../components/abm/abm.component';
+import {TranslateService} from '@ngx-translate/core';
+import {NzModalService} from 'ng-zorro-antd/modal';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-lotteries-admin',
   templateUrl: './admin-lotteries.component.html',
   styleUrls: ['./admin-lotteries.component.scss']
 })
-export class AdminLotteriesComponent {
+export class AdminLotteriesComponent implements OnInit {
 
-  constructor(private datePipe: DatePipe, private formBuilder: FormBuilder, private lotteriesService: LotteriesService) {
+  constructor(private datePipe: DatePipe,
+              private translateService: TranslateService,
+              private formBuilder: FormBuilder,
+              private messageService: NzMessageService,
+              private modal: NzModalService,
+              private lotteriesService: LotteriesService,
+  ) {
     this.formABM = this.formBuilder.group(this.defaultForm);
   }
 
@@ -35,10 +45,11 @@ export class AdminLotteriesComponent {
     {
       title: 'Estado',
       key: 'status',
-      valueFormatter: (data) => (data.status) ? 'Habilitado' : 'Inhabilitada'
+      valueFormatter: (data) => (data.status) ? 'Habilitada' : 'Inhabilitada'
     }];
   fetcher: Observable<Lottery[]> = this.lotteriesService.lotteryControllerGetAll();
   formABM: FormGroup;
+  extraButtons: ExtraButton[] = [];
   defaultForm = {
     closeTime: null,
     openTime: null,
@@ -49,6 +60,17 @@ export class AdminLotteriesComponent {
     status: true
   };
   days = LotteryDto.DayEnum;
+
+  ngOnInit(): void {
+    this.extraButtons = [
+     // {
+     //   icon: 'trophy',
+     //   onClick: this.addNewResults,
+     //   tooltip: 'Agregar resultado'
+     // }
+    ];
+  }
+
   fetcherCreate: (item) => Observable<Lottery> = (item) => this.lotteriesService.lotteryControllerCreate(item);
   fetcherUpdate: (item) => Observable<Lottery> = (item) => this.lotteriesService.lotteryControllerUpdate(item);
   fetcherDelete: (id: string) => Observable<Lottery> = (id) => this.lotteriesService.lotteryControllerDelete(id);
@@ -58,6 +80,7 @@ export class AdminLotteriesComponent {
       nickname: valueForm.nickname,
       color: valueForm.color,
       status: valueForm.status,
+      results: [],
       day: valueForm.day,
       openTime: this.datePipe.transform(new Date(valueForm.openTime), 'HH:mm'),
       closeTime: this.datePipe.transform(new Date(valueForm.closeTime), 'HH:mm')
@@ -84,5 +107,9 @@ export class AdminLotteriesComponent {
       color: item.color,
       status: item.status
     };
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }
