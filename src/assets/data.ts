@@ -70,7 +70,6 @@ export let multi = [
 
 export let bankings: Banking[] = [];
 export let consortiums: Consortium[] = [];
-export let transactions: Transaction[] = [];
 
 export let lotteries = [{
   name: 'Nueva York AM',
@@ -100,10 +99,6 @@ export function addBankings(banking) {
 
 export function addConsortium(consortium) {
   consortiums.push(consortium);
-}
-
-export function addTransaction(item: Transaction): void {
-  transactions.unshift(item);
 }
 
 export function addLotteries(lottery) {
@@ -148,21 +143,4 @@ export interface Consortium {
   status?: boolean;
   language?: 'ES' | 'EN';
   user?: string;
-}
-
-export interface Transaction {
-  date: Date;
-  amount: number;
-  lastBalance: number;
-  actualBalance: number;
-  type?: TransactionType;
-}
-
-export enum TransactionType {
-  // Deposito realizado por el Boludo, puede ser el pago de una apuesta o addicion al balance
-  deposit = 'deposit',
-  // Extraccion realizada por el boludo puede ser una extraccion de una cuenta o el pago de un premio
-  extraction = 'extraction',
-  // en caso de robo, imprevisto, etc
-  adjust = 'adjust',
 }

@@ -23,37 +23,43 @@ const routes: Routes = [
       {
         path: 'dashboard',
         canActivate: [AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
         loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
         path: 'users',
         canActivate: [RoleGuard, AuthGuard],
-        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
+        data: {requiredRoles: [User.RoleEnum.Admin]},
         loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule)
       },
       {
         path: 'transactions',
         canActivate: [AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
         loadChildren: () => import('./pages/transactions/transactions.module').then(m => m.TransactionsModule)
       },
       {
         path: 'consortiums',
         canActivate: [AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Admin]},
         loadChildren: () => import('./pages/consortiums/admin/consortiums.module').then(m => m.ConsortiumsModule)
       },
       {
         path: 'bankings',
         canActivate: [AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Consortium]},
         loadChildren: () => import('./pages/bankings/consortium/bankings.module').then(m => m.BankingsModule)
       },
       {
         path: 'lotteries',
         canActivate: [AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
         loadChildren: () => import('./pages/lotteries/lotteries.module').then(m => m.LotteriesModule)
       },
       {
         path: 'results',
         canActivate: [AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
         loadChildren: () => import('./pages/results/results.module').then(m => m.ResultsModule)
       }
     ]

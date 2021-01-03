@@ -1,0 +1,75 @@
+.box {
+  position: absolute;
+  background-color: #00000059;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+}
+
+.box b {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: inset -5px -5px 5px rgba(0,0,0,.6), 15px 15px 2px rgba(0,0,0,.04);
+  position: absolute;
+  -webkit-animation: stretchdelay 5s infinite ease-in-out;
+  animation: stretchdelay 5s infinite ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span{
+    font-size: 40px;
+  }
+  &.b1{
+    -webkit-animation-delay: -20s;
+    animation-delay: -20s;
+    -webkit-animation: moveX 2.8s linear 0s infinite alternate, moveY 3.3s linear 0s infinite alternate;
+    -moz-animation: moveX 2.8s linear 0s infinite alternate, moveY 3.3s linear 0s infinite alternate;
+    -o-animation: moveX 2.8s linear 0s infinite alternate, moveY 3.3s linear 0s infinite alternate;
+    animation: moveX 2.8s linear 0s infinite alternate, moveY 3.3s linear 0s infinite alternate;
+  }
+  &.b2{
+    -webkit-animation-delay: -20s;
+    animation-delay: -20s;
+    -webkit-animation: moveX 3.2s linear 0s infinite alternate, moveY 2.1s linear 0s infinite alternate;
+    -moz-animation: moveX 3.2s linear 0s infinite alternate, moveY 2.1s linear 0s infinite alternate;
+    -o-animation: moveX 3.2s linear 0s infinite alternate, moveY 2.1s linear 0s infinite alternate;
+    animation: moveX 3.2s linear 0s infinite alternate, moveY 2.1s linear 0s infinite alternate;
+  }
+  &.b3{
+    -webkit-animation-delay: -20s;
+    animation-delay: -20s;
+    -webkit-animation: moveX 2.3s linear 0s infinite alternate, moveY 2.5s linear 0s infinite alternate;
+    -moz-animation: moveX 2.3s linear 0s infinite alternate, moveY 2.5s linear 0s infinite alternate;
+    -o-animation: moveX 2.3s linear 0s infinite alternate, moveY 2.5s linear 0s infinite alternate;
+    animation: moveX 2.3s linear 0s infinite alternate, moveY 2.5s linear 0s infinite alternate;
+  }
+}
+
+@-webkit-keyframes moveX {
+  from { left: 0; } to { left: calc(100% - 80px); }
+}
+@-moz-keyframes moveX {
+  from { left: 0; } to { left: calc(100% - 80px); }
+}
+@-o-keyframes moveX {
+  from { left: 0; } to { left: calc(100% - 80px); }
+}
+@keyframes moveX {
+  from { left: 0; } to { left: calc(100% - 80px); }
+}
+@-webkit-keyframes moveY {
+  from { top: 0; } to { top: calc(100% - 80px); }
+}
+@-moz-keyframes moveY {
+  from { top: 0; } to { top: calc(100% - 80px); }
+}
+@-o-keyframes moveY {
+  from { top: 0; } to { top: calc(100% - 80px); }
+}
+@keyframes moveY {
+  from { top: 0; } to { top: calc(100% - 80px); }
+}

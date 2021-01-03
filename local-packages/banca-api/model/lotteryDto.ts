@@ -17,6 +17,7 @@ export interface LotteryDto {
     nickname: string;
     color: string;
     status: boolean;
+    results: Array<string>;
     openTime?: string;
     closeTime?: string;
     day: Array<LotteryDto.DayEnum>;

@@ -17,8 +17,8 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { Consortium } from '../model/models';
-import { ConsortiumDto } from '../model/models';
+import { Transaction } from '../model/models';
+import { TransactionDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -28,7 +28,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class ConsortiumsService {
+export class TransactionsService {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();
@@ -87,16 +87,16 @@ export class ConsortiumsService {
     }
 
     /**
-     * @param consortiumDto 
+     * @param transactionDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public consortiumControllerCreate(consortiumDto: ConsortiumDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Consortium>;
-    public consortiumControllerCreate(consortiumDto: ConsortiumDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Consortium>>;
-    public consortiumControllerCreate(consortiumDto: ConsortiumDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Consortium>>;
-    public consortiumControllerCreate(consortiumDto: ConsortiumDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (consortiumDto === null || consortiumDto === undefined) {
-            throw new Error('Required parameter consortiumDto was null or undefined when calling consortiumControllerCreate.');
+    public transactionControllerCreate(transactionDto: TransactionDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Transaction>;
+    public transactionControllerCreate(transactionDto: TransactionDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Transaction>>;
+    public transactionControllerCreate(transactionDto: TransactionDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Transaction>>;
+    public transactionControllerCreate(transactionDto: TransactionDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (transactionDto === null || transactionDto === undefined) {
+            throw new Error('Required parameter transactionDto was null or undefined when calling transactionControllerCreate.');
         }
 
         let headers = this.defaultHeaders;
@@ -128,8 +128,8 @@ export class ConsortiumsService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<Consortium>(`${this.configuration.basePath}/api/consortiums`,
-            consortiumDto,
+        return this.httpClient.post<Transaction>(`${this.configuration.basePath}/api/transactions`,
+            transactionDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -145,12 +145,12 @@ export class ConsortiumsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public consortiumControllerDelete(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Consortium>;
-    public consortiumControllerDelete(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Consortium>>;
-    public consortiumControllerDelete(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Consortium>>;
-    public consortiumControllerDelete(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public transactionControllerDelete(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Transaction>;
+    public transactionControllerDelete(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Transaction>>;
+    public transactionControllerDelete(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Transaction>>;
+    public transactionControllerDelete(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling consortiumControllerDelete.');
+            throw new Error('Required parameter id was null or undefined when calling transactionControllerDelete.');
         }
 
         let headers = this.defaultHeaders;
@@ -173,7 +173,7 @@ export class ConsortiumsService {
             responseType = 'text';
         }
 
-        return this.httpClient.delete<Consortium>(`${this.configuration.basePath}/api/consortiums/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<Transaction>(`${this.configuration.basePath}/api/transactions/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -189,12 +189,12 @@ export class ConsortiumsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public consortiumControllerGet(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public consortiumControllerGet(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public consortiumControllerGet(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public consortiumControllerGet(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public transactionControllerGet(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public transactionControllerGet(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public transactionControllerGet(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public transactionControllerGet(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling consortiumControllerGet.');
+            throw new Error('Required parameter id was null or undefined when calling transactionControllerGet.');
         }
 
         let headers = this.defaultHeaders;
@@ -217,7 +217,7 @@ export class ConsortiumsService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/consortiums/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/transactions/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -232,10 +232,10 @@ export class ConsortiumsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public consortiumControllerGetAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public consortiumControllerGetAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public consortiumControllerGetAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public consortiumControllerGetAll(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public transactionControllerGetAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public transactionControllerGetAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public transactionControllerGetAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public transactionControllerGetAll(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -257,7 +257,7 @@ export class ConsortiumsService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/consortiums`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/transactions`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -273,12 +273,12 @@ export class ConsortiumsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public consortiumControllerGetFiltered(q: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public consortiumControllerGetFiltered(q: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public consortiumControllerGetFiltered(q: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public consortiumControllerGetFiltered(q: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public transactionControllerGetFiltered(q: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public transactionControllerGetFiltered(q: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public transactionControllerGetFiltered(q: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public transactionControllerGetFiltered(q: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (q === null || q === undefined) {
-            throw new Error('Required parameter q was null or undefined when calling consortiumControllerGetFiltered.');
+            throw new Error('Required parameter q was null or undefined when calling transactionControllerGetFiltered.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
@@ -307,7 +307,7 @@ export class ConsortiumsService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/consortiums/search`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/transactions/search`,
             {
                 params: queryParameters,
                 responseType: <any>responseType,
@@ -320,16 +320,16 @@ export class ConsortiumsService {
     }
 
     /**
-     * @param consortiumDto 
+     * @param transactionDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public consortiumControllerUpdate(consortiumDto: ConsortiumDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Consortium>;
-    public consortiumControllerUpdate(consortiumDto: ConsortiumDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Consortium>>;
-    public consortiumControllerUpdate(consortiumDto: ConsortiumDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Consortium>>;
-    public consortiumControllerUpdate(consortiumDto: ConsortiumDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (consortiumDto === null || consortiumDto === undefined) {
-            throw new Error('Required parameter consortiumDto was null or undefined when calling consortiumControllerUpdate.');
+    public transactionControllerUpdate(transactionDto: TransactionDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Transaction>;
+    public transactionControllerUpdate(transactionDto: TransactionDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Transaction>>;
+    public transactionControllerUpdate(transactionDto: TransactionDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Transaction>>;
+    public transactionControllerUpdate(transactionDto: TransactionDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (transactionDto === null || transactionDto === undefined) {
+            throw new Error('Required parameter transactionDto was null or undefined when calling transactionControllerUpdate.');
         }
 
         let headers = this.defaultHeaders;
@@ -361,8 +361,8 @@ export class ConsortiumsService {
             responseType = 'text';
         }
 
-        return this.httpClient.put<Consortium>(`${this.configuration.basePath}/api/consortiums`,
-            consortiumDto,
+        return this.httpClient.put<Transaction>(`${this.configuration.basePath}/api/transactions`,
+            transactionDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

@@ -19,31 +19,33 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import {ResultsRoutingModule} from "./results-routing.module";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
+import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ResultsRoutingModule,
-    NzListModule,
-    NzTypographyModule,
-    LineChartModule,
-    PieChartModule,
-    NzGridModule,
-    ComponentsModule,
-    NzIconModule,
-    NzCalendarModule,
-    NzDividerModule,
-    TranslateModule,
-    NzTableModule,
-    NzToolTipModule,
-    ReactiveFormsModule,
-    NzInputModule,
-    NzCheckboxModule,
-    NzSelectModule,
-    NzSwitchModule,
-    NzDatePickerModule
-  ],
+    imports: [
+        CommonModule,
+        ResultsRoutingModule,
+        NzListModule,
+        NzTypographyModule,
+        LineChartModule,
+        PieChartModule,
+        NzGridModule,
+        ComponentsModule,
+        NzIconModule,
+        NzCalendarModule,
+        NzDividerModule,
+        TranslateModule,
+        NzTableModule,
+        NzToolTipModule,
+        ReactiveFormsModule,
+        NzInputModule,
+        NzCheckboxModule,
+        NzSelectModule,
+        NzSwitchModule,
+        NzDatePickerModule,
+        NzInputNumberModule
+    ],
   declarations: [ResultsComponent],
   exports: [ResultsComponent],
   providers: [DatePipe]

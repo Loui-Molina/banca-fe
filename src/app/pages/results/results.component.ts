@@ -2,7 +2,10 @@ import {Component} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Banking} from "../../../assets/data";
+import {AddResultDto, LotteryDto, Result, ResultDto, ResultsService} from '../../../../local-packages/banca-api';
+import {NzMessageService} from 'ng-zorro-antd/message';
+import {NzModalService} from 'ng-zorro-antd/modal';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-results',
@@ -12,6 +15,10 @@ import {Banking} from "../../../assets/data";
 export class ResultsComponent {
 
   constructor(private datePipe: DatePipe,
+              private messageService: NzMessageService,
+              private translateService: TranslateService,
+              private modal: NzModalService,
+              private resultsService: ResultsService,
               private formBuilder: FormBuilder) {
     this.formABM = this.formBuilder.group(this.defaultForm);
 
@@ -20,31 +27,27 @@ export class ResultsComponent {
   columns = [
     {
       title: 'Loteria',
-      key: '',
-      valueFormatter: () => this.datePipe.transform(new Date())
+      key: 'lottery.name'
     },
     {
       title: '1er',
-      key: 'name',
-      valueFormatter: () => Math.floor(Math.random() * 100)
+      key: 'draw.first',
     },
     {
       title: '2do',
-      key: '',
-      valueFormatter: () => Math.floor(Math.random() * 100)
+      key: 'draw.second',
     },
     {
       title: '3ro',
-      key: '',
-      valueFormatter: () => Math.floor(Math.random() * 100)
+      key: 'draw.third',
     },
     {
       title: 'Fecha',
-      key: '',
-      valueFormatter: () => new Date()
+      key: 'date',
+      valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/mm/yyyy hh:MM:ss')
     }
   ];
-  fetcher: Observable<any[]> = this.getData();
+  fetcher: Observable<ResultDto[]> = this.resultsService.resultsControllerGetAll();
   defaultForm = {
     first: null,
     second: null,
@@ -53,20 +56,59 @@ export class ResultsComponent {
     date: new Date()
   };
   formABM: FormGroup;
-  fetcherCreate: (item) => Observable<Banking> = (item) => this.saveResult(item);
-  fetcherUpdate: (item) => Observable<Banking> = (item) => this.saveResult(item);
-  fetcherDelete: (id: string) => Observable<Banking> = (id) => this.deleteBanking(id);
+  fetcherCreate: (item) => Observable<Result> = (item) => this.resultsService.resultsControllerCreate(item);
 
-
-  private deleteBanking(id: string) {
-    return undefined;
-  }
-
-  private getData() {
+  private get() {
     return undefined;
   }
 
   private saveResult(item) {
     return undefined;
+  }
+
+  addResult(): void {
+    this.modal.warning({
+      nzTitle: 'Agregar resultado',
+      nzContent: this.ts('UTILS.ARE_YOU_SURE'),
+      nzOnOk: () => this.onAddResultSubmit(),
+      nzOkText: this.ts('UTILS.CONFIRM'),
+      nzCancelText: this.ts('UTILS.CANCEL')
+    });
+  }
+
+  onAddResultSubmit(): void {
+    /*this.loadingAddResults = true;
+    const body: DrawResultDto = {
+      lotteryId: this.lotterySelected._id,
+      first: this.number1,
+      second: this.number2,
+      third: this.number3
+    };
+    this.resultsService.resultsControllerAddResult(body).subscribe(value => {
+        this.loadingAddResults = false;
+        this.messageService.create('success', this.ts('Resultados agregados correctamente'));
+        this.number1 = null;
+        this.number2 = null;
+        this.number3 = null;
+        this.lotterySelected = null;
+        this.closeDrawer('drawerResults');
+      },
+      error => {
+        this.loading = false;
+        throw new HttpErrorResponse(error);
+      });*/
+  }
+
+  parseData = (mode: string, valueForm, visibleObject): AddResultDto => {
+    return {
+      first: valueForm.first,
+      second: valueForm.second,
+      third: valueForm.third,
+      lotteryId: visibleObject.lottery._id
+    };
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

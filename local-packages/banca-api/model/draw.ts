@@ -9,20 +9,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { LotteryTime } from './lotteryTime';
-import { Draw } from './draw';
 
 
-export interface Lottery { 
-    _id: object;
-    name: string;
-    nickname: string;
-    color: string;
-    logo: string;
-    status: boolean;
-    time: LotteryTime;
-    lastDraw: Draw;
-    results: Array<string>;
+export interface Draw { 
+    first: number;
+    second: number;
+    third: number;
+    fourth: number;
+    fifth: number;
+    sixth: number;
+    seventh: number;
     creationUserId: string;
     deletionDate: string;
     modificationUserId: string;

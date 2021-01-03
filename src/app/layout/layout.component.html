@@ -13,15 +13,15 @@
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="{{'HOME.TITLE' | translate}}" nzIcon="home">
         <ul>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium || user?.role === userRole.Banker">
             <i nz-icon nzType="dashboard" nzTheme="outline"></i>
             <a routerLink="/dashboard">{{'HOME.DASHBOARD.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium || user?.role === userRole.Banker">
             <i nz-icon nzType="wallet"></i>
             <a routerLink="/transactions">{{'HOME.TRANSACTIONS.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium">
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin">
             <i nz-icon nzType="apartment" ></i>
             <a routerLink="/consortiums">{{'Consorcios' | translate}}</a>
           </li>
@@ -41,7 +41,7 @@
       </li>
       <li nz-submenu nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}" nzIcon="form">
         <ul>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium">
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin">
             <i nz-icon nzType="team"></i>
             <a routerLink="/users">{{'SETTINGS.USERS.TITLE' | translate}}</a>
           </li>

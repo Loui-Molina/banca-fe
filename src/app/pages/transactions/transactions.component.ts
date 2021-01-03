@@ -1,19 +1,20 @@
-import {Component} from '@angular/core';
-import {addTransaction, Transaction, transactions, TransactionType} from '../../../assets/data';
+import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {User} from '../../../../local-packages/banca-api';
+import {Transaction, TransactionsService, User} from '../../../../local-packages/banca-api';
 import {UserInterface, UserService} from '../../services/user.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
-  selector: 'app-welcome',
+  selector: 'app-transactions',
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss']
 })
-export class TransactionsComponent {
+export class TransactionsComponent implements OnInit {
 
-  constructor(private datePipe: DatePipe, private userService: UserService) {
-    this.initData();
+  constructor(private datePipe: DatePipe, private userService: UserService, private transactionsService: TransactionsService) {
   }
+
+  loading = false;
   drawerTransaction = false;
   user: UserInterface;
   userRole = User.RoleEnum;
@@ -24,7 +25,7 @@ export class TransactionsComponent {
     {title: 'Balance actual', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
     {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
   ];
-  data: Transaction[] = transactions;
+  transactions: Transaction[] = [];
 
   valueFormatter(data: Transaction, column): any{
     return '$' + data[column.key];
@@ -56,27 +57,15 @@ export class TransactionsComponent {
     }
   }
 
-  private initData(): void {
+  ngOnInit(): void {
     this.user = this.userService.getLoggedUser();
-    let b = 3000;
-    for (let i = 0; i < 30; i++){
-      // tslint:disable-next-line:radix
-      let amount = parseInt(String(Math.random() * 100));
-      let type = TransactionType.deposit;
-      // tslint:disable-next-line:radix
-      if ((parseInt(String(Math.random() * 100))) % 2 === 0){
-        type = TransactionType.extraction;
-        amount *= -1;
-      }
-      const trans: Transaction = {
-        actualBalance: b,
-        amount,
-        lastBalance: b + amount,
-        date: new Date(),
-        type
-      };
-      b += amount;
-      addTransaction(trans);
-    }
+    this.loading = true;
+    this.transactionsService.transactionControllerGetAll().subscribe(res => {
+      this.transactions = res;
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+      throw new HttpErrorResponse(error);
+    });
   }
 }

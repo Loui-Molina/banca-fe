@@ -40,7 +40,7 @@
 
     <div>
       <label for="role">
-        {{'SETTINGS.USERS.COLUMNS.ROL'|translate}}
+        {{'Rol'|translate}}
       </label>
       <nz-select id="role" formControlName="role" style="width: 100%;">
         <nz-option [nzValue]="roleEnum.Admin" [nzLabel]="roleEnum.Admin"></nz-option>
@@ -57,25 +57,25 @@
 
 <ng-template #viewTemplate let-visibleObject>
   <ng-container *ngIf="visibleObject">
-    <div>
+    <div class="description">
       <span>
-        {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}
+        {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}:
       </span>
-      {{visibleObject.name}}
+      <b>{{visibleObject.name}}</b>
     </div>
 
-    <div>
+    <div class="description">
       <span>
-        {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
+        {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}:
       </span>
-      {{visibleObject.username}}
+      <b>{{visibleObject.username}}</b>
     </div>
 
-    <div>
+    <div class="description">
       <span>
-        {{'SETTINGS.USERS.COLUMNS.ROL'|translate}}
+        {{'Rol'|translate}}:
       </span>
-      {{visibleObject.role}}
+      <b>{{visibleObject.role}}</b>
     </div>
   </ng-container>
 </ng-template>

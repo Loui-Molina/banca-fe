@@ -21,7 +21,7 @@ import {ErrorsHandler} from '../utils/ErrorsHandler';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
 import {environment} from '../environments/environment';
 import {BASE_PATH as BASE_PATH_API} from '../../local-packages/banca-api';
-import {NgxPermissionsModule} from "ngx-permissions";
+import {NgxPermissionsModule} from 'ngx-permissions';
 import {JWTUserService, MockUserService, UserService} from './services/user.service';
 import {httpInterceptorProviders} from './interceptors';
 
@@ -59,6 +59,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     HttpClientModule,
     BrowserAnimationsModule,
     NgxPermissionsModule.forRoot()
+  ],
+  exports: [
   ],
   providers: [
     {provide: NZ_I18N, useValue: en_US},

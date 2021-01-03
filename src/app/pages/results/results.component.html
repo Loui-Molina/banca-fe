@@ -2,11 +2,10 @@
   <app-abm [title]="'Resultados'"
            [fetcher]="fetcher"
            [fetcherCreate]="fetcherCreate"
-           [fetcherUpdate]="fetcherUpdate"
-           [fetcherDelete]="fetcherDelete"
            [formTemplate]="formTemplate"
            [viewTemplate]="viewTemplate"
            [defaultForm]="defaultForm"
+           [parseData]="parseData"
            [columns]="columns">
   </app-abm>
 
@@ -22,24 +21,41 @@
       </div>
 
       <div class="form-element">
-        <label for="firt">
+        <label for="first">
           {{'Primero'|translate}}
         </label>
-        <input nz-input id="firt" type="number" formControlName="firt">
+        <nz-input-number
+          id="first"
+          style="width: 100%"
+          formControlName="first"
+          [nzMin]="0" [nzMax]="99"
+          class="right-input"></nz-input-number>
       </div>
+
+
 
       <div class="form-element">
         <label for="second">
           {{'Segundo'|translate}}
         </label>
-        <input nz-input id="second" type="number" formControlName="second">
+        <nz-input-number
+          id="second"
+          style="width: 100%"
+          formControlName="second"
+          [nzMin]="0" [nzMax]="99"
+          class="right-input"></nz-input-number>
       </div>
 
       <div class="form-element">
         <label for="third">
           {{'Tercero'|translate}}
         </label>
-        <input nz-input id="third" type="number" formControlName="third">
+        <nz-input-number
+          id="third"
+          style="width: 100%"
+          formControlName="third"
+          [nzMin]="0" [nzMax]="99"
+          class="right-input"></nz-input-number>
       </div>
 
       <div class="form-element">
