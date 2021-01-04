@@ -15,7 +15,7 @@
     </nz-page-header-content>
   </nz-page-header>
 
-  <nz-table #basicTable [nzData]="data">
+  <nz-table #basicTable [nzData]="data" [nzScroll]="{ x: '1250px' }">
     <thead>
     <tr>
       <th class="table-th" [class.numeric]="column.type === 'numeric'"

@@ -11,9 +11,15 @@
  */
 
 
-export interface LotteryTime { 
-    day: Array<string>;
-    openTime: string;
-    closeTime: string;
+export interface BankingDto { 
+    _id: object;
+    name: string;
+    status: boolean;
+    ownerUserId: object;
+    ownerUsername: string;
+    creationDate: string;
+    startOfOperation: string;
+    showPercentage: boolean;
+    language: string;
 }
 

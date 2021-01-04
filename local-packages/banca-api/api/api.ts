@@ -1,3 +1,5 @@
+export * from './banking.service';
+import { BankingService } from './banking.service';
 export * from './consortiums.service';
 import { ConsortiumsService } from './consortiums.service';
 export * from './dashboard.service';
@@ -12,4 +14,4 @@ export * from './transactions.service';
 import { TransactionsService } from './transactions.service';
 export * from './users.service';
 import { UsersService } from './users.service';
-export const APIS = [ConsortiumsService, DashboardService, DefaultService, LotteriesService, ResultsService, TransactionsService, UsersService];
+export const APIS = [BankingService, ConsortiumsService, DashboardService, DefaultService, LotteriesService, ResultsService, TransactionsService, UsersService];

@@ -121,7 +121,7 @@ export class AbmComponent implements OnInit {
       if (this.mode === 'C') {
         let body = this.form.value;
         if (this.parseData) {
-          body = this.parseData(this.mode, this.form.value);
+          body = this.parseData(this.mode, this.form.value, this.visibleObject);
         }
         this.fetcherCreate(body).subscribe(data => {
           this.messageService.create('success', this.ts('UTILS.SAVED'));
@@ -135,7 +135,7 @@ export class AbmComponent implements OnInit {
       } else {
         let body = this.form.value;
         if (this.parseData) {
-          body = this.parseData(this.mode, this.form.value);
+          body = this.parseData(this.mode, this.form.value, this.visibleObject);
         }
         this.fetcherUpdate({_id: this.visibleObject._id, ...body}).subscribe(data => {
           this.messageService.create('success', this.ts('UTILS.SAVED'));
