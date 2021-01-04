@@ -3,6 +3,7 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
+import { BankingsService } from './api/bankings.service';
 import { ConsortiumsService } from './api/consortiums.service';
 import { DashboardService } from './api/dashboard.service';
 import { DefaultService } from './api/default.service';

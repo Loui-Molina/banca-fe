@@ -35,6 +35,10 @@ export class AdminLotteriesComponent implements OnInit {
       key: 'nickname'
     },
     {
+      title: 'Hora de juego',
+      key: 'playTime'
+    },
+    {
       title: 'Apertura',
       key: 'openTime'
     },
@@ -56,6 +60,7 @@ export class AdminLotteriesComponent implements OnInit {
     day: [],
     name: null,
     nickname: null,
+    playTime: null,
     color: '#000',
     status: true
   };
@@ -80,6 +85,7 @@ export class AdminLotteriesComponent implements OnInit {
       nickname: valueForm.nickname,
       color: valueForm.color,
       status: valueForm.status,
+      playTime: this.datePipe.transform(new Date(valueForm.playTime), 'HH:mm'),
       results: [],
       day: valueForm.day,
       openTime: this.datePipe.transform(new Date(valueForm.openTime), 'HH:mm'),
@@ -93,6 +99,7 @@ export class AdminLotteriesComponent implements OnInit {
       day: [Validators.required],
       name: [Validators.required],
       nickname: [Validators.required],
+      playTime: [Validators.required],
       color: [Validators.required],
       status: [Validators.required]
     };
@@ -104,6 +111,7 @@ export class AdminLotteriesComponent implements OnInit {
       day: item.day,
       name: item.name,
       nickname: item.nickname,
+      playTime: (item.playTime) ? new Date(`1900-01-01T${item.playTime}:00`) : null,
       color: item.color,
       status: item.status
     };

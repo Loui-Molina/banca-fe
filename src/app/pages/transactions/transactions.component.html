@@ -9,7 +9,7 @@
       </button>
     </div>
 
-    <nz-table #basicTable [nzData]="transactions">
+    <nz-table [nzScroll]="{ x: '1250px' }" #basicTable [nzData]="transactions">
       <thead>
       <tr>
         <th class="table-th" [class.numeric]="column.type === 'numeric'"

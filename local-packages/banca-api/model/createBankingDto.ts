@@ -9,11 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { AuthCredentialsDto } from './authCredentialsDto';
+import { BankingDto } from './bankingDto';
 
 
-export interface LotteryTime { 
-    day: Array<string>;
-    openTime: string;
-    closeTime: string;
+export interface CreateBankingDto { 
+    user: AuthCredentialsDto;
+    banking: BankingDto;
+    consortiumId: object;
 }
 
