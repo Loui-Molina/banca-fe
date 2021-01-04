@@ -169,8 +169,7 @@ export class BankingService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/api/banking/findAll`,
-            null,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/banking/findAll`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
