@@ -14,7 +14,7 @@ import { AuthCredentialsDto } from './authCredentialsDto';
 
 export interface CreateConsortiumDto { 
     user: AuthCredentialsDto;
-    _id: object;
+    _id?: object;
     ownerUserId?: object;
     name: string;
     status: boolean;

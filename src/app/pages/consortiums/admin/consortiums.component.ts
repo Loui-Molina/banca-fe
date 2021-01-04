@@ -3,7 +3,14 @@ import {addBankings, Banking, bankings} from '../../../../assets/data';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Consortium, ConsortiumsService, CreateConsortiumDto, User, UsersService} from '../../../../../local-packages/banca-api';
+import {
+  Consortium,
+  ConsortiumDto,
+  ConsortiumsService,
+  CreateConsortiumDto,
+  User,
+  UsersService
+} from '../../../../../local-packages/banca-api';
 
 @Component({
   selector: 'app-consortiums',
@@ -26,7 +33,7 @@ export class ConsortiumsComponent implements OnInit {
     },
     {
       title: 'Usuario',
-      key: 'ownerName',
+      key: 'ownerUsername',
     },
     {
       title: 'Creacion',
@@ -46,13 +53,13 @@ export class ConsortiumsComponent implements OnInit {
   ];
   defaultForm = {
     name: null,
-    username: null,
+    ownerUsername: null,
     password: null,
     status: true
   };
   enumUsers: User[] = [];
   formABM: FormGroup;
-  fetcher: Observable<Consortium[]> = this.consortiumsService.consortiumControllerGetAll();
+  fetcher: Observable<ConsortiumDto[]> = this.consortiumsService.consortiumControllerGetAll();
   fetcherCreate: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerCreate(item);
   fetcherUpdate: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerUpdate(item);
   fetcherDelete: (id: string) => Observable<Consortium> = (id) => this.consortiumsService.consortiumControllerDelete(id);
@@ -60,7 +67,7 @@ export class ConsortiumsComponent implements OnInit {
     return {
       name: [Validators.required],
       status: [Validators.required],
-      username: [Validators.required, Validators.minLength(4)],
+      ownerUsername: [Validators.required, Validators.minLength(4)],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35)
@@ -70,13 +77,12 @@ export class ConsortiumsComponent implements OnInit {
   parseData(mode, valueForm, visibleObject): CreateConsortiumDto{
     return {
       user: {
-        username: valueForm.username,
+        username: valueForm.ownerUsername,
         password: valueForm.password
       },
       name: valueForm.name,
       status: valueForm.status,
-      ownerUserId: visibleObject?.ownerUserId,
-      _id: visibleObject?.id
+      ownerUserId: visibleObject?.ownerId
     };
   }
   ngOnInit(): void {

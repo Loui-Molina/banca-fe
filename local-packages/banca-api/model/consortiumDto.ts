@@ -13,6 +13,7 @@
 
 export interface ConsortiumDto { 
     ownerName: string;
+    ownerUsername: string;
     ownerId: object;
     _id: object;
     name: string;

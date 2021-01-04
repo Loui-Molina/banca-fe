@@ -34,10 +34,10 @@
       <nz-divider class="title" [nzText]="'Datos de inicio de sesion'" nzOrientation="left"></nz-divider>
 
       <div>
-        <label for="username">
+        <label for="ownerUsername">
           {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
         </label>
-        <input nz-input [minLength]="4" id="username" type="text" formControlName="username">
+        <input nz-input [minLength]="4" id="ownerUsername" type="text" formControlName="ownerUsername">
       </div>
 
       <ng-container *ngIf="mode === 'C'">
