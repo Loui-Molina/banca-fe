@@ -37,25 +37,25 @@ export class BankingsComponent {
   columns = [
     {
       title: 'Banca',
-      key: 'bankings.name'
+      key: 'name'
     },
     {
       title: 'Usuario',
-      key: 'bankings.ownerUsername',
+      key: 'ownerUsername',
     },
     {
       title: 'Creacion',
-      key: 'bankings.creationDate',
+      key: 'creationDate',
       valueFormatter: () => this.datePipe.transform(new Date())
     },
     {
       title: 'Inicio Operacion',
-      key: 'bankings.startOfOperation',
+      key: 'startOfOperation',
       valueFormatter: () => this.datePipe.transform(new Date())
     },
     {
       title: 'Estado',
-      key: 'bankings.status',
+      key: 'status',
       valueFormatter: (data) => (data.status) ? 'Habilitada' : 'Inhabilitada'
     }
   ];
