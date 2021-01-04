@@ -14,7 +14,7 @@
 export interface AuthCredentialsDto { 
     username: string;
     password: string;
-    role: AuthCredentialsDto.RoleEnum;
+    role?: AuthCredentialsDto.RoleEnum;
 }
 export namespace AuthCredentialsDto {
     export type RoleEnum = 'admin' | 'banker' | 'punter' | 'supervisor' | 'consortium' | 'carrier';

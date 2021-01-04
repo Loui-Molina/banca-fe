@@ -4,6 +4,7 @@ export * from './bankingDto';
 export * from './consortium';
 export * from './consortiumDto';
 export * from './createBankingDto';
+export * from './createConsortiumDto';
 export * from './dashboardDiagramDto';
 export * from './draw';
 export * from './inlineResponse200';

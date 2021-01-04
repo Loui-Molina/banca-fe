@@ -3,7 +3,7 @@ import {addBankings, Banking, bankings} from '../../../../assets/data';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Consortium, ConsortiumsService, User, UsersService} from '../../../../../local-packages/banca-api';
+import {Consortium, ConsortiumsService, CreateConsortiumDto, User, UsersService} from '../../../../../local-packages/banca-api';
 
 @Component({
   selector: 'app-consortiums',
@@ -65,6 +65,18 @@ export class ConsortiumsComponent implements OnInit {
         Validators.minLength(8),
         Validators.maxLength(35)
       ] : []
+    };
+  }
+  parseData(mode, valueForm, visibleObject): CreateConsortiumDto{
+    return {
+      user: {
+        username: valueForm.username,
+        password: valueForm.password
+      },
+      name: valueForm.name,
+      status: valueForm.status,
+      ownerUserId: visibleObject?.ownerUserId,
+      _id: visibleObject?.id
     };
   }
   ngOnInit(): void {
