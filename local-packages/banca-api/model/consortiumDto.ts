@@ -20,5 +20,6 @@ export interface ConsortiumDto {
     createdAt: string;
     status: boolean;
     firstTransactionDate: string;
+    bankings: Array<string>;
 }
 

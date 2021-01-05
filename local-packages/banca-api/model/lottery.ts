@@ -21,6 +21,7 @@ export interface Lottery {
     logo: string;
     status: boolean;
     time: LotteryTime;
+    playTime: string;
     lastDraw: Draw;
     results: Array<string>;
     creationUserId: string;

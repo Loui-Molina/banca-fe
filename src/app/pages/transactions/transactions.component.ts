@@ -32,7 +32,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   valueFormatterDate(data: Transaction, column): any{
-    return this.datePipe.transform(data[column.key], 'dd/mm/yyyy hh:MM:ss');
+    return this.datePipe.transform(data[column.key], 'dd/MM/yyyy hh:mm:ss');
   }
 
   openDrawer = (drawerName: string) => {

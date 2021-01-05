@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 import { Draw } from './draw';
-import { Lottery } from './lottery';
 
 
 export interface ResultDto { 
-    lottery: Lottery;
+    _id: object;
+    lotteryId: object;
+    lotteryName: string;
     date: string;
+    createdAt: string;
     draw: Draw;
 }
 

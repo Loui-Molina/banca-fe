@@ -54,39 +54,47 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <div>
+      <div class="description">
           <span>
-            {{'HOME.BANKINGS.BANKING.NAME'|translate}}
+            {{'Nombre'|translate}}:
           </span>
-        {{visibleObject.name}}
+        <b>{{visibleObject.name}}</b>
       </div>
 
-      <div>
+      <div class="description">
           <span>
-              {{'HOME.BANKINGS.BANKING.PHONE'|translate}}
+              {{'Usuario'|translate}}:
           </span>
-        {{visibleObject.phone}}
-      </div>
-      <div>
-          <span>
-              {{'HOME.BANKINGS.BANKING.EMAIL'|translate}}
-          </span>
-        {{visibleObject.email}}
+        <b>{{visibleObject.ownerUsername}}</b>
       </div>
 
-      <div>
-          <span>
-            {{'HOME.BANKINGS.BANKING.STATUS'|translate}}
-          </span>
-        {{visibleObject.status}}
+      <div class="description">
+        <span>
+          {{'Estado'|translate}}:
+        </span>
+        <b>{{visibleObject.status ? 'Habilitada' : 'Inhabilitada'}}</b>
       </div>
 
-      <div>
-          <span>
-            {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
-          </span>
-        {{visibleObject.language}}
-      </div>
+      <nz-divider class="title" [nzText]="'Bancas'" nzOrientation="left"></nz-divider>
+
+      <nz-table style="margin-top: 20px"
+                [nzSize]="'small'"
+                nzLoading="false"
+                [nzData]="visibleObject.bankings"
+                nzTableLayout="auto">
+        <thead>
+        <tr>
+          <th *ngFor="let column of columnsBanking">
+            {{column.title}}
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of visibleObject.bankings">
+          <td>{{ data.name }}</td>
+        </tr>
+        </tbody>
+      </nz-table>
     </ng-container>
   </ng-template>
 

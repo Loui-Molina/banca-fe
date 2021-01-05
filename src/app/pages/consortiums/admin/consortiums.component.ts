@@ -51,6 +51,12 @@ export class ConsortiumsComponent implements OnInit {
       valueFormatter: (data) => (data.status) ? 'Habilitado' : 'Inhabilitada'
     }
   ];
+  columnsBanking = [
+    {
+      title: 'Nombre',
+      key: 'name',
+    }
+  ];
   defaultForm = {
     name: null,
     ownerUsername: null,

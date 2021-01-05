@@ -16,6 +16,7 @@ export interface LotteryDto {
     name: string;
     nickname: string;
     color: string;
+    playTime: string;
     status: boolean;
     results: Array<string>;
     openTime?: string;

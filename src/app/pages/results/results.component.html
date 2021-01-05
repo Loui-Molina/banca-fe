@@ -1,11 +1,14 @@
+<app-page-loader-bouncing [loading]="loading"></app-page-loader-bouncing>
 <div class="inner-content fit-height mb-20" style="min-height: 300px;">
   <app-abm [title]="'Resultados'"
            [fetcher]="fetcher"
+           [form]="formABM"
            [fetcherCreate]="fetcherCreate"
            [formTemplate]="formTemplate"
            [viewTemplate]="viewTemplate"
            [defaultForm]="defaultForm"
            [parseData]="parseData"
+           [getValidators]="getValidators"
            [columns]="columns">
   </app-abm>
 
@@ -14,10 +17,13 @@
     <form [formGroup]="formABM">
 
       <div class="form-element">
-        <label for="name">
+        <label for="lottery">
           {{'Loteria'|translate}}
         </label>
-        <input nz-input id="name" type="text" formControlName="name">
+        <br>
+        <nz-select id="lottery" formControlName="lottery" style="width: 100%">
+          <nz-option *ngFor="let lottery of lotteries" [nzValue]="lottery._id" [nzLabel]="lottery.name"></nz-option>
+        </nz-select>
       </div>
 
       <div class="form-element">
@@ -69,39 +75,28 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <div>
+      <div class="description">
           <span>
-            {{'HOME.BANKINGS.BANKING.NAME'|translate}}
+            {{'Loteria'|translate}}:
           </span>
-        {{visibleObject.name}}
+        <b>{{visibleObject.lotteryName}}</b>
+      </div>
+      <div class="description">
+          <span>
+                {{'Fecha'|translate}}
+          </span>
+        <b>{{visibleObject.date | date: 'dd/MM/yyyy hh:mm:ss'}}</b>
       </div>
 
-      <div>
-          <span>
-              {{'HOME.BANKINGS.BANKING.PHONE'|translate}}
-          </span>
-        {{visibleObject.phone}}
-      </div>
-      <div>
-          <span>
-              {{'HOME.BANKINGS.BANKING.EMAIL'|translate}}
-          </span>
-        {{visibleObject.email}}
+
+      <div style="margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;">
+        <app-ball [background]="'#fff'" [color]="'#000'" [title]="visibleObject.draw?.first"></app-ball>
+        <app-ball [background]="'#fff'" [color]="'#000'" [title]="visibleObject.draw?.second"></app-ball>
+        <app-ball [background]="'#fff'" [color]="'#000'" [title]="visibleObject.draw?.third"></app-ball>
       </div>
 
-      <div>
-          <span>
-            {{'HOME.BANKINGS.BANKING.STATUS'|translate}}
-          </span>
-        {{visibleObject.status}}
-      </div>
-
-      <div>
-          <span>
-            {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
-          </span>
-        {{visibleObject.language}}
-      </div>
     </ng-container>
   </ng-template>
 
