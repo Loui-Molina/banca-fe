@@ -1,4 +1,5 @@
 export * from './addResultDto';
+export * from './adminLotteryDto';
 export * from './authCredentialsDto';
 export * from './bankingDto';
 export * from './consortium';
@@ -10,7 +11,6 @@ export * from './draw';
 export * from './inlineResponse200';
 export * from './inlineResponse503';
 export * from './lottery';
-export * from './lotteryDto';
 export * from './lotteryTime';
 export * from './responseDto';
 export * from './result';

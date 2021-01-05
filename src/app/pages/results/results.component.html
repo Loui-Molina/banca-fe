@@ -21,10 +21,11 @@
           {{'Loteria'|translate}}
         </label>
         <br>
-        <nz-select id="lottery" formControlName="lottery" style="width: 100%">
+        <nz-select id="lottery" (ngModelChange)="onChangeLottery($event)" formControlName="lottery" style="width: 100%">
           <nz-option *ngFor="let lottery of lotteries" [nzValue]="lottery._id" [nzLabel]="lottery.name"></nz-option>
         </nz-select>
       </div>
+      <p *ngIf="lotterySelected">Esta loteria se juega a las {{lotterySelected.playTime}}</p>
 
       <div class="form-element">
         <label for="first">
@@ -85,16 +86,23 @@
           <span>
                 {{'Fecha'|translate}}
           </span>
-        <b>{{visibleObject.date | date: 'dd/MM/yyyy hh:mm:ss'}}</b>
+        <b>{{visibleObject.date | date: 'dd/MM/yyyy':'+0000'}}</b>
       </div>
+      <div class="description">
+          <span>
+                {{'Fecha creacion'|translate}}
+          </span>
+        <b>{{visibleObject.createdAt | date: 'dd/MM/yyyy hh:mm:ss'}}</b>
+      </div>
+
 
 
       <div style="margin-top: 20px;
     display: flex;
     justify-content: space-evenly;">
-        <app-ball [background]="'#fff'" [color]="'#000'" [title]="visibleObject.draw?.first"></app-ball>
-        <app-ball [background]="'#fff'" [color]="'#000'" [title]="visibleObject.draw?.second"></app-ball>
-        <app-ball [background]="'#fff'" [color]="'#000'" [title]="visibleObject.draw?.third"></app-ball>
+        <app-ball [background]="'#fff'" [color]="'#000'" [title]="this.formatResult(visibleObject.draw?.first)"></app-ball>
+        <app-ball [background]="'#fff'" [color]="'#000'" [title]="this.formatResult(visibleObject.draw?.second)"></app-ball>
+        <app-ball [background]="'#fff'" [color]="'#000'" [title]="this.formatResult(visibleObject.draw?.third)"></app-ball>
       </div>
 
     </ng-container>
