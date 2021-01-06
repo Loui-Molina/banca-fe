@@ -41,6 +41,14 @@
         <input nz-input id="color" type="color" formControlName="color">
       </div>
 
+      <div class="form-element">
+        <label for="playTime">
+          {{'Hora de juego'|translate}}
+        </label>
+        <nz-time-picker id="playTime" nzPlaceHolder="Hora de juego" nzFormat="HH:mm" [nzMinuteStep]="5"
+                        formControlName="playTime"></nz-time-picker>
+      </div>
+
       <div nz-row nzGutter="8">
         <div nz-col nzXs="8" class="form-element">
           <label for="openTime">
@@ -100,6 +108,14 @@
         </span>
         <b>{{visibleObject.nickname}}</b>
       </div>
+
+      <div class="description">
+        <span>
+            {{'Horario de juego'|translate}}:
+        </span>
+        <b>{{visibleObject.playTime}}</b>
+      </div>
+
       <div class="description">
         <span>
             {{'Horario apertura'|translate}}:

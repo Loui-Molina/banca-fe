@@ -13,7 +13,7 @@
 
 export interface AddResultDto {
     lotteryId: string;
-    date: Date;
+    date: string;
     first: number;
     second: number;
     third: number;

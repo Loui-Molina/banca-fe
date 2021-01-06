@@ -9,17 +9,37 @@
     <nz-page-header-content>
       <nz-descriptions nzSize="small" [nzColumn]="3">
         <nz-descriptions-item nzTitle="{{'UTILS.AMOUNT' | translate}}" [nzSpan]="3">
-          {{data.length}}
+          {{dataDisplayed.length}}
         </nz-descriptions-item>
       </nz-descriptions>
     </nz-page-header-content>
   </nz-page-header>
 
-  <nz-table #basicTable [nzData]="data" [nzScroll]="{ x: '1250px' }">
+  <nz-table [nzSize]="'small'" #basicTable [nzData]="dataDisplayed" [nzScroll]="{ x: '700px' }">
     <thead>
     <tr>
       <th class="table-th" [class.numeric]="column.type === 'numeric'"
-          *ngFor="let column of columns">{{column.title | translate}}</th>
+          *ngFor="let column of columns">
+        {{column.title | translate}}
+        <ng-container *ngIf="column.showSearch">
+          <nz-filter-trigger  [(nzVisible)]="visibleFilter[column.key]"
+                              [nzActive]="filterValue[column.key] && filterValue[column.key].length > 0"
+                              [nzDropdownMenu]="filterMenu">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+          <nz-dropdown-menu #filterMenu="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+              <div class="search-box">
+                <input type="text" nz-input placeholder="Search name" [(ngModel)]="filterValue[column.key]" />
+                <button nz-button nzSize="small" nzType="primary" (click)="search(column.key)" class="search-button">
+                  Buscar
+                </button>
+                <button nz-button nzSize="small" (click)="reset(column.key)">Limpiar</button>
+              </div>
+            </div>
+          </nz-dropdown-menu>
+        </ng-container>
+      </th>
       <th>{{'UTILS.ACTIONS' | translate}}</th>
     </tr>
     </thead>
@@ -43,6 +63,7 @@
     </tr>
     </tbody>
   </nz-table>
+
 </div>
 
 
@@ -56,7 +77,7 @@
   (nzOnClose)="onCancel()"
 >
   <div>
-    <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit: mode}">
+    <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit: mode, visibleObject: visibleObject}">
     </ng-container>
 
     <ng-template #footerTplForm>

@@ -18,6 +18,9 @@ import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzSpinModule} from 'ng-zorro-antd/spin';
+import {NzSelectModule} from 'ng-zorro-antd/select';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
 
 @NgModule({
   imports: [
@@ -38,7 +41,10 @@ import {NzSpinModule} from 'ng-zorro-antd/spin';
     NzDrawerModule,
     NzInputModule,
     NzButtonModule,
-    NzSpinModule
+    NzSpinModule,
+    NzSelectModule,
+    ReactiveFormsModule,
+    NzInputNumberModule
   ],
   declarations: [TransactionsComponent],
   exports: [TransactionsComponent],

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AddResultDto, Result, ResultDto, ResultsService} from '../../../../local-packages/banca-api';
+import {AddResultDto, LotteryDto, Result, ResultDto, ResultsService} from '../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
@@ -12,39 +12,54 @@ import {TranslateService} from '@ngx-translate/core';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent {
+export class ResultsComponent implements OnInit{
 
   constructor(private datePipe: DatePipe,
               private messageService: NzMessageService,
               private translateService: TranslateService,
               private modal: NzModalService,
               private resultsService: ResultsService,
+              private lotteriesService: AdminLotteriesService,
               private formBuilder: FormBuilder) {
     this.formABM = this.formBuilder.group(this.defaultForm);
-
   }
+
 
   columns = [
     {
       title: 'Loteria',
-      key: 'lottery.name'
+      key: 'lotteryName'
     },
     {
       title: '1er',
       key: 'draw.first',
+      valueFormatter: (data) => {
+        return this.formatResult(data.draw.first);
+      }
     },
     {
       title: '2do',
       key: 'draw.second',
+      valueFormatter: (data) => {
+        return this.formatResult(data.draw.second);
+      }
     },
     {
       title: '3ro',
       key: 'draw.third',
+      valueFormatter: (data) => {
+        return this.formatResult(data.draw.third);
+      }
     },
     {
       title: 'Fecha',
       key: 'date',
-      valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/mm/yyyy hh:MM:ss')
+      valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy', '+0000')
+    },
+    {
+      title: 'Fecha creacion',
+      key: 'createdAt',
+      valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm:ss')
     }
   ];
   fetcher: Observable<ResultDto[]> = this.resultsService.resultsControllerGetAll();
@@ -52,61 +67,56 @@ export class ResultsComponent {
     first: null,
     second: null,
     third: null,
-    name: null,
+    lottery: null,
     date: new Date()
   };
+  loading = false;
+  lotteries: Lottery[] = [];
+  lotterySelected: Lottery;
   formABM: FormGroup;
   fetcherCreate: (item) => Observable<Result> = (item) => this.resultsService.resultsControllerCreate(item);
 
-  private get() {
-    return undefined;
-  }
-
-  private saveResult(item) {
-    return undefined;
-  }
-
-  addResult(): void {
-    this.modal.warning({
-      nzTitle: 'Agregar resultado',
-      nzContent: this.ts('UTILS.ARE_YOU_SURE'),
-      nzOnOk: () => this.onAddResultSubmit(),
-      nzOkText: this.ts('UTILS.CONFIRM'),
-      nzCancelText: this.ts('UTILS.CANCEL')
-    });
-  }
-
-  onAddResultSubmit(): void {
-    /*this.loadingAddResults = true;
-    const body: DrawResultDto = {
-      lotteryId: this.lotterySelected._id,
-      first: this.number1,
-      second: this.number2,
-      third: this.number3
-    };
-    this.resultsService.resultsControllerAddResult(body).subscribe(value => {
-        this.loadingAddResults = false;
-        this.messageService.create('success', this.ts('Resultados agregados correctamente'));
-        this.number1 = null;
-        this.number2 = null;
-        this.number3 = null;
-        this.lotterySelected = null;
-        this.closeDrawer('drawerResults');
-      },
-      error => {
-        this.loading = false;
-        throw new HttpErrorResponse(error);
-      });*/
-  }
-
-  parseData = (mode: string, valueForm, visibleObject): AddResultDto => {
+  parseData = (mode: string, valueForm): AddResultDto => {
     return {
       date: valueForm.date,
       first: valueForm.first,
       second: valueForm.second,
       third: valueForm.third,
-      lotteryId: visibleObject.lottery._id
+      lotteryId: valueForm.lottery
     };
+  }
+
+  formatResult(value: number): string{
+    return String(value).padStart(2, '0');
+  }
+
+  getValidators = (mode: string) => {
+    return {
+      first: [Validators.required, Validators.min(0), Validators.max(99)],
+      second: [Validators.required, Validators.min(0), Validators.max(99)],
+      third: [Validators.required, Validators.min(0), Validators.max(99)],
+      lottery: [Validators.required],
+      date: [Validators.required]
+    };
+  }
+
+  ngOnInit(): void {
+    this.loading = true;
+    this.lotteriesService.adminLotteryControllerGetAll().subscribe(data => {
+      this.lotteries = data;
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+  onChangeLottery($event): void{
+    if ($event){
+      this.lotterySelected = this.lotteries.filter(lottery => lottery._id === $event).pop();
+    } else {
+      this.lotterySelected = null;
+    }
   }
 
   private ts(key: string, params?): string {

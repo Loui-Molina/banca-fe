@@ -1,185 +1,171 @@
+<app-page-loader-bouncing [loading]="loading"></app-page-loader-bouncing>
 <div class="inner-content fit-height mb-20" style="min-height: 300px;">
   <app-abm [title]="'Loterias'"
            [fetcher]="fetcher"
-           [fetcherCreate]="fetcherCreate"
            [fetcherUpdate]="fetcherUpdate"
-           [fetcherDelete]="fetcherDelete"
            [formTemplate]="formTemplate"
            [viewTemplate]="viewTemplate"
            [defaultForm]="defaultForm"
+           [parseData]="parseData"
+           [setValueForm]="setValueForm"
            [form]="formABM"
            [columns]="columns">
   </app-abm>
 
 
-  <ng-template #formTemplate>
+  <ng-template #formTemplate let-mode let-visibleObject="visibleObject">
     <form [formGroup]="formABM">
 
-      <div class="form-element">
-        <label for="name">
-          {{'name'|translate}}
-        </label>
-        <nz-select id="name" nzMode="tags" nzPlaceHolder="Seleccione la loteria a agregar" formControlName="name">
-          <nz-option *ngFor="let option of lotteries" [nzLabel]="option.name" [nzValue]="option.name"></nz-option>
-        </nz-select>
-      </div>
-
-
-
-      <div class="form-element">
-        <label for="status">
-          {{'status'|translate}}
-        </label>
-        <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
-      </div>
-
+      <nz-divider class="title" [nzText]="'Loteria: '+visibleObject?.name" nzOrientation="center"></nz-divider>
 
       <div class="form-element">
         <label for="bankings">
-          {{'bankings'|translate}}
+          {{'Bancas'|translate}}
         </label>
-        <nz-select id="bankings" nzMode="tags" nzPlaceHolder="Bancas a aplicar, dejar vacio selecciona todas" formControlName="bankings">
-          <nz-option *ngFor="let option of bankings" [nzLabel]="option.name" [nzValue]="option.name"></nz-option>
+        <nz-select id="bankings" nzMode="tags" (ngModelChange)="onChangeBancas($event)" nzPlaceHolder="Bancas a aplicar" formControlName="bankings">
+          <nz-option *ngFor="let option of bankings" [nzLabel]="option.name" [nzValue]="option._id"></nz-option>
         </nz-select>
       </div>
 
 
-      <div class="form-element">
-        <label for="limits">
-          <h3>{{'Limites'|translate}}</h3>
-        </label>
-      </div>
-
-      <div id="limits" nz-row nzGutter="8">
-        <div class="form-element" nz-col nzXs="12">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="straightPlay" nzAddOnBefore="{{'Directo'|translate}}">
-            <input  type="text" nz-input formControlName="straightPlay"/>
-          </nz-input-group>
-        </div>
-
-        <div class="form-element" nz-col nzXs="12">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="palePlay" nzAddOnBefore="{{'Pale'|translate}}">
-            <input type="text" nz-input formControlName="palePlay"/>
-          </nz-input-group>
-        </div>
-
-        <div class="form-element" nz-col nzXs="12">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="tripletPlay" nzAddOnBefore="{{'Tripleta'|translate}}">
-            <input type="text" nz-input formControlName="tripletPlay"/>
-          </nz-input-group>
-        </div>
-      </div>
-
-      <div class="form-element">
-        <label for="prizes">
-          <h3>{{'prizes'|translate}}</h3>
-        </label>
-      </div>
-            <!--TODO Agregar a todos un tooltip para dejar en 0 si quieren desabilitar-->
+      <nz-divider class="title" [nzText]="'Precios'" nzOrientation="left"></nz-divider>
 
       <div id="prizes" nz-row nzGutter="8">
-        <div nz-col nzXs="12" class="form-element">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="firstPrize" nzAddOnBefore="{{'Primera'|translate}}">
-            <input type="number" nz-input formControlName="firstPrize"/>
-          </nz-input-group>
-        </div>
-
-
-        <div nz-col nzXs="12" class="form-element">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="secondPrize" nzAddOnBefore="{{'Segunda'|translate}}">
-            <input type="number" nz-input formControlName="secondPrize"/>
-          </nz-input-group>
-        </div>
-
-
-        <div nz-col nzXs="12" class="form-element">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="thirdPrize" nzAddOnBefore="{{'Tercera'|translate}}">
-            <input type="number" nz-input formControlName="thirdPrize"/>
-          </nz-input-group>
-        </div>
-
-
-        <div nz-col nzXs="12" class="form-element">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="doublePrize" nzAddOnBefore="{{'Dobles'|translate}}">
-            <input type="number" nz-input formControlName="doublePrize"/>
-          </nz-input-group>
-        </div>
-
-
-        <div nz-col nzXs="12" class="form-element">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="palePrize" nzAddOnBefore="{{'Pale'|translate}}">
-            <input type="number" nz-input formControlName="palePrize"/>
-          </nz-input-group>
-        </div>
-
-
-        <div nz-col nzXs="12" class="form-element">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="paleTwoThreePrize" nzAddOnBefore="{{'Pale 2-3'|translate}}">
-            <input type="number" nz-input formControlName="paleTwoThreePrize"/>
-          </nz-input-group>
-        </div>
-
-
-        <div nz-col nzXs="12" class="form-element">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="tripletPrize" nzAddOnBefore="{{'Tripleta'|translate}}">
-            <input type="number" nz-input formControlName="tripletPrize"/>
-          </nz-input-group>
-        </div>
-
-
-        <div nz-col nzXs="12" class="form-element">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="twoNumbersPrize" nzAddOnBefore="{{'2 Numeros'|translate}}">
-            <input type="number" nz-input formControlName="twoNumbersPrize"/>
-          </nz-input-group>
-        </div>
-
-
-        <div nz-col nzXs="12" class="form-element">
-          <nz-input-group [nzSuffix]="PrizeLimitsExtraInfo" class="add-on-input" id="superPalePrize" nzAddOnBefore="{{'Super Pale'|translate}}">
-            <input type="number" nz-input formControlName="superPalePrize"/>
+        <div nz-col nzXs="12" class="form-element" *ngFor="let play of availablePlays">
+          <nz-input-group class="add-on-input" [id]="play.key" nzAddOnBefore="{{play.title|translate}}">
+            <div nz-row>
+              <div nz-col nzSpan="8" class="container-switch">
+                <nz-switch nzSize="small" [formControlName]="'status.'+play.key"></nz-switch>
+              </div>
+              <div nz-col nzSpan="16">
+                <nz-input-number
+                  style="width:100%"
+                  [nzDisabled]="!formABM.value || !formABM.value['status.'+play.key]"
+                  [nzMin]="0"
+                  [formControlName]="play.key"></nz-input-number>
+              </div>
+            </div>
           </nz-input-group>
         </div>
       </div>
 
-      <ng-template #PrizeLimitsExtraInfo><i nz-icon nz-tooltip nzTooltipTitle="Ingrese 0 para desabilitar" nzType="info-circle"></i></ng-template>
+      <nz-divider class="title" [nzText]="'Limites'" nzOrientation="left"></nz-divider>
+
+
+      <div id="bettings" nz-row nzGutter="8">
+        <div nz-col nzXs="12" class="form-element" *ngFor="let play of availableBettingPlays">
+          <nz-input-group class="add-on-input" [id]="play.key" nzAddOnBefore="{{play.title|translate}}">
+            <div nz-row>
+              <div nz-col nzSpan="8" class="container-switch">
+                <nz-switch nzSize="small" [formControlName]="'status.'+play.key"></nz-switch>
+              </div>
+              <div nz-col nzSpan="16">
+                <nz-input-number
+                  style="width:100%"
+                  [nzDisabled]="!formABM.value || !formABM.value['status.'+play.key]"
+                  [nzMin]="0"
+                  [formControlName]="play.key"></nz-input-number>
+              </div>
+            </div>
+          </nz-input-group>
+        </div>
+
+      </div>
     </form>
   </ng-template>
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <!--TODO que es esto exactamente?-->
-      <div>
-          <span>
-            {{'HOME.BANKINGS.BANKING.NAME'|translate}}
-          </span>
-        {{visibleObject.name}}
+      <div class="description">
+        <span>
+          {{'Nombre'|translate}}:
+        </span>
+        <b>{{visibleObject.name}}</b>
       </div>
 
-      <div>
-          <span>
-              {{'HOME.BANKINGS.BANKING.PHONE'|translate}}
-          </span>
-        {{visibleObject.phone}}
-      </div>
-      <div>
-          <span>
-              {{'HOME.BANKINGS.BANKING.EMAIL'|translate}}
-          </span>
-        {{visibleObject.email}}
+      <div class="description">
+        <span>
+            {{'Alias'|translate}}:
+        </span>
+        <b>{{visibleObject.nickname}}</b>
       </div>
 
-      <div>
-          <span>
-            {{'HOME.BANKINGS.BANKING.STATUS'|translate}}
-          </span>
-        {{visibleObject.status}}
+      <div class="description">
+        <span>
+            {{'Horario de juego'|translate}}:
+        </span>
+        <b>{{visibleObject.playTime}}</b>
       </div>
 
-      <div>
-          <span>
-            {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
-          </span>
-        {{visibleObject.language}}
+      <div class="description">
+        <span>
+            {{'Horario apertura'|translate}}:
+        </span>
+        <b>{{visibleObject.openTime}}</b>
+      </div>
+
+      <div class="description">
+        <span>
+          {{'Horario cierre'|translate}}:
+        </span>
+        <b>{{visibleObject.closeTime}}</b>
+      </div>
+
+      <div class="description">
+        <span>
+          {{'Estado'|translate}}:
+        </span>
+        <b>{{visibleObject.status ? 'Habilitada' : 'Inhabilitada'}}</b>
+      </div>
+      <div class="description color">
+        <span>
+          {{'Color'|translate}}:
+        </span>
+        <div class="box" [ngStyle]="{backgroundColor:visibleObject.color}"></div>
+      </div>
+      <div class="schedule">
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Mon)">
+          <span class="title">{{days.Mon}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Mon)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Tue)">
+          <span class="title">{{days.Tue}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Tue)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Wed)">
+          <span class="title">{{days.Wed}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Wed)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Thu)">
+          <span class="title">{{days.Thu}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Thu)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Fri)">
+          <span class="title">{{days.Fri}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Fri)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sat)">
+          <span class="title">{{days.Sat}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sat)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
+        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sun)">
+          <span class="title">{{days.Sun}}</span>
+          <br>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sun)">{{visibleObject.openTime}}
+            <br>To<br>{{visibleObject.closeTime}}</p>
+        </div>
       </div>
     </ng-container>
   </ng-template>

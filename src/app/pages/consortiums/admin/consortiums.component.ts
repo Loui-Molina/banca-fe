@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {addBankings, Banking, bankings} from '../../../../assets/data';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -36,11 +35,6 @@ export class ConsortiumsComponent implements OnInit {
       key: 'ownerUsername',
     },
     {
-      title: 'Creacion',
-      key: 'createdAt',
-      valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy')
-    },
-    {
       title: 'Inicio Operacion',
       key: 'firstTransactionDate',
       valueFormatter: (data) => this.datePipe.transform(data.firstTransactionDate, 'dd/MM/yyyy')
@@ -49,6 +43,12 @@ export class ConsortiumsComponent implements OnInit {
       title: 'Estado',
       key: 'status',
       valueFormatter: (data) => (data.status) ? 'Habilitado' : 'Inhabilitada'
+    }
+  ];
+  columnsBanking = [
+    {
+      title: 'Nombre',
+      key: 'name',
     }
   ];
   defaultForm = {
