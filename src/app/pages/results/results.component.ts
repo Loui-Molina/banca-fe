@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AddResultDto, LotteryDto, Result, ResultDto, ResultsService} from '../../../../local-packages/banca-api';
+import {AddResultDto, Result, ResultDto, ResultsService} from '../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
@@ -101,6 +101,7 @@ export class ResultsComponent {
 
   parseData = (mode: string, valueForm, visibleObject): AddResultDto => {
     return {
+      date: valueForm.date,
       first: valueForm.first,
       second: valueForm.second,
       third: valueForm.third,

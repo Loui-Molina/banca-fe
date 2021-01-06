@@ -21,5 +21,6 @@ export interface BankingDto {
     startOfOperation: string;
     showPercentage: boolean;
     language: string;
+    selectedConsortium: object;
 }
 

@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {LotteriesService, Lottery, LotteryDto} from '../../../../../local-packages/banca-api';
 import {DatePipe} from '@angular/common';
 import {ExtraButton} from '../../../components/abm/abm.component';
 import {TranslateService} from '@ngx-translate/core';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import { LotteriesService } from 'local-packages/banca-api/api/lotteries.service';
+import {Lottery} from "local-packages/banca-api";
+import {LotteryDto} from "local-packages/banca-api/model/lotteryDto";
 
 @Component({
   selector: 'app-lotteries-admin',
@@ -73,7 +75,7 @@ export class AdminLotteriesComponent implements OnInit {
 
   fetcherCreate: (item) => Observable<Lottery> = (item) => this.lotteriesService.lotteryControllerCreate(item);
   fetcherUpdate: (item) => Observable<Lottery> = (item) => this.lotteriesService.lotteryControllerUpdate(item);
-  fetcherDelete: (id: string) => Observable<Lottery> = (id) => this.lotteriesService.lotteryControllerDelete(id);
+  fetcherDelete: (item) => Observable<Lottery> = (item) => this.lotteriesService.lotteryControllerDelete(item.id);
   parseData = (mode: string, valueForm): LotteryDto => {
     return {
       name: valueForm.name,

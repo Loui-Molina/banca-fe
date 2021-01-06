@@ -9,15 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Draw } from './draw';
 
 
-export interface ResultDto { 
+export interface UpdateBankingDto { 
     _id: object;
-    lotteryId: object;
-    lotteryName: string;
-    date: string;
-    createdAt: string;
-    draw: Draw;
+    name: string;
+    status: boolean;
+    ownerUserId: object;
+    showPercentage: boolean;
+    selectedConsortium: object;
 }
 

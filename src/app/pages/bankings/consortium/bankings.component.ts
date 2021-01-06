@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {addBankings, Banking, bankings} from '../../../../assets/data';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -7,7 +6,7 @@ import {
   AuthCredentialsDto,
   BankingDto,
   BankingService, ConsortiumsService,
-  CreateBankingDto, User
+  CreateBankingDto, DeleteBankingDto, User
 } from "../../../../../local-packages/banca-api";
 import RoleEnum = User.RoleEnum;
 import {HttpErrorResponse} from "@angular/common/http";
@@ -62,34 +61,38 @@ export class BankingsComponent {
   fetcher: Observable<BankingDto[]> = this.bankingService.bankingControllerFindAll();
   defaultForm = {
     name: null,
-    status: null,
+    status: false,
     selectedConsortium: null,
-    showPercentage: null,
-    language: 'ES',
+    showPercentage: false,
     username: null,
     password: null
   };
   formABM: FormGroup;
   fetcherCreate: (item) => Observable<any> = (item) => this.bankingService.bankingControllerCreate(item); // TODO REMOVE ANY
   fetcherUpdate: (item) => Observable<BankingDto> = (item) => this.bankingService.bankingControllerUpdate(item);
-  fetcherDelete: (id: string) => Observable<BankingDto> = (id) => this.bankingService.bankingControllerRemove(id);
+  fetcherDelete: (item) => Observable<BankingDto> = (item) => this.bankingService.bankingControllerRemove({bankingId: item._id, consortiumId:item.selectedConsortium}as DeleteBankingDto);
   parseData = (mode: string, valueForm, visibleData): CreateBankingDto | BankingDto => {
+    console.log(`visible data = ${JSON.stringify(visibleData)}`)
+    console.log(`value form = ${JSON.stringify(valueForm)}`)
     if (mode === 'C') {
-      return {
+      console.log('crating ')
+      let newVar = {
         banking: {
           name: valueForm.name,
-          language: valueForm.language,
           status: valueForm.status,
           showPercentage: valueForm.showPercentage
         } as BankingDto,
         user: {username: valueForm.username, password: valueForm.password, role: RoleEnum.Banker} as AuthCredentialsDto,
         consortiumId: valueForm.selectedConsortium
       } as CreateBankingDto;
+      console.log(newVar)
+      return newVar;
     } else {
-      return {
-        // TODO CHECK QUE ONDA
-        ...visibleData
+      let newVar1 = {
+        ...valueForm
       } as BankingDto;
+      console.log(newVar1)
+      return newVar1;
     }
   }
   consortiums: any;

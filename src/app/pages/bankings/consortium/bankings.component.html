@@ -32,25 +32,17 @@
 
       <div class="form-element">
         <label for="showPercentage">
-          {{'Porcentage de cuadre de caja'|translate}}
+          {{'Mostrar porcentage de cuadre de caja'|translate}}
         </label>
         <nz-switch style="padding-left: 10px" id="showPercentage" formControlName="showPercentage"></nz-switch>
       </div>
 
-      <div class="form-element">
-        <label for="language">
-          {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
-        </label>
-        <nz-select id="language" formControlName="language">
-          <nz-option nzValue="EN" nzLabel="Ingles"></nz-option>
-          <nz-option nzValue="ES" nzLabel="Español"></nz-option>
-        </nz-select>
-      </div>
+
       <div class="form-element">
         <label for="selectedConsortium">
           {{'Consorcio'|translate}}
         </label>
-        <nz-select id="selectedConsortium" formControlName="selectedConsortium">
+        <nz-select id="selectedConsortium" formControlName="selectedConsortium" >
           <nz-option *ngFor="let option of consortiums" [nzLabel]="option.name" [nzValue]="option._id"></nz-option>
         </nz-select>
       </div>

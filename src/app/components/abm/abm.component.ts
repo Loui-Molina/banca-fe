@@ -106,7 +106,7 @@ export class AbmComponent implements OnInit {
 
   onSubmitDelete = (item: any) => {
     this.loading = true;
-    this.fetcherDelete(item._id).subscribe(response => {
+    this.fetcherDelete(item).subscribe(response => {
       this.messageService.create('success', this.ts('UTILS.DELETED'));
       this.refresh();
     }, error => {
