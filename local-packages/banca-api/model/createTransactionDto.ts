@@ -11,18 +11,16 @@
  */
 
 
-export interface TransactionDto { 
+export interface CreateTransactionDto { 
     _id?: object;
-    type?: TransactionDto.TypeEnum;
+    type?: CreateTransactionDto.TypeEnum;
     originId: object;
     destinationId: object;
     amount: number;
-    originObject: TransactionDto.OriginObjectEnum;
-    originName: string;
-    destinationObject: TransactionDto.DestinationObjectEnum;
-    destinationName: string;
+    originObject: CreateTransactionDto.OriginObjectEnum;
+    destinationObject: CreateTransactionDto.DestinationObjectEnum;
 }
-export namespace TransactionDto {
+export namespace CreateTransactionDto {
     export type TypeEnum = 'deposit' | 'prize' | 'extraction' | 'adjust';
     export const TypeEnum = {
         Deposit: 'deposit' as TypeEnum,

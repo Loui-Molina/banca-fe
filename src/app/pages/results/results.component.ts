@@ -7,6 +7,8 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {HttpErrorResponse} from '@angular/common/http';
+import {UserInterface, UserService} from '../../services/user.service';
+import {User} from '@banca-api/model/user';
 
 @Component({
   selector: 'app-results',
@@ -21,8 +23,10 @@ export class ResultsComponent implements OnInit{
               private modal: NzModalService,
               private resultsService: ResultsService,
               private lotteriesService: AdminLotteriesService,
+              private userService: UserService,
               private formBuilder: FormBuilder) {
     this.formABM = this.formBuilder.group(this.defaultForm);
+    this.user = this.userService.getLoggedUser();
   }
 
 
@@ -71,6 +75,8 @@ export class ResultsComponent implements OnInit{
     lottery: null,
     date: new Date()
   };
+  user: UserInterface;
+  userRole = User.RoleEnum;
   loading = false;
   lotteries: Lottery[] = [];
   lotterySelected: Lottery;

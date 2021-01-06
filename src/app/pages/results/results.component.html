@@ -3,7 +3,7 @@
   <app-abm [title]="'Resultados'"
            [fetcher]="fetcher"
            [form]="formABM"
-           [fetcherCreate]="fetcherCreate"
+           [fetcherCreate]="user?.role === userRole.Admin?fetcherCreate:null"
            [formTemplate]="formTemplate"
            [viewTemplate]="viewTemplate"
            [defaultForm]="defaultForm"

@@ -17,6 +17,7 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
+import { CreateTransactionDto } from '../model/models';
 import { Transaction } from '../model/models';
 import { TransactionDto } from '../model/models';
 
@@ -87,16 +88,16 @@ export class TransactionsService {
     }
 
     /**
-     * @param transactionDto 
+     * @param createTransactionDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public transactionControllerCreate(transactionDto: TransactionDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Transaction>;
-    public transactionControllerCreate(transactionDto: TransactionDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Transaction>>;
-    public transactionControllerCreate(transactionDto: TransactionDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Transaction>>;
-    public transactionControllerCreate(transactionDto: TransactionDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (transactionDto === null || transactionDto === undefined) {
-            throw new Error('Required parameter transactionDto was null or undefined when calling transactionControllerCreate.');
+    public transactionControllerCreate(createTransactionDto: CreateTransactionDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Transaction>;
+    public transactionControllerCreate(createTransactionDto: CreateTransactionDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Transaction>>;
+    public transactionControllerCreate(createTransactionDto: CreateTransactionDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Transaction>>;
+    public transactionControllerCreate(createTransactionDto: CreateTransactionDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (createTransactionDto === null || createTransactionDto === undefined) {
+            throw new Error('Required parameter createTransactionDto was null or undefined when calling transactionControllerCreate.');
         }
 
         let headers = this.defaultHeaders;
@@ -129,7 +130,7 @@ export class TransactionsService {
         }
 
         return this.httpClient.post<Transaction>(`${this.configuration.basePath}/api/transactions`,
-            transactionDto,
+            createTransactionDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

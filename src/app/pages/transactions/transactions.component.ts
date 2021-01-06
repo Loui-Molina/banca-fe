@@ -60,7 +60,7 @@ export class TransactionsComponent implements OnInit {
     {title: 'Balance actual', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
     {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
   ];
-  transactions: Transaction[] = [];
+  transactions: TransactionDto[] = [];
   consortiums: ConsortiumDto[] = [];
   bankings: BankingDto[] = [];
   originObjectEnum = OriginObjectEnum;
@@ -107,8 +107,8 @@ export class TransactionsComponent implements OnInit {
     };
     this.transactionsService.transactionControllerCreate(transaction).subscribe(value => {
       this.loading = false;
-      this.messageService.create('success', 'Usuario o contraseña incorrectos');
-      this.closeDrawer('drawerTicket');
+      this.messageService.create('success', 'Transaccion realizada correctamente');
+      this.closeDrawer('drawerTransaction');
     }, error => {
       this.loading = false;
     });

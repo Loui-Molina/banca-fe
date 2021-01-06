@@ -15,7 +15,6 @@ export interface Consortium {
     _id: object;
     supervisors: Array<string>;
     consortiumPrefs: object;
-    bankings: Array<string>;
     consortiumLotteries: Array<string>;
     ownerUserId: object;
     name: string;

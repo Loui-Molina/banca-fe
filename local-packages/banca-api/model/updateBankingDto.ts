@@ -11,16 +11,12 @@
  */
 
 
-export interface BankingDto { 
+export interface UpdateBankingDto { 
     _id: object;
     name: string;
     status: boolean;
     ownerUserId: object;
-    ownerUsername: string;
-    creationDate: string;
-    startOfOperation: string;
     showPercentage: boolean;
-    language: string;
     selectedConsortium: object;
 }
 
