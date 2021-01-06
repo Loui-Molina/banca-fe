@@ -37,11 +37,14 @@ export class AbmComponent implements OnInit {
   @Input() fetcherUpdate: (item) => Observable<any>;
   @Input() fetcherDelete: (item) => Observable<Response>;
 
+  filterValue = {};
+  visibleFilter = {};
   visibleForm = false;
   visibleView = false;
   mode: 'C' | 'U';
   visibleObject;
   data: any[] = [];
+  dataDisplayed: any[] = [];
   loadingSave = false;
   loading = false;
 
@@ -72,6 +75,7 @@ export class AbmComponent implements OnInit {
       this.fetcher.subscribe(data => {
         this.loading = false;
         this.data = data;
+        this.dataDisplayed = data;
       }, error => {
         this.loading = false;
         throw new HttpErrorResponse(error);
@@ -209,6 +213,35 @@ export class AbmComponent implements OnInit {
     this.visibleView = false;
   }
 
+  reset(key): void {
+    this.filterValue[key] = null;
+    this.search(key);
+  }
+
+  search(key): void {
+    this.visibleFilter[key] = false;
+    this.dataDisplayed = this.data.filter(item => {
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < Object.keys(this.filterValue).length; i++){
+        const subkey = Object.keys(this.filterValue)[i];
+        if (this.filterValue[subkey] !== null && this.filterValue[subkey] !== undefined){
+          if (item[subkey]){
+            if (typeof item[subkey] === 'string' && item[subkey].indexOf(this.filterValue[subkey]) === -1){
+              return false;
+            } else if ( typeof item[subkey] === 'number' && item[subkey] !== (parseInt(this.filterValue[subkey], 0) || null)){
+              return false;
+            } else {
+              return true;
+            }
+          } else if (item[subkey] === undefined){
+            return false;
+          }
+        }
+      }
+      return true;
+    });
+  }
+
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
   }
@@ -218,6 +251,7 @@ export class AbmComponent implements OnInit {
 export interface Column {
   key?: string;
   title?: string;
+  showSearch?: boolean;
   type?: 'numeric' | 'string';
   // tslint:disable-next-line:ban-types
   valueFormatter?: Function;

@@ -35,11 +35,6 @@ export class ConsortiumsComponent implements OnInit {
       key: 'ownerUsername',
     },
     {
-      title: 'Creacion',
-      key: 'createdAt',
-      valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy')
-    },
-    {
       title: 'Inicio Operacion',
       key: 'firstTransactionDate',
       valueFormatter: (data) => this.datePipe.transform(data.firstTransactionDate, 'dd/MM/yyyy')

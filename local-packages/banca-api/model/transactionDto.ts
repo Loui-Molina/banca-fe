@@ -12,11 +12,13 @@
 
 
 export interface TransactionDto { 
-    _id: object;
-    type: TransactionDto.TypeEnum;
-    originUserId: object;
-    destinationUserId: object;
+    _id?: object;
+    type?: TransactionDto.TypeEnum;
+    originId: object;
+    destinationId: object;
     amount: number;
+    originObject: TransactionDto.OriginObjectEnum;
+    destinationObject: TransactionDto.DestinationObjectEnum;
 }
 export namespace TransactionDto {
     export type TypeEnum = 'deposit' | 'prize' | 'extraction' | 'adjust';
@@ -25,6 +27,16 @@ export namespace TransactionDto {
         Prize: 'prize' as TypeEnum,
         Extraction: 'extraction' as TypeEnum,
         Adjust: 'adjust' as TypeEnum
+    };
+    export type OriginObjectEnum = 'banking' | 'consortium';
+    export const OriginObjectEnum = {
+        Banking: 'banking' as OriginObjectEnum,
+        Consortium: 'consortium' as OriginObjectEnum
+    };
+    export type DestinationObjectEnum = 'banking' | 'consortium';
+    export const DestinationObjectEnum = {
+        Banking: 'banking' as DestinationObjectEnum,
+        Consortium: 'consortium' as DestinationObjectEnum
     };
 }
 

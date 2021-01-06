@@ -140,7 +140,7 @@ export class ConsortiumLotteriesComponent implements OnInit {
     const prizeLimits = visibleObject.prizeLimits;
     const bettingLimits = visibleObject.bettingLimits;
     const form = {
-      bankings: visibleObject.bankings
+      bankings: visibleObject.bankings ? visibleObject.bankings : []
     };
 
 
