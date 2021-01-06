@@ -73,6 +73,9 @@ export class BankingsComponent {
   fetcherCreate: (item) => Observable<any> = (item) => this.bankingService.bankingControllerCreate(item); // TODO REMOVE ANY
   fetcherUpdate: (item) => Observable<BankingDto> = (item) => this.bankingService.bankingControllerUpdate(item);
   fetcherDelete: (id: string) => Observable<BankingDto> = (id) => this.bankingService.bankingControllerRemove(id);
+  // TODO arreglar capaz no haga falta mandar el objeto
+  // pq si es admin se busca en base al bankingiD
+  // Y si sos rol consorcio tambien buscas por bankingId y se encuentra
   parseData = (mode: string, valueForm, visibleData): CreateBankingDto | BankingDto => {
     if (mode === 'C') {
       return {
