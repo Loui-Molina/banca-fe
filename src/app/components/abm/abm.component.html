@@ -56,7 +56,7 @@
   (nzOnClose)="onCancel()"
 >
   <div>
-    <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit: mode}">
+    <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit: mode, visibleObject: visibleObject}">
     </ng-container>
 
     <ng-template #footerTplForm>

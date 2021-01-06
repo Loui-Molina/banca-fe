@@ -19,9 +19,10 @@ export interface TransactionDto {
     amount: number;
 }
 export namespace TransactionDto {
-    export type TypeEnum = 'deposit' | 'extraction' | 'adjust';
+    export type TypeEnum = 'deposit' | 'prize' | 'extraction' | 'adjust';
     export const TypeEnum = {
         Deposit: 'deposit' as TypeEnum,
+        Prize: 'prize' as TypeEnum,
         Extraction: 'extraction' as TypeEnum,
         Adjust: 'adjust' as TypeEnum
     };

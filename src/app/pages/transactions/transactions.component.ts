@@ -1,8 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {Transaction, TransactionsService, User} from '../../../../local-packages/banca-api';
+import {
+  BankingDto,
+  BankingService,
+  ConsortiumDto,
+  ConsortiumsService,
+  Transaction,
+  TransactionsService,
+  User
+} from '../../../../local-packages/banca-api';
 import {UserInterface, UserService} from '../../services/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {forkJoin, Observable} from 'rxjs';
+import OriginObjectEnum = Transaction.OriginObjectEnum;
+import DestinationObjectEnum = Transaction.DestinationObjectEnum;
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-transactions',
@@ -11,10 +23,26 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class TransactionsComponent implements OnInit {
 
-  constructor(private datePipe: DatePipe, private userService: UserService, private transactionsService: TransactionsService) {
+  constructor(private datePipe: DatePipe,
+              private userService: UserService,
+              private formBuilder: FormBuilder,
+              private transactionsService: TransactionsService,
+              private consortiumsService: ConsortiumsService,
+              private bankingService: BankingService,
+  ) {
+    this.formTransaction = this.formBuilder.group(
+      {
+        originObject: null,
+        originId: null,
+        destinationId: null,
+        destinationObject: null,
+        amount: null
+      }
+    );
   }
 
   loading = false;
+  formTransaction: FormGroup;
   drawerTransaction = false;
   user: UserInterface;
   userRole = User.RoleEnum;
@@ -26,6 +54,10 @@ export class TransactionsComponent implements OnInit {
     {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
   ];
   transactions: Transaction[] = [];
+  consortiums: ConsortiumDto[] = [];
+  bankings: BankingDto[] = [];
+  originObjectEnum = OriginObjectEnum;
+  destinationObjectEnum = DestinationObjectEnum;
 
   valueFormatter(data: Transaction, column): any{
     return '$' + data[column.key];
@@ -60,12 +92,25 @@ export class TransactionsComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.userService.getLoggedUser();
     this.loading = true;
-    this.transactionsService.transactionControllerGetAll().subscribe(res => {
-      this.transactions = res;
+    this.initDataSync().subscribe(responseList => {
+      this.transactions = responseList[0];
+      this.consortiums = responseList[1];
+      this.bankings = responseList[2];
       this.loading = false;
     }, error => {
       this.loading = false;
       throw new HttpErrorResponse(error);
     });
+  }
+
+  private initDataSync(): Observable<any[]> {
+    const transactionControllerGetAll = this.transactionsService.transactionControllerGetAll();
+    const consortiumControllerGetAll = this.consortiumsService.consortiumControllerGetAll();
+    const bankingControllerFindAll = this.bankingService.bankingControllerFindAll();
+    return forkJoin([
+      transactionControllerGetAll,
+      consortiumControllerGetAll,
+      bankingControllerFindAll
+    ]);
   }
 }

@@ -18,6 +18,8 @@ import {NzTimePickerModule} from 'ng-zorro-antd/time-picker';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzButtonModule} from 'ng-zorro-antd/button';
+import {NzDividerModule} from 'ng-zorro-antd/divider';
+import {NzTableModule} from 'ng-zorro-antd/table';
 
 @NgModule({
   imports: [
@@ -36,7 +38,9 @@ import {NzButtonModule} from 'ng-zorro-antd/button';
     NzTimePickerModule,
     NzDrawerModule,
     FormsModule,
-    NzButtonModule
+    NzButtonModule,
+    NzDividerModule,
+    NzTableModule
   ],
   providers: [FormBuilder, DatePipe],
   declarations: [LotteriesComponent, AdminLotteriesComponent, ConsortiumLotteriesComponent],
