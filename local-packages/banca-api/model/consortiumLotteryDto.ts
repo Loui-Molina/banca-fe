@@ -9,10 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { BettingLimit } from './bettingLimit';
+import { PrizeLimit } from './prizeLimit';
 
 
-export interface LotteryDto { 
+export interface ConsortiumLotteryDto { 
     _id?: object;
+    bankings?: Array<string>;
+    bettingLimits?: Array<BettingLimit>;
+    prizeLimits?: Array<PrizeLimit>;
     name: string;
     nickname: string;
     color: string;
@@ -21,9 +26,9 @@ export interface LotteryDto {
     results: Array<string>;
     openTime?: string;
     closeTime?: string;
-    day: Array<LotteryDto.DayEnum>;
+    day: Array<ConsortiumLotteryDto.DayEnum>;
 }
-export namespace LotteryDto {
+export namespace ConsortiumLotteryDto {
     export type DayEnum = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
     export const DayEnum = {
         Mon: 'mon' as DayEnum,

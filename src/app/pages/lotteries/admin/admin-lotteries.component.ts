@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {LotteriesService, Lottery, LotteryDto} from '../../../../../local-packages/banca-api';
+import {AdminLotteriesService, Lottery, AdminLotteryDto} from '../../../../../local-packages/banca-api';
 import {DatePipe} from '@angular/common';
 import {ExtraButton} from '../../../components/abm/abm.component';
 import {TranslateService} from '@ngx-translate/core';
@@ -20,7 +20,7 @@ export class AdminLotteriesComponent implements OnInit {
               private formBuilder: FormBuilder,
               private messageService: NzMessageService,
               private modal: NzModalService,
-              private lotteriesService: LotteriesService,
+              private lotteriesService: AdminLotteriesService,
   ) {
     this.formABM = this.formBuilder.group(this.defaultForm);
   }
@@ -51,7 +51,7 @@ export class AdminLotteriesComponent implements OnInit {
       key: 'status',
       valueFormatter: (data) => (data.status) ? 'Habilitada' : 'Inhabilitada'
     }];
-  fetcher: Observable<Lottery[]> = this.lotteriesService.lotteryControllerGetAll();
+  fetcher: Observable<Lottery[]> = this.lotteriesService.adminLotteryControllerGetAll();
   formABM: FormGroup;
   extraButtons: ExtraButton[] = [];
   defaultForm = {
@@ -64,7 +64,7 @@ export class AdminLotteriesComponent implements OnInit {
     color: '#000',
     status: true
   };
-  days = LotteryDto.DayEnum;
+  days = AdminLotteryDto.DayEnum;
 
   ngOnInit(): void {
     this.extraButtons = [
@@ -76,10 +76,10 @@ export class AdminLotteriesComponent implements OnInit {
     ];
   }
 
-  fetcherCreate: (item) => Observable<Lottery> = (item) => this.lotteriesService.lotteryControllerCreate(item);
-  fetcherUpdate: (item) => Observable<Lottery> = (item) => this.lotteriesService.lotteryControllerUpdate(item);
-  fetcherDelete: (id: string) => Observable<Lottery> = (id) => this.lotteriesService.lotteryControllerDelete(id);
-  parseData = (mode: string, valueForm): LotteryDto => {
+  fetcherCreate: (item) => Observable<Lottery> = (item) => this.lotteriesService.adminLotteryControllerCreate(item);
+  fetcherUpdate: (item) => Observable<Lottery> = (item) => this.lotteriesService.adminLotteryControllerUpdate(item);
+  fetcherDelete: (id: string) => Observable<Lottery> = (id) => this.lotteriesService.adminLotteryControllerDelete(id);
+  parseData = (mode: string, valueForm): AdminLotteryDto => {
     return {
       name: valueForm.name,
       nickname: valueForm.nickname,

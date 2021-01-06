@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
   }
   columns: Column[] = [
     {key: 'name', title: 'SETTINGS.USERS.COLUMNS.NAME'},
-    {key: 'username', title: 'SETTINGS.USERS.COLUMNS.USERNAME'},
+    {key: 'username', title: 'SETTINGS.USERS.COLUMNS.USERNAME', showSearch: true},
     {key: 'role', title: 'Rol'}
   ];
   formABM: FormGroup;

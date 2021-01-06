@@ -9,17 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { BettingLimit } from './bettingLimit';
+import { PrizeLimit } from './prizeLimit';
 
 
-export interface ConsortiumDto { 
-    ownerName: string;
-    ownerUsername: string;
-    ownerId: object;
-    _id: object;
-    name: string;
-    createdAt: string;
-    status: boolean;
-    firstTransactionDate: string;
-    bankings: Array<string>;
+export interface ConsortiumUpdateLotteryDto { 
+    _id?: object;
+    bankings?: Array<string>;
+    bettingLimits?: Array<BettingLimit>;
+    prizeLimits?: Array<PrizeLimit>;
 }
 

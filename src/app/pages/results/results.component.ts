@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AddResultDto, LotteriesService, Lottery, LotteryDto, Result, ResultDto, ResultsService} from '../../../../local-packages/banca-api';
+import {AddResultDto, AdminLotteriesService, Lottery, AdminLotteryDto, Result, ResultDto, ResultsService} from '../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
@@ -20,7 +20,7 @@ export class ResultsComponent implements OnInit{
               private translateService: TranslateService,
               private modal: NzModalService,
               private resultsService: ResultsService,
-              private lotteriesService: LotteriesService,
+              private lotteriesService: AdminLotteriesService,
               private formBuilder: FormBuilder) {
     this.formABM = this.formBuilder.group(this.defaultForm);
   }
@@ -34,14 +34,23 @@ export class ResultsComponent implements OnInit{
     {
       title: '1er',
       key: 'draw.first',
+      valueFormatter: (data) => {
+        return this.formatResult(data.draw.first);
+      }
     },
     {
       title: '2do',
       key: 'draw.second',
+      valueFormatter: (data) => {
+        return this.formatResult(data.draw.second);
+      }
     },
     {
       title: '3ro',
       key: 'draw.third',
+      valueFormatter: (data) => {
+        return this.formatResult(data.draw.third);
+      }
     },
     {
       title: 'Fecha',
@@ -64,6 +73,7 @@ export class ResultsComponent implements OnInit{
   };
   loading = false;
   lotteries: Lottery[] = [];
+  lotterySelected: Lottery;
   formABM: FormGroup;
   fetcherCreate: (item) => Observable<Result> = (item) => this.resultsService.resultsControllerCreate(item);
 
@@ -75,6 +85,10 @@ export class ResultsComponent implements OnInit{
       third: valueForm.third,
       lotteryId: valueForm.lottery
     };
+  }
+
+  formatResult(value: number): string{
+    return String(value).padStart(2, '0');
   }
 
   getValidators = (mode: string) => {
@@ -89,13 +103,21 @@ export class ResultsComponent implements OnInit{
 
   ngOnInit(): void {
     this.loading = true;
-    this.lotteriesService.lotteryControllerGetAll().subscribe(data => {
+    this.lotteriesService.adminLotteryControllerGetAll().subscribe(data => {
       this.lotteries = data;
       this.loading = false;
     }, error => {
       this.loading = false;
       throw new HttpErrorResponse(error);
     });
+  }
+
+  onChangeLottery($event): void{
+    if ($event){
+      this.lotterySelected = this.lotteries.filter(lottery => lottery._id === $event).pop();
+    } else {
+      this.lotterySelected = null;
+    }
   }
 
   private ts(key: string, params?): string {

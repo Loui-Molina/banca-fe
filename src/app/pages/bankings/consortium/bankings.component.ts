@@ -3,6 +3,14 @@ import {addBankings, Banking, bankings} from '../../../../assets/data';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {
+  AuthCredentialsDto,
+  BankingDto,
+  BankingService, ConsortiumsService,
+  CreateBankingDto, User
+} from "../../../../../local-packages/banca-api";
+import RoleEnum = User.RoleEnum;
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-bankings',
@@ -12,10 +20,19 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class BankingsComponent {
 
   constructor(private datePipe: DatePipe,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private bankingService: BankingService,
+              private consortiumsService: ConsortiumsService) {
     this.formABM = this.formBuilder.group(this.defaultForm);
 
+    this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
+        this.consortiums = consortiums;
+      }, error => {
+        throw new HttpErrorResponse(error);
+      }
+    )
   }
+
 
   columns = [
     {
@@ -24,78 +41,56 @@ export class BankingsComponent {
     },
     {
       title: 'Usuario',
-      key: '',
-      valueFormatter: () => 'X'
+      key: 'ownerUsername',
     },
     {
       title: 'Creacion',
-      key: '',
+      key: 'creationDate',
       valueFormatter: () => this.datePipe.transform(new Date())
     },
     {
       title: 'Inicio Operacion',
-      key: '',
+      key: 'startOfOperation',
       valueFormatter: () => this.datePipe.transform(new Date())
     },
     {
       title: 'Estado',
-      key: '',
-      valueGetter: () => 1,
-      valueFormatter: () => 'Operando'
+      key: 'status',
+      valueFormatter: (data) => (data.status) ? 'Habilitada' : 'Inhabilitada'
     }
   ];
-  fetcher: Observable<any[]> = this.getData();
+  fetcher: Observable<BankingDto[]> = this.bankingService.bankingControllerFindAll();
   defaultForm = {
     name: null,
-    phone: null,
-    email: null,
     status: null,
-    porcCuadreCaja: null,
+    selectedConsortium: null,
+    showPercentage: null,
     language: 'ES',
-    user: 'X'
+    username: null,
+    password: null
   };
   formABM: FormGroup;
-  fetcherCreate: (item) => Observable<Banking> = (item) => this.saveBanking(item);
-  fetcherUpdate: (item) => Observable<Banking> = (item) => this.saveBanking(item);
-  fetcherDelete: (id: string) => Observable<Banking> = (id) => this.deleteBanking(id);
-
-  private getData(): Observable<Banking[]> { // TODO REPLACE
-    return new Observable(subscriber => {
-      subscriber.next(bankings);
-    });
+  fetcherCreate: (item) => Observable<any> = (item) => this.bankingService.bankingControllerCreate(item); // TODO REMOVE ANY
+  fetcherUpdate: (item) => Observable<BankingDto> = (item) => this.bankingService.bankingControllerUpdate(item);
+  fetcherDelete: (id: string) => Observable<BankingDto> = (id) => this.bankingService.bankingControllerRemove(id);
+  parseData = (mode: string, valueForm, visibleData): CreateBankingDto | BankingDto => {
+    if (mode === 'C') {
+      return {
+        banking: {
+          name: valueForm.name,
+          language: valueForm.language,
+          status: valueForm.status,
+          showPercentage: valueForm.showPercentage
+        } as BankingDto,
+        user: {username: valueForm.username, password: valueForm.password, role: RoleEnum.Banker} as AuthCredentialsDto,
+        consortiumId: valueForm.selectedConsortium
+      } as CreateBankingDto;
+    } else {
+      return {
+        // TODO CHECK QUE ONDA
+        ...visibleData
+      } as BankingDto;
+    }
   }
-
-  private deleteBanking(id: string): Observable<Banking> {
-    return new Observable(subscriber => {
-      subscriber.next(bankings[0]);
-      subscriber.complete();
-    });
-  }
-
-  private saveBanking(item): Observable<Banking> {
-    const banking: Banking = {
-      balance: 0,
-      canceledTks: 0,
-      discount: 0,
-      earnings: 0,
-      losingTks: 0,
-      net: 0,
-      pendingTks: 0,
-      percentage: 0,
-      prizes: 0,
-      totalTickets: 0,
-      winningTks: 0,
-      name: item.name,
-      phone: item.phone,
-      email: item.email,
-      status: item.status,
-      language: item.language,
-      user: item.user
-    };
-    addBankings(banking);
-    return new Observable(subscriber => {
-      subscriber.next(banking);
-      subscriber.complete();
-    });
-  }
+  consortiums: any;
 }
