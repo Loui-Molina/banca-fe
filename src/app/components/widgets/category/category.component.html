@@ -1,0 +1,14 @@
+<div class="container"
+     [class.available]="!disabled"
+     [style.color]="color"
+     [style.background]="'url(' + background + ') center no-repeat'"
+     [style.backgroundSize]="'cover'"
+     [style.backgroundColor]="'#fff'"
+>
+  <div class="title-container">
+    <h4 [style]="{color:color}" nz-typography>{{title}}</h4>
+    <h5 [style]="{color:color}" nz-typography>{{description}}</h5>
+  </div>
+
+  <div class="disabled" *ngIf="disabled"></div>
+</div>

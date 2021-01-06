@@ -1,0 +1,108 @@
+<app-page-loader-bouncing [loading]="loading"></app-page-loader-bouncing>
+<div class="inner-content">
+  <nz-page-header [nzGhost]="false" class="page-header">
+    <nz-page-header-title>{{title | translate}}</nz-page-header-title>
+    <nz-page-header-extra>
+      <!--<button nz-button>Operation</button>-->
+      <button nz-button nzType="primary" *ngIf="fetcherCreate" (click)="onAdd()">{{'UTILS.NEW' | translate}}</button>
+    </nz-page-header-extra>
+    <nz-page-header-content>
+      <nz-descriptions nzSize="small" [nzColumn]="3">
+        <nz-descriptions-item nzTitle="{{'UTILS.AMOUNT' | translate}}" [nzSpan]="3">
+          {{dataDisplayed.length}}
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </nz-page-header-content>
+  </nz-page-header>
+
+  <nz-table [nzSize]="'small'" #basicTable [nzData]="dataDisplayed" [nzScroll]="{ x: '700px' }">
+    <thead>
+    <tr>
+      <th class="table-th" [class.numeric]="column.type === 'numeric'"
+          *ngFor="let column of columns">
+        {{column.title | translate}}
+        <ng-container *ngIf="column.showSearch">
+          <nz-filter-trigger  [(nzVisible)]="visibleFilter[column.key]"
+                              [nzActive]="filterValue[column.key] && filterValue[column.key].length > 0"
+                              [nzDropdownMenu]="filterMenu">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+          <nz-dropdown-menu #filterMenu="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+              <div class="search-box">
+                <input type="text" nz-input placeholder="Search name" [(ngModel)]="filterValue[column.key]" />
+                <button nz-button nzSize="small" nzType="primary" (click)="search(column.key)" class="search-button">
+                  Buscar
+                </button>
+                <button nz-button nzSize="small" (click)="reset(column.key)">Limpiar</button>
+              </div>
+            </div>
+          </nz-dropdown-menu>
+        </ng-container>
+      </th>
+      <th>{{'UTILS.ACTIONS' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of basicTable.data">
+      <td class="table-td" *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'">
+        {{ column.valueFormatter ? column.valueFormatter(item, column) : getValueKey(item, column.key) }}
+      </td>
+      <td>
+        <i nz-icon [nzType]="extraButton.icon" *ngFor="let extraButton of extraButtons" [nz-tooltip]="extraButton.tooltip | translate"
+           (click)="extraButton.onClick && extraButton.onClick(item)"
+           class="action-icon"
+           nzTheme="outline"></i>
+        <i nz-icon nzType="eye" [nz-tooltip]="'UTILS.DETAIL' | translate" (click)="openView(item)" class="action-icon"
+           nzTheme="outline"></i>
+        <i nz-icon nzType="edit" *ngIf="fetcherUpdate" [nz-tooltip]="'UTILS.EDIT' | translate" (click)="onEdit(item)" class="action-icon"
+           nzTheme="outline"></i>
+        <i nz-icon nzType="delete" *ngIf="fetcherDelete" [nz-tooltip]="'UTILS.DELETE' | translate" (click)="onDelete(item)"
+           class="action-icon red" nzTheme="outline"></i>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</div>
+
+
+<nz-drawer
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="false"
+  [nzWidth]="720"
+  [nzVisible]="visibleForm"
+  [nzTitle]="(mode === 'C'?'UTILS.NEW':'UTILS.EDIT') | translate"
+  [nzFooter]="footerTplForm"
+  (nzOnClose)="onCancel()"
+>
+  <div>
+    <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit: mode, visibleObject: visibleObject}">
+    </ng-container>
+
+    <ng-template #footerTplForm>
+      <div style="float: right">
+        <button nz-button style="margin-right: 8px;" [disabled]="loadingSave"
+                (click)="onCancel()">{{'UTILS.CANCEL'|translate}}</button>
+        <button nz-button nzType="primary" [nzLoading]="loadingSave" [disabled]="form && !form.valid || loadingSave"
+                (click)="onSave()">{{'UTILS.SAVE'|translate}}</button>
+      </div>
+    </ng-template>
+  </div>
+</nz-drawer>
+
+
+<nz-drawer
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="false"
+  [nzWidth]="720"
+  [nzVisible]="visibleView"
+  [nzTitle]="'UTILS.DETAIL' | translate"
+  (nzOnClose)="onCancelView()"
+>
+  <div>
+    <ng-container *ngTemplateOutlet="viewTemplate; context: {$implicit: visibleObject}">
+    </ng-container>
+  </div>
+</nz-drawer>
+

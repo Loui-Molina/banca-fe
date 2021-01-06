@@ -1,0 +1,10 @@
+<div class="ball-container"
+     [style]="{background: 'radial-gradient(circle at 40px 40px, '+background+', #000)'}"
+     [class.small]="size === 'small'"
+     [class.tiny]="size === 'tiny'"
+>
+  <div class="title-container">
+    <h3 [style]="{color:color}" nz-typography>{{title}}</h3>
+    <h5 [style]="{color:color}" nz-typography *ngIf="description">{{description}}</h5>
+  </div>
+</div>

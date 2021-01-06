@@ -1,0 +1,36 @@
+.container{
+  min-height: 250px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px 0 #0000001a;
+  position: relative;
+  transition: box-shadow 0.3s ease-in-out;
+  .title-container{
+    background-color: #0000004d;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0 10px 0;
+    margin-bottom: 10px;
+    h4{
+      margin: 0;
+    }
+  }
+  &.available:hover{
+    box-shadow: 0 4px 6px 0 #0000005c;
+    cursor: pointer;
+  }
+  .disabled{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color: #0000006b;
+    border-radius: 5px;
+  }
+}
+

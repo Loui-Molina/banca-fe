@@ -1,0 +1,70 @@
+{
+  "ERROR": {
+    "TITLE": "Error",
+    "SYSTEM_ERROR": "Error de sistema",
+    "DIMENSION_ERROR": "Error de dimension",
+    "NOT_AUTHORIZED": "No autorizado",
+    "ERROR_UNRECOGNIZED": "Error desconocido"
+  },
+  "UTILS": {
+    "LOADING": "Cargando...",
+    "NEW": "Nuevo",
+    "EDIT": "Editar",
+    "DETAIL": "Detalle",
+    "SAVED": "Guardado",
+    "DELETED": "Eliminado",
+    "CANCEL": "Cancelar",
+    "CONFIRM": "Confirmar",
+    "SAVE": "Guardar",
+    "DELETE": "Eliminar",
+    "ARE_YOU_SURE": "Estas seguro?",
+    "ACTIONS": "Acciones",
+    "AMOUNT": "Cantidad"
+  },
+  "HOME": {
+    "TITLE": "Home",
+    "DASHBOARD": {
+      "TITLE": "Dashboard",
+      "DAILY_STATS": "Estadisticas de las ventas del dia",
+      "WEEKLY_STATS": "Estadistica detallada de la semana en curso",
+      "BALANCE": "Balance",
+      "INGRESS": "Ganacias",
+      "EGRESS": "Perdidas",
+      "TICKETS": "Tickets vendidos"
+    },
+    "TRANSACTIONS": {
+      "TITLE": "Transacciones"
+    },
+    "BANKINGS": {
+      "TITLE": "Bancas",
+      "BANKING": {
+        "NAME": "Nombre",
+        "PHONE": "Telefono",
+        "EMAIL": "Email",
+        "STATUS": "Estatus",
+        "LANGUAGE": "Lenguaje"
+      }
+    },
+    "LOTTERIES": {
+      "TITLE": "Loterias"
+    }
+  },
+  "SETTINGS": {
+    "TITLE": "Configuracion",
+    "USERS": {
+      "TITLE": "Usuarios",
+      "COLUMNS": {
+        "NAME": "Nombre",
+        "USERNAME": "Usuario",
+        "PASSWORD": "Contraseña"
+      }
+    },
+    "LOGOUT": {
+      "TITLE": "Salir"
+    }
+  },
+  "TRANSLATION": {
+    "ENGLISH": "Ingles",
+    "SPANISH": "Español"
+  }
+}

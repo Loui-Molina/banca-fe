@@ -1,0 +1,54 @@
+.ball-container{
+  height: 100px;
+  width: 100px;
+  min-height: 100px;
+  min-width: 100px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 4px 6px 0 #0000001a;
+  margin: 0;
+
+  .title-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    h3{
+      margin:0;
+    }
+    h5{
+      margin:0;
+    }
+  }
+  &.small{
+    height: 50px;
+    width: 50px;
+    min-height: 50px;
+    min-width: 50px;
+    .title-container{
+      h3{
+        font-size:18px;
+      }
+      h5{
+        font-size:12px;
+      }
+    }
+  }
+  &.tiny{
+    height: 25px;
+    width: 25px;
+    min-height: 25px;
+    min-width: 25px;
+    .title-container{
+      h3{
+        font-size:12px;
+      }
+      h5{
+        font-size:10px;
+      }
+    }
+  }
+}

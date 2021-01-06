@@ -1,0 +1,14 @@
+@import 'src/styles';
+
+
+#pie-chart-parent { display: grid; }
+
+
+.balls-container{
+  display: flex;
+  flex-wrap: wrap;
+  app-ball{
+    margin: 10px;
+  }
+}
+

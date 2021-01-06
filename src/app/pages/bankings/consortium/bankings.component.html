@@ -1,0 +1,102 @@
+<div class="inner-content fit-height mb-20" style="min-height: 300px;">
+  <app-abm [title]="'HOME.BANKINGS.TITLE'"
+           [fetcher]="fetcher"
+           [fetcherCreate]="fetcherCreate"
+           [fetcherUpdate]="fetcherUpdate"
+           [fetcherDelete]="fetcherDelete"
+           [parseData]="parseData"
+           [formTemplate]="formTemplate"
+           [viewTemplate]="viewTemplate"
+           [defaultForm]="defaultForm"
+           [form]="formABM"
+           [columns]="columns">
+  </app-abm>
+
+
+  <ng-template #formTemplate let-mode>
+    <form [formGroup]="formABM">
+
+      <div class="form-element">
+        <label for="name">
+          {{'Nombre'|translate}}
+        </label>
+        <input nz-input id="name" type="text" formControlName="name">
+      </div>
+
+      <div class="form-element">
+        <label for="status">
+          {{'Estado'|translate}}
+        </label>
+        <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
+      </div>
+
+      <div class="form-element">
+        <label for="showPercentage">
+          {{'Porcentage de cuadre de caja'|translate}}
+        </label>
+        <nz-switch style="padding-left: 10px" id="showPercentage" formControlName="showPercentage"></nz-switch>
+      </div>
+
+      <div class="form-element">
+        <label for="language">
+          {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
+        </label>
+        <nz-select id="language" formControlName="language">
+          <nz-option nzValue="EN" nzLabel="Ingles"></nz-option>
+          <nz-option nzValue="ES" nzLabel="Español"></nz-option>
+        </nz-select>
+      </div>
+      <div class="form-element">
+        <label for="selectedConsortium">
+          {{'Consorcio'|translate}}
+        </label>
+        <nz-select id="selectedConsortium" formControlName="selectedConsortium">
+          <nz-option *ngFor="let option of consortiums" [nzLabel]="option.name" [nzValue]="option._id"></nz-option>
+        </nz-select>
+      </div>
+
+      <nz-divider class="title" [nzText]="'Datos de inicio de sesion'" nzOrientation="left"></nz-divider>
+
+      <div>
+        <label for="username">
+          {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
+        </label>
+        <input nz-input [minLength]="4" id="username" type="text" formControlName="username">
+      </div>
+
+      <ng-container *ngIf="mode === 'C'">
+        <label for="password">
+          {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
+        </label>
+        <input nz-input [minLength]="8" [maxLength]="35" id="password" type="text" formControlName="password">
+      </ng-container>
+
+    </form>
+  </ng-template>
+
+  <ng-template #viewTemplate let-visibleObject>
+    <ng-container *ngIf="visibleObject">
+      <div>
+          <span>
+            {{'Nombre'|translate}}
+          </span>
+        {{visibleObject.name}}
+      </div>
+
+      <div>
+          <span>
+            {{'HOME.BANKINGS.BANKING.STATUS'|translate}}
+          </span>
+        {{visibleObject.status}}
+      </div>
+
+      <div>
+          <span>
+            {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
+          </span>
+        {{visibleObject.language}}
+      </div>
+    </ng-container>
+  </ng-template>
+
+</div>

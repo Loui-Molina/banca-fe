@@ -1,0 +1,111 @@
+<app-page-loader-bouncing [loading]="loading"></app-page-loader-bouncing>
+<div class="inner-content fit-height mb-20" style="min-height: 300px;">
+  <app-abm [title]="'Resultados'"
+           [fetcher]="fetcher"
+           [form]="formABM"
+           [fetcherCreate]="fetcherCreate"
+           [formTemplate]="formTemplate"
+           [viewTemplate]="viewTemplate"
+           [defaultForm]="defaultForm"
+           [parseData]="parseData"
+           [getValidators]="getValidators"
+           [columns]="columns">
+  </app-abm>
+
+
+  <ng-template #formTemplate>
+    <form [formGroup]="formABM">
+
+      <div class="form-element">
+        <label for="lottery">
+          {{'Loteria'|translate}}
+        </label>
+        <br>
+        <nz-select id="lottery" (ngModelChange)="onChangeLottery($event)" formControlName="lottery" style="width: 100%">
+          <nz-option *ngFor="let lottery of lotteries" [nzValue]="lottery._id" [nzLabel]="lottery.name"></nz-option>
+        </nz-select>
+      </div>
+      <p *ngIf="lotterySelected">Esta loteria se juega a las {{lotterySelected.playTime}}</p>
+
+      <div class="form-element">
+        <label for="first">
+          {{'Primero'|translate}}
+        </label>
+        <nz-input-number
+          id="first"
+          style="width: 100%"
+          formControlName="first"
+          [nzMin]="0" [nzMax]="99"
+          class="right-input"></nz-input-number>
+      </div>
+
+
+
+      <div class="form-element">
+        <label for="second">
+          {{'Segundo'|translate}}
+        </label>
+        <nz-input-number
+          id="second"
+          style="width: 100%"
+          formControlName="second"
+          [nzMin]="0" [nzMax]="99"
+          class="right-input"></nz-input-number>
+      </div>
+
+      <div class="form-element">
+        <label for="third">
+          {{'Tercero'|translate}}
+        </label>
+        <nz-input-number
+          id="third"
+          style="width: 100%"
+          formControlName="third"
+          [nzMin]="0" [nzMax]="99"
+          class="right-input"></nz-input-number>
+      </div>
+
+      <div class="form-element">
+        <label for="date">
+          {{'Fecha'|translate}}
+        </label>
+        <nz-date-picker id="date" formControlName="date"></nz-date-picker>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #viewTemplate let-visibleObject>
+    <ng-container *ngIf="visibleObject">
+      <div class="description">
+          <span>
+            {{'Loteria'|translate}}:
+          </span>
+        <b>{{visibleObject.lotteryName}}</b>
+      </div>
+      <div class="description">
+          <span>
+                {{'Fecha'|translate}}
+          </span>
+        <b>{{visibleObject.date | date: 'dd/MM/yyyy':'+0000'}}</b>
+      </div>
+      <div class="description">
+          <span>
+                {{'Fecha creacion'|translate}}
+          </span>
+        <b>{{visibleObject.createdAt | date: 'dd/MM/yyyy hh:mm:ss'}}</b>
+      </div>
+
+
+
+      <div style="margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;">
+        <app-ball [background]="'#fff'" [color]="'#000'" [title]="this.formatResult(visibleObject.draw?.first)"></app-ball>
+        <app-ball [background]="'#fff'" [color]="'#000'" [title]="this.formatResult(visibleObject.draw?.second)"></app-ball>
+        <app-ball [background]="'#fff'" [color]="'#000'" [title]="this.formatResult(visibleObject.draw?.third)"></app-ball>
+      </div>
+
+    </ng-container>
+  </ng-template>
+
+</div>

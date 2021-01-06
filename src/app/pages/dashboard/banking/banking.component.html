@@ -1,0 +1,57 @@
+<div class="inner-content mb-20">
+  <app-title-divider title="{{'HOME.DASHBOARD.DAILY_STATS' |translate}}"></app-title-divider>
+  <div nz-row class="fit-height" [nzGutter]="8">
+    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
+      <app-widget [title]="'HOME.DASHBOARD.TICKETS'| translate | uppercase"
+                  [value]="soldTickets"
+                  [prefix]="false"
+                  [icon]="'stock'"></app-widget>
+    </div>
+    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
+      <app-widget [title]="'HOME.DASHBOARD.INGRESS'| translate | uppercase"
+                  [backgroundColor]="'orange'"
+                  [value]="earnings"
+                  [icon]="'rise'"></app-widget>
+    </div>
+    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
+      <app-widget [title]="'HOME.DASHBOARD.EGRESS'| translate | uppercase"
+                  [backgroundColor]="'grey'"
+                  [value]="loses"
+                  [icon]="'fall'"></app-widget>
+    </div>
+    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
+      <app-widget [title]="'HOME.DASHBOARD.BALANCE' | translate | uppercase"
+                  [backgroundColor]="'green'"
+                  [value]="balance"
+                  [icon]="'fund'"></app-widget>
+    </div>
+  </div>
+</div>
+<div nz-row [nzGutter]="8">
+  <div nz-col nzXs="24" nzXl="12">
+    <div class="inner-content mb-20" style="min-height: 460px;">
+      <app-title-divider
+        title="{{'Balance por dia' | translate}}"></app-title-divider>
+      <app-line-chart yAxisLabel="Balance" [legend]="false" [results]="lineChartData" [xAxisTickFormatting]="dateTickFormatting"></app-line-chart>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzXl="12">
+    <div class="inner-content mb-20" style="min-height: 460px;">
+      <app-title-divider title="Ganancias vs Perdidas"></app-title-divider>
+      <app-pie-chart [height]="400" [results]="single"></app-pie-chart>
+    </div>
+  </div>
+</div>
+<div nz-col nzXs="24" style="padding-bottom: 10px;">
+  <div class="inner-content mb-20">
+    <app-title-divider title="TOP 10 numeros mas jugados durante el dia"></app-title-divider>
+    <div class="balls-container">
+      <app-ball [title]="'11'" [description]="'91 veces'" [background]="'red'"></app-ball>
+      <app-ball [title]="'00'" [description]="'86 veces'" [background]="'red'"></app-ball>
+      <app-ball [title]="'47'" [description]="'60 veces'" [background]="'red'"></app-ball>
+      <app-ball [title]="'74'" [description]="'58 veces'" [background]="'grey'"></app-ball>
+      <app-ball [title]="'22'" [description]="'49 veces'" [background]="'grey'"></app-ball>
+      <app-ball [title]="'25'" [description]="'44 veces'" [background]="'grey'"></app-ball>
+    </div>
+  </div>
+</div>

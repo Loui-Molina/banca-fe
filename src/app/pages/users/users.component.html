@@ -1,0 +1,81 @@
+
+
+<app-abm [title]="'SETTINGS.USERS.TITLE'"
+         [fetcher]="fetcher"
+         [fetcherUpdate]="fetcherUpdate"
+         [fetcherCreate]="fetcherCreate"
+         [fetcherDelete]="fetcherDelete"
+         [formTemplate]="formTemplate"
+         [viewTemplate]="viewTemplate"
+         [defaultForm]="defaultForm"
+         [form]="formABM"
+         [getValidators]="getValidators"
+         [columns]="columns">
+</app-abm>
+
+
+<ng-template #formTemplate let-mode>
+  <form [formGroup]="formABM">
+
+    <div>
+      <label for="name">
+        {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}
+      </label>
+      <input nz-input id="name" type="text" formControlName="name">
+    </div>
+
+    <div>
+      <label for="username">
+        {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
+      </label>
+      <input nz-input [minLength]="4" id="username" type="text" formControlName="username">
+    </div>
+
+    <ng-container *ngIf="mode === 'C'">
+      <label for="password">
+        {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
+      </label>
+      <input nz-input [minLength]="8" [maxLength]="35" id="password" type="text" formControlName="password">
+    </ng-container>
+
+    <div>
+      <label for="role">
+        {{'Rol'|translate}}
+      </label>
+      <nz-select id="role" formControlName="role" style="width: 100%;">
+        <nz-option [nzValue]="roleEnum.Admin" [nzLabel]="roleEnum.Admin"></nz-option>
+        <nz-option [nzValue]="roleEnum.Consortium" [nzLabel]="roleEnum.Consortium"></nz-option>
+        <nz-option [nzValue]="roleEnum.Banker" [nzLabel]="roleEnum.Banker"></nz-option>
+        <nz-option [nzValue]="roleEnum.Carrier" [nzLabel]="roleEnum.Carrier"></nz-option>
+        <nz-option [nzValue]="roleEnum.Punter" [nzLabel]="roleEnum.Punter"></nz-option>
+        <nz-option [nzValue]="roleEnum.Supervisor" [nzLabel]="roleEnum.Supervisor"></nz-option>
+      </nz-select>
+    </div>
+  </form>
+</ng-template>
+
+
+<ng-template #viewTemplate let-visibleObject>
+  <ng-container *ngIf="visibleObject">
+    <div class="description">
+      <span>
+        {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}:
+      </span>
+      <b>{{visibleObject.name}}</b>
+    </div>
+
+    <div class="description">
+      <span>
+        {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}:
+      </span>
+      <b>{{visibleObject.username}}</b>
+    </div>
+
+    <div class="description">
+      <span>
+        {{'Rol'|translate}}:
+      </span>
+      <b>{{visibleObject.role}}</b>
+    </div>
+  </ng-container>
+</ng-template>

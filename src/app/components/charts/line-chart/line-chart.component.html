@@ -1,0 +1,18 @@
+<div  #ContainerRef class="line-chart-parent">
+  <ngx-charts-line-chart
+    [view]="[ContainerRef.offsetWidth, 400]"
+    [scheme]="colorScheme"
+    [legend]="legend"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [xAxis]="true"
+    [yAxis]="true"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [timeline]="true"
+    [animations]="true"
+    [xAxisTickFormatting]="xAxisTickFormatting"
+    [results]="results"
+  >
+  </ngx-charts-line-chart>
+</div>

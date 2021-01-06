@@ -1,0 +1,18 @@
+.widget{
+  border-radius: 5px;
+  box-shadow: 0 4px 6px 0 #0000001a;
+
+  .header{
+    font-size: 15px;
+    padding: 10px;
+    background-color: #00000012;
+    border-radius: 5px 0 5px 0;
+  }
+  .body{
+    padding: 10px;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
