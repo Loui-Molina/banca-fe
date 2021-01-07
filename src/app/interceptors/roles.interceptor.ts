@@ -18,6 +18,9 @@ export class RolesInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const apiToken = this.userService.getApiToken();
+        if (!apiToken){
+          return next.handle(req);
+        }
         const user: UserInterface = jwtDecode(apiToken);
         const expiredAt = user && user.exp * 1000;
         if (!(user && expiredAt > new Date().getTime())) {

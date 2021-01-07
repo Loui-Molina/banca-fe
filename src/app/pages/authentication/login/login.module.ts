@@ -9,19 +9,21 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
-  imports: [
-    NzInputModule,
-    LoginRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NzGridModule,
-    NzFormModule,
-    NzCheckboxModule,
-    NzCardModule,
-    NzButtonModule
-  ],
+    imports: [
+        NzInputModule,
+        LoginRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NzGridModule,
+        NzFormModule,
+        NzCheckboxModule,
+        NzCardModule,
+        NzButtonModule,
+        TranslateModule
+    ],
   declarations: [LoginComponent],
   exports: [LoginComponent],
   providers: [NzMessageService]

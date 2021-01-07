@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 })
 export class AppComponent {
   constructor(
-    translate: TranslateService,
+    private translate: TranslateService,
     private defaultService: DefaultService,
     private userService: UserService,
     private router: Router
