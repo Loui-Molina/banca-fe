@@ -7,7 +7,7 @@ import {CommonModule, DatePipe} from '@angular/common';
 import {NzTypographyModule} from 'ng-zorro-antd/typography';
 import {LineChartModule, PieChartModule} from '@swimlane/ngx-charts';
 import {NzGridModule} from 'ng-zorro-antd/grid';
-import {ComponentsModule} from '../../../components/components.module';
+import {ComponentsModule} from '../../components/components.module';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzCalendarModule} from 'ng-zorro-antd/calendar';
 import {NzDividerModule} from 'ng-zorro-antd/divider';

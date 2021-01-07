@@ -17,10 +17,8 @@ export interface BankingDto {
     status: boolean;
     ownerUserId: object;
     ownerUsername: string;
-    creationDate: string;
+    createdAt: string;
     startOfOperation: string;
     showPercentage: boolean;
-    language: string;
-    selectedConsortium: object;
 }
 

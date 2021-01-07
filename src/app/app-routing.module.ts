@@ -48,7 +48,7 @@ const routes: Routes = [
         path: 'bankings',
         canActivate: [AuthGuard],
         data: {requiredRoles: [User.RoleEnum.Consortium]},
-        loadChildren: () => import('./pages/bankings/consortium/bankings.module').then(m => m.BankingsModule)
+        loadChildren: () => import('./pages/bankings/bankings.module').then(m => m.BankingsModule)
       },
       {
         path: 'lotteries',

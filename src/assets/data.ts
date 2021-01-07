@@ -68,7 +68,6 @@ export let multi = [
 ];
 
 
-export let bankings: Banking[] = [];
 export let consortiums: Consortium[] = [];
 
 export let lotteries = [{
@@ -89,40 +88,13 @@ export let consortium = {
 };
 
 
-export function updateConsortium(newConsortium) {
+export function updateConsortium(newConsortium): void {
   consortium = newConsortium;
 }
 
-export function addBankings(banking) {
-  bankings.push(banking);
-}
 
-export function addConsortium(consortium) {
+export function addConsortium(consortium): void {
   consortiums.push(consortium);
-}
-
-export function addLotteries(lottery) {
-  lotteries.push(lottery);
-}
-
-export interface Banking {
-  name: string;
-  winningTks: number;
-  losingTks: number;
-  pendingTks: number;
-  canceledTks: number;
-  totalTickets: number;
-  earnings: number;
-  prizes: number;
-  percentage: number;
-  discount: number;
-  net: number;
-  balance: number;
-  phone?: number;
-  email?: string;
-  status?: boolean;
-  language?: 'ES' | 'EN';
-  user?: string;
 }
 
 export interface Consortium {

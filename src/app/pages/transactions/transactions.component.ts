@@ -4,7 +4,7 @@ import {
   BankingDto,
   BankingService,
   ConsortiumDto,
-  ConsortiumsService,
+  ConsortiumsService, CreateTransactionDto,
   Transaction, TransactionDto,
   TransactionsService,
   User
@@ -54,7 +54,7 @@ export class TransactionsComponent implements OnInit {
   user: UserInterface;
   userRole = User.RoleEnum;
   columns = [
-    {title: 'Fecha', key: 'date', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
+    {title: 'Fecha', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
     {title: 'Monto', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
     {title: 'Ultimo balance', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
     {title: 'Balance actual', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
@@ -98,7 +98,7 @@ export class TransactionsComponent implements OnInit {
 
   onClickAcceptSubmit(): void{
     this.loading = true;
-    const transaction: TransactionDto = {
+    const transaction: CreateTransactionDto = {
       amount: this.formTransaction.value.amount,
       originObject: this.formTransaction.value.originObject,
       originId: this.formTransaction.value.originId,

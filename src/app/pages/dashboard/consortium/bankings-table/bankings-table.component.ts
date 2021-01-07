@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder} from "ng-zorro-antd/table";
-import {Banking, bankings} from "../../../../../assets/data";
 
 @Component({
   selector: 'app-bankings-panel',
@@ -21,8 +19,7 @@ export class BankingsTableComponent implements OnInit {
     {name: 'DESC'},
     {name: 'NETO'},
     {name: 'Balance'}];
-  bankingList: Banking[] = bankings;
-  tableTotal;
+  bankingList: any[] = [];
 
   constructor() {
   }
@@ -32,7 +29,7 @@ export class BankingsTableComponent implements OnInit {
 
   getColumnTotal(field: string) {
     let initialValue = 0;
-    return this.bankingList.reduce((accumulator, currentValue) => accumulator + currentValue[field], initialValue)
+    return this.bankingList.reduce((accumulator, currentValue) => accumulator + currentValue[field], initialValue);
   }
 }
 

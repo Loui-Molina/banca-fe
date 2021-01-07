@@ -16,7 +16,10 @@ export interface TransactionDto {
     type?: TransactionDto.TypeEnum;
     originId: object;
     destinationId: object;
+    createdAt: string;
     amount: number;
+    actualBalance: number;
+    lastBalance: number;
     originObject: TransactionDto.OriginObjectEnum;
     originName: string;
     destinationObject: TransactionDto.DestinationObjectEnum;

@@ -17,9 +17,9 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
+import { Banking } from '../model/models';
 import { BankingDto } from '../model/models';
 import { CreateBankingDto } from '../model/models';
-import { DeleteBankingDto } from '../model/models';
 import { UpdateBankingDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -93,9 +93,9 @@ export class BankingService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public bankingControllerCreate(createBankingDto: CreateBankingDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<BankingDto>;
-    public bankingControllerCreate(createBankingDto: CreateBankingDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<BankingDto>>;
-    public bankingControllerCreate(createBankingDto: CreateBankingDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<BankingDto>>;
+    public bankingControllerCreate(createBankingDto: CreateBankingDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Banking>;
+    public bankingControllerCreate(createBankingDto: CreateBankingDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Banking>>;
+    public bankingControllerCreate(createBankingDto: CreateBankingDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Banking>>;
     public bankingControllerCreate(createBankingDto: CreateBankingDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (createBankingDto === null || createBankingDto === undefined) {
             throw new Error('Required parameter createBankingDto was null or undefined when calling bankingControllerCreate.');
@@ -130,8 +130,52 @@ export class BankingService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<BankingDto>(`${this.configuration.basePath}/api/banking/create`,
+        return this.httpClient.post<Banking>(`${this.configuration.basePath}/api/banking`,
             createBankingDto,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public bankingControllerDelete(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Banking>;
+    public bankingControllerDelete(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Banking>>;
+    public bankingControllerDelete(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Banking>>;
+    public bankingControllerDelete(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling bankingControllerDelete.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.delete<Banking>(`${this.configuration.basePath}/api/banking/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -234,66 +278,13 @@ export class BankingService {
     }
 
     /**
-     * @param deleteBankingDto 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public bankingControllerRemove(deleteBankingDto: DeleteBankingDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public bankingControllerRemove(deleteBankingDto: DeleteBankingDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public bankingControllerRemove(deleteBankingDto: DeleteBankingDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public bankingControllerRemove(deleteBankingDto: DeleteBankingDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (deleteBankingDto === null || deleteBankingDto === undefined) {
-            throw new Error('Required parameter deleteBankingDto was null or undefined when calling bankingControllerRemove.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.delete<any>(`${this.configuration.basePath}/api/banking`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * @param updateBankingDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public bankingControllerUpdate(updateBankingDto: UpdateBankingDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<BankingDto>;
-    public bankingControllerUpdate(updateBankingDto: UpdateBankingDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<BankingDto>>;
-    public bankingControllerUpdate(updateBankingDto: UpdateBankingDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<BankingDto>>;
+    public bankingControllerUpdate(updateBankingDto: UpdateBankingDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Banking>;
+    public bankingControllerUpdate(updateBankingDto: UpdateBankingDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Banking>>;
+    public bankingControllerUpdate(updateBankingDto: UpdateBankingDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Banking>>;
     public bankingControllerUpdate(updateBankingDto: UpdateBankingDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (updateBankingDto === null || updateBankingDto === undefined) {
             throw new Error('Required parameter updateBankingDto was null or undefined when calling bankingControllerUpdate.');
@@ -328,7 +319,7 @@ export class BankingService {
             responseType = 'text';
         }
 
-        return this.httpClient.put<BankingDto>(`${this.configuration.basePath}/api/banking`,
+        return this.httpClient.put<Banking>(`${this.configuration.basePath}/api/banking`,
             updateBankingDto,
             {
                 responseType: <any>responseType,

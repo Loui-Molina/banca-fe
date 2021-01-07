@@ -4,6 +4,7 @@
            [fetcherCreate]="fetcherCreate"
            [fetcherUpdate]="fetcherUpdate"
            [fetcherDelete]="fetcherDelete"
+           [setValueForm]="setValueForm"
            [parseData]="parseData"
            [formTemplate]="formTemplate"
            [viewTemplate]="viewTemplate"
@@ -37,7 +38,7 @@
         <nz-switch style="padding-left: 10px" id="showPercentage" formControlName="showPercentage"></nz-switch>
       </div>
 
-      <div class="form-element">
+      <!--<div class="form-element">
         <label for="language">
           {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
         </label>
@@ -46,7 +47,10 @@
           <nz-option nzValue="ES" nzLabel="Español"></nz-option>
         </nz-select>
       </div>
-      <div class="form-element">
+
+      -->
+
+      <div class="form-element" [ngStyle]="user?.role === userRole.Admin?{}:{display:'none'}">
         <label for="selectedConsortium">
           {{'Consorcio'|translate}}
         </label>

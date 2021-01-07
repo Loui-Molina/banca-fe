@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {bankings, multi} from '../../../../assets/data';
+import { multi} from '../../../../assets/data';
 
 @Component({
   selector: 'app-dashboard-banking',
@@ -15,10 +15,10 @@ export class BankingComponent implements OnInit {
 
   multi: any[];
 
-  balance: number= bankings.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);
-  loses: number= bankings.reduce((previousValue, currentValue) => previousValue + currentValue.prizes, 0);
-  earnings: number= bankings.reduce((previousValue, currentValue) => previousValue + currentValue.earnings, 0);
-  soldTickets: number= bankings.reduce((previousValue, currentValue) => previousValue + currentValue.totalTickets, 0);
+  balance = 1;  // bankings.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);
+  loses = 1; // bankings.reduce((previousValue, currentValue) => previousValue + currentValue.prizes, 0);
+  earnings = 1; // bankings.reduce((previousValue, currentValue) => previousValue + currentValue.earnings, 0);
+  soldTickets = 1; // bankings.reduce((previousValue, currentValue) => previousValue + currentValue.totalTickets, 0);
 
   single = [
     {

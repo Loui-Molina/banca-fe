@@ -13,6 +13,7 @@
 
 export interface Transaction { 
     _id: object;
+    createdAt: string;
     amount: number;
     type: Transaction.TypeEnum;
     lastBalance: number;

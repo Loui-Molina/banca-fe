@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  bankings,
   multi
 } from 'src/assets/data';
 
@@ -55,10 +54,10 @@ export class ConsortiumComponent implements OnInit {
   ];
 
   private initData() {
-    this.balance = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);
-    this.earnings = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.earnings, 0);
-    this.loses = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.prizes, 0);
-    this.soldTickets = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.totalTickets, 0);
+    // this.balance = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);
+    // this.earnings = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.earnings, 0);
+    // this.loses = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.prizes, 0);
+    // this.soldTickets = bankings.reduce((previousValue, currentValue) => previousValue + currentValue.totalTickets, 0);
   }
 
   ngOnInit(): void {

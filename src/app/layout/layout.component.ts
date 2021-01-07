@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {addBankings, Banking, Consortium, addConsortium} from '../../assets/data';
+import {Consortium, addConsortium} from '../../assets/data';
 import {Router} from '@angular/router';
 import {UserInterface, UserService} from '../services/user.service';
 import {User} from '@banca-api/model/user';
@@ -42,7 +42,7 @@ export class LayoutComponent implements OnInit {
   }
 
   private initMockBankingData() {
-    for (let i = 0; i < 4; i++) {
+    /*for (let i = 0; i < 4; i++) {
       let banking: Banking = new class implements Banking {
         balance: number;
         canceledTks: number;
@@ -76,11 +76,12 @@ export class LayoutComponent implements OnInit {
 
       banking.balance = Math.floor(banking.net + (banking.net * (banking.percentage / 100)) - (banking.net * (banking.discount / 100)));
 
-      addBankings(banking);
-    }
+      // addBankings(banking);
+    }*/
 
   }
 
+  // tslint:disable-next-line:typedef
   private initMockConsortiumData() {
     for (let i = 0; i < 4; i++) {
       const cons: Consortium = new class implements Consortium {

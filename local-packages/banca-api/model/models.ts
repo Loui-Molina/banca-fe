@@ -1,6 +1,7 @@
 export * from './addResultDto';
 export * from './adminLotteryDto';
 export * from './authCredentialsDto';
+export * from './banking';
 export * from './bankingDto';
 export * from './bettingLimit';
 export * from './consortium';
@@ -11,7 +12,6 @@ export * from './createBankingDto';
 export * from './createConsortiumDto';
 export * from './createTransactionDto';
 export * from './dashboardDiagramDto';
-export * from './deleteBankingDto';
 export * from './draw';
 export * from './inlineResponse200';
 export * from './inlineResponse503';
