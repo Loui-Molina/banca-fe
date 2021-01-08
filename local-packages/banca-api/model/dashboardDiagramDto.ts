@@ -9,11 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { DashboardDiagramNodeDto } from './dashboardDiagramNodeDto';
+import { DashboardDiagramClusterDto } from './dashboardDiagramClusterDto';
+import { DashboardDiagramLinkDto } from './dashboardDiagramLinkDto';
 
 
 export interface DashboardDiagramDto { 
-    nodes: Array<string>;
-    links: Array<string>;
-    clusters: Array<string>;
+    nodes: Array<DashboardDiagramNodeDto>;
+    links: Array<DashboardDiagramLinkDto>;
+    clusters: Array<DashboardDiagramClusterDto>;
 }
 

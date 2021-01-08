@@ -40,7 +40,7 @@
   <div class="drawer-transaction">
     <ng-container *ngIf="formTransaction">
       <form [formGroup]="formTransaction">
-        <nz-divider style="margin-top: 0px" class="title" [nzText]="'Origen'" nzOrientation="left"></nz-divider>
+        <nz-divider style="margin-top: 0" class="title" [nzText]="'Origen'" nzOrientation="left"></nz-divider>
         <div nz-row [nzGutter]="8">
           <div nz-col [nzSpan]="12">
             <nz-select style="width: 100%;" (ngModelChange)="onChangeOrigen($event)" nzPlaceHolder="Seleccione un origen" formControlName="originObject">
@@ -50,14 +50,14 @@
           </div>
           <div nz-col [nzSpan]="12">
             <ng-container *ngIf="formTransaction.value.originObject === originObjectEnum.Consortium">
-              <nz-select style="width: 100%;" nzPlaceHolder="Seleccione un consorcio" formControlName="originId">
+              <nz-select (ngModelChange)="onChangeOrigenId($event)" style="width: 100%;" nzPlaceHolder="Seleccione un consorcio" formControlName="originId">
                 <nz-option *ngFor="let consortium of consortiums"
                            [nzLabel]="consortium.name"
                            [nzValue]="consortium._id"></nz-option>
               </nz-select>
             </ng-container>
             <ng-container *ngIf="formTransaction.value.originObject === originObjectEnum.Banking">
-              <nz-select style="width: 100%;" nzPlaceHolder="Seleccione una banca" formControlName="originId">
+              <nz-select (ngModelChange)="onChangeOrigenId($event)" style="width: 100%;" nzPlaceHolder="Seleccione una banca" formControlName="originId">
                 <nz-option *ngFor="let banking of bankings"
                            [nzLabel]="banking.name"
                            [nzValue]="banking._id"></nz-option>
@@ -68,22 +68,30 @@
         <nz-divider class="title" [nzText]="'Destino'" nzOrientation="left"></nz-divider>
         <div nz-row [nzGutter]="8">
           <div nz-col [nzSpan]="12">
-            <nz-select style="width: 100%;" (ngModelChange)="onChangeDestination($event)" nzPlaceHolder="Seleccione un destino" formControlName="destinationObject">
+            <nz-select [nzDisabled]="true"
+                       style="width: 100%;"
+                       (ngModelChange)="onChangeDestination($event)"
+                       nzPlaceHolder="Seleccione un destino"
+                       formControlName="destinationObject">
               <nz-option [nzLabel]="'Consorcio'" [nzValue]="destinationObjectEnum.Consortium"></nz-option>
               <nz-option [nzLabel]="'Banca'" [nzValue]="destinationObjectEnum.Banking"></nz-option>
             </nz-select>
           </div>
           <div nz-col [nzSpan]="12">
             <ng-container *ngIf="formTransaction.value.destinationObject === destinationObjectEnum.Consortium">
-              <nz-select style="width: 100%;" nzPlaceHolder="Seleccione un consorcio" formControlName="destinationId">
-                <nz-option *ngFor="let consortium of consortiums"
+              <nz-select
+                [nzDisabled]="!formTransaction.value.originId"
+                style="width: 100%;" nzPlaceHolder="Seleccione un consorcio" formControlName="destinationId">
+                <nz-option *ngFor="let consortium of getFilteredConsortiums()"
                            [nzLabel]="consortium.name"
                            [nzValue]="consortium._id"></nz-option>
               </nz-select>
             </ng-container>
             <ng-container *ngIf="formTransaction.value.destinationObject === destinationObjectEnum.Banking">
-              <nz-select style="width: 100%;" nzPlaceHolder="Seleccione una banca" formControlName="destinationId">
-                <nz-option *ngFor="let banking of bankings"
+              <nz-select
+                [nzDisabled]="!formTransaction.value.originId"
+                style="width: 100%;" nzPlaceHolder="Seleccione una banca" formControlName="destinationId">
+                <nz-option *ngFor="let banking of getFilteredBankings()"
                            [nzLabel]="banking.name"
                            [nzValue]="banking._id"></nz-option>
               </nz-select>

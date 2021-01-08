@@ -1,7 +1,7 @@
 <div>
   <nz-table #table
             nzLoading="false"
-            [nzData]="consortiumList"
+            [nzData]="consortiums"
             nzTableLayout="auto"
             [nzPageSize]="10"
             [nzSize]="'small'"
@@ -16,16 +16,16 @@
     <tbody>
     <tr *ngFor="let data of table.data">
       <td>{{ data.name }}</td>
-      <td>{{ data.winningTks }}</td>
-      <td>{{ data.pendingTks }}</td>
-      <td>{{ data.losingTks }}</td>
-      <td>{{ data.canceledTks }}</td>
-      <td>{{ data.totalTickets }}</td>
-      <td>{{ '$' + data.earnings }}</td>
-      <td>{{ '$' + data.prizes }}</td>
-      <td>{{  data.percentage + '%' }}</td>
-      <td>{{  data.discount + '%' }}</td>
-      <td>{{ '$' + data.net }}</td>
+      <!--<td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>-->
       <td>{{ '$' + data.balance }}</td>
     </tr>
     </tbody>
@@ -34,7 +34,7 @@
       <td class="tableFooter">
         {{'Total'}}
       </td>
-      <td class="tableFooter">
+      <!--<td class="tableFooter">
         {{getColumnTotal('winningTks')}}
       </td>
       <td class="tableFooter">
@@ -63,7 +63,7 @@
       </td>
       <td class="tableFooter">
         {{'$' + getColumnTotal('net')}}
-      </td>
+      </td>-->
       <td class="tableFooter">
         {{'$' + getColumnTotal('balance')}}
       </td>

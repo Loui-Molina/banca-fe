@@ -55,6 +55,8 @@ export class TransactionsComponent implements OnInit {
   userRole = User.RoleEnum;
   columns = [
     {title: 'Fecha', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
+    {title: 'Origen', key: 'originName'},
+    {title: 'Destino', key: 'destinationName'},
     {title: 'Monto', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
     {title: 'Ultimo balance', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
     {title: 'Balance actual', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
@@ -115,8 +117,45 @@ export class TransactionsComponent implements OnInit {
   }
 
   onChangeOrigen($event): void{
+    if (this.formTransaction.value.originObject === this.originObjectEnum.Consortium){
+      this.formTransaction.controls.destinationId.setValue(null);
+      this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Banking);
+    } else if (this.formTransaction.value.originObject === this.originObjectEnum.Banking){
+      this.formTransaction.controls.destinationId.setValue(null);
+      this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Consortium);
+    }
     this.formTransaction.controls.originId.setValue(null);
   }
+
+  onChangeOrigenId($event): void{
+    if (this.formTransaction.value.originObject === this.originObjectEnum.Consortium){
+      this.formTransaction.controls.destinationId.setValue(null);
+      this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Banking);
+    } else if (this.formTransaction.value.originObject === this.originObjectEnum.Banking){
+      this.formTransaction.controls.destinationId.setValue(null);
+      this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Consortium);
+    } else {
+      this.formTransaction.controls.destinationObject.setValue(null);
+      this.formTransaction.controls.destinationId.setValue(null);
+    }
+  }
+
+  getFilteredConsortiums(): ConsortiumDto[] {
+    const banking = this.bankings.filter(banking => banking._id === this.formTransaction.value.originId).pop();
+    if (!banking){
+      return [];
+    }
+    return this.consortiums.filter(consortium => consortium._id === banking.consortiumId);
+  }
+
+  getFilteredBankings(): BankingDto[] {
+    const consortium = this.consortiums.filter(consortium => consortium._id === this.formTransaction.value.originId).pop();
+    if (!consortium){
+      return [];
+    }
+    return this.bankings.filter(banking => banking.consortiumId === consortium._id);
+  }
+
 
   onChangeDestination($event): void{
     this.formTransaction.controls.destinationId.setValue(null);

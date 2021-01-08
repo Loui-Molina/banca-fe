@@ -16,7 +16,10 @@ import { BankingComponent } from './banking/banking.component';
 import { ConsortiumComponent } from './consortium/consortium.component';
 import { AdminComponent } from './admin/admin.component';
 import {NgxGraphModule} from '@swimlane/ngx-graph';
-import {NzButtonModule} from "ng-zorro-antd/button";
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import {AdminBankingsTableComponent} from './admin/admin-bankings-table/admin-bankings-table.component';
+import {AdminConsortiumsTableComponent} from './admin/admin-consortiums-table/admin-consortiums-table.component';
+import {NzTableModule} from 'ng-zorro-antd/table';
 
 @NgModule({
   imports: [
@@ -33,10 +36,13 @@ import {NzButtonModule} from "ng-zorro-antd/button";
     NzDividerModule,
     TranslateModule,
     NgxGraphModule,
-    NzButtonModule
+    NzButtonModule,
+    NzTableModule
   ],
-  declarations: [DashboardComponent, BankingComponent, ConsortiumComponent, AdminComponent],
-  exports: [DashboardComponent]
+  declarations: [DashboardComponent, BankingComponent, ConsortiumComponent, AdminComponent, AdminBankingsTableComponent, AdminConsortiumsTableComponent],
+  exports: [
+    DashboardComponent
+  ]
 })
 export class DashboardModule {
 }

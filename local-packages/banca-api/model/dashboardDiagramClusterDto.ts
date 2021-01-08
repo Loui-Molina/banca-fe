@@ -11,15 +11,9 @@
  */
 
 
-export interface BankingDto { 
-    _id: object;
-    name: string;
-    status: boolean;
-    ownerUserId: object;
-    consortiumId: object;
-    ownerUsername: string;
-    createdAt: string;
-    startOfOperation: string;
-    showPercentage: boolean;
+export interface DashboardDiagramClusterDto { 
+    id: string;
+    label: string;
+    childNodeIds: Array<string>;
 }
 

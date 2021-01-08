@@ -36,7 +36,7 @@
       [view]="[containerRef.offsetWidth, 400]"
       [showMiniMap]="true"
       [miniMapPosition]="miniMapPosition.UpperLeft"
-      [autoCenter]="true"
+      [autoCenter]="false"
       [autoZoom]="true"
       [draggingEnabled]="false"
       layout="dagreCluster"
@@ -60,23 +60,27 @@
   </div>
 </div>
 
-<div class="inner-content fit-height mb-20" style="min-height: 300px;">
-  <app-title-divider title="{{'Resumen Consorcios diario' |translate}}"></app-title-divider>
-  <app-consortiums-panel></app-consortiums-panel>
+<div class="inner-content fit-height mb-20">
+  <app-title-divider title="{{'Resumen Consorcios' |translate}}"></app-title-divider>
+  <app-admin-consortiums-table></app-admin-consortiums-table>
+</div>
+<div class="inner-content fit-height mb-20">
+  <app-title-divider title="{{'Resumen Bancas' |translate}}"></app-title-divider>
+  <app-admin-bankings-table></app-admin-bankings-table>
 </div>
 <div nz-row [nzGutter]="8">
   <div nz-col nzXs="24" nzXl="12">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider
-        title="{{'Balance del dia por consorcio' | translate}}"></app-title-divider>
+        title="{{'Balance por consorcio' | translate}}"></app-title-divider>
       <app-bar-chart xAxisLabel="Consorcio" yAxisLabel="Balance" [results]="barChartData"></app-bar-chart>
     </div>
   </div>
-  <div nz-col nzXs="24" nzXl="12">
+  <!--<div nz-col nzXs="24" nzXl="12">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider title="Ganancias vs Perdidas"></app-title-divider>
       <app-pie-chart [height]="400" [results]="single"></app-pie-chart>
     </div>
-  </div>
+  </div>-->
 </div>
 

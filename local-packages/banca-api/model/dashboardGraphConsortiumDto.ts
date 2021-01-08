@@ -11,15 +11,9 @@
  */
 
 
-export interface BankingDto { 
+export interface DashboardGraphConsortiumDto { 
     _id: object;
     name: string;
-    status: boolean;
-    ownerUserId: object;
-    consortiumId: object;
-    ownerUsername: string;
-    createdAt: string;
-    startOfOperation: string;
-    showPercentage: boolean;
+    value: number;
 }
 
