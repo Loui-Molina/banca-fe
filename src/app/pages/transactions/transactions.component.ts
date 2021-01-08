@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {
-  BankingDto,
-  BankingService,
+  BankingDto, BankingService,
   ConsortiumDto,
   ConsortiumsService, CreateTransactionDto,
-  Transaction, TransactionDto,
-  TransactionsService,
+  Transaction, TransactionDto, TransactionsService,
   User
 } from '../../../../local-packages/banca-api';
 import {UserInterface, UserService} from '../../services/user.service';

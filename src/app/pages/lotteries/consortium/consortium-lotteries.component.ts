@@ -2,12 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {
-  AdminLotteryDto,
-  BankingDto,
-  BankingService, BettingLimit,
-  ConsortiumLotteriesService,
-  ConsortiumLotteryDto, ConsortiumUpdateLotteryDto,
-  Lottery, PrizeLimit
+  BankingDto, BankingService, BettingLimit, ConsortiumLotteriesService,
+  ConsortiumLotteryDto, ConsortiumUpdateLotteryDto, PrizeLimit
 } from '../../../../../local-packages/banca-api';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
@@ -61,10 +57,10 @@ export class ConsortiumLotteriesComponent implements OnInit {
       valueFormatter: (data) => (data.status) ? 'Habilitada' : 'Inhabilitada'
     }];
   fetcher: Observable<ConsortiumLotteryDto[]> = this.lotteriesService.consortiumLotteryControllerGetAll();
-  lotteries: Lottery[] = [];
+  lotteries: ConsortiumLotteryDto[] = [];
   loading = false;
   bankings: BankingDto[] = [];
-  days = AdminLotteryDto.DayEnum;
+  days = ConsortiumLotteryDto.DayEnum;
   bankingsSelected: BankingDto[] = [];
   formABM: FormGroup;
   defaultForm = {

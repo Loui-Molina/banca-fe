@@ -2,13 +2,19 @@ import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AddResultDto, AdminLotteriesService, Lottery, AdminLotteryDto, Result, ResultDto, ResultsService} from '../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {UserInterface, UserService} from '../../services/user.service';
 import {User} from '@banca-api/model/user';
+import {
+  AddResultDto,
+  AdminLotteriesService,
+  AdminLotteryResDto,
+  Result, ResultDto,
+  ResultsService
+} from "../../../../local-packages/banca-api";
 
 @Component({
   selector: 'app-results',
@@ -78,8 +84,8 @@ export class ResultsComponent implements OnInit{
   user: UserInterface;
   userRole = User.RoleEnum;
   loading = false;
-  lotteries: Lottery[] = [];
-  lotterySelected: Lottery;
+  lotteries: AdminLotteryResDto[] = [];
+  lotterySelected: AdminLotteryResDto;
   formABM: FormGroup;
   fetcherCreate: (item) => Observable<Result> = (item) => this.resultsService.resultsControllerCreate(item);
 

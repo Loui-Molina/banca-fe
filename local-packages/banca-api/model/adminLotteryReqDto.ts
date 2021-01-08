@@ -11,7 +11,7 @@
  */
 
 
-export interface AdminLotteryDto { 
+export interface AdminLotteryReqDto { 
     _id?: object;
     name: string;
     nickname: string;
@@ -21,9 +21,9 @@ export interface AdminLotteryDto {
     results: Array<string>;
     openTime?: string;
     closeTime?: string;
-    day: Array<AdminLotteryDto.DayEnum>;
+    day: Array<AdminLotteryReqDto.DayEnum>;
 }
-export namespace AdminLotteryDto {
+export namespace AdminLotteryReqDto {
     export type DayEnum = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
     export const DayEnum = {
         Mon: 'mon' as DayEnum,

@@ -19,7 +19,6 @@ import { Observable }                                        from 'rxjs';
 
 import { ConsortiumLotteryDto } from '../model/models';
 import { ConsortiumUpdateLotteryDto } from '../model/models';
-import { Lottery } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
