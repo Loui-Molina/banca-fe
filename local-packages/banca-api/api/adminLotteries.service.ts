@@ -17,8 +17,8 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { AdminLotteryDto } from '../model/models';
-import { Lottery } from '../model/models';
+import { AdminLotteryReqDto } from '../model/models';
+import { AdminLotteryResDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -87,16 +87,16 @@ export class AdminLotteriesService {
     }
 
     /**
-     * @param adminLotteryDto 
+     * @param adminLotteryReqDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminLotteryControllerCreate(adminLotteryDto: AdminLotteryDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Lottery>;
-    public adminLotteryControllerCreate(adminLotteryDto: AdminLotteryDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Lottery>>;
-    public adminLotteryControllerCreate(adminLotteryDto: AdminLotteryDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Lottery>>;
-    public adminLotteryControllerCreate(adminLotteryDto: AdminLotteryDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (adminLotteryDto === null || adminLotteryDto === undefined) {
-            throw new Error('Required parameter adminLotteryDto was null or undefined when calling adminLotteryControllerCreate.');
+    public adminLotteryControllerCreate(adminLotteryReqDto: AdminLotteryReqDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<AdminLotteryResDto>;
+    public adminLotteryControllerCreate(adminLotteryReqDto: AdminLotteryReqDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<AdminLotteryResDto>>;
+    public adminLotteryControllerCreate(adminLotteryReqDto: AdminLotteryReqDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<AdminLotteryResDto>>;
+    public adminLotteryControllerCreate(adminLotteryReqDto: AdminLotteryReqDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (adminLotteryReqDto === null || adminLotteryReqDto === undefined) {
+            throw new Error('Required parameter adminLotteryReqDto was null or undefined when calling adminLotteryControllerCreate.');
         }
 
         let headers = this.defaultHeaders;
@@ -128,8 +128,8 @@ export class AdminLotteriesService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<Lottery>(`${this.configuration.basePath}/api/admin/lotteries`,
-            adminLotteryDto,
+        return this.httpClient.post<AdminLotteryResDto>(`${this.configuration.basePath}/api/admin/lotteries`,
+            adminLotteryReqDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -145,9 +145,9 @@ export class AdminLotteriesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminLotteryControllerDelete(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Lottery>;
-    public adminLotteryControllerDelete(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Lottery>>;
-    public adminLotteryControllerDelete(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Lottery>>;
+    public adminLotteryControllerDelete(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<object>;
+    public adminLotteryControllerDelete(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<object>>;
+    public adminLotteryControllerDelete(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<object>>;
     public adminLotteryControllerDelete(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling adminLotteryControllerDelete.');
@@ -173,7 +173,7 @@ export class AdminLotteriesService {
             responseType = 'text';
         }
 
-        return this.httpClient.delete<Lottery>(`${this.configuration.basePath}/api/admin/lotteries/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<object>(`${this.configuration.basePath}/api/admin/lotteries/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -328,16 +328,16 @@ export class AdminLotteriesService {
     }
 
     /**
-     * @param adminLotteryDto 
+     * @param adminLotteryReqDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public adminLotteryControllerUpdate(adminLotteryDto: AdminLotteryDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Lottery>;
-    public adminLotteryControllerUpdate(adminLotteryDto: AdminLotteryDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Lottery>>;
-    public adminLotteryControllerUpdate(adminLotteryDto: AdminLotteryDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Lottery>>;
-    public adminLotteryControllerUpdate(adminLotteryDto: AdminLotteryDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (adminLotteryDto === null || adminLotteryDto === undefined) {
-            throw new Error('Required parameter adminLotteryDto was null or undefined when calling adminLotteryControllerUpdate.');
+    public adminLotteryControllerUpdate(adminLotteryReqDto: AdminLotteryReqDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<AdminLotteryResDto>;
+    public adminLotteryControllerUpdate(adminLotteryReqDto: AdminLotteryReqDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<AdminLotteryResDto>>;
+    public adminLotteryControllerUpdate(adminLotteryReqDto: AdminLotteryReqDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<AdminLotteryResDto>>;
+    public adminLotteryControllerUpdate(adminLotteryReqDto: AdminLotteryReqDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (adminLotteryReqDto === null || adminLotteryReqDto === undefined) {
+            throw new Error('Required parameter adminLotteryReqDto was null or undefined when calling adminLotteryControllerUpdate.');
         }
 
         let headers = this.defaultHeaders;
@@ -369,8 +369,8 @@ export class AdminLotteriesService {
             responseType = 'text';
         }
 
-        return this.httpClient.put<Lottery>(`${this.configuration.basePath}/api/admin/lotteries`,
-            adminLotteryDto,
+        return this.httpClient.put<AdminLotteryResDto>(`${this.configuration.basePath}/api/admin/lotteries`,
+            adminLotteryReqDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

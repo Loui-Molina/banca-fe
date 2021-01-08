@@ -16,6 +16,7 @@ export interface BankingDto {
     name: string;
     status: boolean;
     ownerUserId: object;
+    consortiumId: object;
     ownerUsername: string;
     createdAt: string;
     startOfOperation: string;
