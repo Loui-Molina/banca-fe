@@ -3,20 +3,20 @@
   <div nz-row class="fit-height" [nzGutter]="8">
     <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
       <app-widget [title]="'HOME.DASHBOARD.TICKETS'| translate | uppercase"
-                  [value]="soldTickets"
+                  [value]="ticketsSold"
                   [prefix]="false"
                   [icon]="'stock'"></app-widget>
     </div>
     <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
       <app-widget [title]="'HOME.DASHBOARD.INGRESS'| translate | uppercase"
                   [backgroundColor]="'orange'"
-                  [value]="earnings"
+                  [value]="profits"
                   [icon]="'rise'"></app-widget>
     </div>
     <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
       <app-widget [title]="'HOME.DASHBOARD.EGRESS'| translate | uppercase"
                   [backgroundColor]="'grey'"
-                  [value]="loses"
+                  [value]="losses"
                   [icon]="'fall'"></app-widget>
     </div>
     <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
@@ -35,12 +35,12 @@
       <app-line-chart yAxisLabel="Balance" [legend]="false" [results]="lineChartData" [xAxisTickFormatting]="dateTickFormatting"></app-line-chart>
     </div>
   </div>
-  <div nz-col nzXs="24" nzXl="12">
+  <!--<div nz-col nzXs="24" nzXl="12">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider title="Ganancias vs Perdidas"></app-title-divider>
       <app-pie-chart [height]="400" [results]="single"></app-pie-chart>
     </div>
-  </div>
+  </div>-->
 </div>
 <div nz-col nzXs="24" style="padding-bottom: 10px;">
   <div class="inner-content mb-20">

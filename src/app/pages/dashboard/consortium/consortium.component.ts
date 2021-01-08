@@ -9,15 +9,15 @@ import {DashboardGraphBankingDto, DashboardService} from '../../../../../local-p
 })
 export class ConsortiumComponent implements OnInit {
 
-  // options
-  balance: number;
-  loses: number;
-  earnings: number;
-  soldTickets: number;
+
+  ticketsSold = 0;
+  profits = 0;
+  losses = 0;
+  balance = 0;
 
   constructor(private dashboardService: DashboardService) {
-    this.initData();
   }
+
   barChartDataBankings: DashboardGraphBankingDto[] = [];
   single = [
     {
@@ -30,16 +30,17 @@ export class ConsortiumComponent implements OnInit {
     }
   ];
 
-  private initData(): void {
-    this.balance = 100;
-    this.earnings = 100;
-    this.loses = 100;
-    this.soldTickets = 100;
-  }
-
   ngOnInit(): void {
     this.dashboardService.dashboardControllerGetGraphBankingStatistics().subscribe(res => {
       this.barChartDataBankings = res;
+    }, error => {
+      throw new HttpErrorResponse(error);
+    });
+    this.dashboardService.dashboardControllerGetConsortiumWidgetsStatistics().subscribe(res => {
+      this.ticketsSold = res.ticketsSold;
+      this.profits = res.profits;
+      this.losses = res.losses;
+      this.balance = res.balance;
     }, error => {
       throw new HttpErrorResponse(error);
     });

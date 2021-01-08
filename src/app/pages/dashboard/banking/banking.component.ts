@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import { multi} from '../../../../assets/data';
+import {HttpErrorResponse} from '@angular/common/http';
+import {DashboardService} from '../../../../../local-packages/banca-api';
 
 @Component({
   selector: 'app-dashboard-banking',
@@ -8,17 +9,13 @@ import { multi} from '../../../../assets/data';
 })
 export class BankingComponent implements OnInit {
 
-  constructor() {
-    Object.assign(this, {multi});
-    this.initData();
+  constructor(private dashboardService: DashboardService) {
   }
 
-  multi: any[];
-
-  balance = 1;  // bankings.reduce((previousValue, currentValue) => previousValue + currentValue.balance, 0);
-  loses = 1; // bankings.reduce((previousValue, currentValue) => previousValue + currentValue.prizes, 0);
-  earnings = 1; // bankings.reduce((previousValue, currentValue) => previousValue + currentValue.earnings, 0);
-  soldTickets = 1; // bankings.reduce((previousValue, currentValue) => previousValue + currentValue.totalTickets, 0);
+  ticketsSold = 0;
+  profits = 0;
+  losses = 0;
+  balance = 0;
 
   single = [
     {
@@ -62,9 +59,14 @@ export class BankingComponent implements OnInit {
     return new Date(val).toDateString();
   }
 
-  private initData(): void {
-  }
-
   ngOnInit(): void {
+    this.dashboardService.dashboardControllerGetBankingWidgetsStatistics().subscribe(res => {
+      this.ticketsSold = res.ticketsSold;
+      this.profits = res.profits;
+      this.losses = res.losses;
+      this.balance = res.balance;
+    }, error => {
+      throw new HttpErrorResponse(error);
+    });
   }
 }
