@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MiniMapPosition} from '@swimlane/ngx-graph';
 import {
-  DashboardDiagramClusterDto, DashboardDiagramLinkDto, DashboardDiagramNodeDto,
+  DashboardDiagramClusterDto, DashboardDiagramLinkDto, DashboardDiagramNodeDto, DashboardGraphBankingDto,
   DashboardGraphConsortiumDto,
   DashboardService
 } from '../../../../../local-packages/banca-api';
@@ -26,7 +26,8 @@ export class AdminComponent implements OnInit {
   clusters: DashboardDiagramClusterDto[] = [];
   nodes: DashboardDiagramNodeDto[] = [];
   links: DashboardDiagramLinkDto[] = [];
-  barChartData: DashboardGraphConsortiumDto[] = [];
+  barChartDataConsortiums: DashboardGraphConsortiumDto[] = [];
+  barChartDataBankings: DashboardGraphBankingDto[] = [];
 
   private initData(): void {
     this.balance = 100;
@@ -44,7 +45,12 @@ export class AdminComponent implements OnInit {
       throw new HttpErrorResponse(error);
     });
     this.dashboardService.dashboardControllerGetGraphConsortiumStatistics().subscribe(res => {
-      this.barChartData = res;
+      this.barChartDataConsortiums = res;
+    }, error => {
+      throw new HttpErrorResponse(error);
+    });
+    this.dashboardService.dashboardControllerGetGraphBankingStatistics().subscribe(res => {
+      this.barChartDataBankings = res;
     }, error => {
       throw new HttpErrorResponse(error);
     });

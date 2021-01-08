@@ -28,7 +28,6 @@ import {TranslateModule} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BankingsTableComponent} from '../pages/dashboard/consortium/bankings-table/bankings-table.component';
 import { PageLoaderComponent } from './loaders/page-loader/page-loader.component';
 import {PageLoaderBouncingComponent} from './loaders/page-loader-bouncing/page-loader-bouncing.component';
 import { BoxSpinnerComponent } from './loaders/box-spinner/box-spinner.component';
@@ -46,8 +45,7 @@ const components = [
   AbmComponent,
   PageLoaderComponent,
   BoxSpinnerComponent,
-  PageLoaderBouncingComponent,
-  BankingsTableComponent,
+  PageLoaderBouncingComponent
   ];
 
 

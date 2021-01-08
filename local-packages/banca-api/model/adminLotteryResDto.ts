@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Result } from './result';
 
 
 export interface AdminLotteryResDto { 
@@ -18,7 +19,7 @@ export interface AdminLotteryResDto {
     color: string;
     playTime: string;
     status: boolean;
-    results: Array<string>;
+    results: Array<Result>;
     openTime?: string;
     closeTime?: string;
     day: Array<AdminLotteryResDto.DayEnum>;

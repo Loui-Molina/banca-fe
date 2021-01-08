@@ -17,7 +17,7 @@ import { ConsortiumComponent } from './consortium/consortium.component';
 import { AdminComponent } from './admin/admin.component';
 import {NgxGraphModule} from '@swimlane/ngx-graph';
 import {NzButtonModule} from 'ng-zorro-antd/button';
-import {AdminBankingsTableComponent} from './admin/admin-bankings-table/admin-bankings-table.component';
+import {SharedBankingsTableComponent} from './shared/shared-bankings-table/shared-bankings-table.component';
 import {AdminConsortiumsTableComponent} from './admin/admin-consortiums-table/admin-consortiums-table.component';
 import {NzTableModule} from 'ng-zorro-antd/table';
 
@@ -39,7 +39,12 @@ import {NzTableModule} from 'ng-zorro-antd/table';
     NzButtonModule,
     NzTableModule
   ],
-  declarations: [DashboardComponent, BankingComponent, ConsortiumComponent, AdminComponent, AdminBankingsTableComponent, AdminConsortiumsTableComponent],
+  declarations: [DashboardComponent,
+    BankingComponent,
+    ConsortiumComponent,
+    AdminComponent,
+    SharedBankingsTableComponent,
+    AdminConsortiumsTableComponent],
   exports: [
     DashboardComponent
   ]

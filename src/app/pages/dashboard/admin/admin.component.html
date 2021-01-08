@@ -66,14 +66,21 @@
 </div>
 <div class="inner-content fit-height mb-20">
   <app-title-divider title="{{'Resumen Bancas' |translate}}"></app-title-divider>
-  <app-admin-bankings-table></app-admin-bankings-table>
+  <app-shared-bankings-table></app-shared-bankings-table>
 </div>
 <div nz-row [nzGutter]="8">
   <div nz-col nzXs="24" nzXl="12">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider
         title="{{'Balance por consorcio' | translate}}"></app-title-divider>
-      <app-bar-chart xAxisLabel="Consorcio" yAxisLabel="Balance" [results]="barChartData"></app-bar-chart>
+      <app-bar-chart xAxisLabel="Consorcio" yAxisLabel="Balance" [results]="barChartDataConsortiums"></app-bar-chart>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzXl="12">
+    <div class="inner-content mb-20" style="min-height: 460px;">
+      <app-title-divider
+        title="{{'Balance por banca' | translate}}"></app-title-divider>
+      <app-bar-chart xAxisLabel="Banca" yAxisLabel="Balance" [results]="barChartDataBankings"></app-bar-chart>
     </div>
   </div>
   <!--<div nz-col nzXs="24" nzXl="12">

@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 import { DashboardBankingDto } from '../model/models';
 import { DashboardConsortiumDto } from '../model/models';
 import { DashboardDiagramDto } from '../model/models';
+import { DashboardGraphBankingDto } from '../model/models';
 import { DashboardGraphConsortiumDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -198,6 +199,46 @@ export class DashboardService {
         }
 
         return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getDashboardDiagram`,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public dashboardControllerGetGraphBankingStatistics(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public dashboardControllerGetGraphBankingStatistics(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public dashboardControllerGetGraphBankingStatistics(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public dashboardControllerGetGraphBankingStatistics(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getGraphBankingStatistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

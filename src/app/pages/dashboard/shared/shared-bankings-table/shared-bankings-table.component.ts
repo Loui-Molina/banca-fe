@@ -3,11 +3,11 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {DashboardBankingDto, DashboardService} from '../../../../../../local-packages/banca-api';
 
 @Component({
-  selector: 'app-admin-bankings-table',
-  templateUrl: './admin-bankings-table.component.html',
-  styleUrls: ['./admin-bankings-table.component.scss']
+  selector: 'app-shared-bankings-table',
+  templateUrl: './shared-bankings-table.component.html',
+  styleUrls: ['./shared-bankings-table.component.scss']
 })
-export class AdminBankingsTableComponent implements OnInit {
+export class SharedBankingsTableComponent implements OnInit {
   columns: ColumnItem[] = [
     {name: 'BANCA'},
     {name: 'W'},

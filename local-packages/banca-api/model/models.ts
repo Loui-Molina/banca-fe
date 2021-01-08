@@ -18,6 +18,7 @@ export * from './dashboardDiagramClusterDto';
 export * from './dashboardDiagramDto';
 export * from './dashboardDiagramLinkDto';
 export * from './dashboardDiagramNodeDto';
+export * from './dashboardGraphBankingDto';
 export * from './dashboardGraphConsortiumDto';
 export * from './draw';
 export * from './inlineResponse200';
