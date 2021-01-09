@@ -26,12 +26,14 @@ export class BankingsComponent {
               private consortiumsService: ConsortiumsService) {
     this.formABM = this.formBuilder.group(this.defaultForm);
     this.user = this.userService.getLoggedUser();
-    this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
-        this.consortiums = consortiums;
-      }, error => {
-        throw new HttpErrorResponse(error);
-      }
-    );
+    if(this.user?.role === this.userRole.Admin){
+      this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
+          this.consortiums = consortiums;
+        }, error => {
+          throw new HttpErrorResponse(error);
+        }
+      );
+    }
   }
 
 

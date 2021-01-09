@@ -114,14 +114,16 @@ export class ResultsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.loading = true;
-    this.lotteriesService.adminLotteryControllerGetAll().subscribe(data => {
-      this.lotteries = data;
-      this.loading = false;
-    }, error => {
-      this.loading = false;
-      throw new HttpErrorResponse(error);
-    });
+    if (this.user?.role === this.userRole.Admin) {
+      this.loading = true;
+      this.lotteriesService.adminLotteryControllerGetAll().subscribe(data => {
+        this.lotteries = data;
+        this.loading = false;
+      }, error => {
+        this.loading = false;
+        throw new HttpErrorResponse(error);
+      });
+    }
   }
 
   onChangeLottery($event): void{

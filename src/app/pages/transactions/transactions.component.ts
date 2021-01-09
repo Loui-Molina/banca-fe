@@ -49,8 +49,6 @@ export class TransactionsComponent implements OnInit {
   loading = false;
   formTransaction: FormGroup;
   drawerTransaction = false;
-  user: UserInterface;
-  userRole = User.RoleEnum;
   columns = [
     {title: 'Fecha', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
     {title: 'Origen', key: 'originName'},
@@ -165,7 +163,6 @@ export class TransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = this.userService.getLoggedUser();
     this.loading = true;
     this.initDataSync().subscribe(responseList => {
       this.transactions = responseList[0];
@@ -180,11 +177,11 @@ export class TransactionsComponent implements OnInit {
 
   private initDataSync(): Observable<any[]> {
     const transactionControllerGetAll = this.transactionsService.transactionControllerGetAll();
-    const consortiumControllerGetAll = this.consortiumsService.consortiumControllerGetAll();
+    const consortiums = this.consortiumsService.consortiumControllerGetAll();
     const bankingControllerFindAll = this.bankingService.bankingControllerFindAll();
     return forkJoin([
       transactionControllerGetAll,
-      consortiumControllerGetAll,
+      consortiums,
       bankingControllerFindAll
     ]);
   }
