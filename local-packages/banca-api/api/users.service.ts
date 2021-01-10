@@ -217,7 +217,7 @@ export class UsersService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/users/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/users/get/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

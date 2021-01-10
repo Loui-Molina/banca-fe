@@ -44,7 +44,7 @@ export class BettingPanelComponent implements OnInit {
     {title: 'DIRECTO', types: [BetType.directo]},
     {title: 'PALE', types: [BetType.pale]},
     {title: 'TRIPLETA', types: [BetType.tripleta]},
-    // {title: 'CASH 3', types: [BetType.pick3]},
+    {title: 'SUPERPALE', types: [BetType.superPale]},
     // {title: 'PLAY 4', types: [BetType.pick4]},
     // {title: 'PLAY 4', types: [BetType.pick4]}
   ];
@@ -59,7 +59,7 @@ export class BettingPanelComponent implements OnInit {
   selectedLotterys: number[] = [1];
 
   lastResults = [
-    {lottery: 'LPM', number: 1, numbers: [12, 22, 21, 11, 48]},
+    {lottery: 'LPM', number: 1, numbers: [12, 22, 21]},
     {lottery: 'LA-SUERTE', number: 0, numbers: [19, 38, 21]}
   ];
 
@@ -431,6 +431,7 @@ export enum BetType {
   'directo',
   'pale',
   'tripleta',
+  'superPale',
   'pick3',
   'pick4'
 }

@@ -218,7 +218,7 @@ export class ConsortiumsService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/consortiums/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/consortiums/get/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

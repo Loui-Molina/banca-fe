@@ -21,6 +21,8 @@ import {NzSpinModule} from 'ng-zorro-antd/spin';
 import {NzSelectModule} from 'ng-zorro-antd/select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
+import {ConsortiumTransactionsComponent} from './consortium/consortium-transactions.component';
+import {AdminTransactionsComponent} from './admin/admin-transactions.component';
 
 @NgModule({
   imports: [
@@ -46,7 +48,7 @@ import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
     ReactiveFormsModule,
     NzInputNumberModule
   ],
-  declarations: [TransactionsComponent],
+  declarations: [TransactionsComponent, AdminTransactionsComponent, ConsortiumTransactionsComponent],
   exports: [TransactionsComponent],
   providers: [DatePipe]
 })
