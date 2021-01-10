@@ -6,6 +6,7 @@ import {User} from '@banca-api/model/user';
 import {AdminTransactionsComponent} from './admin/admin-transactions.component';
 import {TransactionsComponent} from './transactions.component';
 import {ConsortiumTransactionsComponent} from './consortium/consortium-transactions.component';
+import {BankingTransactionsComponent} from './banking/banking-transactions.component';
 
 const routes: Routes = [
   { path: '', component: TransactionsComponent },
@@ -18,6 +19,11 @@ const routes: Routes = [
     path: 'consortium', component: ConsortiumTransactionsComponent,
     canActivate: [RoleGuard, AuthGuard],
     data: {requiredRoles: [User.RoleEnum.Consortium]},
+  },
+  {
+    path: 'banking', component: BankingTransactionsComponent,
+    canActivate: [RoleGuard, AuthGuard],
+    data: {requiredRoles: [User.RoleEnum.Banker]},
   }
 ];
 

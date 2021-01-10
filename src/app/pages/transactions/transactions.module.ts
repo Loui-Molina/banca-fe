@@ -23,6 +23,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
 import {ConsortiumTransactionsComponent} from './consortium/consortium-transactions.component';
 import {AdminTransactionsComponent} from './admin/admin-transactions.component';
+import {BankingTransactionsComponent} from './banking/banking-transactions.component';
 
 @NgModule({
   imports: [
@@ -48,7 +49,7 @@ import {AdminTransactionsComponent} from './admin/admin-transactions.component';
     ReactiveFormsModule,
     NzInputNumberModule
   ],
-  declarations: [TransactionsComponent, AdminTransactionsComponent, ConsortiumTransactionsComponent],
+  declarations: [TransactionsComponent, AdminTransactionsComponent, ConsortiumTransactionsComponent, BankingTransactionsComponent],
   exports: [TransactionsComponent],
   providers: [DatePipe]
 })

@@ -16,7 +16,7 @@ export class TransactionsComponent {
               private userService: UserService) {
     const routeCommands = ['transactions'];
     if (this.userService.checkRoles([User.RoleEnum.Banker])) {
-      routeCommands.push('banker');
+      routeCommands.push('banking');
     } else if (this.userService.checkRoles([User.RoleEnum.Consortium])) {
       routeCommands.push('consortium');
     } else if (this.userService.checkRoles([User.RoleEnum.Admin])) {
