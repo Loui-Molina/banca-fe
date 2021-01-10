@@ -103,12 +103,13 @@ export class ConsortiumTransactionsComponent implements OnInit {
       destinationId: this.formTransaction.value.destinationId,
       destinationObject: this.formTransaction.value.destinationObject
     };
-    this.transactionsService.transactionControllerCreate(transaction).subscribe(value => {
+    this.transactionsService.transactionControllerCreateTransactionConsortium(transaction).subscribe(value => {
       this.loading = false;
       this.messageService.create('success', 'Transaccion realizada correctamente');
       this.closeDrawer('drawerTransaction');
     }, error => {
       this.loading = false;
+      throw new HttpErrorResponse(error);
     });
   }
 
