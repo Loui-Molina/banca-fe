@@ -28,7 +28,6 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   justify-content: space-between;
   align-items: center;
   min-height: $headerHeight;
-  max-height: $headerHeight;
   padding-left: 10px;
   padding-right: 10px;
 
@@ -46,7 +45,8 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   .right-side {
     display: flex;
     align-items: center;
-
+    flex-wrap: wrap;
+    justify-content: flex-end;
 
     .confirm-button{
       cursor: pointer;
@@ -78,6 +78,8 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
     .date, .total, .confirm-button, .clean-button {
       margin-left: 10px;
+      margin-bottom: 10px !important;
+      min-width: fit-content;
     }
 
     .total {

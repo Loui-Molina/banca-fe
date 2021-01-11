@@ -1,14 +1,17 @@
 import {Component} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
-  AuthCredentialsDto, Banking,
+  AuthCredentialsDto,
+  Banking,
   BankingDto,
-  BankingService, ConsortiumsService,
-  CreateBankingDto, UpdateBankingDto, User
+  BankingService,
+  ConsortiumsService,
+  CreateBankingDto,
+  UpdateBankingDto,
+  User
 } from '../../../../local-packages/banca-api';
-import RoleEnum = User.RoleEnum;
 import {HttpErrorResponse} from '@angular/common/http';
 import {UserInterface, UserService} from '../../services/user.service';
 
@@ -67,7 +70,6 @@ export class BankingsComponent {
     status: true,
     selectedConsortium: null,
     showPercentage: true,
-    // language: 'ES',
     username: null,
     password: null
   };
@@ -78,7 +80,7 @@ export class BankingsComponent {
   fetcher: Observable<BankingDto[]> = this.bankingService.bankingControllerFindAll();
   fetcherCreate: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerCreate(item);
   fetcherUpdate: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerUpdate(item);
-  fetcherDelete: (id: string) => Observable<Banking> = (id) => this.bankingService.bankingControllerDelete(id);
+  fetcherDelete: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerDelete(item._id);
   setValueForm(mode, defaultForm, visibleObject): any{
     if (mode === 'C'){
       return {
@@ -86,7 +88,6 @@ export class BankingsComponent {
         status:  true,
         selectedConsortium: null,
         showPercentage: true,
-        // language: 'ES',
         username: null, // TODO falta que se envie el username desde el backend
         password: null
       };
@@ -96,7 +97,6 @@ export class BankingsComponent {
         status: visibleObject.status,
         selectedConsortium: visibleObject.consortiumId,
         showPercentage: visibleObject.showPercentage,
-        // language: 'ES',
         username: null, // TODO falta que se envie el username desde el backend
         password: null
       };
@@ -107,7 +107,6 @@ export class BankingsComponent {
       return {
         banking: {
           name: valueForm.name,
-          // language: valueForm.language,
           status: valueForm.status,
           showPercentage: valueForm.showPercentage
         } as BankingDto,
@@ -122,5 +121,15 @@ export class BankingsComponent {
         selectedConsortium: valueForm.selectedConsortium
       } as UpdateBankingDto;
     }
+  }
+  getValidators(mode: string): any{
+    return {
+      name:[Validators.required],
+      username: [Validators.required, Validators.minLength(4)],
+      password: (mode === 'C') ? [Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(35)
+      ] : []
+    };
   }
 }
