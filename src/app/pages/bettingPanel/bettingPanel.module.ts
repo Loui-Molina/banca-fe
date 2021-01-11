@@ -12,7 +12,7 @@ import {NzMenuModule} from 'ng-zorro-antd/menu';
 import {NzLayoutModule} from 'ng-zorro-antd/layout';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import {NzTypographyModule} from 'ng-zorro-antd/typography';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {ComponentsModule} from '../../components/components.module';
 import {BettingPanelComponent} from './bettingPanel.component';
 import {BettingPanelRoutingModule} from './bettingPanel-routing.module';
@@ -51,6 +51,7 @@ import { CountdownModule } from 'ngx-countdown';
     CountdownModule,
     NzListModule
   ],
+  providers: [DatePipe],
   declarations: [BettingPanelComponent],
   exports: [BettingPanelComponent]
 })

@@ -6,6 +6,7 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 import {BankingLotteriesService, BankingLotteryDto, ResultDto, ResultsService} from '../../../../local-packages/banca-api';
 import {forkJoin, Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-betting-panel',
@@ -17,6 +18,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   constructor(private modalService: NzModalService,
               private resultsService: ResultsService,
               private bankingLotteriesService: BankingLotteriesService,
+              private datePipe: DatePipe,
               private translateService: TranslateService,
               private messageService: NzMessageService) {
     setInterval(() => {
@@ -60,6 +62,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   selectedLotterys: string[] = [];
   loading = false;
+  superPale = false;
   reloadingResults = false;
   lastResults: ResultDto[] = [];
 
@@ -121,6 +124,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
           lotteryItem.leftTime = 0;
         }
       }
+      this.messageService.create('warning', `La loteria ${lottery.name} ya no esta disponible`, {nzDuration: 3000});
     }
   }
 
@@ -212,6 +216,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   onKeyEnter = () => {
     if (this.validateBet()) {
+      // TODO crear superpale
       for (const lottery of this.lotterys) {
         if (this.selectedLotterys.includes(lottery._id.toString())) {
           this.createBet(lottery);
@@ -219,6 +224,10 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       }
       this.resetBet();
     }
+  }
+
+  onCheckSuperPale = () => {
+    this.superPale = !this.superPale;
   }
 
   onKeyPrint = () => {
@@ -432,6 +441,22 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   openTicket = (ticket) => {
     this.selectedTicket = ticket;
     this.openDrawer('drawerTicket');
+  }
+
+
+  getSendWhatsApp = (ticket) => {
+    // TODO Ver si tiene user y ponerle el numero como &phone=+5493543573840
+    let text = 'Hola! 👋🏼👋🏼 \n\n'; // TODO poner nombre de usuario
+    text += 'Este es el detalle de tu ticket 🎟️:\n';
+    text += '🆔:  *' + ticket.sn + '*\n';
+    text += '📅: ' + this.datePipe.transform(ticket.date, 'dd/MM/yyyy hh:mm:ss') + '\n\n';
+    text += 'Tus jugadas son:\n';
+    text += 'Loteria: NEW YORK PM - JUGADA: *20* - MONTO: $3\n';
+    text += 'Loteria: NEW YORK AM - JUGADA: *20* - MONTO: $3\n';
+    text += 'Loteria: NEW YORK PM - JUGADA: *17* - MONTO: $5\n\n';
+    text += 'Gracias por elegirnos! 🙏🏼🙏🏼';
+    text += 'Y buena suerte!! 🤞🏼🍀';
+    return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
   }
 
   cloneTicket = (ticket) => {

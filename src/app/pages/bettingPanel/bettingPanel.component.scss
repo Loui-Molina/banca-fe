@@ -146,6 +146,16 @@ $boxShadow: 0px 1px 4px 0px #00000090;
               width: 10%;
               margin-left:10px;
             }
+            .super-pale{
+              width: 10%;
+              margin-left:10px;
+              background-color: $Grey;
+              color: $White;
+              &.selected{
+                background-color: orange;
+                color: $Black;
+              }
+            }
           }
         }
 

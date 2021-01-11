@@ -45,6 +45,9 @@
                      #inputNumber nz-input [(ngModel)]="number" class="left-input" (keyup.enter)="onKeyEnterNumber()"/>
               <input placeholder="MONTO" nz-input #inputAmount [type]="'number'" [(ngModel)]="amount"
                      class="right-input" (keyup.enter)="onKeyEnter()"/>
+              <span class="custom-button super-pale" nz-tooltip="SUPERPALE" [class.selected]="this.superPale" (click)="onCheckSuperPale()">
+                S
+              </span>
               <span class="custom-button play-enter" [class.disabled]="!validateBet()" (click)="onKeyEnter()"><i nz-icon
                                                                                                                  nzType="caret-right"
                                                                                                                  nzTheme="outline"></i></span>
@@ -186,6 +189,11 @@
             </nz-tag>
           </div>
           <ul nz-list-item-actions>
+            <nz-list-item-action>
+              <a target="_blank" [href]="getSendWhatsApp(item)">
+                <i nz-icon nzType="whats-app" class="icon primary" nzTheme="outline"></i>
+              </a>
+            </nz-list-item-action>
             <nz-list-item-action>
               <a (click)="openTicket(item)">
                 <i nz-icon nzType="eye" nz-tooltip="Ver ticket" class="icon primary" nzTheme="outline"></i>

@@ -21,6 +21,7 @@ export * from './dashboardDiagramClusterDto';
 export * from './dashboardDiagramDto';
 export * from './dashboardDiagramLinkDto';
 export * from './dashboardDiagramNodeDto';
+export * from './dashboardGraphBalanceBankingDto';
 export * from './dashboardGraphBankingDto';
 export * from './dashboardGraphConsortiumDto';
 export * from './dashboardWidgetsDto';
