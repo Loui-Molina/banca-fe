@@ -23,6 +23,10 @@ export class MockUserService implements UserService {
     return localStorage.getItem('loggedUser');
   }
 
+  getRefreshToken(): string {
+    return localStorage.getItem('loggedUser');
+  }
+
   checkRoles(requiredRoles: User.RoleEnum[]): boolean {
     const loggedUser: UserInterface = this.getLoggedUser();
     return loggedUser ? requiredRoles.includes(loggedUser.role) : false;
@@ -67,19 +71,24 @@ export class JWTUserService implements UserService {
     if (!accessToken){
       return;
     }
-    const user: UserInterface = jwtDecode(accessToken);
-    const expiredAt = user && user.exp * 1000;
-    if (user && expiredAt > new Date().getTime()) {
-      return user;
-    } else {
-      // EXPIRED
-      this.logout();
-      return;
-    }
+    // const user: UserInterface = jwtDecode(accessToken);
+    return jwtDecode(accessToken);
+    // const expiredAt = user && user.exp * 1000;
+    // if (user && expiredAt > new Date().getTime()) {
+    //
+    // } else {
+    //   // EXPIRED
+    //   this.logout();
+    //   return;
+    // }
   }
 
   getApiToken(): string {
     return localStorage.getItem('accessToken');
+  }
+
+  getRefreshToken(): string {
+    return localStorage.getItem('refreshToken');
   }
 
   checkRoles(requiredRoles: User.RoleEnum[]): boolean {
@@ -109,6 +118,7 @@ export class JWTUserService implements UserService {
         .then(data => {
           if (data && data.accessToken){
             localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
             resolve(data.accessToken);
           }
           reject(data.message);
@@ -127,6 +137,8 @@ export abstract class UserService {
   abstract getLoggedUser(): UserInterface;
 
   abstract getApiToken(): string;
+
+  abstract getRefreshToken(): string;
 
   abstract isLogged(): boolean;
 

@@ -12,7 +12,7 @@
 
 
 export interface UpdateBankingDto { 
-    _id?: object;
+    _id: object;
     name: string;
     status: boolean;
     ownerUserId?: object;
