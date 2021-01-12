@@ -16,5 +16,18 @@ export interface UserDto {
     name: string;
     username: string;
     password: string;
+    role: UserDto.RoleEnum;
 }
+export namespace UserDto {
+    export type RoleEnum = 'admin' | 'banker' | 'punter' | 'supervisor' | 'consortium' | 'carrier';
+    export const RoleEnum = {
+        Admin: 'admin' as RoleEnum,
+        Banker: 'banker' as RoleEnum,
+        Punter: 'punter' as RoleEnum,
+        Supervisor: 'supervisor' as RoleEnum,
+        Consortium: 'consortium' as RoleEnum,
+        Carrier: 'carrier' as RoleEnum
+    };
+}
+
 

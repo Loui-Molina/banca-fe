@@ -43,7 +43,7 @@ export class LayoutComponent implements OnInit {
     this.initMockConsortiumData();
   }
 
-  private initMockBankingData() {
+  private initMockBankingData(): void {
     /*for (let i = 0; i < 4; i++) {
       let banking: Banking = new class implements Banking {
         balance: number;
