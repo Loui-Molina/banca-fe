@@ -4,6 +4,7 @@ import {Consortium, addConsortium} from '../../assets/data';
 import {Router} from '@angular/router';
 import {UserInterface, UserService} from '../services/user.service';
 import {User} from '@banca-api/model/user';
+import {DefaultService} from '../../../local-packages/banca-api';
 
 @Component({
   selector: 'app-layout',
@@ -19,6 +20,7 @@ export class LayoutComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
+    private defaultService: DefaultService,
     private translate: TranslateService) {
   }
 
@@ -122,6 +124,11 @@ export class LayoutComponent implements OnInit {
   }
 
   logout(): void {
+    this.defaultService.authControllerLogOut().subscribe(value => {
+      console.log('Logout successfully');
+    }, error => {
+      console.log('Logout Err');
+    })
     this.userService.logout();
     this.router.navigate(['login']);
   }

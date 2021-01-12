@@ -80,7 +80,7 @@ export class AdminLotteriesComponent implements OnInit {
 
   fetcherCreate: (item) => Observable<AdminLotteryResDto> = (item) => this.lotteriesService.adminLotteryControllerCreate(item);
   fetcherUpdate: (item) => Observable<AdminLotteryResDto> = (item) => this.lotteriesService.adminLotteryControllerUpdate(item);
-  fetcherDelete: (id: string) => Observable<any> = (id) => this.lotteriesService.adminLotteryControllerDelete(id);
+  fetcherDelete: (item) => Observable<any> = (item) => this.lotteriesService.adminLotteryControllerDelete(item._id);
   parseData = (mode: string, valueForm): AdminLotteryResDto => {
     return {
       name: valueForm.name,
@@ -121,5 +121,21 @@ export class AdminLotteriesComponent implements OnInit {
 
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
+  }
+
+  getClosingDisabledMinutes() {
+    //TODO IMPLEMENT
+  }
+
+  getClosingDisabledHours() {
+    //TODO implement
+  }
+
+  getOpeningDisabledMinutes() {
+    //TODO implement
+  }
+
+  getOpeningDisabledHours() {
+    //TODO implement
   }
 }

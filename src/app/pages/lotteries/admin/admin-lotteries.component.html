@@ -54,14 +54,26 @@
           <label for="openTime">
             {{'Apertura'|translate}}
           </label>
-          <nz-time-picker id="openTime" nzPlaceHolder="Hora de apertura" nzFormat="HH:mm" [nzMinuteStep]="5"
+          <nz-time-picker id="openTime"
+                          nzPlaceHolder="Hora de apertura"
+                          nzFormat="HH:mm"
+                          [nzMinuteStep]="5"
+                          [nzDisabledHours]="getOpeningDisabledHours()"
+                          [nzDisabledMinutes]="getOpeningDisabledMinutes()"
+                          [nzHideDisabledOptions]="true"
                           formControlName="openTime"></nz-time-picker>
         </div>
         <div nz-col nzXs="8" class="form-element">
           <label for="closeTime">
             {{'Cierre'|translate}}
           </label>
-          <nz-time-picker id="closeTime" nzPlaceHolder="Hora de cierre" nzFormat="HH:mm" [nzMinuteStep]="5"
+          <nz-time-picker id="closeTime"
+                          nzPlaceHolder="Hora de cierre"
+                          nzFormat="HH:mm"
+                          [nzMinuteStep]="5"
+                          [nzDisabledHours]="getClosingDisabledHours()"
+                          [nzDisabledMinutes]="getClosingDisabledMinutes()"
+                          [nzHideDisabledOptions]="true"
                           formControlName="closeTime"></nz-time-picker>
         </div>
 

@@ -36,7 +36,7 @@
   </div>
   <div nz-col nzSpan="24" class="col-style panel-body">
     <div nz-row class="row-style panel-body-row">
-      <div nz-col nzSpan="8" class="col-style column">
+      <div nz-col [nzXs]="24" [nzLg]="8" class="col-style column">
         <div class="left-panel">
           <div class="control-panel">
             <div class="play-insert">
@@ -48,9 +48,8 @@
               <span class="custom-button super-pale" nz-tooltip="SUPERPALE" [class.selected]="this.superPale" (click)="onCheckSuperPale()">
                 S
               </span>
-              <span class="custom-button play-enter" [class.disabled]="!validateBet()" (click)="onKeyEnter()"><i nz-icon
-                                                                                                                 nzType="caret-right"
-                                                                                                                 nzTheme="outline"></i></span>
+              <span class="custom-button play-enter" [class.disabled]="!validateBet()" (click)="onKeyEnter()"><i nz-icon nzType="caret-right" nzTheme="outline"></i></span>
+              
             </div>
 
           </div>
@@ -121,7 +120,7 @@
           </div>
         </div>
       </div>
-      <div nz-col [nzSpan]="getPanelSize(16 / panels.length)" class="col-style column bet-column"
+      <div nz-col [nzXs]="24" [nzLg]="getPanelSize(15 / panels.length)" class="col-style column bet-column"
            *ngFor="let panel of panels">
         <div class="bet-column-header">
           <div class="bet-column-header-title">
@@ -157,7 +156,7 @@
   </div>
 </div>
 
-
+ <!--Search ticket drawer-->
 <nz-drawer
   [nzBodyStyle]="{ overflow: 'auto' }"
   [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
@@ -223,6 +222,7 @@
 </nz-drawer>
 
 
+<!--Help drawer-->
 <nz-drawer
   [nzBodyStyle]="{ overflow: 'auto' }"
   [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
@@ -235,6 +235,7 @@
   <div class="drawer-help">
     <ng-container>
       <nz-divider nzText="Teclas"  style="margin-top: 0px" nzOrientation="left"></nz-divider>
+ <!--TODO USE STRING-->
       <p>/ = cambiar loteria seleccionada</p>
       <p>Barra espaciadora = confirmar e imprimir</p>
       <p>** = confirmar e imprimir</p>
@@ -280,6 +281,7 @@
 </nz-drawer>
 
 
+ <!--Cash Register Drawer-->
 <nz-drawer
   [nzBodyStyle]="{ overflow: 'auto' }"
   [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
@@ -305,6 +307,7 @@
 </nz-drawer>
 
 
+<!--// Pay ticket drawer-->
 <nz-drawer
   [nzBodyStyle]="{ overflow: 'auto' }"
   [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
@@ -325,6 +328,9 @@
 </nz-drawer>
 
 
+<!--
+// Display ticket drawer
+-->
 <nz-drawer
   [nzBodyStyle]="{ overflow: 'auto' }"
   [nzMaskStyle]="{ backgroundColor: '#0000006e' }"

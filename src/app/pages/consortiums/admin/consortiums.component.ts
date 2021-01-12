@@ -62,7 +62,7 @@ export class ConsortiumsComponent implements OnInit {
   fetcher: Observable<ConsortiumDto[]> = this.consortiumsService.consortiumControllerGetAll();
   fetcherCreate: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerCreate(item);
   fetcherUpdate: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerUpdate(item);
-  fetcherDelete: (id: string) => Observable<Consortium> = (id) => this.consortiumsService.consortiumControllerDelete(id);
+  fetcherDelete: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerDelete(item._id);
   getValidators(mode: string): any{
     return {
       name: [Validators.required],
