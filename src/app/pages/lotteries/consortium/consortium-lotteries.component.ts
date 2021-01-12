@@ -11,6 +11,10 @@ import {NzModalService} from 'ng-zorro-antd/modal';
 import {HttpErrorResponse} from '@angular/common/http';
 import PrizeLimitPlayTypeEnum = PrizeLimit.PlayTypeEnum;
 import BettingLimitPlayTypeEnum = BettingLimit.PlayTypeEnum;
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {Observable} from "rxjs";
+import {Banking, bankings, lotteries} from "../../../../assets/data";
 
 @Component({
   selector: 'app-lotteries-consortium',

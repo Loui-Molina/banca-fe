@@ -21,6 +21,7 @@ export * from './dashboardDiagramNodeDto';
 export * from './dashboardGraphBankingDto';
 export * from './dashboardGraphConsortiumDto';
 export * from './dashboardWidgetsDto';
+export * from './deleteBankingDto';
 export * from './draw';
 export * from './inlineResponse200';
 export * from './inlineResponse503';
