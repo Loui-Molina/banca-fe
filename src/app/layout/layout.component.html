@@ -37,6 +37,10 @@
             <i nz-icon nzType="reconciliation"></i>
             <a routerLink="/results">{{'Resultados' | translate}}</a>
           </li>
+          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin">
+            <i nz-icon nzType="question"></i>
+            <a routerLink="/help">{{'Help' | translate}}</a>
+          </li>
         </ul>
       </li>
       <li nz-submenu nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}" nzIcon="form">

@@ -9,16 +9,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AuthCredentialsDto } from './authCredentialsDto';
 
 
-export interface UpdateBankingDto { 
+export interface BetDto { 
     _id: object;
-    name: string;
-    status: boolean;
-    ownerUserId?: object;
-    user: AuthCredentialsDto;
-    showPercentage: boolean;
-    selectedConsortium: object;
 }
 

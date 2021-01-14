@@ -28,11 +28,11 @@
   </div>
 </div>
 <div nz-row [nzGutter]="8">
-  <div nz-col nzXs="24" nzXl="12">
+  <div nz-col nzXs="24" nzXl="24">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider
         title="{{'Balance por dia' | translate}}"></app-title-divider>
-      <app-line-chart yAxisLabel="Balance" [legend]="false" [results]="lineChartData" [xAxisTickFormatting]="dateTickFormatting"></app-line-chart>
+      <app-line-chart yAxisLabel="Balance" [legend]="false" [results]="barChartDataBalanceBankings" [xAxisTickFormatting]="dateTickFormatting"></app-line-chart>
     </div>
   </div>
   <!--<div nz-col nzXs="24" nzXl="12">

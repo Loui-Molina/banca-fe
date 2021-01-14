@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {DashboardRoutingModule} from './dashboard-routing.module';
 import {DashboardComponent} from './dashboard.component';
 import {NzListModule} from 'ng-zorro-antd/list';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {NzTypographyModule} from 'ng-zorro-antd/typography';
 import {LineChartModule, PieChartModule} from '@swimlane/ngx-charts';
 import {NzGridModule} from 'ng-zorro-antd/grid';
@@ -45,6 +45,7 @@ import {NzTableModule} from 'ng-zorro-antd/table';
     AdminComponent,
     SharedBankingsTableComponent,
     AdminConsortiumsTableComponent],
+  providers: [DatePipe],
   exports: [
     DashboardComponent
   ]
