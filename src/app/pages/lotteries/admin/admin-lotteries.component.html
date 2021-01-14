@@ -81,7 +81,7 @@
           <label for="day">
             {{'dias'|translate}}
           </label>
-          <nz-select class="day-selector" id="day" nzMode="tags" nzPlaceHolder="Seleccione los dias de apertura"
+          <nz-select class="day-selector" id="day" nzMode="tags" nzMaxTagCount="2" nzPlaceHolder="Seleccione los dias de apertura"
                      formControlName="day">
             <nz-option [nzLabel]="days.Mon" [nzValue]="days.Mon"></nz-option>
             <nz-option [nzLabel]="days.Tue" [nzValue]="days.Tue"></nz-option>

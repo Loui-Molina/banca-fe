@@ -2,8 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {
-  BankingDto, BankingService, BettingLimit, ConsortiumLotteriesService,
-  ConsortiumLotteryDto, ConsortiumUpdateLotteryDto, PrizeLimit
+  BankingDto,
+  BankingService,
+  BettingLimit,
+  ConsortiumLotteriesService,
+  ConsortiumLotteryDto,
+  ConsortiumUpdateLotteryDto,
+  PrizeLimit
 } from '../../../../../local-packages/banca-api';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
@@ -11,10 +16,6 @@ import {NzModalService} from 'ng-zorro-antd/modal';
 import {HttpErrorResponse} from '@angular/common/http';
 import PrizeLimitPlayTypeEnum = PrizeLimit.PlayTypeEnum;
 import BettingLimitPlayTypeEnum = BettingLimit.PlayTypeEnum;
-import {Component} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {Observable} from "rxjs";
-import {Banking, bankings, lotteries} from "../../../../assets/data";
 
 @Component({
   selector: 'app-lotteries-consortium',

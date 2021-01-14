@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { AdminLotteriesService } from './api/adminLotteries.service';
 import { BankingService } from './api/banking.service';
+import { BankingLotteriesService } from './api/bankingLotteries.service';
+import { BettingPanelService } from './api/bettingPanel.service';
 import { ConsortiumLotteriesService } from './api/consortiumLotteries.service';
 import { ConsortiumsService } from './api/consortiums.service';
 import { DashboardService } from './api/dashboard.service';

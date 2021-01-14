@@ -11,8 +11,8 @@
  */
 
 
-export interface DeleteBankingDto { 
-    bankingId: object;
-    consortiumId: object;
+export interface DashboardGraphBalanceBankingDto { 
+    name: string;
+    value: number;
 }
 

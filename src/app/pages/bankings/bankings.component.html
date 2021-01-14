@@ -10,7 +10,8 @@
            [viewTemplate]="viewTemplate"
            [defaultForm]="defaultForm"
            [form]="formABM"
-           [columns]="columns">
+           [columns]="columns"
+           [getValidators]="getValidators">
   </app-abm>
 
 
@@ -43,7 +44,7 @@
         <label for="selectedConsortium">
           {{'Consorcio'|translate}}
         </label>
-        <nz-select id="selectedConsortium" formControlName="selectedConsortium" >
+        <nz-select id="selectedConsortium" formControlName="selectedConsortium">
           <nz-option *ngFor="let option of consortiums" [nzLabel]="option.name" [nzValue]="option._id"></nz-option>
         </nz-select>
       </div>
