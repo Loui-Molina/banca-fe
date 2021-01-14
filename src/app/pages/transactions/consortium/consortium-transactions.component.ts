@@ -65,24 +65,24 @@ export class ConsortiumTransactionsComponent implements OnInit {
   destinationObjectEnum = DestinationObjectEnum;
   transactionEnum = TypeEnum;
 
-  valueFormatter(data: Transaction, column): any{
+  valueFormatter(data: Transaction, column): any {
     return '$' + data[column.key];
   }
 
-  valueFormatterDate(data: Transaction, column): any{
+  valueFormatterDate(data: Transaction, column): any {
     return this.datePipe.transform(data[column.key], 'dd/MM/yyyy hh:mm:ss');
   }
 
   openDrawer = (drawerName: string) => {
     this[drawerName] = true;
-  }
+  };
 
   closeDrawer = (drawerName: string) => {
     this[drawerName] = false;
-  }
+  };
 
-  onClickAccept(): void{
-    if (!this.formTransaction.valid){
+  onClickAccept(): void {
+    if (!this.formTransaction.valid) {
       return;
     }
     this.modalService.success({
@@ -94,7 +94,7 @@ export class ConsortiumTransactionsComponent implements OnInit {
     });
   }
 
-  onClickAcceptSubmit(): void{
+  onClickAcceptSubmit(): void {
     this.loading = true;
     const transaction: CreateTransactionDto = {
       amount: this.formTransaction.value.amount,
@@ -107,28 +107,29 @@ export class ConsortiumTransactionsComponent implements OnInit {
       this.loading = false;
       this.messageService.create('success', 'Transaccion realizada correctamente');
       this.closeDrawer('drawerTransaction');
+      this.init();
     }, error => {
       this.loading = false;
       throw new HttpErrorResponse(error);
     });
   }
 
-  onChangeOrigen($event): void{
-    if (this.formTransaction.value.originObject === this.originObjectEnum.Consortium){
+  onChangeOrigen($event): void {
+    if (this.formTransaction.value.originObject === this.originObjectEnum.Consortium) {
       this.formTransaction.controls.destinationId.setValue(null);
       this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Banking);
-    } else if (this.formTransaction.value.originObject === this.originObjectEnum.Banking){
+    } else if (this.formTransaction.value.originObject === this.originObjectEnum.Banking) {
       this.formTransaction.controls.destinationId.setValue(null);
       this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Consortium);
     }
     this.formTransaction.controls.originId.setValue(null);
   }
 
-  onChangeOrigenId($event): void{
-    if (this.formTransaction.value.originObject === this.originObjectEnum.Consortium){
+  onChangeOrigenId($event): void {
+    if (this.formTransaction.value.originObject === this.originObjectEnum.Consortium) {
       this.formTransaction.controls.destinationId.setValue(null);
       this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Banking);
-    } else if (this.formTransaction.value.originObject === this.originObjectEnum.Banking){
+    } else if (this.formTransaction.value.originObject === this.originObjectEnum.Banking) {
       this.formTransaction.controls.destinationId.setValue(null);
       this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Consortium);
     } else {
@@ -139,7 +140,7 @@ export class ConsortiumTransactionsComponent implements OnInit {
 
   getFilteredConsortiums(): ConsortiumDto[] {
     const banking = this.bankings.filter(banking => banking._id === this.formTransaction.value.originId).pop();
-    if (!banking){
+    if (!banking) {
       return [];
     }
     return this.consortiums.filter(consortium => consortium._id === banking.consortiumId);
@@ -147,23 +148,27 @@ export class ConsortiumTransactionsComponent implements OnInit {
 
   getFilteredBankings(): BankingDto[] {
     const consortium = this.consortiums.filter(consortium => consortium._id === this.formTransaction.value.originId).pop();
-    if (!consortium){
+    if (!consortium) {
       return [];
     }
     return this.bankings.filter(banking => banking.consortiumId === consortium._id);
   }
 
 
-  onChangeDestination($event): void{
+  onChangeDestination($event): void {
     this.formTransaction.controls.destinationId.setValue(null);
   }
 
 
-  valueFormatterTipo(data: Transaction, column): any{
+  valueFormatterTipo(data: Transaction, column): any {
     return data[column.key];
   }
 
   ngOnInit(): void {
+    this.init();
+  }
+
+  init(): void {
     this.loading = true;
     this.initDataSync().subscribe(responseList => {
       this.transactions = responseList[0];

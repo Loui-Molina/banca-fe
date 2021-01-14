@@ -22,7 +22,7 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        canActivate: [AuthGuard],
+        canActivate: [RoleGuard, AuthGuard],
         data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
         loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
@@ -34,39 +34,46 @@ const routes: Routes = [
       },
       {
         path: 'transactions',
-        canActivate: [AuthGuard],
+        canActivate: [RoleGuard, AuthGuard],
         data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
         loadChildren: () => import('./pages/transactions/transactions.module').then(m => m.TransactionsModule)
       },
       {
         path: 'consortiums',
-        canActivate: [AuthGuard],
+        canActivate: [RoleGuard, AuthGuard],
         data: {requiredRoles: [User.RoleEnum.Admin]},
         loadChildren: () => import('./pages/consortiums/admin/consortiums.module').then(m => m.ConsortiumsModule)
       },
       {
         path: 'bankings',
-        canActivate: [AuthGuard],
-        data: {requiredRoles: [User.RoleEnum.Consortium]},
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
         loadChildren: () => import('./pages/bankings/bankings.module').then(m => m.BankingsModule)
       },
       {
         path: 'lotteries',
-        canActivate: [AuthGuard],
+        canActivate: [RoleGuard, AuthGuard],
         data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
         loadChildren: () => import('./pages/lotteries/lotteries.module').then(m => m.LotteriesModule)
       },
       {
         path: 'results',
-        canActivate: [AuthGuard],
-        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
         loadChildren: () => import('./pages/results/results.module').then(m => m.ResultsModule)
+      },
+      {
+        path: 'help',
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Admin]},
+        loadChildren: () => import('./pages/help/help.module').then(m => m.HelpModule)
       }
     ]
   },
   {
     path: 'machines',
-    canActivate: [AuthGuard],
+    canActivate: [RoleGuard, AuthGuard],
+    data: {requiredRoles: [User.RoleEnum.Admin]},
     loadChildren: () => import('./pages/machines/slotMachine/slotMachine.module').then(m => m.SlotMachineModule)
   },
   {
