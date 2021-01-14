@@ -49,7 +49,8 @@ export class UsersComponent implements OnInit {
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35)
-      ] : [],
+      ] : [Validators.minLength(8),
+        Validators.maxLength(35)],
       role: [Validators.required]
     };
   }
