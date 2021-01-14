@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { AuthCredentialsDto } from './authCredentialsDto';
 
 
 export interface UpdateBankingDto { 
@@ -16,6 +17,7 @@ export interface UpdateBankingDto {
     name: string;
     status: boolean;
     ownerUserId?: object;
+    user: AuthCredentialsDto;
     showPercentage: boolean;
     selectedConsortium: object;
 }

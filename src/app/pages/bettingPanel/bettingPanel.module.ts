@@ -23,34 +23,36 @@ import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
 import {NzListModule} from 'ng-zorro-antd/list';
 import { CountdownModule } from 'ngx-countdown';
+import {NzModalModule} from 'ng-zorro-antd/modal';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    NzInputModule,
-    ReactiveFormsModule,
-    BettingPanelRoutingModule,
-    FormsModule,
-    NzGridModule,
-    NzFormModule,
-    NzCheckboxModule,
-    NzCardModule,
-    NzButtonModule,
-    NzIconModule,
-    NzMenuModule,
-    NzLayoutModule,
-    NzTypographyModule,
-    NzSwitchModule,
-    ComponentsModule,
-    NzDrawerModule,
-    NzSelectModule,
-    NzDropDownModule,
-    NzToolTipModule,
-    NzDividerModule,
-    NzTagModule,
-    CountdownModule,
-    NzListModule
-  ],
+    imports: [
+        CommonModule,
+        NzInputModule,
+        ReactiveFormsModule,
+        BettingPanelRoutingModule,
+        FormsModule,
+        NzGridModule,
+        NzFormModule,
+        NzCheckboxModule,
+        NzCardModule,
+        NzButtonModule,
+        NzIconModule,
+        NzMenuModule,
+        NzLayoutModule,
+        NzTypographyModule,
+        NzSwitchModule,
+        ComponentsModule,
+        NzDrawerModule,
+        NzSelectModule,
+        NzDropDownModule,
+        NzToolTipModule,
+        NzDividerModule,
+        NzTagModule,
+        CountdownModule,
+        NzListModule,
+        NzModalModule
+    ],
   providers: [DatePipe],
   declarations: [BettingPanelComponent],
   exports: [BettingPanelComponent]

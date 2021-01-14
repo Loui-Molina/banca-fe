@@ -41,6 +41,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   drawerHelp = false;
   drawerTicket = false;
   modalOpened = false;
+  modalConfirm = false;
+  loadingSubmit = false;
+  generatedBet;
 
   tickets = [
     {sn: '10366-9236980', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 0, status: 'pending', winner: false},
@@ -86,7 +89,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
     if (event.key === '*') {
       if (this.lastClick === '*'){
-        this.onKeyPrint();
+        this.onSubmitBet();
       }
     }
 
@@ -107,7 +110,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
 
     if (event.key === ' ') {
-      this.onKeyPrint();
+      this.onSubmitBet();
     }
 
     this.lastClick = event.key;
@@ -230,21 +233,28 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.superPale = !this.superPale;
   }
 
-  onKeyPrint = () => {
+
+  onSubmitBet = () => {
     if (this.bets.length <= 0){
       return;
     }
     this.modalOpened = true;
-    this.modalService.success({
-      nzTitle: 'Confirmar e imprimir',
-      nzContent: this.ts('UTILS.ARE_YOU_SURE'),
-      nzOnOk: () => this.onSubmitPrint(),
-      nzOnCancel: () => {
-        this.modalOpened = false;
-      },
-      nzOkText: this.ts('UTILS.CONFIRM'),
-      nzCancelText: this.ts('UTILS.CANCEL')
-    });
+    this.modalConfirm = true;
+    this.generatedBet = null;
+  }
+
+  closeModalConfirm(): void{
+    this.modalOpened = false;
+    this.modalConfirm = false;
+    this.generatedBet = null;
+  }
+
+  onSubmitBetConfirm = () => {
+    this.loadingSubmit = true;
+    setTimeout(() => {
+      this.loadingSubmit = false;
+      this.generatedBet = {sn: '10366-9236980', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 0, status: 'pending', winner: false};1
+    }, 3000);
   }
 
   onSubmitPrint = () => {

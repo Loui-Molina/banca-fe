@@ -60,6 +60,9 @@ export class BankingTransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.init();
+  }
+  init(): void{
     this.loading = true;
     this.initDataSync().subscribe(responseList => {
       this.transactions = responseList[0];

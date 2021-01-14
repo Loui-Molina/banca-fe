@@ -107,6 +107,7 @@ export class AdminTransactionsComponent implements OnInit {
       this.loading = false;
       this.messageService.create('success', 'Transaccion realizada correctamente');
       this.closeDrawer('drawerTransaction');
+      this.init();
     }, error => {
       this.loading = false;
       throw new HttpErrorResponse(error);
@@ -164,6 +165,10 @@ export class AdminTransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.init();
+  }
+
+  init(): void{
     this.loading = true;
     this.initDataSync().subscribe(responseList => {
       this.transactions = responseList[0];

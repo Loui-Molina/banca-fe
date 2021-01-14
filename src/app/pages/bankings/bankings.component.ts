@@ -88,7 +88,7 @@ export class BankingsComponent {
         status:  true,
         selectedConsortium: null,
         showPercentage: true,
-        username: null, // TODO falta que se envie el username desde el backend
+        username: null,
         password: null
       };
     } else {
@@ -97,7 +97,7 @@ export class BankingsComponent {
         status: visibleObject.status,
         selectedConsortium: visibleObject.consortiumId,
         showPercentage: visibleObject.showPercentage,
-        username: null, // TODO falta que se envie el username desde el backend
+        username: visibleObject.ownerUsername,
         password: null
       };
     }
@@ -115,16 +115,22 @@ export class BankingsComponent {
       } as CreateBankingDto;
     } else {
       return {
+        _id: visibleObject._id,
         name: valueForm.name,
         status: valueForm.status,
         showPercentage: valueForm.showPercentage,
+        ownerUserId: visibleObject.ownerUserId,
+        user: {username: valueForm.username, password: valueForm.password} as AuthCredentialsDto,
         selectedConsortium: valueForm.selectedConsortium
       } as UpdateBankingDto;
     }
   }
-  getValidators(mode: string): any{
+  getValidators = (mode: string) => {
     return {
-      name:[Validators.required],
+      name: [Validators.required],
+      status: [Validators.required],
+      showPercentage: [Validators.required],
+      selectedConsortium: [Validators.required],
       username: [Validators.required, Validators.minLength(4)],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
