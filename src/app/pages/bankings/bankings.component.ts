@@ -3,12 +3,11 @@ import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
-  AuthCredentialsDto,
   Banking,
   BankingDto,
   BankingService,
   ConsortiumsService,
-  CreateBankingDto,
+  CreateBankingDto, SignUpCredentialsDto,
   UpdateBankingDto,
   User
 } from '../../../../local-packages/banca-api';
@@ -110,7 +109,7 @@ export class BankingsComponent {
           status: valueForm.status,
           showPercentage: valueForm.showPercentage
         } as BankingDto,
-        user: {username: valueForm.username, password: valueForm.password} as AuthCredentialsDto,
+        user: {username: valueForm.username, password: valueForm.password} as SignUpCredentialsDto,
         consortiumId: valueForm.selectedConsortium
       } as CreateBankingDto;
     } else {
@@ -120,7 +119,7 @@ export class BankingsComponent {
         status: valueForm.status,
         showPercentage: valueForm.showPercentage,
         ownerUserId: visibleObject.ownerUserId,
-        user: {username: valueForm.username, password: valueForm.password} as AuthCredentialsDto,
+        user: {username: valueForm.username, password: valueForm.password} as SignUpCredentialsDto,
         selectedConsortium: valueForm.selectedConsortium
       } as UpdateBankingDto;
     }

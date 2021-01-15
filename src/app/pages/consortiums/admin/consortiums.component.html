@@ -33,6 +33,14 @@
 
       <nz-divider class="title" [nzText]="'Datos de inicio de sesion'" nzOrientation="left"></nz-divider>
 
+      <div class="form-element">
+        <label for="ownerName">
+          {{'Nombre del dueño'|translate}}
+        </label>
+        <input nz-input id="ownerName" type="text" formControlName="ownerName">
+      </div>
+
+
       <div>
         <label for="ownerUsername">
           {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}

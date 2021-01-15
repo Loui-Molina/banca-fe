@@ -1,7 +1,6 @@
 export * from './addResultDto';
 export * from './adminLotteryReqDto';
 export * from './adminLotteryResDto';
-export * from './authCredentialsDto';
 export * from './banking';
 export * from './bankingDto';
 export * from './bankingLotteryDto';
@@ -32,6 +31,8 @@ export * from './prizeLimit';
 export * from './responseDto';
 export * from './result';
 export * from './resultDto';
+export * from './signInCredentialsDto';
+export * from './signUpCredentialsDto';
 export * from './transaction';
 export * from './transactionDto';
 export * from './updateBankingDto';

@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit {
   fetcher: Observable<User[]> = this.userService.userControllerGetAll();
   fetcherCreate: (item) => Observable<User> = (item) => this.userService.userControllerCreate(item);
   fetcherUpdate: (item) => Observable<User> = (item) => this.userService.userControllerUpdate(item);
-  fetcherDelete: (id: string) => Observable<User> = (id) => this.userService.userControllerDelete(id);
+  fetcherDelete: (item) => Observable<User> = (item) => this.userService.userControllerDelete(item._id);
   setValueForm(mode, defaultForm, item): any{
     return {
       name: item.name ? item.name : null,

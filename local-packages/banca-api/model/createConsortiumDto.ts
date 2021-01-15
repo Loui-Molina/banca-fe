@@ -9,11 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AuthCredentialsDto } from './authCredentialsDto';
+import { SignUpCredentialsDto } from './signUpCredentialsDto';
 
 
 export interface CreateConsortiumDto { 
-    user: AuthCredentialsDto;
+    user: SignUpCredentialsDto;
     _id?: object;
     ownerUserId?: object;
     name: string;
