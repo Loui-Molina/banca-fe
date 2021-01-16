@@ -7,7 +7,7 @@ export * from './bankingLotteryDto';
 export * from './bet';
 export * from './betDto';
 export * from './bettingLimit';
-export * from './changeCredentialsDto';
+export * from './changePasswordDto';
 export * from './consortium';
 export * from './consortiumDto';
 export * from './consortiumLotteryDto';

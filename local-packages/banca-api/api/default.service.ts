@@ -17,7 +17,7 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { ChangeCredentialsDto } from '../model/models';
+import { ChangePasswordDto } from '../model/models';
 import { InlineResponse200 } from '../model/models';
 import { InlineResponse503 } from '../model/models';
 import { ResponseDto } from '../model/models';
@@ -92,16 +92,16 @@ export class DefaultService {
     }
 
     /**
-     * @param changeCredentialsDto 
+     * @param changePasswordDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public authControllerChangePassword(changeCredentialsDto: ChangeCredentialsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<any>;
-    public authControllerChangePassword(changeCredentialsDto: ChangeCredentialsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpResponse<any>>;
-    public authControllerChangePassword(changeCredentialsDto: ChangeCredentialsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpEvent<any>>;
-    public authControllerChangePassword(changeCredentialsDto: ChangeCredentialsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined}): Observable<any> {
-        if (changeCredentialsDto === null || changeCredentialsDto === undefined) {
-            throw new Error('Required parameter changeCredentialsDto was null or undefined when calling authControllerChangePassword.');
+    public authControllerChangePasswordRemember(changePasswordDto: ChangePasswordDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<any>;
+    public authControllerChangePasswordRemember(changePasswordDto: ChangePasswordDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpResponse<any>>;
+    public authControllerChangePasswordRemember(changePasswordDto: ChangePasswordDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpEvent<any>>;
+    public authControllerChangePasswordRemember(changePasswordDto: ChangePasswordDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined}): Observable<any> {
+        if (changePasswordDto === null || changePasswordDto === undefined) {
+            throw new Error('Required parameter changePasswordDto was null or undefined when calling authControllerChangePasswordRemember.');
         }
 
         let headers = this.defaultHeaders;
@@ -132,8 +132,8 @@ export class DefaultService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/api/auth/changePassword`,
-            changeCredentialsDto,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/api/auth/change-password`,
+            changePasswordDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -173,7 +173,7 @@ export class DefaultService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/auth/loggedUser`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/auth/logged-user`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -213,7 +213,7 @@ export class DefaultService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/auth/refreshToken`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/auth/refresh-token`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -252,7 +252,7 @@ export class DefaultService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/auth/logOut`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/auth/log-out`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -304,7 +304,7 @@ export class DefaultService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/api/auth/signin`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/api/auth/sign-in`,
             signInCredentialsDto,
             {
                 responseType: <any>responseType,
@@ -358,7 +358,7 @@ export class DefaultService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<ResponseDto>(`${this.configuration.basePath}/api/auth/signup`,
+        return this.httpClient.post<ResponseDto>(`${this.configuration.basePath}/api/auth/sign-up`,
             signUpCredentialsDto,
             {
                 responseType: <any>responseType,
