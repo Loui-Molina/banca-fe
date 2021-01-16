@@ -103,7 +103,7 @@ export class JWTUserService implements UserService {
 
   login(username: string, password: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      const url = environment.urlApi + '/api/auth/signin';
+      const url = environment.urlApi + '/api/auth/sign-in';
       const myHeaders = new Headers({
         'Content-Type': 'application/json'
       });
