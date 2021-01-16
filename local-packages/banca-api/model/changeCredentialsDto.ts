@@ -9,13 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Play } from './play';
 
 
-export interface BetDto { 
-    _id: object;
-    plays: Array<Play>;
-    sn: string;
-    date: string;
+export interface ChangeCredentialsDto { 
+    username: string;
+    password: string;
+    newPassword: string;
 }
 

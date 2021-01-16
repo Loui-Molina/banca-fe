@@ -17,6 +17,7 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
+import { Bet } from '../model/models';
 import { BetDto } from '../model/models';
 import { CreateBetDto } from '../model/models';
 

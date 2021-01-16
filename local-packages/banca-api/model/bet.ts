@@ -12,10 +12,12 @@
 import { Play } from './play';
 
 
-export interface BetDto { 
-    _id: object;
+export interface Bet { 
     plays: Array<Play>;
-    sn: string;
     date: string;
+    sn: string;
+    creationUserId: string;
+    deletionDate: string;
+    modificationUserId: string;
 }
 

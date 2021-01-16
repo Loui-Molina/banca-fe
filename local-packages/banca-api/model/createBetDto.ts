@@ -9,9 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Play } from './play';
 
 
 export interface CreateBetDto { 
     _id?: object;
+    plays: Array<Play>;
 }
 
