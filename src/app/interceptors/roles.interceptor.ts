@@ -20,9 +20,8 @@ export class RolesInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const apiToken = this.userService.getApiToken();
-        const isLogged = this.userService.isLogged();
 
-        if (!apiToken || !isLogged){
+        if (!apiToken || req.url.indexOf('assets') !== -1){
           return next.handle(req);
         }
         const user: UserInterface = jwtDecode(apiToken);

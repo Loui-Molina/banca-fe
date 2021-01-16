@@ -62,7 +62,9 @@
                 <div nz-col nzSpan="10" class="col-style center-column">
                   CIERRE
                 </div>
-                <div nz-col nzSpan="2" class="col-style center-column"></div>
+                <div nz-col nzSpan="2" class="col-style center-column">
+                  <i nz-icon nzType="loading" *ngIf="reloadingLotterys" nzTheme="outline"></i>
+                </div>
               </div>
             </div>
             <div class="lottery-panel-body">

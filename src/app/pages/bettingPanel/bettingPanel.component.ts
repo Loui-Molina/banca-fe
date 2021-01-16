@@ -67,6 +67,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   loading = false;
   superPale = false;
   reloadingResults = false;
+  reloadingLotterys = false;
   lastResults: ResultDto[] = [];
 
   bets: Bet[] = [];
@@ -203,6 +204,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   private startReloadResults(): void{
     this.interval = setInterval(() => {
       this.reloadResults();
+      this.reloadLotterys();
     }, 15000);
   }
 
@@ -213,6 +215,17 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.reloadingResults = false;
     }, error => {
       this.reloadingResults = false;
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+  private reloadLotterys(): void{
+    this.reloadingLotterys = true;
+    this.bankingLotteriesService.bankingLotteryControllerGetAll().subscribe(data => {
+      this.lotterys = data;
+      this.reloadingLotterys = false;
+    }, error => {
+      this.reloadingLotterys = false;
       throw new HttpErrorResponse(error);
     });
   }
