@@ -17,5 +17,16 @@ export interface BetDto {
     plays: Array<Play>;
     sn: string;
     date: string;
+    betStatus: BetDto.BetStatusEnum;
 }
+export namespace BetDto {
+    export type BetStatusEnum = 'cancelled' | 'pending' | 'winner' | 'loser';
+    export const BetStatusEnum = {
+        Cancelled: 'cancelled' as BetStatusEnum,
+        Pending: 'pending' as BetStatusEnum,
+        Winner: 'winner' as BetStatusEnum,
+        Loser: 'loser' as BetStatusEnum
+    };
+}
+
 

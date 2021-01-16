@@ -40,6 +40,7 @@ export * from './signUpCredentialsDto';
 export * from './transaction';
 export * from './transactionDto';
 export * from './updateBankingDto';
+export * from './updateBetDto';
 export * from './user';
 export * from './userDto';
 export * from './userPreference';
