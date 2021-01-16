@@ -11,12 +11,13 @@
  */
 
 
-export interface AuthCredentialsDto { 
+export interface SignUpCredentialsDto { 
     username: string;
     password: string;
-    role?: AuthCredentialsDto.RoleEnum;
+    name: string;
+    role?: SignUpCredentialsDto.RoleEnum;
 }
-export namespace AuthCredentialsDto {
+export namespace SignUpCredentialsDto {
     export type RoleEnum = 'admin' | 'banker' | 'punter' | 'supervisor' | 'consortium' | 'carrier';
     export const RoleEnum = {
         Admin: 'admin' as RoleEnum,

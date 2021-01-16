@@ -18,6 +18,7 @@ export interface BankingDto {
     ownerUserId: object;
     consortiumId: object;
     ownerUsername: string;
+    ownerName: string;
     createdAt: string;
     startOfOperation: string;
     showPercentage: boolean;

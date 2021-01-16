@@ -4,19 +4,21 @@
            [fetcherCreate]="fetcherCreate"
            [fetcherUpdate]="fetcherUpdate"
            [fetcherDelete]="fetcherDelete"
-           [getValidators]="getValidators"
            [setValueForm]="setValueForm"
            [parseData]="parseData"
            [formTemplate]="formTemplate"
            [viewTemplate]="viewTemplate"
            [defaultForm]="defaultForm"
            [form]="formABM"
-           [columns]="columns">
+           [columns]="columns"
+           [getValidators]="getValidators">
   </app-abm>
 
 
   <ng-template #formTemplate let-mode>
     <form [formGroup]="formABM">
+
+      <nz-divider style="margin-top: 0" class="title" [nzText]="'Datos de la banca'" nzOrientation="left"></nz-divider>
 
       <div class="form-element">
         <label for="name">
@@ -34,24 +36,13 @@
 
       <div class="form-element">
         <label for="showPercentage">
-          {{'Porcentage de cuadre de caja'|translate}}
+          {{'Mostrar porcentage de cuadre de caja'|translate}}
         </label>
         <nz-switch style="padding-left: 10px" id="showPercentage" formControlName="showPercentage"></nz-switch>
       </div>
 
-      <!--<div class="form-element">
-        <label for="language">
-          {{'HOME.BANKINGS.BANKING.LANGUAGE'|translate}}
-        </label>
-        <nz-select id="language" formControlName="language">
-          <nz-option nzValue="EN" nzLabel="Ingles"></nz-option>
-          <nz-option nzValue="ES" nzLabel="Español"></nz-option>
-        </nz-select>
-      </div>
 
-      -->
-
-      <div class="form-element" [ngStyle]="user?.role === userRole.Admin?{}:{display:'none'}">
+      <div class="form-element" *ngIf="this.user?.role === this.userRole.Admin">
         <label for="selectedConsortium">
           {{'Consorcio'|translate}}
         </label>
@@ -63,13 +54,20 @@
       <nz-divider class="title" [nzText]="'Datos de inicio de sesion'" nzOrientation="left"></nz-divider>
 
       <div>
+        <label for="ownerName">
+          {{'Nombre del dueño'|translate}}
+        </label>
+        <input nz-input id="ownerName" type="text" formControlName="ownerName">
+      </div>
+
+      <div>
         <label for="username">
           {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
         </label>
         <input nz-input [minLength]="4" id="username" type="text" formControlName="username">
       </div>
 
-      <ng-container *ngIf="mode === 'C'">
+      <ng-container>
         <label for="password">
           {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
         </label>

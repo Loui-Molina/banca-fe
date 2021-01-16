@@ -2,8 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {
-  BankingDto, BankingService, BettingLimit, ConsortiumLotteriesService,
-  ConsortiumLotteryDto, ConsortiumUpdateLotteryDto, PrizeLimit
+  BankingDto,
+  BankingService,
+  BettingLimit,
+  ConsortiumLotteriesService,
+  ConsortiumLotteryDto,
+  ConsortiumUpdateLotteryDto,
+  PrizeLimit
 } from '../../../../../local-packages/banca-api';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';

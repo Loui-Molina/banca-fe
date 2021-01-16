@@ -3,12 +3,12 @@ import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
-  AuthCredentialsDto,
   Banking,
   BankingDto,
   BankingService,
   ConsortiumsService,
   CreateBankingDto,
+  SignUpCredentialsDto,
   UpdateBankingDto,
   User
 } from '../../../../local-packages/banca-api';
@@ -29,7 +29,7 @@ export class BankingsComponent {
               private consortiumsService: ConsortiumsService) {
     this.formABM = this.formBuilder.group(this.defaultForm);
     this.user = this.userService.getLoggedUser();
-    if(this.user?.role === this.userRole.Admin){
+    if (this.user?.role === this.userRole.Admin){
       this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
           this.consortiums = consortiums;
         }, error => {
@@ -70,6 +70,7 @@ export class BankingsComponent {
     status: true,
     selectedConsortium: null,
     showPercentage: true,
+    ownerName: null,
     username: null,
     password: null
   };
@@ -88,6 +89,7 @@ export class BankingsComponent {
         status:  true,
         selectedConsortium: null,
         showPercentage: true,
+        ownerName: null,
         username: null,
         password: null
       };
@@ -97,6 +99,7 @@ export class BankingsComponent {
         status: visibleObject.status,
         selectedConsortium: visibleObject.consortiumId,
         showPercentage: visibleObject.showPercentage,
+        ownerName: visibleObject.ownerName,
         username: visibleObject.ownerUsername,
         password: null
       };
@@ -110,7 +113,7 @@ export class BankingsComponent {
           status: valueForm.status,
           showPercentage: valueForm.showPercentage
         } as BankingDto,
-        user: {username: valueForm.username, password: valueForm.password} as AuthCredentialsDto,
+        user: {username: valueForm.username, password: valueForm.password, name: valueForm.ownerName} as SignUpCredentialsDto,
         consortiumId: valueForm.selectedConsortium
       } as CreateBankingDto;
     } else {
@@ -120,7 +123,7 @@ export class BankingsComponent {
         status: valueForm.status,
         showPercentage: valueForm.showPercentage,
         ownerUserId: visibleObject.ownerUserId,
-        user: {username: valueForm.username, password: valueForm.password} as AuthCredentialsDto,
+        user: {username: valueForm.username, password: valueForm.password, name: valueForm.ownerName} as SignUpCredentialsDto,
         selectedConsortium: valueForm.selectedConsortium
       } as UpdateBankingDto;
     }
@@ -131,11 +134,13 @@ export class BankingsComponent {
       status: [Validators.required],
       showPercentage: [Validators.required],
       selectedConsortium: [Validators.required],
+      ownerName: [Validators.required],
       username: [Validators.required, Validators.minLength(4)],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35)
-      ] : []
+      ] : [Validators.minLength(8),
+        Validators.maxLength(35)]
     };
   }
 }

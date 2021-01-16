@@ -1,20 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {
+  AddResultDto,
+  AdminLotteriesService,
+  AdminLotteryResDto,
+  Result,
+  ResultDto,
+  ResultsService
+} from '../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {UserInterface, UserService} from '../../services/user.service';
 import {User} from '@banca-api/model/user';
-import {
-  AddResultDto,
-  AdminLotteriesService,
-  AdminLotteryResDto,
-  Result, ResultDto,
-  ResultsService
-} from "../../../../local-packages/banca-api";
 
 @Component({
   selector: 'app-results',
@@ -137,4 +138,14 @@ export class ResultsComponent implements OnInit{
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
   }
+
+  // TODO LOUI implement
+   resultsValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+     const first = control.get('first');
+     const second = control.get('second');
+     const third = control.get('third');
+
+     return (first && second && third && (first.value === second.value || first.value === third.value|| second.value === third.value))  ? {repeated: true} : null;
+   };
+
 }

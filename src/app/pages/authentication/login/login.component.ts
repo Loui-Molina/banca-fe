@@ -41,6 +41,8 @@ export class LoginComponent implements OnInit {
         this.validateForm.value.password).then(apiToken => {
         this.navigate();
       }).catch(err => {
+        //TODO LOUI Verify connection to BE
+        console.log(`error ${err}`)
         this.messageService.create('error', 'Usuario o contraseña incorrectos');
       });
     }

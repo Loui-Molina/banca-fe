@@ -14,19 +14,19 @@
     </div>
     <div class="right-side">
 
-      <span class="clean-button" [class.disabled]="this.bets.length <= 0" (click)="cleanAll()">
+      <span class="clean-button" [class.disabled]="this.plays.length <= 0" (click)="cleanAll()">
         <i nz-icon nzType="clear" nzTheme="outline"></i>
         LIMPIAR
       </span>
 
-      <span class="confirm-button" [class.disabled]="this.bets.length <= 0" (click)="onSubmitBet()">
+      <span class="confirm-button" [class.disabled]="this.plays.length <= 0" (click)="onSubmitBet()">
         <i nz-icon nzType="printer" nzTheme="outline"></i>
         CONFIRMAR
       </span>
 
       <span class="total">
         <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
-        TOTAL: ${{getSumBets(bets)}}
+        TOTAL: ${{getSumBets(plays)}}
       </span>
       <span class="date">
         <i nz-icon nzType="clock-circle" nzTheme="outline"></i>
@@ -62,7 +62,9 @@
                 <div nz-col nzSpan="10" class="col-style center-column">
                   CIERRE
                 </div>
-                <div nz-col nzSpan="2" class="col-style center-column"></div>
+                <div nz-col nzSpan="2" class="col-style center-column">
+                  <i nz-icon nzType="loading" *ngIf="reloadingLotterys" nzTheme="outline"></i>
+                </div>
               </div>
             </div>
             <div class="lottery-panel-body">
@@ -139,7 +141,7 @@
           <div class="bet" *ngFor="let bet of getFilteredBets(panel.types)">
             <div nz-row class="row-style panel-container">
               <div nz-col nzSpan="6" class="col-style center-column">{{bet.lotteryNickName}}</div>
-              <div nz-col nzSpan="7" class="col-style center-column">{{bet.number}}</div>
+              <div nz-col nzSpan="7" class="col-style center-column">{{showParsedNumbers(bet.playNumbers)}}</div>
               <div nz-col nzSpan="7" class="col-style center-column">${{bet.amount}}</div>
               <div nz-col nzSpan="4" class="col-style center-column last-column">
                 <i nz-icon nzType="delete" (click)="deleteBet(bet)" class="action-icon error" nzTheme="outline"></i>
@@ -387,11 +389,11 @@
     <ng-container *ngIf="generatedBet">
       <span class="modal-confirm-total">
         <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
-        TOTAL: ${{getSumBets(bets)}}
+        TOTAL: ${{getSumBets(plays)}}
       </span>
-      <span class="modal-confirm-ticket-number">
-        <i nz-icon nzType="borderless-table" nzTheme="outline"></i>
-        APUESTA: {{generatedBet.sn}}
+      <span class="modal-confirm-ticket-number" *ngIf="generatedBet._id">
+        APUESTA: {{generatedBet._id.toString()}}<br>
+        SN: {{generatedBet.sn}}
       </span>
       <div class="modal-confirm-buttons">
         <a target="_blank" [href]="getSendWhatsApp(generatedBet)">

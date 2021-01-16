@@ -9,13 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SignUpCredentialsDto } from './signUpCredentialsDto';
-import { BankingDto } from './bankingDto';
+import { Play } from './play';
 
 
-export interface CreateBankingDto { 
-    user: SignUpCredentialsDto;
-    banking: BankingDto;
-    consortiumId: object;
+export interface Bet { 
+    plays: Array<Play>;
+    date: string;
+    sn: string;
+    creationUserId: string;
+    deletionDate: string;
+    modificationUserId: string;
 }
 

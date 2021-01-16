@@ -53,6 +53,7 @@ export class ConsortiumsComponent implements OnInit {
   ];
   defaultForm = {
     name: null,
+    ownerName: null,
     ownerUsername: null,
     password: null,
     status: true
@@ -67,6 +68,7 @@ export class ConsortiumsComponent implements OnInit {
     return {
       name: [Validators.required],
       status: [Validators.required],
+      ownerName: [Validators.required],
       ownerUsername: [Validators.required, Validators.minLength(4)],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
@@ -74,9 +76,10 @@ export class ConsortiumsComponent implements OnInit {
       ] : []
     };
   }
-  parseData(mode, valueForm, visibleObject): CreateConsortiumDto{
+  parseData(mode, valueForm, visibleObject): CreateConsortiumDto {
     return {
       user: {
+        name: valueForm.ownerName,
         username: valueForm.ownerUsername,
         password: valueForm.password
       },

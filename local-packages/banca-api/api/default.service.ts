@@ -17,10 +17,12 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { AuthCredentialsDto } from '../model/models';
+import { ChangeCredentialsDto } from '../model/models';
 import { InlineResponse200 } from '../model/models';
 import { InlineResponse503 } from '../model/models';
 import { ResponseDto } from '../model/models';
+import { SignInCredentialsDto } from '../model/models';
+import { SignUpCredentialsDto } from '../model/models';
 import { User } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -87,6 +89,59 @@ export class DefaultService {
             throw Error("key may not be null if value is not object or array");
         }
         return httpParams;
+    }
+
+    /**
+     * @param changeCredentialsDto 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public authControllerChangePassword(changeCredentialsDto: ChangeCredentialsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<any>;
+    public authControllerChangePassword(changeCredentialsDto: ChangeCredentialsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpResponse<any>>;
+    public authControllerChangePassword(changeCredentialsDto: ChangeCredentialsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpEvent<any>>;
+    public authControllerChangePassword(changeCredentialsDto: ChangeCredentialsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined}): Observable<any> {
+        if (changeCredentialsDto === null || changeCredentialsDto === undefined) {
+            throw new Error('Required parameter changeCredentialsDto was null or undefined when calling authControllerChangePassword.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/api/auth/changePassword`,
+            changeCredentialsDto,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
     }
 
     /**
@@ -209,16 +264,16 @@ export class DefaultService {
     }
 
     /**
-     * @param authCredentialsDto 
+     * @param signInCredentialsDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public authControllerSingIn(authCredentialsDto: AuthCredentialsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<any>;
-    public authControllerSingIn(authCredentialsDto: AuthCredentialsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpResponse<any>>;
-    public authControllerSingIn(authCredentialsDto: AuthCredentialsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpEvent<any>>;
-    public authControllerSingIn(authCredentialsDto: AuthCredentialsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined}): Observable<any> {
-        if (authCredentialsDto === null || authCredentialsDto === undefined) {
-            throw new Error('Required parameter authCredentialsDto was null or undefined when calling authControllerSingIn.');
+    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<any>;
+    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpResponse<any>>;
+    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpEvent<any>>;
+    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined}): Observable<any> {
+        if (signInCredentialsDto === null || signInCredentialsDto === undefined) {
+            throw new Error('Required parameter signInCredentialsDto was null or undefined when calling authControllerSingIn.');
         }
 
         let headers = this.defaultHeaders;
@@ -250,7 +305,7 @@ export class DefaultService {
         }
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/api/auth/signin`,
-            authCredentialsDto,
+            signInCredentialsDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -262,16 +317,16 @@ export class DefaultService {
     }
 
     /**
-     * @param authCredentialsDto 
+     * @param signUpCredentialsDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public authControllerSingUp(authCredentialsDto: AuthCredentialsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<ResponseDto>;
-    public authControllerSingUp(authCredentialsDto: AuthCredentialsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<ResponseDto>>;
-    public authControllerSingUp(authCredentialsDto: AuthCredentialsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<ResponseDto>>;
-    public authControllerSingUp(authCredentialsDto: AuthCredentialsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (authCredentialsDto === null || authCredentialsDto === undefined) {
-            throw new Error('Required parameter authCredentialsDto was null or undefined when calling authControllerSingUp.');
+    public authControllerSingUp(signUpCredentialsDto: SignUpCredentialsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<ResponseDto>;
+    public authControllerSingUp(signUpCredentialsDto: SignUpCredentialsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<ResponseDto>>;
+    public authControllerSingUp(signUpCredentialsDto: SignUpCredentialsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<ResponseDto>>;
+    public authControllerSingUp(signUpCredentialsDto: SignUpCredentialsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (signUpCredentialsDto === null || signUpCredentialsDto === undefined) {
+            throw new Error('Required parameter signUpCredentialsDto was null or undefined when calling authControllerSingUp.');
         }
 
         let headers = this.defaultHeaders;
@@ -304,7 +359,7 @@ export class DefaultService {
         }
 
         return this.httpClient.post<ResponseDto>(`${this.configuration.basePath}/api/auth/signup`,
-            authCredentialsDto,
+            signUpCredentialsDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

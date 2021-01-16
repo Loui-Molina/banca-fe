@@ -17,7 +17,7 @@ export class AppComponent {
     private router: Router
   ) {
     let lang = localStorage.getItem('language');
-    if (!lang){
+    if (!lang) {
       lang = 'es';
       localStorage.setItem('language', lang);
     }
@@ -27,7 +27,7 @@ export class AppComponent {
     translate.use(browserLang.match(/esp|en/) ? browserLang : lang);
 
     const isLogged = this.userService.isLogged();
-    if (isLogged){
+    if (isLogged) {
       defaultService.authControllerGetLoggedUser().subscribe(res => {
       }, error => {
         this.userService.logout();

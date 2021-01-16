@@ -1,3 +1,5 @@
+import {BetDto, PlayNumbers} from '../../local-packages/banca-api';
+
 export function uuidv4(): string {
   // tslint:disable-next-line:only-arrow-functions
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -13,10 +15,10 @@ export function reverseString(str): string {
 
 export function getCombinations(chars: string[], length: number = null, separator: string = ''): string[] {
   const result = [];
-  for (const char of chars){
-    for (const char2 of chars){
-      if (char !== char2){
-        if (!result.includes(char + separator + char2) && !result.includes(char2 + separator + char)){
+  for (const char of chars) {
+    for (const char2 of chars) {
+      if (char !== char2) {
+        if (!result.includes(char + separator + char2) && !result.includes(char2 + separator + char)) {
           result.push(char + separator + char2);
         }
       }
@@ -26,50 +28,37 @@ export function getCombinations(chars: string[], length: number = null, separato
 }
 
 
-
-export function printTicket(ticket): void{
+export function printTicket(bet: BetDto): void {
   const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
-  WindowPrt.document.write(
-    '<html>\n' +
+  let toWrite = '<html>\n' +
     '<head>\n' +
-    '  <title>TICKET #10366-9236980</title>\n' +
+    '  <title>TICKET #' + bet._id.toString() + '</title>\n' +
     '</head>' +
     '<body style="font-family: monospace">\n' +
     '<div class="page">\n' +
-    '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;">TICKET #10366-9236980</h3>\n' +
-    '  <h4 style="text-align: center; border-bottom: 1px dashed #000; margin: 0">BS2324FFF22</h4>\n' +
-    '  <p>Fecha: 24/12/2020</p>\n' +
-    '  <p>Hora: 13:32</p>\n' +
-    '  <p>Banca: Banca 1</p>\n' +
-    '  <h4 style="text-align: center; border-bottom: 1px dashed #000; border-top: 1px dashed #000;margin: 0">APUESTAS</h4>\n' +
+    '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;">TICKET #' + bet._id.toString() + '</h3>\n' +
+    '  <h4 style="text-align: center; border-bottom: 1px dashed #000; margin: 0">SN:' + bet.sn + '</h4>\n' +
+    '  <p>Fecha: ' + bet.date.toString() + '</p>\n' +
+    '  <p>Banca: </p>\n' + // TODO pasar banca
+    '  <h4 style="text-align: center; border-bottom: 1px dashed #000; border-top: 1px dashed #000;margin: 0">JUGADAS</h4>\n' +
     '  <table style="width: 100%">\n' +
     '    <tr>\n' +
     '      <th style="width: 33%">Loteria</th>\n' +
     '      <th style="width: 33%">Jugada</th>\n' +
     '      <th style="width: 33%">Monto</th>\n' +
-    '    </tr>\n' +
-    '    <tr>\n' +
-    '      <td style="text-align: center">NEW YORK PM</td>\n' +
-    '      <td style="text-align: center">20</td>\n' +
-    '      <td style="text-align: center">$3</td>\n' +
-    '    </tr>\n' +
-    '    <tr>\n' +
-    '      <td style="text-align: center">NEW YORK PM</td>\n' +
-    '      <td style="text-align: center">12</td>\n' +
-    '      <td style="text-align: center">$3</td>\n' +
-    '    </tr>\n' +
-    '    <tr>\n' +
-    '      <td style="text-align: center">NEW YORK PM</td>\n' +
-    '      <td style="text-align: center">44</td>\n' +
-    '      <td style="text-align: center">$3</td>\n' +
-    '    </tr>\n' +
-    '    <tr>\n' +
-    '      <td style="text-align: center">NEW YORK PM</td>\n' +
-    '      <td style="text-align: center">22</td>\n' +
-    '      <td style="text-align: center">$5</td>\n' +
-    '    </tr>\n' +
-    '  </table>\n' +
-    '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;border-bottom: 1px dashed #000; ">TOTAL $14</h3>\n' +
+    '    </tr>\n';
+  let total = 0;
+  bet.plays.map((play) => {
+    total += play.amount;
+    toWrite += '    <tr>\n' +
+      '      <td style="text-align: center">' + play.lotteryId + '</td>\n' + // TODO pasar loteria
+      '      <td style="text-align: center">' + showParsedNumbers(play.playNumbers) + '</td>\n' +
+      '      <td style="text-align: center">$' + play.amount + '</td>\n' +
+      '    </tr>\n';
+  });
+
+  toWrite += '  </table>\n' +
+    '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;border-bottom: 1px dashed #000; ">TOTAL $' + total + '</h3>\n' +
     '</div>\n' +
     '</body>\n' +
     '<style>\n' +
@@ -114,10 +103,38 @@ export function printTicket(ticket): void{
     '    }\n' +
     '  }\n' +
     '</style>\n' +
-    '</html>'
-  );
+    '</html>';
+  WindowPrt.document.write(toWrite);
   WindowPrt.document.close();
   WindowPrt.focus();
   WindowPrt.print();
   WindowPrt.close();
+}
+
+export function showParsedNumbers(playNumbers: PlayNumbers): string {
+  let numbers = '';
+  numbers += formatResult(playNumbers.first);
+  if (playNumbers.second) {
+    numbers += '-' + formatResult(playNumbers.second);
+  }
+  if (playNumbers.third) {
+    numbers += '-' + formatResult(playNumbers.third);
+  }
+  if (playNumbers.fourth) {
+    numbers += '-' + formatResult(playNumbers.fourth);
+  }
+  if (playNumbers.fifth) {
+    numbers += '-' + formatResult(playNumbers.fifth);
+  }
+  if (playNumbers.sixth) {
+    numbers += '-' + formatResult(playNumbers.sixth);
+  }
+  if (playNumbers.seventh) {
+    numbers += '-' + formatResult(playNumbers.seventh);
+  }
+  return numbers;
+}
+
+export function formatResult(value: number): string {
+  return String(value).padStart(2, '0');
 }

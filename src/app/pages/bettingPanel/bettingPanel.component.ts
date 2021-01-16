@@ -1,9 +1,16 @@
 import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {getCombinations, printTicket, reverseString, uuidv4} from '../../../utils/utilFunctions';
+import {formatResult, getCombinations, printTicket, reverseString, showParsedNumbers, uuidv4} from '../../../utils/utilFunctions';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {BankingLotteriesService, BankingLotteryDto, ResultDto, ResultsService} from '../../../../local-packages/banca-api';
+import {
+  BankingLotteriesService,
+  BankingLotteryDto,
+  ResultDto,
+  ResultsService,
+  Play,
+  PlayNumbers, BettingPanelService, CreateBetDto, BetDto
+} from '../../../../local-packages/banca-api';
 import {forkJoin, Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
@@ -18,6 +25,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   constructor(private modalService: NzModalService,
               private resultsService: ResultsService,
               private bankingLotteriesService: BankingLotteriesService,
+              private bettingPanelService: BettingPanelService,
               private datePipe: DatePipe,
               private translateService: TranslateService,
               private messageService: NzMessageService) {
@@ -43,7 +51,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   modalOpened = false;
   modalConfirm = false;
   loadingSubmit = false;
-  generatedBet;
+  generatedBet: BetDto;
 
   tickets = [
     {sn: '10366-9236980', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 0, status: 'pending', winner: false},
@@ -53,10 +61,10 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   ];
 
   panels = [
-    {title: 'DIRECTO', types: [BetType.directo]},
-    {title: 'PALE', types: [BetType.pale]},
-    {title: 'TRIPLETA', types: [BetType.tripleta]},
-    {title: 'SUPERPALE', types: [BetType.superPale]},
+    {title: 'DIRECTO', types: [Play.PlayTypeEnum.Direct]},
+    {title: 'PALE', types: [Play.PlayTypeEnum.Pale]},
+    {title: 'TRIPLETA', types: [Play.PlayTypeEnum.Tripleta]},
+    {title: 'SUPERPALE', types: [Play.PlayTypeEnum.SuperPale]},
     // {title: 'PLAY 4', types: [BetType.pick4]},
     // {title: 'PLAY 4', types: [BetType.pick4]}
   ];
@@ -67,15 +75,16 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   loading = false;
   superPale = false;
   reloadingResults = false;
+  reloadingLotterys = false;
   lastResults: ResultDto[] = [];
 
-  bets: Bet[] = [];
+  plays: PlayInterface[] = [];
   lastClick = null;
   interval;
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
-    if ([this.drawerTickets, this.drawerCaja, this.drawerPagar, this.drawerHelp, this.drawerTicket].includes(true) || this.modalOpened){
+    if ([this.drawerTickets, this.drawerCaja, this.drawerPagar, this.drawerHelp, this.drawerTicket].includes(true) || this.modalOpened) {
       return;
     }
 
@@ -88,7 +97,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
 
     if (event.key === '*') {
-      if (this.lastClick === '*'){
+      if (this.lastClick === '*') {
         this.onSubmitBet();
       }
     }
@@ -116,13 +125,13 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.lastClick = event.key;
   }
 
-  onChangeCounter($event, lottery: BankingLotteryDto): void{
-    if ($event.status === 3){
+  onChangeCounter($event, lottery: BankingLotteryDto): void {
+    if ($event.status === 3) {
       // Se fitra si estaba seleccionada o seleccionada en una apuesta
       this.selectedLotterys = this.selectedLotterys.filter(id => id !== lottery._id.toString());
-      this.bets = this.bets.filter(bet => bet.lotteryId !== lottery._id.toString());
-      for (const lotteryItem of this.lotterys){
-        if (lotteryItem._id.toString() === lottery._id.toString()){
+      this.plays = this.plays.filter(bet => bet.lotteryId.toString() !== lottery._id.toString());
+      for (const lotteryItem of this.lotterys) {
+        if (lotteryItem._id.toString() === lottery._id.toString()) {
           lotteryItem.status = false;
           lotteryItem.leftTime = 0;
         }
@@ -187,10 +196,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  formatResult(value: number): string{
-    return String(value).padStart(2, '0');
-  }
-
   private initDataSync(): Observable<any[]> {
     const resultsControllerGetAll = this.resultsService.resultsControllerGetAll();
     const bankingLotteryControllerGetAll = this.bankingLotteriesService.bankingLotteryControllerGetAll();
@@ -200,19 +205,31 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     ]);
   }
 
-  private startReloadResults(): void{
+  private startReloadResults(): void {
     this.interval = setInterval(() => {
       this.reloadResults();
+      this.reloadLotterys();
     }, 15000);
   }
 
-  private reloadResults(): void{
+  private reloadResults(): void {
     this.reloadingResults = true;
     this.resultsService.resultsControllerGetAll().subscribe(data => {
       this.lastResults = data;
       this.reloadingResults = false;
     }, error => {
       this.reloadingResults = false;
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+  private reloadLotterys(): void {
+    this.reloadingLotterys = true;
+    this.bankingLotteriesService.bankingLotteryControllerGetAll().subscribe(data => {
+      this.lotterys = data;
+      this.reloadingLotterys = false;
+    }, error => {
+      this.reloadingLotterys = false;
       throw new HttpErrorResponse(error);
     });
   }
@@ -235,7 +252,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
 
   onSubmitBet = () => {
-    if (this.bets.length <= 0){
+    if (this.plays.length <= 0) {
       return;
     }
     this.modalOpened = true;
@@ -243,7 +260,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.generatedBet = null;
   }
 
-  closeModalConfirm(): void{
+  closeModalConfirm(): void {
     this.modalOpened = false;
     this.modalConfirm = false;
     this.generatedBet = null;
@@ -251,22 +268,30 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   onSubmitBetConfirm = () => {
     this.loadingSubmit = true;
-    setTimeout(() => {
+    const body: CreateBetDto = {
+      plays: []
+    };
+    this.plays.map((item) => {
+      body.plays.push({
+        amount: item.amount,
+        lotteryId: item.lotteryId,
+        playType: item.playType,
+        playNumbers: item.playNumbers,
+      });
+    });
+    this.bettingPanelService.bettingPanelControllerCreate(body).subscribe(data => {
+      this.generatedBet = data;
       this.loadingSubmit = false;
-      this.generatedBet = {sn: '10366-9236980', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 0, status: 'pending', winner: false};1
-    }, 3000);
-  }
-
-  onSubmitPrint = () => {
-    this.modalOpened = false;
-    printTicket({});
-    this.cleanAll();
+    }, error => {
+      this.loadingSubmit = false;
+      throw new HttpErrorResponse(error);
+    });
   }
 
   cleanAll = () => {
     this.number = null;
     this.amount = null;
-    this.bets = [];
+    this.plays = [];
     this.selectedLotterys = [];
   }
 
@@ -281,49 +306,51 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   createBet(lottery: BankingLotteryDto): void {
     // tslint:disable-next-line:radix
     const amount = parseFloat(String(this.amount));
-    const playsToCreate: Bet[] = [];
+    const playsToCreate: PlayInterface[] = [];
     if (!this.number) {
       return;
     }
-    let type: BetType = null;
+    let type: Play.PlayTypeEnum = null;
     const numbers = this.number.toUpperCase();
     if (numbers.indexOf('.') !== -1) {
       // Contiene '.' Ex: 22235. 2323.
       const result = numbers.split('.')[0].match(/.{1,2}/g);
       if (result[result.length - 1].length === 1) {
         // Fixes last number
-        result[result.length - 1] = '0' + result[result.length - 1];
+        result[result.length - 1] = formatResult(parseInt(result[result.length - 1], 0));
       }
       if (result.length === 1) {
         // Solo un numero Ex: 23 32
-        type = BetType.directo;
+        type = Play.PlayTypeEnum.Direct;
         playsToCreate.push({
-          number: result[0],
+          playNumbers: {first: parseInt(result[0], 0)},
           uuid: uuidv4(),
-          type,
+          playType: type,
           lotteryNickName: lottery.nickname,
-          lotteryId: lottery._id.toString(),
+          lotteryId: lottery._id,
           amount
         });
         playsToCreate.push({
-          number: reverseString(result[0]),
+          playNumbers: {first: parseInt(reverseString(result[0]), 0)},
           uuid: uuidv4(),
-          type,
+          playType: type,
           lotteryNickName: lottery.nickname,
-          lotteryId: lottery._id.toString(),
+          lotteryId: lottery._id,
           amount
         });
       }
       if (type === null && result.length > 0) {
         const combinations = getCombinations(result, 4, '-');
         for (const combination of combinations) {
-          type = BetType.pale;
+          type = Play.PlayTypeEnum.Pale;
+          const playString = combination.split('-');
+          const playNumbers: number[] = playString.map(item => parseInt(item, 0));
           playsToCreate.push({
-            number: combination,
+            playNumbers: {first: playNumbers[0], second: playNumbers[1], third: playNumbers[2]},
             uuid: uuidv4(),
-            type,
+            playType: type,
             lotteryNickName: lottery.nickname,
-            lotteryId: lottery._id.toString(),
+            lotteryId: lottery._id,
             amount
           });
         }
@@ -340,23 +367,18 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
         const B = parseInt(result[1]);
         const from = A < B ? A : B;
         let to = A > B ? A : B;
-        type = BetType.directo;
+        type = Play.PlayTypeEnum.Direct;
         if (to > 99) {
           to = 99;
         }
         // tslint:disable-next-line:radix
         for (let i = from; i <= to; i++) {
-          let letter = String(i);
-          if (letter.length === 1) {
-            // Fixes last number
-            letter = '0' + letter;
-          }
           playsToCreate.push({
-            number: letter,
+            playNumbers: {first: i},
             uuid: uuidv4(),
-            type,
+            playType: type,
             lotteryNickName: lottery.nickname,
-            lotteryId: lottery._id.toString(),
+            lotteryId: lottery._id,
             amount
           });
         }
@@ -366,30 +388,35 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       const result = numbers.match(/.{1,2}/g);
       if (result[result.length - 1].length === 1) {
         // Fixes last number
-        result[result.length - 1] = '0' + result[result.length - 1];
+        result[result.length - 1] = result[result.length - 1];
       }
+      const resultNumbers: number[] = result.map(item => parseInt(item, 0));
+      let playNumbers: PlayNumbers = {};
 
-      switch (result.length) {
+      switch (resultNumbers.length) {
         case 1:
-          type = BetType.directo;
+          type = Play.PlayTypeEnum.Direct;
+          playNumbers = {first: resultNumbers[0]};
           break;
         case 2:
-          type = BetType.pale;
+          type = Play.PlayTypeEnum.Pale;
+          playNumbers = {first: resultNumbers[0], second: resultNumbers[1]};
           break;
         case 3:
-          type = BetType.tripleta;
+          type = Play.PlayTypeEnum.Tripleta;
+          playNumbers = {first: resultNumbers[0], second: resultNumbers[1], third: resultNumbers[2]};
           break;
       }
       playsToCreate.push({
-        number: result.join('-'),
+        playNumbers,
         uuid: uuidv4(),
-        type,
+        playType: type,
         lotteryNickName: lottery.nickname,
-        lotteryId: lottery._id.toString(),
+        lotteryId: lottery._id,
         amount
       });
     }
-    if (type === null) {
+    if (type === null || playsToCreate.length === 0) {
       this.messageService.create('error', 'Error de formato');
       return;
     }
@@ -398,13 +425,28 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  newBet(bet: Bet): void {
-    this.bets = this.bets.filter(item =>
-      !(item.type === bet.type &&
-        item.number === bet.number &&
-        item.lotteryId === bet.lotteryId)
-    );
-    this.bets.push(bet);
+  formatResult(value: number): string{
+    return formatResult(value);
+  }
+
+  newBet(play: PlayInterface): void {
+    const aux = [];
+    this.plays.map(item => {
+      if (
+        item.lotteryId.toString() !== play.lotteryId.toString() ||
+        item.playType !== play.playType
+      ) {
+        aux.push(item);
+      } else {
+        // TODO chekear si funca esta comparacion
+        if (item.playNumbers === play.playNumbers){
+          aux.push(play);
+        } else {
+          aux.push(item);
+        }
+      }
+    });
+    this.plays.push(play);
   }
 
   resetBet(): void {
@@ -427,8 +469,8 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     return this.amount > 0;
   }
 
-  getFilteredBets(type: BetType[]): Bet[] {
-    return this.bets.filter(bet => type.includes(bet.type));
+  getFilteredBets(type: Play.PlayTypeEnum[]): PlayInterface[] {
+    return this.plays.filter(play => type.includes(play.playType));
   }
 
   onChangeLottery(lottery: BankingLotteryDto, $event): void {
@@ -444,8 +486,8 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   }
 
-  deleteBet(bet: Bet): void {
-    this.bets = this.bets.filter(item => item.uuid !== bet.uuid);
+  deleteBet(play: PlayInterface): void {
+    this.plays = this.plays.filter(item => item.uuid !== play.uuid);
   }
 
   openTicket = (ticket) => {
@@ -454,31 +496,42 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
 
-  getSendWhatsApp = (ticket) => {
+  getSendWhatsApp = (bet: BetDto) => {
     // TODO Ver si tiene user y ponerle el numero como &phone=+5493543573840
-    let text = 'Hola! 👋🏼👋🏼 \n\n'; // TODO poner nombre de usuario
-    text += 'Este es el detalle de tu ticket 🎟️:\n';
-    text += '🆔:  *' + ticket.sn + '*\n';
-    text += '📅: ' + this.datePipe.transform(ticket.date, 'dd/MM/yyyy hh:mm:ss') + '\n\n';
-    text += 'Tus jugadas son:\n';
-    text += 'Loteria: NEW YORK PM - JUGADA: *20* - MONTO: $3\n';
-    text += 'Loteria: NEW YORK AM - JUGADA: *20* - MONTO: $3\n';
-    text += 'Loteria: NEW YORK PM - JUGADA: *17* - MONTO: $5\n\n';
-    text += 'Gracias por elegirnos! 🙏🏼🙏🏼';
-    text += 'Y buena suerte!! 🤞🏼🍀';
-    return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    if (bet && bet._id){
+      let text = 'Hola! 👋🏼👋🏼 \n\n'; // TODO poner nombre de usuario
+      text += 'Este es el detalle de tu ticket 🎟️:\n';
+      text += '🆔:  *' + bet._id.toString() + '*\n';
+      text += '🆔 SN:  *' + bet.sn + '*\n';
+      text += '📅: ' + this.datePipe.transform(bet.date, 'dd/MM/yyyy hh:mm:ss') + '\n\n';
+      text += 'Tus jugadas son:\n';
+      let sum = 0;
+      bet.plays.map(play => {
+        // TODO mostrar nombre de loteria
+        text += `Loteria: ${play.lotteryId.toString()} - JUGADA: *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount}\n`;
+        sum += play.amount;
+      });
+      text += `Total: $${sum}\n`;
+      text += 'Gracias por elegirnos! 🙏🏼🙏🏼';
+      text += 'Y buena suerte!! 🤞🏼🍀';
+      return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    }
+  }
+
+  showParsedNumbers = (playNumbers: PlayNumbers) => {
+    return showParsedNumbers(playNumbers);
   }
 
   cloneTicket = (ticket) => {
 
   }
 
-  printTicket = (ticket) => {
+  printTicket = (ticket: BetDto) => {
     printTicket(ticket);
   }
 
   payTicket = () => {
-    if (!this.payTicketValue){
+    if (!this.payTicketValue) {
       return;
     }
     this.modalOpened = true;
@@ -506,7 +559,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     return Math.floor(size);
   }
 
-  getSumBets(bets): number {
+  getSumBets(bets: PlayInterface[]): number {
     let sum = 0;
     bets.map(item => {
       sum += item.amount;
@@ -519,20 +572,12 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 }
 
-export interface Bet {
-  uuid: string;
-  lotteryNickName: string;
-  lotteryId: string;
-  number: string;
-  amount: number;
-  type: BetType;
-}
 
-export enum BetType {
-  'directo',
-  'pale',
-  'tripleta',
-  'superPale',
-  'pick3',
-  'pick4'
+export interface PlayInterface {
+  uuid: string;
+  playType: Play.PlayTypeEnum;
+  lotteryId: object;
+  lotteryNickName: string;
+  amount: number;
+  playNumbers: PlayNumbers;
 }

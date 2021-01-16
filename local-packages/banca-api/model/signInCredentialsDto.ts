@@ -9,13 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SignUpCredentialsDto } from './signUpCredentialsDto';
-import { BankingDto } from './bankingDto';
 
 
-export interface CreateBankingDto { 
-    user: SignUpCredentialsDto;
-    banking: BankingDto;
-    consortiumId: object;
+export interface SignInCredentialsDto { 
+    username: string;
+    password: string;
 }
 
