@@ -11,7 +11,7 @@ import {
   SignUpCredentialsDto,
   UpdateBankingDto,
   User
-} from '../../../../local-packages/banca-api';
+} from 'local-packages/banca-api';
 import {HttpErrorResponse} from '@angular/common/http';
 import {UserInterface, UserService} from '../../services/user.service';
 

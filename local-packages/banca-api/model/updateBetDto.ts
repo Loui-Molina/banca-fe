@@ -11,11 +11,7 @@
  */
 
 
-export interface Banking { 
-    _id: object;
-    consortiumId: object;
-    startOfOperation: string;
-    status: boolean;
-    bankingFeeLimits: Array<string>;
+export interface UpdateBetDto { 
+    _id?: object;
 }
 

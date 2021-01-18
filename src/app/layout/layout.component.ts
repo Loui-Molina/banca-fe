@@ -4,7 +4,7 @@ import {Consortium, addConsortium} from '../../assets/data';
 import {Router} from '@angular/router';
 import {UserInterface, UserService} from '../services/user.service';
 import {User} from '@banca-api/model/user';
-import {DefaultService} from '../../../local-packages/banca-api';
+import {AuthService, DefaultService} from 'local-packages/banca-api';
 
 @Component({
   selector: 'app-layout',
@@ -16,14 +16,14 @@ export class LayoutComponent implements OnInit {
   langSelected = null;
   user: UserInterface;
   userRole = User.RoleEnum;
+  establishmentName: string;
 
   constructor(
     private router: Router,
     private userService: UserService,
-    private defaultService: DefaultService,
+    private authService: AuthService,
     private translate: TranslateService) {
   }
-
   ngOnInit(): void {
     if (this.translate && this.translate.store) {
       this.langSelected = this.translate.store.currentLang;
@@ -80,12 +80,12 @@ export class LayoutComponent implements OnInit {
 
       // addBankings(banking);
     }*/
-
   }
 
   // tslint:disable-next-line:typedef
   private initMockConsortiumData() {
     for (let i = 0; i < 4; i++) {
+      // tslint:disable-next-line:new-parens
       const cons: Consortium = new class implements Consortium {
         balance: number;
         canceledTks: number;
@@ -124,7 +124,7 @@ export class LayoutComponent implements OnInit {
   }
 
   logout(): void {
-    this.defaultService.authControllerLogOut().subscribe(value => {
+    this.authService.authControllerLogOut().subscribe(value => {
       console.log('Logout successfully');
     }, error => {
       console.log('Logout Err');

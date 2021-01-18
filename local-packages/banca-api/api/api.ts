@@ -1,5 +1,7 @@
 export * from './adminLotteries.service';
 import { AdminLotteriesService } from './adminLotteries.service';
+export * from './auth.service';
+import { AuthService } from './auth.service';
 export * from './banking.service';
 import { BankingService } from './banking.service';
 export * from './bankingLotteries.service';
@@ -20,4 +22,4 @@ export * from './transactions.service';
 import { TransactionsService } from './transactions.service';
 export * from './users.service';
 import { UsersService } from './users.service';
-export const APIS = [AdminLotteriesService, BankingService, BankingLotteriesService, BettingPanelService, ConsortiumLotteriesService, ConsortiumsService, DashboardService, DefaultService, ResultsService, TransactionsService, UsersService];
+export const APIS = [AdminLotteriesService, AuthService, BankingService, BankingLotteriesService, BettingPanelService, ConsortiumLotteriesService, ConsortiumsService, DashboardService, DefaultService, ResultsService, TransactionsService, UsersService];

@@ -6,7 +6,7 @@ import {ExtraButton} from '../../../components/abm/abm.component';
 import {TranslateService} from '@ngx-translate/core';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {AdminLotteriesService, AdminLotteryResDto, ConsortiumLotteryDto} from "../../../../../local-packages/banca-api";
+import {AdminLotteriesService, AdminLotteryResDto, ConsortiumLotteryDto} from "local-packages/banca-api";
 import DayEnum = AdminLotteryResDto.DayEnum;
 
 // TODO check all's working

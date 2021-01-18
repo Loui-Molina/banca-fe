@@ -15,9 +15,6 @@ export interface BettingLimit {
     playType: BettingLimit.PlayTypeEnum;
     status: boolean;
     betAmount?: number;
-    creationUserId?: string;
-    deletionDate?: string;
-    modificationUserId?: string;
 }
 export namespace BettingLimit {
     export type PlayTypeEnum = 'direct' | 'pale' | 'tripleta' | 'superPale' | 'cash3straight' | 'cash3Box' | 'play4Straight' | 'play4Box' | 'pick5Straigh' | 'pick5Box' | 'singulation' | 'bolita';

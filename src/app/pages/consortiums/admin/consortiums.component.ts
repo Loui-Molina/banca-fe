@@ -9,7 +9,7 @@ import {
   CreateConsortiumDto,
   User,
   UsersService
-} from '../../../../../local-packages/banca-api';
+} from 'local-packages/banca-api';
 
 @Component({
   selector: 'app-consortiums',

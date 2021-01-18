@@ -9,7 +9,7 @@ import {
   Result,
   ResultDto,
   ResultsService
-} from '../../../../local-packages/banca-api';
+} from 'local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';

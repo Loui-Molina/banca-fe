@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {DashboardGraphBalanceBankingDto, DashboardService} from '../../../../../local-packages/banca-api';
+import {DashboardGraphBalanceBankingDto, DashboardService} from 'local-packages/banca-api';
 import {DatePipe} from '@angular/common';
 
 @Component({

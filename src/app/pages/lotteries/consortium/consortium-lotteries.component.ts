@@ -9,7 +9,7 @@ import {
   ConsortiumLotteryDto,
   ConsortiumUpdateLotteryDto,
   PrizeLimit
-} from '../../../../../local-packages/banca-api';
+} from 'local-packages/banca-api';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';

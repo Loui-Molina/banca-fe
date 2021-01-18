@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {
   User
-} from '../../../../local-packages/banca-api';
+} from 'local-packages/banca-api';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 

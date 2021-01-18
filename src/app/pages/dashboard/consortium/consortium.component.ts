@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {DashboardGraphBankingDto, DashboardService} from '../../../../../local-packages/banca-api';
+import {DashboardGraphBankingDto, DashboardService} from 'local-packages/banca-api';
 
 @Component({
   selector: 'app-dashboard-consortium',

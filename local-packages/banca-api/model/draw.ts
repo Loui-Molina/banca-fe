@@ -19,8 +19,8 @@ export interface Draw {
     fifth: number;
     sixth: number;
     seventh: number;
-    creationUserId: string;
+    creationUserId: object;
     deletionDate: string;
-    modificationUserId: string;
+    modificationUserId: object;
 }
 

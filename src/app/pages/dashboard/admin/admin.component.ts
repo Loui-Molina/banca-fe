@@ -4,7 +4,7 @@ import {
   DashboardDiagramClusterDto, DashboardDiagramLinkDto, DashboardDiagramNodeDto, DashboardGraphBankingDto,
   DashboardGraphConsortiumDto,
   DashboardService
-} from '../../../../../local-packages/banca-api';
+} from 'local-packages/banca-api';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({

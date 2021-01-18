@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 import { Bet } from '../model/models';
 import { BetDto } from '../model/models';
 import { CreateBetDto } from '../model/models';
+import { UpdateBetDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -88,6 +89,60 @@ export class BettingPanelService {
     }
 
     /**
+     * @param updateBetDto 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public bettingPanelControllerCancelBet(updateBetDto: UpdateBetDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<BetDto>;
+    public bettingPanelControllerCancelBet(updateBetDto: UpdateBetDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<BetDto>>;
+    public bettingPanelControllerCancelBet(updateBetDto: UpdateBetDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<BetDto>>;
+    public bettingPanelControllerCancelBet(updateBetDto: UpdateBetDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (updateBetDto === null || updateBetDto === undefined) {
+            throw new Error('Required parameter updateBetDto was null or undefined when calling bettingPanelControllerCancelBet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.put<BetDto>(`${this.configuration.basePath}/api/betting-panel/cancel`,
+            updateBetDto,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * @param createBetDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -129,7 +184,7 @@ export class BettingPanelService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<BetDto>(`${this.configuration.basePath}/api/bettingPanel`,
+        return this.httpClient.post<BetDto>(`${this.configuration.basePath}/api/betting-panel`,
             createBetDto,
             {
                 responseType: <any>responseType,
@@ -174,7 +229,7 @@ export class BettingPanelService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/bettingPanel/get/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/betting-panel/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -214,7 +269,7 @@ export class BettingPanelService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/bettingPanel`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/betting-panel`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -264,7 +319,7 @@ export class BettingPanelService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/bettingPanel/search`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/betting-panel/search`,
             {
                 params: queryParameters,
                 responseType: <any>responseType,

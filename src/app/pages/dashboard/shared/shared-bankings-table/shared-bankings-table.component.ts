@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {DashboardBankingDto, DashboardService} from '../../../../../../local-packages/banca-api';
+import {DashboardBankingDto, DashboardService} from 'local-packages/banca-api';
 
 @Component({
   selector: 'app-shared-bankings-table',

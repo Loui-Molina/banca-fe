@@ -21,9 +21,9 @@ export interface User {
     role: User.RoleEnum;
     preferences: UserPreference;
     salt: string;
-    creationUserId: string;
+    creationUserId: object;
     deletionDate: string;
-    modificationUserId: string;
+    modificationUserId: object;
 }
 export namespace User {
     export type RoleEnum = 'admin' | 'banker' | 'punter' | 'supervisor' | 'consortium' | 'carrier';

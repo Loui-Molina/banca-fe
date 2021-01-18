@@ -15,8 +15,8 @@ import { Draw } from './draw';
 export interface Result { 
     date: string;
     draw: Draw;
-    creationUserId: string;
+    creationUserId: object;
     deletionDate: string;
-    modificationUserId: string;
+    modificationUserId: object;
 }
 

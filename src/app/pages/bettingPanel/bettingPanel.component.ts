@@ -10,7 +10,7 @@ import {
   ResultsService,
   Play,
   PlayNumbers, BettingPanelService, CreateBetDto, BetDto
-} from '../../../../local-packages/banca-api';
+} from 'local-packages/banca-api';
 import {forkJoin, Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {DatePipe} from '@angular/common';

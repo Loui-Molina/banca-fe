@@ -11,9 +11,10 @@
  */
 
 
-export interface ChangeCredentialsDto { 
+export interface ChangePasswordDto { 
     username: string;
     password: string;
     newPassword: string;
+    verifyPassword: string;
 }
 

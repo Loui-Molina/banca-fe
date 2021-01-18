@@ -22,9 +22,9 @@ export interface Transaction {
     originObject: Transaction.OriginObjectEnum;
     destinationId: object;
     destinationObject: Transaction.DestinationObjectEnum;
-    creationUserId: string;
+    creationUserId: object;
     deletionDate: string;
-    modificationUserId: string;
+    modificationUserId: object;
 }
 export namespace Transaction {
     export type TypeEnum = 'deposit' | 'prize' | 'extraction' | 'adjust';

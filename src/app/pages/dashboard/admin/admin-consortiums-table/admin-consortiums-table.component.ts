@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {DashboardConsortiumDto, DashboardService} from '../../../../../../local-packages/banca-api';
+import {DashboardConsortiumDto, DashboardService} from 'local-packages/banca-api';
 
 @Component({
   selector: 'app-admin-consortiums-table',

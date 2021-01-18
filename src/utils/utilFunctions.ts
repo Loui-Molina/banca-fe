@@ -1,4 +1,4 @@
-import {BetDto, PlayNumbers} from '../../local-packages/banca-api';
+import {BetDto, PlayNumbers} from 'local-packages/banca-api';
 
 export function uuidv4(): string {
   // tslint:disable-next-line:only-arrow-functions

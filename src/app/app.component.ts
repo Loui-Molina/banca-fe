@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {DefaultService} from '../../local-packages/banca-api';
+import {AuthService, DefaultService} from 'local-packages/banca-api';
 import {UserService} from './services/user.service';
 import {Router} from '@angular/router';
 
@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 export class AppComponent {
   constructor(
     private translate: TranslateService,
-    private defaultService: DefaultService,
+    private authService: AuthService,
     private userService: UserService,
     private router: Router
   ) {
@@ -28,7 +28,7 @@ export class AppComponent {
 
     const isLogged = this.userService.isLogged();
     if (isLogged) {
-      defaultService.authControllerGetLoggedUser().subscribe(res => {
+      authService.authControllerGetLoggedUser().subscribe(res => {
       }, error => {
         this.userService.logout();
         this.router.navigate(['login']);

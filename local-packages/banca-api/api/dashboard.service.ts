@@ -120,7 +120,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getAdminWidgetsStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/admin-widgets-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -160,7 +160,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getBankingWidgetsStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/banking-widgets-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -200,7 +200,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getBankingsStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/banking-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -240,7 +240,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getConsortiumWidgetsStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/consortium-widgets-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -280,7 +280,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getConsortiumsStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/consortiums-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -320,7 +320,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getDashboardDiagram`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/diagram`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -360,7 +360,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getGraphBankingBalanceStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/graph-banking-balance-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -400,7 +400,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getGraphBankingStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/graph-banking-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -440,7 +440,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getGraphConsortiumStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/graph-consortium-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

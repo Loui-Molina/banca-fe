@@ -13,8 +13,8 @@
 
 export interface UserPreference { 
     language: string;
-    creationUserId: string;
+    creationUserId: object;
     deletionDate: string;
-    modificationUserId: string;
+    modificationUserId: object;
 }
 
