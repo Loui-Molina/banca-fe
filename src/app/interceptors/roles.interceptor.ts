@@ -26,7 +26,7 @@ export class RolesInterceptor implements HttpInterceptor {
         }
         const user: UserInterface = jwtDecode(apiToken);
         const expiredAt = user && user.exp * 1000;
-        if (req.url.indexOf('api/auth/refreshToken') !== -1){
+        if (req.url.indexOf('api/auth/refresh-token') !== -1){
           // Is refreshing
           const refreshToken = this.userService.getRefreshToken();
           const customRequestRefresh = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + refreshToken) });

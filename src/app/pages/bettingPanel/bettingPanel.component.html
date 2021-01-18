@@ -169,24 +169,29 @@
   (nzOnClose)="closeDrawer('drawerTickets')"
 >
   <div class="drawer-tickets">
-    <ng-container>
-      <nz-list nzBordered nzSize="small" *ngIf="tickets.length > 0">
-        <nz-list-item *ngFor="let item of tickets">
+    <ng-container *ngIf="reloadingTickets">
+      <div class="lottery-loading">
+        <i nz-icon nzType="loading" nzTheme="outline"></i>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!reloadingTickets">
+      <nz-list nzBordered nzSize="small" *ngIf="bets.length > 0">
+        <nz-list-item *ngFor="let item of bets">
           <div class="left-side">
             <b>#{{item.sn}}</b> <br> {{item.date | date: 'dd/MM/yyyy HH:mm:ss'}}
           </div>
           <div class="right-side">
-            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.winner" [nzColor]="'gold'">
+            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.betStatus === betStatusEnum.Winner" [nzColor]="'gold'">
               GANADOR
             </nz-tag>
-            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.status === 'pending'" [nzColor]="'blue'">
+            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.betStatus === betStatusEnum.Pending" [nzColor]="'blue'">
               PENDIENTE
             </nz-tag>
-            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.status === 'canceled'" [nzColor]="'red'">
+            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.betStatus === betStatusEnum.Cancelled" [nzColor]="'red'">
               CANCELADO
             </nz-tag>
-            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.status === 'finished'" [nzColor]="'green'">
-              TERMINADO
+            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.betStatus === betStatusEnum.Loser" [nzColor]="'grey'">
+              PERDEDOR
             </nz-tag>
           </div>
           <ul nz-list-item-actions>
@@ -210,7 +215,7 @@
                 <i nz-icon nzType="printer" nz-tooltip="Imprimir ticket" class="icon primary" nzTheme="outline"></i>
               </a>
             </nz-list-item-action>
-            <nz-list-item-action *ngIf="item.status === 'pending'">
+            <nz-list-item-action *ngIf="item.betStatus === betStatusEnum.Pending && canCancelTicket(item)">
               <a (click)="cancelTicket(item)">
                 <i nz-icon nzType="delete" nz-tooltip="Cancelar ticket" class="icon error" nzTheme="outline"></i>
               </a>
@@ -218,7 +223,7 @@
           </ul>
         </nz-list-item>
       </nz-list>
-      <p *ngIf="tickets.length === 0" style="text-align: center">NO HAY TICKETS DISPONIBLES</p>
+      <p *ngIf="bets.length === 0" style="text-align: center">NO HAY TICKETS DISPONIBLES</p>
     </ng-container>
   </div>
 </nz-drawer>
@@ -237,7 +242,6 @@
   <div class="drawer-help">
     <ng-container>
       <nz-divider nzText="Teclas"  style="margin-top: 0px" nzOrientation="left"></nz-divider>
- <!--TODO USE STRING-->
       <p>/ = cambiar loteria seleccionada</p>
       <p>Barra espaciadora = confirmar e imprimir</p>
       <p>** = confirmar e imprimir</p>
@@ -345,23 +349,54 @@
   <div class="drawer-ticket">
     <ng-container *ngIf="selectedTicket">
       <div class="status">
-        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.winner" [nzColor]="'gold'">
+        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.betStatus === betStatusEnum.Winner" [nzColor]="'gold'">
           GANADOR
         </nz-tag>
-        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.status === 'pending'" [nzColor]="'blue'">
+        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.betStatus === betStatusEnum.Pending" [nzColor]="'blue'">
           PENDIENTE
         </nz-tag>
-        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.status === 'canceled'" [nzColor]="'red'">
+        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.betStatus === betStatusEnum.Cancelled" [nzColor]="'red'">
           CANCELADO
         </nz-tag>
-        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.status === 'finished'" [nzColor]="'green'">
-          TERMINADO
+        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.betStatus === betStatusEnum.Loser" [nzColor]="'grey'">
+          PERDEDOR
         </nz-tag>
       </div>
-      <h1>#{{selectedTicket.sn}}</h1>
+      <h2>ID: {{selectedTicket.sn}}</h2>
+      <h3>SN: {{selectedTicket.sn}}</h3>
       <p>Fecha: {{selectedTicket.date | date: 'dd/MM/yyyy'}}</p>
       <p>Hora: {{selectedTicket.date | date: 'HH:mm:ss'}}</p>
+      <nz-table style="margin-top: 20px"
+                [nzSize]="'small'"
+                nzLoading="false"
+                nzShowPagination="false"
+                [nzData]="selectedTicket.plays"
+                nzTableLayout="auto">
+        <thead>
+        <tr>
+          <th *ngFor="let column of columnsPlays">
+            {{column.title}}
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of selectedTicket.plays">
+          <td>{{ data.lotteryId }}</td>
+          <td>{{ data.amount }}</td>
+          <td>{{ showParsedNumbers(data.playNumbers) }}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+      <br>
       <button (click)="printTicket(selectedTicket)">IMPRIMIR</button>
+      <br>
+      <br>
+      <button (click)="cloneTicket(selectedTicket)">CLONAR TICKET</button>
+      <br>
+      <br>
+      <a target="_blank" [href]="getSendWhatsApp(selectedTicket)">
+        <button style="color: black">ENVIAR POR WHATSAPP</button>
+      </a>
     </ng-container>
   </div>
 </nz-drawer>

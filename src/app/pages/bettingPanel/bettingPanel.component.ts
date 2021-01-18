@@ -9,11 +9,12 @@ import {
   ResultDto,
   ResultsService,
   Play,
-  PlayNumbers, BettingPanelService, CreateBetDto, BetDto
+  PlayNumbers, BettingPanelService, CreateBetDto, BetDto, Bet
 } from 'local-packages/banca-api';
 import {forkJoin, Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
+import {UpdateBetDto} from 'local-packages/banca-api/model/models';
 
 @Component({
   selector: 'app-betting-panel',
@@ -42,7 +43,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   number: string = null;
   amount: number = null;
   payTicketValue: number = null;
-  selectedTicket = null;
+  selectedTicket: Bet;
   drawerTickets = false;
   drawerCaja = false;
   drawerPagar = false;
@@ -53,20 +54,13 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   loadingSubmit = false;
   generatedBet: BetDto;
 
-  tickets = [
-    {sn: '10366-9236980', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 0, status: 'pending', winner: false},
-    {sn: '10366-9236981', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 0, status: 'canceled', winner: false},
-    {sn: '10366-9236982', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 0, status: 'finished', winner: true},
-    {sn: '10366-9236983', date: '2020-12-19T12:34:05.000Z', play: '50', premio: 100, status: 'finished', winner: false},
-  ];
+  bets: Bet[] = [];
 
   panels = [
     {title: 'DIRECTO', types: [Play.PlayTypeEnum.Direct]},
     {title: 'PALE', types: [Play.PlayTypeEnum.Pale]},
     {title: 'TRIPLETA', types: [Play.PlayTypeEnum.Tripleta]},
-    {title: 'SUPERPALE', types: [Play.PlayTypeEnum.SuperPale]},
-    // {title: 'PLAY 4', types: [BetType.pick4]},
-    // {title: 'PLAY 4', types: [BetType.pick4]}
+    {title: 'SUPERPALE', types: [Play.PlayTypeEnum.SuperPale]}
   ];
 
   lotterys: BankingLotteryDto[] = [];
@@ -76,11 +70,18 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   superPale = false;
   reloadingResults = false;
   reloadingLotterys = false;
+  reloadingTickets = false;
   lastResults: ResultDto[] = [];
-
+  betStatusEnum = Bet.BetStatusEnum;
   plays: PlayInterface[] = [];
   lastClick = null;
   interval;
+
+  columnsPlays = [
+    { title: 'Loteria' },
+    { title: 'Monto' },
+    { title: 'Jugadas' },
+  ];
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
@@ -219,6 +220,17 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.reloadingResults = false;
     }, error => {
       this.reloadingResults = false;
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+  private reloadTickets(): void {
+    this.reloadingTickets = true;
+    this.bettingPanelService.bettingPanelControllerGetAll().subscribe(data => {
+      this.bets = data;
+      this.reloadingTickets = false;
+    }, error => {
+      this.reloadingTickets = false;
       throw new HttpErrorResponse(error);
     });
   }
@@ -455,6 +467,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   openDrawer = (drawerName: string) => {
+    if (drawerName === 'drawerTickets'){
+      this.reloadTickets();
+    }
     this[drawerName] = true;
   }
 
@@ -490,13 +505,13 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.plays = this.plays.filter(item => item.uuid !== play.uuid);
   }
 
-  openTicket = (ticket) => {
+  openTicket = (ticket: Bet) => {
     this.selectedTicket = ticket;
     this.openDrawer('drawerTicket');
   }
 
 
-  getSendWhatsApp = (bet: BetDto) => {
+  getSendWhatsApp = (bet: BetDto | Bet) => {
     // TODO Ver si tiene user y ponerle el numero como &phone=+5493543573840
     if (bet && bet._id){
       let text = 'Hola! 👋🏼👋🏼 \n\n'; // TODO poner nombre de usuario
@@ -522,11 +537,44 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     return showParsedNumbers(playNumbers);
   }
 
-  cloneTicket = (ticket) => {
-
+  cloneTicket = (ticket: BetDto | Bet) => {
+    this.modalOpened = true;
+    this.modalService.success({
+      nzTitle: 'Clonar ticket',
+      nzContent: this.ts('UTILS.ARE_YOU_SURE'),
+      nzOnOk: () => this.cloneTicketSubmit(ticket),
+      nzOnCancel: () => {
+        this.modalOpened = false;
+      },
+      nzOkText: this.ts('UTILS.CONFIRM'),
+      nzCancelText: this.ts('UTILS.CANCEL')
+    });
   }
 
-  printTicket = (ticket: BetDto) => {
+  cloneTicketSubmit = (ticket: BetDto | Bet) => {
+    this.modalOpened = false;
+    this.closeDrawer('drawerTickets');
+    this.closeDrawer('drawerTicket');
+    this.cleanAll();
+    const plays: PlayInterface[] = [];
+    ticket.plays.map(play => {
+      // tslint:disable-next-line:no-shadowed-variable
+      const lottery = this.lotterys.filter((lottery) => lottery._id.toString() === play.lotteryId.toString()).pop();
+      if (lottery && lottery.status && lottery.leftTime > 0){
+        plays.push({
+          lotteryNickName: lottery.nickname,
+          uuid: uuidv4(),
+          playNumbers: play.playNumbers,
+          lotteryId: play.lotteryId,
+          playType: play.playType,
+          amount: play.amount
+        });
+      }
+    });
+    this.plays = plays;
+  }
+
+  printTicket = (ticket: BetDto | Bet) => {
     printTicket(ticket);
   }
 
@@ -551,8 +599,46 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.closeDrawer('drawerPagar');
   }
 
-  cancelTicket = (ticket) => {
+  canCancelTicket = (ticket: Bet): boolean => {
+    // @ts-ignore
+    const diffMs = (new Date(ticket.date) - new Date());
+    const diffMins = diffMs / 60000; // minutes
+    return ( diffMins > -5);
+  }
 
+  cancelTicket = (ticket) => {
+    if (!this.canCancelTicket(ticket)){
+      this.messageService.create('warning', `Este ticket ya no puede ser cancelado`, {nzDuration: 3000});
+      return;
+    }
+    this.modalOpened = true;
+    this.modalService.success({
+      nzTitle: 'Cancelar ticket',
+      nzContent: this.ts('UTILS.ARE_YOU_SURE'),
+      nzOnOk: () => this.cancelTicketSubmit(ticket),
+      nzOnCancel: () => {
+        this.modalOpened = false;
+      },
+      nzOkText: this.ts('UTILS.CONFIRM'),
+      nzCancelText: this.ts('UTILS.CANCEL')
+    });
+  }
+
+  cancelTicketSubmit = (ticket) => {
+    if (!this.canCancelTicket(ticket)){
+      this.messageService.create('warning', `Este ticket ya no puede ser cancelado`, {nzDuration: 3000});
+      this.modalOpened = false;
+      return;
+    }
+    const body: UpdateBetDto = {
+      _id: ticket._id
+    };
+    this.bettingPanelService.bettingPanelControllerCancelBet(body).subscribe(value => {
+      this.reloadTickets();
+      this.messageService.create('success', `Ticket cancelado correctamente`, {nzDuration: 3000});
+    }, error => {
+      throw new HttpErrorResponse(error);
+    });
   }
 
   getPanelSize = (size) => {
