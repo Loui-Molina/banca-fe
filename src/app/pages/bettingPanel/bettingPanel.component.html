@@ -43,12 +43,14 @@
               <input placeholder="JUGADA"
                      oninput="this.value = this.value.match(/^(([0-9]+)?)+(\.|([Ss]+(([0-9]+)?)))?$/g)" autofocus
                      #inputNumber nz-input [(ngModel)]="number" class="left-input" (keyup.enter)="onKeyEnterNumber()"/>
+              <input placeholder="LIMITE" nz-input #inputLimit [type]="'number'" [value]="getLimit()"
+                     class="right-input" [disabled]="true" readonly/>
               <input placeholder="MONTO" nz-input #inputAmount [type]="'number'" [(ngModel)]="amount"
                      class="right-input" (keyup.enter)="onKeyEnter()"/>
               <span class="custom-button super-pale" nz-tooltip="SUPERPALE" [class.selected]="this.superPale" (click)="onCheckSuperPale()">
                 S
               </span>
-              <span class="custom-button play-enter" [class.disabled]="!validateBet()" (click)="onKeyEnter()"><i nz-icon nzType="caret-right" nzTheme="outline"></i></span>
+              <span class="custom-button play-enter" [class.disabled]="disabledBet()" (click)="onKeyEnter()"><i nz-icon nzType="caret-right" nzTheme="outline"></i></span>
 
             </div>
 
