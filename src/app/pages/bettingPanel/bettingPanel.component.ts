@@ -74,6 +74,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   lastResults: ResultDto[] = [];
   betStatusEnum = Bet.BetStatusEnum;
   plays: PlayInterface[] = [];
+  lastInput = null;
   lastClick = null;
   interval;
 
@@ -81,6 +82,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     { title: 'Loteria' },
     { title: 'Monto' },
     { title: 'Jugadas' },
+    { title: 'Tipo' },
   ];
 
   @HostListener('document:keypress', ['$event'])
@@ -248,12 +250,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   onKeyEnter = () => {
     if (!this.disabledBet()) {
-      // TODO crear superpale
-      for (const lottery of this.lotterys) {
-        if (this.selectedLotterys.includes(lottery._id.toString())) {
-          this.createBet(lottery);
-        }
-      }
+      this.createBet();
       this.resetBet();
     }
   }
@@ -307,6 +304,14 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.selectedLotterys = [];
   }
 
+
+  regexPlay = (input) => {
+    const match = input.value.match(/^(([0-9]+)?)+(\.|([Ss]+(([0-9]+)?)))?$/g);
+    if (!match){
+      input.value = this.lastInput;
+    }
+    this.lastInput = input.value;
+  }
 
   onKeyEnterNumber = () => {
     if (this.number != null && this.number.length > 0) {
@@ -423,7 +428,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     } else {
       // Solo numeros
       const result = numbers.match(/.{1,2}/g);
-      if (result){
+      if (result && result.length <= 3){
         if (result[result.length - 1].length === 1) {
           // Fixes last number
           result[result.length - 1] = result[result.length - 1];
@@ -454,12 +459,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
           amount
         });
       }
-
     }
     return playsToCreate;
   }
 
-  createBet(lottery: BankingLotteryDto): void {
+  createBet(): void {
     if (!this.number) {
       return;
     }
@@ -468,10 +472,22 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       return;
     }
     let playsToCreate: PlayInterface[] = [];
+
+    if (this.superPale && this.selectedLotterys.length !== 2) {
+      this.messageService.create('error', 'Debe seleccionar 2 loterias');
+      return;
+    }
+
     // tslint:disable-next-line:no-shadowed-variable
     for (const lottery of this.lotterys) {
       if (this.selectedLotterys.includes(lottery._id.toString())) {
         playsToCreate = playsToCreate.concat(this.getPlaysToCreate(lottery, amount));
+      }
+    }
+    if (this.superPale){
+      playsToCreate = playsToCreate.filter(play => play.playType === 'pale');
+      for (const play of playsToCreate) {
+        play.playType = Play.PlayTypeEnum.SuperPale;
       }
     }
     if (playsToCreate.length === 0) {
@@ -571,11 +587,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       text += '📅: ' + this.datePipe.transform(bet.date, 'dd/MM/yyyy hh:mm:ss') + '\n\n';
       text += 'Tus jugadas son:\n';
       let sum = 0;
-      bet.plays.map(play => {
+      for (const play of bet.plays){
         // TODO mostrar nombre de loteria
-        text += `Loteria: ${play.lotteryId.toString()} - JUGADA: *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount}\n`;
+        text += `Loteria: ${play.lotteryId.toString()} - JUGADA: *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount} - TIPO: ${play.playType}\n`;
         sum += play.amount;
-      });
+      }
       text += `Total: $${sum}\n`;
       text += 'Gracias por elegirnos! 🙏🏼🙏🏼';
       text += 'Y buena suerte!! 🤞🏼🍀';

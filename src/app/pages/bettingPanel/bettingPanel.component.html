@@ -40,8 +40,8 @@
         <div class="left-panel">
           <div class="control-panel">
             <div class="play-insert">
-              <input placeholder="JUGADA"
-                     oninput="this.value = this.value.match(/^(([0-9]+)?)+(\.|([Ss]+(([0-9]+)?)))?$/g)" autofocus
+              <input placeholder="JUGADA" autofocus
+                     (input)="regexPlay(inputNumber)"
                      #inputNumber nz-input [(ngModel)]="number" class="left-input" (keyup.enter)="onKeyEnterNumber()"/>
               <input placeholder="LIMITE" nz-input #inputLimit [type]="'number'" [value]="getLimit()"
                      class="right-input" [disabled]="true" readonly/>
@@ -180,7 +180,7 @@
       <nz-list nzBordered nzSize="small" *ngIf="bets.length > 0">
         <nz-list-item *ngFor="let item of bets">
           <div class="left-side">
-            <b>#{{item.sn}}</b> <br> {{item.date | date: 'dd/MM/yyyy HH:mm:ss'}}
+            <b>#{{item._id.toString()}}</b> <br> {{item.date | date: 'dd/MM/yyyy HH:mm:ss'}}
           </div>
           <div class="right-side">
             <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.betStatus === betStatusEnum.Winner" [nzColor]="'gold'">
@@ -198,7 +198,7 @@
           </div>
           <ul nz-list-item-actions>
             <nz-list-item-action>
-              <a target="_blank" [href]="getSendWhatsApp(item)">
+              <a target="_blank" [href]="this.drawerTickets && getSendWhatsApp(item)">
                 <i nz-icon nzType="whats-app" class="icon primary" nzTheme="outline"></i>
               </a>
             </nz-list-item-action>
@@ -364,7 +364,7 @@
           PERDEDOR
         </nz-tag>
       </div>
-      <h2>ID: {{selectedTicket.sn}}</h2>
+      <h2>ID: {{selectedTicket._id.toString()}}</h2>
       <h3>SN: {{selectedTicket.sn}}</h3>
       <p>Fecha: {{selectedTicket.date | date: 'dd/MM/yyyy'}}</p>
       <p>Hora: {{selectedTicket.date | date: 'HH:mm:ss'}}</p>
@@ -385,7 +385,8 @@
         <tr *ngFor="let data of selectedTicket.plays">
           <td>{{ data.lotteryId }}</td>
           <td>{{ data.amount }}</td>
-          <td>{{ showParsedNumbers(data.playNumbers) }}</td>
+          <td>{{ showParsedNumbers(data.playNumbers) }} </td>
+          <td>{{ data.playType }} </td>
         </tr>
         </tbody>
       </nz-table>
