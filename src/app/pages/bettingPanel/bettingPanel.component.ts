@@ -140,6 +140,14 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
   }
 
+  regexPlay = (input) => {
+    const match = input.value.match(/^(([0-9]+)?)+(\.|([Ss]+(([0-9]+)?)))?$/g);
+    if (!match){
+      input.value = this.lastInput;
+    }
+    this.lastInput = input.value;
+  }
+
   switchLotterys(type: string): void {
     if (type === 'A') {
       // SWITCH LOTTERYS
@@ -367,7 +375,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     } else {
       // Solo numeros
       const result = numbers.match(/.{1,2}/g);
-      if (result){
+      if (result && result.length <= 3){
         if (result[result.length - 1].length === 1) {
           // Fixes last number
           result[result.length - 1] = result[result.length - 1];
