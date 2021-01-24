@@ -1,16 +1,16 @@
-<div  #ContainerRef class="bar-chart-parent">
-    <ngx-charts-bar-vertical
-      [view]="[ContainerRef.offsetWidth, 400]"
-      [scheme]="colorScheme"
-      [results]="results"
-      [gradient]="false"
-      [xAxis]="true"
-      [yAxis]="true"
-      [legend]="true"
-      [showXAxisLabel]="true"
-      [showYAxisLabel]="true"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-    >
-    </ngx-charts-bar-vertical>
+<div #ContainerRef class="bar-chart-parent">
+  <ngx-charts-bar-vertical
+    [gradient]="false"
+    [legend]="true"
+    [results]="results"
+    [scheme]="colorScheme"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [view]="[ContainerRef.offsetWidth, 400]"
+    [xAxisLabel]="xAxisLabel"
+    [xAxis]="true"
+    [yAxisLabel]="yAxisLabel"
+    [yAxis]="true"
+  >
+  </ngx-charts-bar-vertical>
 </div>

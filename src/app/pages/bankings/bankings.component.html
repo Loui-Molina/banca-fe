@@ -1,77 +1,77 @@
 <div class="inner-content fit-height mb-20" style="min-height: 300px;">
-  <app-abm [title]="'HOME.BANKINGS.TITLE'"
-           [fetcher]="fetcher"
-           [fetcherCreate]="fetcherCreate"
-           [fetcherUpdate]="fetcherUpdate"
-           [fetcherDelete]="fetcherDelete"
-           [setValueForm]="setValueForm"
-           [parseData]="parseData"
-           [formTemplate]="formTemplate"
-           [viewTemplate]="viewTemplate"
+  <app-abm [columns]="columns"
            [defaultForm]="defaultForm"
+           [fetcherCreate]="fetcherCreate"
+           [fetcherDelete]="fetcherDelete"
+           [fetcherUpdate]="fetcherUpdate"
+           [fetcher]="fetcher"
+           [formTemplate]="formTemplate"
            [form]="formABM"
-           [columns]="columns"
-           [getValidators]="getValidators">
+           [getValidators]="getValidators"
+           [parseData]="parseData"
+           [setValueForm]="setValueForm"
+           [title]="'HOME.BANKINGS.TITLE'"
+           [viewTemplate]="viewTemplate">
   </app-abm>
 
 
   <ng-template #formTemplate let-mode>
     <form [formGroup]="formABM">
 
-      <nz-divider style="margin-top: 0" class="title" [nzText]="'Datos de la banca'" nzOrientation="left"></nz-divider>
+      <nz-divider [nzText]="'Datos de la banca'" class="title" nzOrientation="left" style="margin-top: 0"></nz-divider>
 
       <div class="form-element">
         <label for="name">
           {{'Nombre'|translate}}
         </label>
-        <input nz-input id="name" type="text" formControlName="name">
+        <input formControlName="name" id="name" nz-input type="text">
       </div>
 
       <div class="form-element">
         <label for="status">
           {{'Estado'|translate}}
         </label>
-        <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
+        <nz-switch formControlName="status" id="status" style="padding-left: 10px"></nz-switch>
       </div>
 
       <div class="form-element">
         <label for="showPercentage">
           {{'Mostrar porcentage de cuadre de caja'|translate}}
         </label>
-        <nz-switch style="padding-left: 10px" id="showPercentage" formControlName="showPercentage"></nz-switch>
+        <nz-switch formControlName="showPercentage" id="showPercentage" style="padding-left: 10px"></nz-switch>
       </div>
 
 
-      <div class="form-element" *ngIf="this.user?.role === this.userRole.Admin">
+      <div *ngIf="this.user?.role === this.userRole.Admin" class="form-element">
         <label for="selectedConsortium">
           {{'Consorcio'|translate}}
         </label>
-        <nz-select id="selectedConsortium" formControlName="selectedConsortium">
+        <nz-select formControlName="selectedConsortium" id="selectedConsortium">
           <nz-option *ngFor="let option of consortiums" [nzLabel]="option.name" [nzValue]="option._id"></nz-option>
         </nz-select>
       </div>
 
-      <nz-divider class="title" [nzText]="'Datos de inicio de sesion'" nzOrientation="left"></nz-divider>
+      <nz-divider [nzText]="'Datos de inicio de sesion'" class="title" nzOrientation="left"></nz-divider>
 
       <div>
         <label for="ownerName">
           {{'Nombre del dueño'|translate}}
         </label>
-        <input nz-input id="ownerName" type="text" formControlName="ownerName">
+        <input formControlName="ownerName" id="ownerName" nz-input type="text">
       </div>
 
       <div>
         <label for="username">
           {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
         </label>
-        <input nz-input [minLength]="4" id="username" type="text" formControlName="username">
+        <input [minLength]="4" formControlName="username" id="username" nz-input type="text">
       </div>
 
       <ng-container>
         <label for="password">
           {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
         </label>
-        <input nz-input [minLength]="8" [maxLength]="35" id="password" type="text" formControlName="password">
+        <input [maxLength]="35" [minLength]="8" formControlName="password" id="password" nz-input type="text">
       </ng-container>
 
     </form>

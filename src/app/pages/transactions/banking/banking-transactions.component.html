@@ -1,16 +1,16 @@
 <app-page-loader-bouncing [loading]="loading"></app-page-loader-bouncing>
 <div class="inner-content mb-20">
   <div class="inner-content fit-height mb-20" style="min-height: 300px;">
-    <nz-table [nzSize]="'small'" [nzScroll]="{ x: '700px' }" #basicTable [nzData]="transactions">
+    <nz-table #basicTable [nzData]="transactions" [nzScroll]="{ x: '700px' }" [nzSize]="'small'">
       <thead>
       <tr>
-        <th class="table-th" [class.numeric]="column.type === 'numeric'"
-            *ngFor="let column of columns">{{column.title | translate}}</th>
+        <th *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'"
+            class="table-th">{{column.title | translate}}</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let item of basicTable.data">
-        <td class="table-td" *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'">
+        <td *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'" class="table-td">
           {{ column.valueFormatter ? column.valueFormatter(item, column) : item[column.key] }}
         </td>
       </tr>

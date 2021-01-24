@@ -1,56 +1,58 @@
 <nz-layout class="app-layout">
 
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
+  <nz-sider [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null"
+            class="menu-sidebar"
             nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
+            nzCollapsible
+            nzWidth="256px">
     <div class="sidebar-logo">
-      <img src="assets/imgs/betting.svg" alt="logo">
+      <img alt="logo" src="assets/imgs/betting.svg">
       <h1>{{establishmentName}}</h1>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="{{'HOME.TITLE' | translate}}" nzIcon="home">
+    <ul [nzInlineCollapsed]="isCollapsed" nz-menu nzMode="inline" nzTheme="dark">
+      <li nz-submenu nzIcon="home" nzOpen nzTitle="{{'HOME.TITLE' | translate}}">
         <ul>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium || user?.role === userRole.Banker">
-            <i nz-icon nzType="dashboard" nzTheme="outline"></i>
+          <li *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium || user?.role === userRole.Banker" nz-menu-item
+              nzMatchRouter>
+            <i nz-icon nzTheme="outline" nzType="dashboard"></i>
             <a routerLink="/dashboard">{{'HOME.DASHBOARD.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium || user?.role === userRole.Banker">
+          <li *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium || user?.role === userRole.Banker" nz-menu-item
+              nzMatchRouter>
             <i nz-icon nzType="wallet"></i>
             <a routerLink="/transactions">{{'HOME.TRANSACTIONS.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin">
-            <i nz-icon nzType="apartment" ></i>
+          <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="apartment"></i>
             <a routerLink="/consortiums">{{'Consorcios' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium">
+          <li *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="shop"></i>
             <a routerLink="/bankings">{{'HOME.BANKINGS.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium">
+          <li *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="trophy"></i>
             <a routerLink="/lotteries">{{'HOME.LOTTERIES.TITLE' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium">
+          <li *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="reconciliation"></i>
             <a routerLink="/results">{{'Resultados' | translate}}</a>
           </li>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin">
+          <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="question"></i>
             <a routerLink="/help">{{'Help' | translate}}</a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}" nzIcon="form">
+      <li nz-submenu nzIcon="form" nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}">
         <ul>
-          <li nz-menu-item nzMatchRouter *ngIf="user?.role === userRole.Admin">
+          <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="team"></i>
             <a routerLink="/users">{{'SETTINGS.USERS.TITLE' | translate}}</a>
           </li>
 
-          <li nz-menu-item (click)="logout()">
+          <li (click)="logout()" nz-menu-item>
             <i nz-icon nzType="logout"></i>
             <a>{{'SETTINGS.LOGOUT.TITLE' | translate}}</a>
           </li>
@@ -62,15 +64,15 @@
     <nz-header>
       <div class="app-header">
         <div class="app-header-left">
-          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <i class="trigger"
+          <span (click)="isCollapsed = !isCollapsed" class="header-trigger">
+            <i [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+               class="trigger"
                nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></i>
           </span>
-          <span class="header-trigger" *ngIf="user?.role === userRole.Banker">
+          <span *ngIf="user?.role === userRole.Banker" class="header-trigger">
             <a routerLink="/bettingPanel">
-              <button nz-button nzType="primary" [nzSize]="'large'">
+              <button [nzSize]="'large'" nz-button nzType="primary">
                 <i nz-icon nzType="shop"></i>
                 Panel de apuestas
               </button>
@@ -79,16 +81,16 @@
         </div>
         <div class="app-header-right">
           <span class="header-trigger">
-            <i nz-dropdown [nzDropdownMenu]="menu" nz-icon nzType="translation" nzTheme="outline"></i>
+            <i [nzDropdownMenu]="menu" nz-dropdown nz-icon nzTheme="outline" nzType="translation"></i>
           </span>
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu nzSelectable>
-              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'en' === langSelected"
-                  (click)="selectLanguage('en')">
+              <li (click)="selectLanguage('en')" [class.ant-dropdown-menu-item-selected]="'en' === langSelected"
+                  nz-menu-item>
                 {{'TRANSLATION.ENGLISH' | translate}}
               </li>
-              <li nz-menu-item [class.ant-dropdown-menu-item-selected]="'es' === langSelected"
-                  (click)="selectLanguage('es')">
+              <li (click)="selectLanguage('es')" [class.ant-dropdown-menu-item-selected]="'es' === langSelected"
+                  nz-menu-item>
                 {{'TRANSLATION.SPANISH' | translate}}
               </li>
             </ul>

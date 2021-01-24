@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private userService: UserService,
               private messageService: NzMessageService) {
-    if (this.userService.isLogged()){
+    if (this.userService.isLogged()) {
       this.router.navigate(['dashboard']);
     }
   }
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         this.navigate();
       }).catch(err => {
         //TODO LOUI Verify connection to BE
-        console.log(`error ${err}`)
+        console.log(`error ${err}`);
         this.messageService.create('error', 'Usuario o contraseña incorrectos');
       });
     }

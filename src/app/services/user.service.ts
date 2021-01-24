@@ -68,7 +68,7 @@ export class JWTUserService implements UserService {
 
   getLoggedUser(): UserInterface {
     const accessToken = this.getApiToken();
-    if (!accessToken){
+    if (!accessToken) {
       return;
     }
     // const user: UserInterface = jwtDecode(accessToken);
@@ -116,7 +116,7 @@ export class JWTUserService implements UserService {
 
       fetch(myRequest).then(response => response.json())
         .then(data => {
-          if (data && data.accessToken){
+          if (data && data.accessToken) {
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
             resolve(data.accessToken);

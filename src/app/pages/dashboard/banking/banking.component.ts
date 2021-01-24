@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {DashboardGraphBalanceBankingDto, DashboardService} from 'local-packages/banca-api';
+import {DashboardService} from 'local-packages/banca-api';
 import {DatePipe} from '@angular/common';
 
 @Component({
@@ -10,14 +10,10 @@ import {DatePipe} from '@angular/common';
 })
 export class BankingComponent implements OnInit {
 
-  constructor(private dashboardService: DashboardService, private datePipe: DatePipe) {
-  }
-
   ticketsSold = 0;
   profits = 0;
   losses = 0;
   balance = 0;
-
   single = [
     {
       name: 'Ganancias',
@@ -30,9 +26,12 @@ export class BankingComponent implements OnInit {
   ];
   barChartDataBalanceBankings = [];
 
+  constructor(private dashboardService: DashboardService, private datePipe: DatePipe) {
+  }
+
   dateTickFormatting = (val: string) => {
     return this.datePipe.transform(new Date(val), 'dd-MM-yy');
-  }
+  };
 
   ngOnInit(): void {
     this.dashboardService.dashboardControllerGetBankingWidgetsStatistics().subscribe(res => {

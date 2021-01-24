@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MiniMapPosition} from '@swimlane/ngx-graph';
 import {
-  DashboardDiagramClusterDto, DashboardDiagramLinkDto, DashboardDiagramNodeDto, DashboardGraphBankingDto,
+  DashboardDiagramClusterDto,
+  DashboardDiagramLinkDto,
+  DashboardDiagramNodeDto,
+  DashboardGraphBankingDto,
   DashboardGraphConsortiumDto,
   DashboardService
 } from 'local-packages/banca-api';
@@ -18,14 +21,14 @@ export class AdminComponent implements OnInit {
   profits = 0;
   losses = 0;
   balance = 0;
-
-  constructor(private dashboardService: DashboardService) {
-  }
   clusters: DashboardDiagramClusterDto[] = [];
   nodes: DashboardDiagramNodeDto[] = [];
   links: DashboardDiagramLinkDto[] = [];
   barChartDataConsortiums: DashboardGraphConsortiumDto[] = [];
   barChartDataBankings: DashboardGraphBankingDto[] = [];
+
+  constructor(private dashboardService: DashboardService) {
+  }
 
   ngOnInit(): void {
     this.dashboardService.dashboardControllerGetDashboardDiagram().subscribe(res => {

@@ -1,11 +1,11 @@
 <div>
   <nz-table #table
-            nzLoading="false"
             [nzData]="consortiums"
-            nzTableLayout="auto"
             [nzPageSize]="10"
+            [nzScroll]="{ x: '700px' }"
             [nzSize]="'small'"
-            [nzScroll]="{ x: '700px' }">
+            nzLoading="false"
+            nzTableLayout="auto">
     <thead>
     <tr>
       <th *ngFor="let column of columns">

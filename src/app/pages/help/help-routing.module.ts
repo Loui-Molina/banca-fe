@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {RoleGuard} from '../../guards/role-guard.service';
 import {AuthGuard} from '../../guards/auth-guard.service';
 import {User} from '@banca-api/model/user';
@@ -7,7 +7,7 @@ import {HelpComponent} from './help.component';
 import {AdminHelpComponent} from './admin/admin-help.component';
 
 const routes: Routes = [
-  { path: '', component: HelpComponent },
+  {path: '', component: HelpComponent},
   {
     path: 'admin', component: AdminHelpComponent,
     canActivate: [RoleGuard, AuthGuard],
@@ -29,4 +29,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class HelpRoutingModule { }
+export class HelpRoutingModule {
+}

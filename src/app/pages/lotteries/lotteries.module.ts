@@ -15,7 +15,7 @@ import {NzGridModule} from 'ng-zorro-antd/grid';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {NzTimePickerModule} from 'ng-zorro-antd/time-picker';
-import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzDividerModule} from 'ng-zorro-antd/divider';

@@ -3,21 +3,21 @@
   <div class="inner-content fit-height mb-20" style="min-height: 300px;">
     <div style="display: flex; justify-content: space-between; margin-bottom: 20px">
       <app-title-divider title="{{'Ultimas transacciones' |translate}}"></app-title-divider>
-      <button nz-button (click)="openDrawer('drawerTransaction')">
+      <button (click)="openDrawer('drawerTransaction')" nz-button>
         {{'Crear transaccion'|translate}}
       </button>
     </div>
 
-    <nz-table [nzSize]="'small'" [nzScroll]="{ x: '700px' }" #basicTable [nzData]="transactions">
+    <nz-table #basicTable [nzData]="transactions" [nzScroll]="{ x: '700px' }" [nzSize]="'small'">
       <thead>
       <tr>
-        <th class="table-th" [class.numeric]="column.type === 'numeric'"
-            *ngFor="let column of columns">{{column.title | translate}}</th>
+        <th *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'"
+            class="table-th">{{column.title | translate}}</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let item of basicTable.data">
-        <td class="table-td" *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'">
+        <td *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'" class="table-td">
           {{ column.valueFormatter ? column.valueFormatter(item, column) : item[column.key] }}
         </td>
       </tr>
@@ -28,35 +28,38 @@
 
 
 <nz-drawer
-  [nzBodyStyle]="{ overflow: 'auto' }"
-  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
-  [nzMaskClosable]="true"
-  [nzWidth]="500"
-  [nzVisible]="drawerTransaction"
-  [nzTitle]="'CREAR TRANSACCION'"
   (nzOnClose)="closeDrawer('drawerTransaction')"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="'CREAR TRANSACCION'"
+  [nzVisible]="drawerTransaction"
+  [nzWidth]="500"
 >
   <div class="drawer-transaction">
     <ng-container *ngIf="formTransaction">
       <form [formGroup]="formTransaction">
-        <nz-divider style="margin-top: 0" class="title" [nzText]="'Origen'" nzOrientation="left"></nz-divider>
-        <div nz-row [nzGutter]="8">
-          <div nz-col [nzSpan]="12">
-            <nz-select style="width: 100%;" (ngModelChange)="onChangeOrigen($event)" nzPlaceHolder="Seleccione un origen" formControlName="originObject">
+        <nz-divider [nzText]="'Origen'" class="title" nzOrientation="left" style="margin-top: 0"></nz-divider>
+        <div [nzGutter]="8" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-select (ngModelChange)="onChangeOrigen($event)" formControlName="originObject"
+                       nzPlaceHolder="Seleccione un origen" style="width: 100%;">
               <nz-option [nzLabel]="'Consorcio'" [nzValue]="originObjectEnum.Consortium"></nz-option>
               <nz-option [nzLabel]="'Banca'" [nzValue]="originObjectEnum.Banking"></nz-option>
             </nz-select>
           </div>
-          <div nz-col [nzSpan]="12">
+          <div [nzSpan]="12" nz-col>
             <ng-container *ngIf="formTransaction.value.originObject === originObjectEnum.Consortium">
-              <nz-select (ngModelChange)="onChangeOrigenId($event)" style="width: 100%;" nzPlaceHolder="Seleccione un consorcio" formControlName="originId">
+              <nz-select (ngModelChange)="onChangeOrigenId($event)" formControlName="originId"
+                         nzPlaceHolder="Seleccione un consorcio" style="width: 100%;">
                 <nz-option *ngFor="let consortium of consortiums"
                            [nzLabel]="consortium.name"
                            [nzValue]="consortium._id"></nz-option>
               </nz-select>
             </ng-container>
             <ng-container *ngIf="formTransaction.value.originObject === originObjectEnum.Banking">
-              <nz-select (ngModelChange)="onChangeOrigenId($event)" style="width: 100%;" nzPlaceHolder="Seleccione una banca" formControlName="originId">
+              <nz-select (ngModelChange)="onChangeOrigenId($event)" formControlName="originId"
+                         nzPlaceHolder="Seleccione una banca" style="width: 100%;">
                 <nz-option *ngFor="let banking of bankings"
                            [nzLabel]="banking.name"
                            [nzValue]="banking._id"></nz-option>
@@ -64,23 +67,23 @@
             </ng-container>
           </div>
         </div>
-        <nz-divider class="title" [nzText]="'Destino'" nzOrientation="left"></nz-divider>
-        <div nz-row [nzGutter]="8">
-          <div nz-col [nzSpan]="12">
-            <nz-select [nzDisabled]="true"
-                       style="width: 100%;"
-                       (ngModelChange)="onChangeDestination($event)"
+        <nz-divider [nzText]="'Destino'" class="title" nzOrientation="left"></nz-divider>
+        <div [nzGutter]="8" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-select (ngModelChange)="onChangeDestination($event)"
+                       [nzDisabled]="true"
+                       formControlName="destinationObject"
                        nzPlaceHolder="Seleccione un destino"
-                       formControlName="destinationObject">
+                       style="width: 100%;">
               <nz-option [nzLabel]="'Consorcio'" [nzValue]="destinationObjectEnum.Consortium"></nz-option>
               <nz-option [nzLabel]="'Banca'" [nzValue]="destinationObjectEnum.Banking"></nz-option>
             </nz-select>
           </div>
-          <div nz-col [nzSpan]="12">
+          <div [nzSpan]="12" nz-col>
             <ng-container *ngIf="formTransaction.value.destinationObject === destinationObjectEnum.Consortium">
               <nz-select
                 [nzDisabled]="!formTransaction.value.originId"
-                style="width: 100%;" nzPlaceHolder="Seleccione un consorcio" formControlName="destinationId">
+                formControlName="destinationId" nzPlaceHolder="Seleccione un consorcio" style="width: 100%;">
                 <nz-option *ngFor="let consortium of consortiums"
                            [nzLabel]="consortium.name"
                            [nzValue]="consortium._id"></nz-option>
@@ -89,7 +92,7 @@
             <ng-container *ngIf="formTransaction.value.destinationObject === destinationObjectEnum.Banking">
               <nz-select
                 [nzDisabled]="!formTransaction.value.originId"
-                style="width: 100%;" nzPlaceHolder="Seleccione una banca" formControlName="destinationId">
+                formControlName="destinationId" nzPlaceHolder="Seleccione una banca" style="width: 100%;">
                 <nz-option *ngFor="let banking of bankings"
                            [nzLabel]="banking.name"
                            [nzValue]="banking._id"></nz-option>
@@ -98,13 +101,15 @@
           </div>
         </div>
 
-        <nz-divider class="title" [nzText]="'Monto'" nzOrientation="left"></nz-divider>
+        <nz-divider [nzText]="'Monto'" class="title" nzOrientation="left"></nz-divider>
 
-        <nz-input-number style="margin-bottom: 10px; width: 100%" formControlName="amount" [nzMin]="1"></nz-input-number>
+        <nz-input-number [nzMin]="1" formControlName="amount"
+                         style="margin-bottom: 10px; width: 100%"></nz-input-number>
 
       </form>
       <div style="width: 100%; text-align: center">
-        <button nz-button [nzLoading]="loading" [disabled]="formTransaction && !formTransaction.valid || loading" (click)="onClickAccept()">{{'Aceptar'|translate}}</button>
+        <button (click)="onClickAccept()" [disabled]="formTransaction && !formTransaction.valid || loading" [nzLoading]="loading"
+                nz-button>{{'Aceptar'|translate}}</button>
       </div>
     </ng-container>
   </div>

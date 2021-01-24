@@ -26,11 +26,10 @@ export interface TransactionDto {
     destinationName: string;
 }
 export namespace TransactionDto {
-    export type TypeEnum = 'deposit' | 'prize' | 'extraction' | 'adjust';
+    export type TypeEnum = 'credit' | 'debit' | 'adjust';
     export const TypeEnum = {
-        Deposit: 'deposit' as TypeEnum,
-        Prize: 'prize' as TypeEnum,
-        Extraction: 'extraction' as TypeEnum,
+        Credit: 'credit' as TypeEnum,
+        Debit: 'debit' as TypeEnum,
         Adjust: 'adjust' as TypeEnum
     };
     export type OriginObjectEnum = 'banking' | 'consortium';

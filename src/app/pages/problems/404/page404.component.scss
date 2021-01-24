@@ -1,4 +1,4 @@
-.container{
+.container {
   width: 100%;
   height: 100%;
   background-color: #001529;
@@ -6,14 +6,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  h1{
+
+  h1 {
     font-size: 100px;
     color: #ffffff;
   }
-  i{
+
+  i {
     font-size: 75px;
   }
-  p{
+
+  p {
     font-size: 11px;
   }
 }

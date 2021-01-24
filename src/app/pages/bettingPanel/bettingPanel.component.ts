@@ -6,10 +6,14 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 import {
   BankingLotteriesService,
   BankingLotteryDto,
-  ResultDto,
-  ResultsService,
+  Bet,
+  BetDto,
+  BettingPanelService,
+  CreateBetDto,
   Play,
-  PlayNumbers, BettingPanelService, CreateBetDto, BetDto, Bet
+  PlayNumbers,
+  ResultDto,
+  ResultsService
 } from 'local-packages/banca-api';
 import {forkJoin, Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -23,22 +27,8 @@ import {UpdateBetDto} from 'local-packages/banca-api/model/models';
 })
 export class BettingPanelComponent implements OnInit, OnDestroy {
 
-  constructor(private modalService: NzModalService,
-              private resultsService: ResultsService,
-              private bankingLotteriesService: BankingLotteriesService,
-              private bettingPanelService: BettingPanelService,
-              private datePipe: DatePipe,
-              private translateService: TranslateService,
-              private messageService: NzMessageService) {
-    setInterval(() => {
-      this.now = new Date();
-    }, 1000);
-  }
-
   @ViewChild('inputNumber', {static: false}) inputNumber: ElementRef;
   @ViewChild('inputAmount', {static: false}) inputAmount: ElementRef;
-
-
   now = new Date();
   number: string = null;
   amount: number = null;
@@ -53,18 +43,14 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   modalConfirm = false;
   loadingSubmit = false;
   generatedBet: BetDto;
-
   bets: Bet[] = [];
-
   panels = [
     {title: 'DIRECTO', types: [Play.PlayTypeEnum.Direct]},
     {title: 'PALE', types: [Play.PlayTypeEnum.Pale]},
     {title: 'TRIPLETA', types: [Play.PlayTypeEnum.Tripleta]},
     {title: 'SUPERPALE', types: [Play.PlayTypeEnum.SuperPale]}
   ];
-
   lotterys: BankingLotteryDto[] = [];
-
   selectedLotterys: string[] = [];
   loading = false;
   superPale = false;
@@ -77,13 +63,24 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   lastInput = null;
   lastClick = null;
   interval;
-
   columnsPlays = [
-    { title: 'Loteria' },
-    { title: 'Monto' },
-    { title: 'Jugadas' },
-    { title: 'Tipo' },
+    {title: 'Loteria'},
+    {title: 'Monto'},
+    {title: 'Jugadas'},
+    {title: 'Tipo'},
   ];
+
+  constructor(private modalService: NzModalService,
+              private resultsService: ResultsService,
+              private bankingLotteriesService: BankingLotteriesService,
+              private bettingPanelService: BettingPanelService,
+              private datePipe: DatePipe,
+              private translateService: TranslateService,
+              private messageService: NzMessageService) {
+    setInterval(() => {
+      this.now = new Date();
+    }, 1000);
+  }
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
@@ -199,66 +196,16 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  private initDataSync(): Observable<any[]> {
-    const resultsControllerGetAll = this.resultsService.resultsControllerGetAll();
-    const bankingLotteryControllerGetAll = this.bankingLotteriesService.bankingLotteryControllerGetAll();
-    return forkJoin([
-      resultsControllerGetAll,
-      bankingLotteryControllerGetAll
-    ]);
-  }
-
-  private startReloadResults(): void {
-    this.interval = setInterval(() => {
-      this.reloadResults();
-      this.reloadLotterys();
-    }, 15000);
-  }
-
-  private reloadResults(): void {
-    this.reloadingResults = true;
-    this.resultsService.resultsControllerGetAll().subscribe(data => {
-      this.lastResults = data;
-      this.reloadingResults = false;
-    }, error => {
-      this.reloadingResults = false;
-      throw new HttpErrorResponse(error);
-    });
-  }
-
-  private reloadTickets(): void {
-    this.reloadingTickets = true;
-    this.bettingPanelService.bettingPanelControllerGetAll().subscribe(data => {
-      this.bets = data;
-      this.reloadingTickets = false;
-    }, error => {
-      this.reloadingTickets = false;
-      throw new HttpErrorResponse(error);
-    });
-  }
-
-  private reloadLotterys(): void {
-    this.reloadingLotterys = true;
-    this.bankingLotteriesService.bankingLotteryControllerGetAll().subscribe(data => {
-      this.lotterys = data;
-      this.reloadingLotterys = false;
-    }, error => {
-      this.reloadingLotterys = false;
-      throw new HttpErrorResponse(error);
-    });
-  }
-
   onKeyEnter = () => {
     if (!this.disabledBet()) {
       this.createBet();
       this.resetBet();
     }
-  }
+  };
 
   onCheckSuperPale = () => {
     this.superPale = !this.superPale;
-  }
-
+  };
 
   onSubmitBet = () => {
     if (this.plays.length <= 0) {
@@ -267,7 +214,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.modalOpened = true;
     this.modalConfirm = true;
     this.generatedBet = null;
-  }
+  };
 
   closeModalConfirm(): void {
     this.modalOpened = false;
@@ -295,36 +242,28 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.loadingSubmit = false;
       throw new HttpErrorResponse(error);
     });
-  }
+  };
 
   cleanAll = () => {
     this.number = null;
     this.amount = null;
     this.plays = [];
     this.selectedLotterys = [];
-  }
+  };
 
-
-  regexPlay = (input) => {
-    const match = input.value.match(/^(([0-9]+)?)+(\.|([Ss]+(([0-9]+)?)))?$/g);
-    if (!match){
-      input.value = this.lastInput;
-    }
-    this.lastInput = input.value;
-  }
 
   onKeyEnterNumber = () => {
     if (this.number != null && this.number.length > 0) {
       this.inputAmount.nativeElement.focus();
     }
-  }
+  };
 
   getLimit = () => {
-    if (this.number === null || this.number === undefined){
+    if (this.number === null || this.number === undefined) {
       return null;
     }
     let amount = parseFloat(String(this.amount));
-    if (!amount){
+    if (!amount) {
       amount = 0;
     }
     let playsToCreate: PlayInterface[] = [];
@@ -336,19 +275,19 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
     if (playsToCreate.length > 0) {
       let minor: number;
-      for (const play of playsToCreate){
+      for (const play of playsToCreate) {
         const lottery = this.lotterys.filter(lot => play.lotteryId.toString() === lot._id.toString()).pop();
         const bettingLimits = lottery.bettingLimits.filter(bl => bl.playType === play.playType && bl.status === true);
-        if (lottery && bettingLimits.length > 0){
+        if (lottery && bettingLimits.length > 0) {
           const bettingLimit = bettingLimits.pop();
-          if (!minor || (minor > bettingLimit.betAmount)){
+          if (!minor || (minor > bettingLimit.betAmount)) {
             minor = bettingLimit.betAmount;
           }
         }
       }
       return minor;
     }
-  }
+  };
 
   getPlaysToCreate(lottery: BankingLotteryDto, amount: number): PlayInterface[] {
     const playsToCreate: PlayInterface[] = [];
@@ -428,7 +367,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     } else {
       // Solo numeros
       const result = numbers.match(/.{1,2}/g);
-      if (result && result.length <= 3){
+      if (result){
         if (result[result.length - 1].length === 1) {
           // Fixes last number
           result[result.length - 1] = result[result.length - 1];
@@ -468,7 +407,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       return;
     }
     const amount = parseFloat(String(this.amount));
-    if (!amount){
+    if (!amount) {
       return;
     }
     let playsToCreate: PlayInterface[] = [];
@@ -499,7 +438,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  formatResult(value: number): string{
+  formatResult(value: number): string {
     return formatResult(value);
   }
 
@@ -513,7 +452,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       ) {
         aux.push(item);
       } else {
-        if (Object.values(item.playNumbers).filter(x => !Object.values(play.playNumbers).includes(x)).length !== 0){
+        if (Object.values(item.playNumbers).filter(x => !Object.values(play.playNumbers).includes(x)).length !== 0) {
           aux.push(item);
         }
       }
@@ -528,23 +467,23 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   openDrawer = (drawerName: string) => {
-    if (drawerName === 'drawerTickets'){
+    if (drawerName === 'drawerTickets') {
       this.reloadTickets();
     }
     this[drawerName] = true;
-  }
+  };
 
   closeDrawer = (drawerName: string) => {
     this[drawerName] = false;
-  }
+  };
 
   disabledBet(): boolean {
-    if (!this.number || !this.amount || this.amount === 0 || this.selectedLotterys.length === 0){
+    if (!this.number || !this.amount || this.amount === 0 || this.selectedLotterys.length === 0) {
       return true;
     }
     const limit = this.getLimit();
     const amount = parseFloat(String(this.amount));
-    if (limit != null && amount > limit){
+    if (limit != null && amount > limit) {
       return true;
     }
     return false;
@@ -574,12 +513,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   openTicket = (ticket: Bet) => {
     this.selectedTicket = ticket;
     this.openDrawer('drawerTicket');
-  }
-
+  };
 
   getSendWhatsApp = (bet: BetDto | Bet) => {
     // TODO Ver si tiene user y ponerle el numero como &phone=+5493543573840
-    if (bet && bet._id){
+    if (bet && bet._id) {
       let text = 'Hola! 👋🏼👋🏼 \n\n'; // TODO poner nombre de usuario
       text += 'Este es el detalle de tu ticket 🎟️:\n';
       text += '🆔:  *' + bet._id.toString() + '*\n';
@@ -597,11 +535,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       text += 'Y buena suerte!! 🤞🏼🍀';
       return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
     }
-  }
+  };
 
   showParsedNumbers = (playNumbers: PlayNumbers) => {
     return showParsedNumbers(playNumbers);
-  }
+  };
 
   cloneTicket = (ticket: BetDto | Bet) => {
     this.modalOpened = true;
@@ -615,7 +553,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       nzOkText: this.ts('UTILS.CONFIRM'),
       nzCancelText: this.ts('UTILS.CANCEL')
     });
-  }
+  };
 
   cloneTicketSubmit = (ticket: BetDto | Bet) => {
     this.modalOpened = false;
@@ -626,7 +564,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     ticket.plays.map(play => {
       // tslint:disable-next-line:no-shadowed-variable
       const lottery = this.lotterys.filter((lottery) => lottery._id.toString() === play.lotteryId.toString()).pop();
-      if (lottery && lottery.status && lottery.leftTime > 0){
+      if (lottery && lottery.status && lottery.leftTime > 0) {
         plays.push({
           lotteryNickName: lottery.nickname,
           uuid: uuidv4(),
@@ -638,11 +576,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       }
     });
     this.plays = plays;
-  }
+  };
 
   printTicket = (ticket: BetDto | Bet) => {
     printTicket(ticket);
-  }
+  };
 
   payTicket = () => {
     if (!this.payTicketValue) {
@@ -659,21 +597,21 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       nzOkText: this.ts('UTILS.CONFIRM'),
       nzCancelText: this.ts('UTILS.CANCEL')
     });
-  }
+  };
 
   onSubmitPayTicket = () => {
     this.closeDrawer('drawerPagar');
-  }
+  };
 
   canCancelTicket = (ticket: Bet): boolean => {
     // @ts-ignore
     const diffMs = (new Date(ticket.date) - new Date());
     const diffMins = diffMs / 60000; // minutes
-    return ( diffMins > -5);
-  }
+    return (diffMins > -5);
+  };
 
   cancelTicket = (ticket) => {
-    if (!this.canCancelTicket(ticket)){
+    if (!this.canCancelTicket(ticket)) {
       this.messageService.create('warning', `Este ticket ya no puede ser cancelado`, {nzDuration: 3000});
       return;
     }
@@ -688,10 +626,10 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       nzOkText: this.ts('UTILS.CONFIRM'),
       nzCancelText: this.ts('UTILS.CANCEL')
     });
-  }
+  };
 
   cancelTicketSubmit = (ticket) => {
-    if (!this.canCancelTicket(ticket)){
+    if (!this.canCancelTicket(ticket)) {
       this.messageService.create('warning', `Este ticket ya no puede ser cancelado`, {nzDuration: 3000});
       this.modalOpened = false;
       return;
@@ -705,11 +643,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }, error => {
       throw new HttpErrorResponse(error);
     });
-  }
+  };
 
   getPanelSize = (size) => {
     return Math.floor(size);
-  }
+  };
 
   getSumBets(bets: PlayInterface[]): number {
     let sum = 0;
@@ -717,6 +655,55 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       sum += item.amount;
     });
     return sum;
+  }
+
+  private initDataSync(): Observable<any[]> {
+    const resultsControllerGetAll = this.resultsService.resultsControllerGetAll();
+    const bankingLotteryControllerGetAll = this.bankingLotteriesService.bankingLotteryControllerGetAll();
+    return forkJoin([
+      resultsControllerGetAll,
+      bankingLotteryControllerGetAll
+    ]);
+  }
+
+  private startReloadResults(): void {
+    this.interval = setInterval(() => {
+      this.reloadResults();
+      this.reloadLotterys();
+    }, 15000);
+  }
+
+  private reloadResults(): void {
+    this.reloadingResults = true;
+    this.resultsService.resultsControllerGetAll().subscribe(data => {
+      this.lastResults = data;
+      this.reloadingResults = false;
+    }, error => {
+      this.reloadingResults = false;
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+  private reloadTickets(): void {
+    this.reloadingTickets = true;
+    this.bettingPanelService.bettingPanelControllerGetAll().subscribe(data => {
+      this.bets = data;
+      this.reloadingTickets = false;
+    }, error => {
+      this.reloadingTickets = false;
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+  private reloadLotterys(): void {
+    this.reloadingLotterys = true;
+    this.bankingLotteriesService.bankingLotteryControllerGetAll().subscribe(data => {
+      this.lotterys = data;
+      this.reloadingLotterys = false;
+    }, error => {
+      this.reloadingLotterys = false;
+      throw new HttpErrorResponse(error);
+    });
   }
 
   private ts(key: string, params?): string {

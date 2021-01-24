@@ -12,10 +12,10 @@ export class AdminHelpComponent implements OnInit {
   ) {
   }
 
-  private ts(key: string, params?): string {
-    return this.translateService.instant(key, params);
+  ngOnInit(): void {
   }
 
-  ngOnInit(): void {
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

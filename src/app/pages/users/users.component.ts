@@ -6,7 +6,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {AuthService, ResponseDto, User, UsersService} from 'local-packages/banca-api';
 
 
-
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -14,12 +13,6 @@ import {AuthService, ResponseDto, User, UsersService} from 'local-packages/banca
 })
 export class UsersComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder,
-              private usersService: UsersService,
-              private authService: AuthService,
-              private translateService: TranslateService) {
-    this.formABM = this.formBuilder.group(this.defaultForm);
-  }
   columns: Column[] = [
     {key: 'name', title: 'SETTINGS.USERS.COLUMNS.NAME'},
     {key: 'username', title: 'SETTINGS.USERS.COLUMNS.USERNAME', showSearch: true},
@@ -33,11 +26,20 @@ export class UsersComponent implements OnInit {
     password: null,
     role: null
   };
-  fetcher: Observable<User[]> = this.usersService.userControllerGetAll();
+  fetcher: Observable<User[]> = this.usersService.usersControllerGetAll();
+
+  constructor(private formBuilder: FormBuilder,
+              private usersService: UsersService,
+              private authService: AuthService,
+              private translateService: TranslateService) {
+    this.formABM = this.formBuilder.group(this.defaultForm);
+  }
+
   fetcherCreate: (item) => Observable<ResponseDto> = (item) => this.authService.authControllerSingUp(item);
-  fetcherUpdate: (item) => Observable<User> = (item) => this.usersService.userControllerUpdate(item);
-  fetcherDelete: (item) => Observable<User> = (item) => this.usersService.userControllerDelete(item._id);
-  setValueForm(mode, defaultForm, item): any{
+  fetcherUpdate: (item) => Observable<User> = (item) => this.usersService.usersControllerUpdate(item);
+  fetcherDelete: (item) => Observable<User> = (item) => this.usersService.usersControllerDelete(item._id);
+
+  setValueForm(mode, defaultForm, item): any {
     return {
       name: item.name ? item.name : null,
       username: item.username ? item.username : null,
@@ -45,7 +47,8 @@ export class UsersComponent implements OnInit {
       role: item.role ? item.role : null
     };
   }
-  getValidators(mode: string): any{
+
+  getValidators(mode: string): any {
     return {
       name: [Validators.required],
       username: [Validators.required, Validators.minLength(4)],

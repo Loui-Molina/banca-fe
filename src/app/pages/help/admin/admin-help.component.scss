@@ -1,6 +1,6 @@
 @import 'src/styles';
 
-.masonry-container{
+.masonry-container {
   position: relative;
   max-width: 100%;
   display: grid;
@@ -9,7 +9,7 @@
   margin: 40px;
   grid-auto-flow: dense;
 
-  .box{
+  .box {
     cursor: pointer;
     background: #001529;
     padding: 20px;
@@ -19,30 +19,37 @@
     text-align: center;
     color: #fff;
     transition: 0.5s;
-    &:hover{
+
+    &:hover {
       background: #1890ff;
     }
-    &:nth-child(1){
+
+    &:nth-child(1) {
       grid-column: span 2;
       grid-row: span 1;
     }
-    &:nth-child(2){
+
+    &:nth-child(2) {
       grid-column: span 2;
       grid-row: span 1;
     }
-    &:nth-child(4){
+
+    &:nth-child(4) {
       grid-column: span 2;
       grid-row: span 2;
     }
-    &:nth-child(5){
+
+    &:nth-child(5) {
       grid-column: span 2;
       grid-row: span 1;
     }
-    &:nth-child(6){
+
+    &:nth-child(6) {
       grid-column: span 2;
       grid-row: span 1;
     }
-    .box-img{
+
+    .box-img {
       position: relative;
       width: 100px;
       height: 100px;
@@ -52,14 +59,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      i{
+
+      i {
         font-size: 75px;
       }
     }
   }
 }
-@media(max-width: 991px){
-  .masonry-container{
+
+@media(max-width: 991px) {
+  .masonry-container {
     grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
     grid-template-rows: minmax(auto, auto);
   }
