@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { LotteriesComponent } from './lotteries.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LotteriesComponent} from './lotteries.component';
 import {RoleGuard} from '../../guards/role-guard.service';
 import {AuthGuard} from '../../guards/auth-guard.service';
-import {AdminLotteriesComponent} from "./admin/admin-lotteries.component";
-import {ConsortiumLotteriesComponent} from "./consortium/consortium-lotteries.component";
+import {AdminLotteriesComponent} from './admin/admin-lotteries.component';
+import {ConsortiumLotteriesComponent} from './consortium/consortium-lotteries.component';
 import {User} from '@banca-api/model/user';
 
 const routes: Routes = [
@@ -27,4 +27,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LotteriesRoutingModule { }
+export class LotteriesRoutingModule {
+}

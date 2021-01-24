@@ -1,90 +1,96 @@
 <app-page-loader-bouncing [loading]="loading"></app-page-loader-bouncing>
-<div nz-row class="row-style panel-container">
-  <div nz-col nzSpan="24" class="col-style header">
+<div class="row-style panel-container" nz-row>
+  <div class="col-style header" nz-col nzSpan="24">
     <div class="left-side">
-      <i nz-icon class="topbar-action" nzType="home" nzTheme="outline" routerLink="/"></i>
-      <i nz-icon class="topbar-action" nzTooltipPlacement="bottom" nz-tooltip="Buscar ticket" nzType="file-search"
-         nzTheme="outline" (click)="openDrawer('drawerTickets')"></i>
-      <i nz-icon class="topbar-action" nzTooltipPlacement="bottom" nz-tooltip="Cuadre de caja" nzType="wallet"
-         nzTheme="outline" (click)="openDrawer('drawerCaja')"></i>
-      <i nz-icon class="topbar-action" nzTooltipPlacement="bottom" nz-tooltip="Pagar ticket" nzType="audit"
-         nzTheme="outline" (click)="openDrawer('drawerPagar')"></i>
-      <i nz-icon class="topbar-action" nzTooltipPlacement="bottom" nz-tooltip="Ayuda" nzType="question"
-         nzTheme="outline" (click)="openDrawer('drawerHelp')"></i>
+      <i class="topbar-action" nz-icon nzTheme="outline" nzType="home" routerLink="/"></i>
+      <i (click)="openDrawer('drawerTickets')" class="topbar-action" nz-icon nz-tooltip="Buscar ticket" nzTheme="outline"
+         nzTooltipPlacement="bottom" nzType="file-search"></i>
+      <i (click)="openDrawer('drawerCaja')" class="topbar-action" nz-icon nz-tooltip="Cuadre de caja" nzTheme="outline"
+         nzTooltipPlacement="bottom" nzType="wallet"></i>
+      <i (click)="openDrawer('drawerPagar')" class="topbar-action" nz-icon nz-tooltip="Pagar ticket" nzTheme="outline"
+         nzTooltipPlacement="bottom" nzType="audit"></i>
+      <i (click)="openDrawer('drawerHelp')" class="topbar-action" nz-icon nz-tooltip="Ayuda" nzTheme="outline"
+         nzTooltipPlacement="bottom" nzType="question"></i>
     </div>
     <div class="right-side">
 
-      <span class="clean-button" [class.disabled]="this.plays.length <= 0" (click)="cleanAll()">
-        <i nz-icon nzType="clear" nzTheme="outline"></i>
+      <span (click)="cleanAll()" [class.disabled]="this.plays.length <= 0" class="clean-button">
+        <i nz-icon nzTheme="outline" nzType="clear"></i>
         LIMPIAR
       </span>
 
-      <span class="confirm-button" [class.disabled]="this.plays.length <= 0" (click)="onSubmitBet()">
-        <i nz-icon nzType="printer" nzTheme="outline"></i>
+      <span (click)="onSubmitBet()" [class.disabled]="this.plays.length <= 0" class="confirm-button">
+        <i nz-icon nzTheme="outline" nzType="printer"></i>
         CONFIRMAR
       </span>
 
       <span class="total">
-        <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+        <i nz-icon nzTheme="outline" nzType="shopping-cart"></i>
         TOTAL: ${{getSumBets(plays)}}
       </span>
       <span class="date">
-        <i nz-icon nzType="clock-circle" nzTheme="outline"></i>
+        <i nz-icon nzTheme="outline" nzType="clock-circle"></i>
         {{now | date: 'dd/MM/yyyy HH:mm:ss'}}
       </span>
     </div>
   </div>
-  <div nz-col nzSpan="24" class="col-style panel-body">
-    <div nz-row class="row-style panel-body-row">
-      <div nz-col [nzXs]="24" [nzLg]="8" class="col-style column">
+  <div class="col-style panel-body" nz-col nzSpan="24">
+    <div class="row-style panel-body-row" nz-row>
+      <div [nzLg]="8" [nzXs]="24" class="col-style column" nz-col>
         <div class="left-panel">
           <div class="control-panel">
             <div class="play-insert">
-              <input placeholder="JUGADA"
-                     oninput="this.value = this.value.match(/^(([0-9]+)?)+(\.|([Ss]+(([0-9]+)?)))?$/g)" autofocus
-                     #inputNumber nz-input [(ngModel)]="number" class="left-input" (keyup.enter)="onKeyEnterNumber()"/>
-              <input placeholder="LIMITE" nz-input #inputLimit [type]="'number'" [value]="getLimit()"
-                     class="right-input" [disabled]="true" readonly/>
-              <input placeholder="MONTO" nz-input #inputAmount [type]="'number'" [(ngModel)]="amount"
-                     class="right-input" (keyup.enter)="onKeyEnter()"/>
-              <span class="custom-button super-pale" nz-tooltip="SUPERPALE" [class.selected]="this.superPale" (click)="onCheckSuperPale()">
+              <input #inputNumber
+                     (keyup.enter)="onKeyEnterNumber()" [(ngModel)]="number"
+                     autofocus class="left-input" nz-input oninput="this.value = this.value.match(/^(([0-9]+)?)+(\.|([Ss]+(([0-9]+)?)))?$/g)" placeholder="JUGADA"/>
+              <input #inputLimit [disabled]="true" [type]="'number'" [value]="getLimit()" class="right-input"
+                     nz-input placeholder="LIMITE" readonly/>
+              <input #inputAmount (keyup.enter)="onKeyEnter()" [(ngModel)]="amount" [type]="'number'" class="right-input"
+                     nz-input placeholder="MONTO"/>
+              <span (click)="onCheckSuperPale()" [class.selected]="this.superPale" class="custom-button super-pale"
+                    nz-tooltip="SUPERPALE">
                 S
               </span>
-              <span class="custom-button play-enter" [class.disabled]="disabledBet()" (click)="onKeyEnter()"><i nz-icon nzType="caret-right" nzTheme="outline"></i></span>
+              <span (click)="onKeyEnter()" [class.disabled]="disabledBet()" class="custom-button play-enter"><i nz-icon
+                                                                                                                nzTheme="outline"
+                                                                                                                nzType="caret-right"></i></span>
 
             </div>
 
           </div>
           <div class="lottery-panel">
             <div class="lottery-panel-header">
-              <div nz-row class="row-style panel-container">
-                <div nz-col nzSpan="12" class="col-style center-column">
+              <div class="row-style panel-container" nz-row>
+                <div class="col-style center-column" nz-col nzSpan="12">
                   LOTERIA
                 </div>
-                <div nz-col nzSpan="10" class="col-style center-column">
+                <div class="col-style center-column" nz-col nzSpan="10">
                   CIERRE
                 </div>
-                <div nz-col nzSpan="2" class="col-style center-column">
-                  <i nz-icon nzType="loading" *ngIf="reloadingLotterys" nzTheme="outline"></i>
+                <div class="col-style center-column" nz-col nzSpan="2">
+                  <i *ngIf="reloadingLotterys" nz-icon nzTheme="outline" nzType="loading"></i>
                 </div>
               </div>
             </div>
             <div class="lottery-panel-body">
-              <div class="lottery" [style]="{backgroundColor: lottery.color}"
-                   (click)="(lottery.status && lottery.leftTime > 0) && onChangeLottery(lottery, !this.selectedLotterys.includes(lottery._id.toString()))"
-                   *ngFor="let lottery of lotterys" [class.closed]="!lottery.status || !lottery.leftTime">
-                <div nz-row class="row-style panel-container">
-                  <div nz-col nzSpan="12" class="col-style">{{lottery.name}}</div>
-                  <div nz-col nzSpan="10" class="col-style center-column">
-                    <i nz-icon nzType="check-circle" style="margin-right: 5px" *ngIf="lottery.status && lottery.leftTime > 0"
-                       class="icon primary" nzTheme="outline"></i>
-                    <i nz-icon nzType="lock" class="icon" nzTheme="outline" style="margin-right: 5px"
-                       *ngIf="!lottery.status || !lottery.leftTime"></i>
-                    <countdown *ngIf="lottery.leftTime" #cd [config]="{leftTime:lottery.leftTime}" (event)="onChangeCounter($event, lottery)"></countdown>
+              <div (click)="(lottery.status && lottery.leftTime > 0) && onChangeLottery(lottery, !this.selectedLotterys.includes(lottery._id.toString()))" *ngFor="let lottery of lotterys"
+                   [class.closed]="!lottery.status || !lottery.leftTime"
+                   [style]="{backgroundColor: lottery.color}" class="lottery">
+                <div class="row-style panel-container" nz-row>
+                  <div class="col-style" nz-col nzSpan="12">{{lottery.name}}</div>
+                  <div class="col-style center-column" nz-col nzSpan="10">
+                    <i *ngIf="lottery.status && lottery.leftTime > 0" class="icon primary" nz-icon
+                       nzTheme="outline"
+                       nzType="check-circle" style="margin-right: 5px"></i>
+                    <i *ngIf="!lottery.status || !lottery.leftTime" class="icon" nz-icon nzTheme="outline" nzType="lock"
+                       style="margin-right: 5px"></i>
+                    <countdown #cd (event)="onChangeCounter($event, lottery)" *ngIf="lottery.leftTime"
+                               [config]="{leftTime:lottery.leftTime}"></countdown>
                   </div>
-                  <div nz-col nzSpan="2" class="col-style center-column last-column">
-                    <label nz-checkbox [nzChecked]="this.selectedLotterys.includes(lottery._id.toString())"
-                           (nzCheckedChange)="onChangeLottery(lottery, $event)" [nzDisabled]="!lottery.status || !lottery.leftTime"></label>
+                  <div class="col-style center-column last-column" nz-col nzSpan="2">
+                    <label (nzCheckedChange)="onChangeLottery(lottery, $event)" [nzChecked]="this.selectedLotterys.includes(lottery._id.toString())"
+                           [nzDisabled]="!lottery.status || !lottery.leftTime"
+                           nz-checkbox></label>
                   </div>
                 </div>
               </div>
@@ -92,31 +98,40 @@
           </div>
           <div class="last-plays-panel">
             <div class="last-plays-panel-header">
-              <div nz-row class="row-style panel-container" style="width: 100%">
-                <div nz-col nzSpan="12" class="col-style center-column">
+              <div class="row-style panel-container" nz-row style="width: 100%">
+                <div class="col-style center-column" nz-col nzSpan="12">
                   ULT. RESULTADOS
                 </div>
-                <div nz-col nzSpan="12" class="col-style center-column" style="justify-content: flex-end; padding-right: 20px">
-                  <i nz-icon nzType="loading" *ngIf="reloadingResults" nzTheme="outline"></i>
+                <div class="col-style center-column" nz-col nzSpan="12"
+                     style="justify-content: flex-end; padding-right: 20px">
+                  <i *ngIf="reloadingResults" nz-icon nzTheme="outline" nzType="loading"></i>
                 </div>
               </div>
             </div>
             <div class="last-plays-panel-body">
-              <div class="play" *ngFor="let result of lastResults">
-                <div nz-row class="row-style panel-container">
-                  <div nz-col nzSpan="6" class="col-style center-column"
+              <div *ngFor="let result of lastResults" class="play">
+                <div class="row-style panel-container" nz-row>
+                  <div class="col-style center-column" nz-col nzSpan="6"
                        style="justify-content: flex-start;padding-left: 5px">{{result.lotteryName}}</div>
-                  <div nz-col nzSpan="6" class="col-style center-column" *ngIf="result.draw">
+                  <div *ngIf="result.draw" class="col-style center-column" nz-col nzSpan="6">
                     <!--<span class="play-result" [class.error]="result.number <= 0">{{result.number}}</span>-->
                   </div>
-                  <div nz-col nzSpan="12" class="col-style center-column" style="justify-content: flex-start" *ngIf="result.draw">
-                    <app-ball [background]="'red'" style="margin-left: 5px" *ngIf="result.draw.first" [title]="this.formatResult(result.draw.first)" [size]="'tiny'"></app-ball>
-                    <app-ball [background]="'red'" style="margin-left: 5px" *ngIf="result.draw.second" [title]="this.formatResult(result.draw.second)" [size]="'tiny'"></app-ball>
-                    <app-ball [background]="'red'" style="margin-left: 5px" *ngIf="result.draw.third" [title]="this.formatResult(result.draw.third)" [size]="'tiny'"></app-ball>
-                    <app-ball [background]="'red'" style="margin-left: 5px" *ngIf="result.draw.fourth" [title]="this.formatResult(result.draw.fourth)" [size]="'tiny'"></app-ball>
-                    <app-ball [background]="'red'" style="margin-left: 5px" *ngIf="result.draw.fifth" [title]="this.formatResult(result.draw.fifth)" [size]="'tiny'"></app-ball>
-                    <app-ball [background]="'red'" style="margin-left: 5px" *ngIf="result.draw.sixth" [title]="this.formatResult(result.draw.sixth)" [size]="'tiny'"></app-ball>
-                    <app-ball [background]="'red'" style="margin-left: 5px" *ngIf="result.draw.seventh" [title]="this.formatResult(result.draw.seventh)" [size]="'tiny'"></app-ball>
+                  <div *ngIf="result.draw" class="col-style center-column" nz-col nzSpan="12"
+                       style="justify-content: flex-start">
+                    <app-ball *ngIf="result.draw.first" [background]="'red'" [size]="'tiny'"
+                              [title]="this.formatResult(result.draw.first)" style="margin-left: 5px"></app-ball>
+                    <app-ball *ngIf="result.draw.second" [background]="'red'" [size]="'tiny'"
+                              [title]="this.formatResult(result.draw.second)" style="margin-left: 5px"></app-ball>
+                    <app-ball *ngIf="result.draw.third" [background]="'red'" [size]="'tiny'"
+                              [title]="this.formatResult(result.draw.third)" style="margin-left: 5px"></app-ball>
+                    <app-ball *ngIf="result.draw.fourth" [background]="'red'" [size]="'tiny'"
+                              [title]="this.formatResult(result.draw.fourth)" style="margin-left: 5px"></app-ball>
+                    <app-ball *ngIf="result.draw.fifth" [background]="'red'" [size]="'tiny'"
+                              [title]="this.formatResult(result.draw.fifth)" style="margin-left: 5px"></app-ball>
+                    <app-ball *ngIf="result.draw.sixth" [background]="'red'" [size]="'tiny'"
+                              [title]="this.formatResult(result.draw.sixth)" style="margin-left: 5px"></app-ball>
+                    <app-ball *ngIf="result.draw.seventh" [background]="'red'" [size]="'tiny'"
+                              [title]="this.formatResult(result.draw.seventh)" style="margin-left: 5px"></app-ball>
                   </div>
                 </div>
               </div>
@@ -124,29 +139,29 @@
           </div>
         </div>
       </div>
-      <div nz-col [nzXs]="24" [nzLg]="getPanelSize(16 / panels.length)" class="col-style column bet-column"
-           *ngFor="let panel of panels">
+      <div *ngFor="let panel of panels" [nzLg]="getPanelSize(16 / panels.length)" [nzXs]="24" class="col-style column bet-column"
+           nz-col>
         <div class="bet-column-header">
           <div class="bet-column-header-title">
             <span>{{panel.title}}</span>
           </div>
           <div class="bet-column-header-columns">
-            <div nz-row class="row-style panel-container">
-              <div nz-col nzSpan="6" class="col-style center-column">LOT</div>
-              <div nz-col nzSpan="7" class="col-style center-column">NUM</div>
-              <div nz-col nzSpan="7" class="col-style center-column">MONTO</div>
-              <div nz-col nzSpan="4" class="col-style center-column last-column"></div>
+            <div class="row-style panel-container" nz-row>
+              <div class="col-style center-column" nz-col nzSpan="6">LOT</div>
+              <div class="col-style center-column" nz-col nzSpan="7">NUM</div>
+              <div class="col-style center-column" nz-col nzSpan="7">MONTO</div>
+              <div class="col-style center-column last-column" nz-col nzSpan="4"></div>
             </div>
           </div>
         </div>
         <div class="bet-column-body">
-          <div class="bet" *ngFor="let bet of getFilteredBets(panel.types)">
-            <div nz-row class="row-style panel-container">
-              <div nz-col nzSpan="6" class="col-style center-column">{{bet.lotteryNickName}}</div>
-              <div nz-col nzSpan="7" class="col-style center-column">{{showParsedNumbers(bet.playNumbers)}}</div>
-              <div nz-col nzSpan="7" class="col-style center-column">${{bet.amount}}</div>
-              <div nz-col nzSpan="4" class="col-style center-column last-column">
-                <i nz-icon nzType="delete" (click)="deleteBet(bet)" class="action-icon error" nzTheme="outline"></i>
+          <div *ngFor="let bet of getFilteredBets(panel.types)" class="bet">
+            <div class="row-style panel-container" nz-row>
+              <div class="col-style center-column" nz-col nzSpan="6">{{bet.lotteryNickName}}</div>
+              <div class="col-style center-column" nz-col nzSpan="7">{{showParsedNumbers(bet.playNumbers)}}</div>
+              <div class="col-style center-column" nz-col nzSpan="7">${{bet.amount}}</div>
+              <div class="col-style center-column last-column" nz-col nzSpan="4">
+                <i (click)="deleteBet(bet)" class="action-icon error" nz-icon nzTheme="outline" nzType="delete"></i>
               </div>
             </div>
           </div>
@@ -160,66 +175,66 @@
   </div>
 </div>
 
- <!--Search ticket drawer-->
+<!--Search ticket drawer-->
 <nz-drawer
-  [nzBodyStyle]="{ overflow: 'auto' }"
-  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
-  [nzMaskClosable]="true"
-  [nzWidth]="500"
-  [nzVisible]="drawerTickets"
-  [nzTitle]="'BUSCAR TICKET'"
   (nzOnClose)="closeDrawer('drawerTickets')"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="'BUSCAR TICKET'"
+  [nzVisible]="drawerTickets"
+  [nzWidth]="500"
 >
   <div class="drawer-tickets">
     <ng-container *ngIf="reloadingTickets">
       <div class="lottery-loading">
-        <i nz-icon nzType="loading" nzTheme="outline"></i>
+        <i nz-icon nzTheme="outline" nzType="loading"></i>
       </div>
     </ng-container>
     <ng-container *ngIf="!reloadingTickets">
-      <nz-list nzBordered nzSize="small" *ngIf="bets.length > 0">
+      <nz-list *ngIf="bets.length > 0" nzBordered nzSize="small">
         <nz-list-item *ngFor="let item of bets">
           <div class="left-side">
             <b>#{{item.sn}}</b> <br> {{item.date | date: 'dd/MM/yyyy HH:mm:ss'}}
           </div>
           <div class="right-side">
-            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.betStatus === betStatusEnum.Winner" [nzColor]="'gold'">
+            <nz-tag *ngIf="item.betStatus === betStatusEnum.Winner" [nzColor]="'gold'" style="padding: 0 2px 0 2px;">
               GANADOR
             </nz-tag>
-            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.betStatus === betStatusEnum.Pending" [nzColor]="'blue'">
+            <nz-tag *ngIf="item.betStatus === betStatusEnum.Pending" [nzColor]="'blue'" style="padding: 0 2px 0 2px;">
               PENDIENTE
             </nz-tag>
-            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.betStatus === betStatusEnum.Cancelled" [nzColor]="'red'">
+            <nz-tag *ngIf="item.betStatus === betStatusEnum.Cancelled" [nzColor]="'red'" style="padding: 0 2px 0 2px;">
               CANCELADO
             </nz-tag>
-            <nz-tag style="padding: 0 2px 0 2px;" *ngIf="item.betStatus === betStatusEnum.Loser" [nzColor]="'grey'">
+            <nz-tag *ngIf="item.betStatus === betStatusEnum.Loser" [nzColor]="'grey'" style="padding: 0 2px 0 2px;">
               PERDEDOR
             </nz-tag>
           </div>
           <ul nz-list-item-actions>
             <nz-list-item-action>
-              <a target="_blank" [href]="getSendWhatsApp(item)">
-                <i nz-icon nzType="whats-app" class="icon primary" nzTheme="outline"></i>
+              <a [href]="getSendWhatsApp(item)" target="_blank">
+                <i class="icon primary" nz-icon nzTheme="outline" nzType="whats-app"></i>
               </a>
             </nz-list-item-action>
             <nz-list-item-action>
               <a (click)="openTicket(item)">
-                <i nz-icon nzType="eye" nz-tooltip="Ver ticket" class="icon primary" nzTheme="outline"></i>
+                <i class="icon primary" nz-icon nz-tooltip="Ver ticket" nzTheme="outline" nzType="eye"></i>
               </a>
             </nz-list-item-action>
             <nz-list-item-action>
               <a (click)="cloneTicket(item)">
-                <i nz-icon nzType="file-add" nz-tooltip="Clonar ticket" class="icon primary" nzTheme="outline"></i>
+                <i class="icon primary" nz-icon nz-tooltip="Clonar ticket" nzTheme="outline" nzType="file-add"></i>
               </a>
             </nz-list-item-action>
             <nz-list-item-action>
               <a (click)="printTicket(item)">
-                <i nz-icon nzType="printer" nz-tooltip="Imprimir ticket" class="icon primary" nzTheme="outline"></i>
+                <i class="icon primary" nz-icon nz-tooltip="Imprimir ticket" nzTheme="outline" nzType="printer"></i>
               </a>
             </nz-list-item-action>
             <nz-list-item-action *ngIf="item.betStatus === betStatusEnum.Pending && canCancelTicket(item)">
               <a (click)="cancelTicket(item)">
-                <i nz-icon nzType="delete" nz-tooltip="Cancelar ticket" class="icon error" nzTheme="outline"></i>
+                <i class="icon error" nz-icon nz-tooltip="Cancelar ticket" nzTheme="outline" nzType="delete"></i>
               </a>
             </nz-list-item-action>
           </ul>
@@ -233,17 +248,17 @@
 
 <!--Help drawer-->
 <nz-drawer
-  [nzBodyStyle]="{ overflow: 'auto' }"
-  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
-  [nzMaskClosable]="true"
-  [nzWidth]="500"
-  [nzVisible]="drawerHelp"
-  [nzTitle]="'AYUDA'"
   (nzOnClose)="closeDrawer('drawerHelp')"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="'AYUDA'"
+  [nzVisible]="drawerHelp"
+  [nzWidth]="500"
 >
   <div class="drawer-help">
     <ng-container>
-      <nz-divider nzText="Teclas"  style="margin-top: 0px" nzOrientation="left"></nz-divider>
+      <nz-divider nzOrientation="left" nzText="Teclas" style="margin-top: 0px"></nz-divider>
       <p>/ = cambiar loteria seleccionada</p>
       <p>Barra espaciadora = confirmar e imprimir</p>
       <p>** = confirmar e imprimir</p>
@@ -252,7 +267,7 @@
       <p>H = Ayuda</p>
       <p>C = Cuadre de caja</p>
       <p>P = Pagar ticket</p>
-      <nz-divider nzText="Como jugar?" nzOrientation="left"></nz-divider>
+      <nz-divider nzOrientation="left" nzText="Como jugar?"></nz-divider>
       <p class="bold">Directo:</p>
       <ol>
         <li>Ingresar la jugada con un numero de 2 digitos y presionar Enter</li>
@@ -268,7 +283,7 @@
         <li>Ingresar la jugada con un numero de 6 digitos y presionar Enter</li>
         <li>Ingresar el monto y presionar Enter</li>
       </ol>
-      <nz-divider nzText="Combinaciones" nzOrientation="left"></nz-divider>
+      <nz-divider nzOrientation="left" nzText="Combinaciones"></nz-divider>
       <p class="bold">Secuencia (Directo):</p>
       <ol>
         <li>Ingresar la jugada como A<span class="bold">S</span>B siendo A el primer limite y B el final</li>
@@ -289,15 +304,15 @@
 </nz-drawer>
 
 
- <!--Cash Register Drawer-->
+<!--Cash Register Drawer-->
 <nz-drawer
-  [nzBodyStyle]="{ overflow: 'auto' }"
-  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
-  [nzMaskClosable]="true"
-  [nzWidth]="500"
-  [nzVisible]="drawerCaja"
-  [nzTitle]="'RESUMEN DE VENTAS'"
   (nzOnClose)="closeDrawer('drawerCaja')"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="'RESUMEN DE VENTAS'"
+  [nzVisible]="drawerCaja"
+  [nzWidth]="500"
 >
   <div class="drawer-caja">
     <ng-container>
@@ -317,20 +332,20 @@
 
 <!--// Pay ticket drawer-->
 <nz-drawer
-  [nzBodyStyle]="{ overflow: 'auto' }"
-  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
-  [nzMaskClosable]="true"
-  [nzWidth]="500"
-  [nzVisible]="drawerPagar"
-  [nzTitle]="'PAGAR TICKET'"
   (nzOnClose)="closeDrawer('drawerPagar')"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="'PAGAR TICKET'"
+  [nzVisible]="drawerPagar"
+  [nzWidth]="500"
 >
   <div class="drawer-pagar-ticket">
     <ng-container>
       <p>Ingrese el serial de cobro:</p>
-      <input placeholder="Serial de cobro" nz-input [type]="'number'" [(ngModel)]="payTicketValue"
-             class="right-input"/>
-      <button nz-button [disabled]="!payTicketValue" (click)="payTicket()">Pagar ticket</button>
+      <input [(ngModel)]="payTicketValue" [type]="'number'" class="right-input" nz-input
+             placeholder="Serial de cobro"/>
+      <button (click)="payTicket()" [disabled]="!payTicketValue" nz-button>Pagar ticket</button>
     </ng-container>
   </div>
 </nz-drawer>
@@ -340,27 +355,31 @@
 // Display ticket drawer
 -->
 <nz-drawer
-  [nzBodyStyle]="{ overflow: 'auto' }"
-  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
-  [nzMaskClosable]="true"
-  [nzWidth]="500"
-  [nzVisible]="drawerTicket"
-  [nzTitle]="'VER TICKET'"
   (nzOnClose)="closeDrawer('drawerTicket')"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="'VER TICKET'"
+  [nzVisible]="drawerTicket"
+  [nzWidth]="500"
 >
   <div class="drawer-ticket">
     <ng-container *ngIf="selectedTicket">
       <div class="status">
-        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.betStatus === betStatusEnum.Winner" [nzColor]="'gold'">
+        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Winner" [nzColor]="'gold'"
+                style="padding: 0 2px 0 2px;">
           GANADOR
         </nz-tag>
-        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.betStatus === betStatusEnum.Pending" [nzColor]="'blue'">
+        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Pending" [nzColor]="'blue'"
+                style="padding: 0 2px 0 2px;">
           PENDIENTE
         </nz-tag>
-        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.betStatus === betStatusEnum.Cancelled" [nzColor]="'red'">
+        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Cancelled" [nzColor]="'red'"
+                style="padding: 0 2px 0 2px;">
           CANCELADO
         </nz-tag>
-        <nz-tag style="padding: 0 2px 0 2px;" *ngIf="selectedTicket.betStatus === betStatusEnum.Loser" [nzColor]="'grey'">
+        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Loser" [nzColor]="'grey'"
+                style="padding: 0 2px 0 2px;">
           PERDEDOR
         </nz-tag>
       </div>
@@ -368,12 +387,12 @@
       <h3>SN: {{selectedTicket.sn}}</h3>
       <p>Fecha: {{selectedTicket.date | date: 'dd/MM/yyyy'}}</p>
       <p>Hora: {{selectedTicket.date | date: 'HH:mm:ss'}}</p>
-      <nz-table style="margin-top: 20px"
+      <nz-table [nzData]="selectedTicket.plays"
                 [nzSize]="'small'"
                 nzLoading="false"
                 nzShowPagination="false"
-                [nzData]="selectedTicket.plays"
-                nzTableLayout="auto">
+                nzTableLayout="auto"
+                style="margin-top: 20px">
         <thead>
         <tr>
           <th *ngFor="let column of columnsPlays">
@@ -396,7 +415,7 @@
       <button (click)="cloneTicket(selectedTicket)">CLONAR TICKET</button>
       <br>
       <br>
-      <a target="_blank" [href]="getSendWhatsApp(selectedTicket)">
+      <a [href]="getSendWhatsApp(selectedTicket)" target="_blank">
         <button style="color: black">ENVIAR POR WHATSAPP</button>
       </a>
     </ng-container>
@@ -404,14 +423,12 @@
 </nz-drawer>
 
 
-
-
 <nz-modal
   [(nzVisible)]="modalConfirm"
-  nzTitle="Modal"
-  [nzTitle]="modalTitle"
   [nzContent]="modalContent"
   [nzFooter]="modalFooter"
+  [nzTitle]="modalTitle"
+  nzTitle="Modal"
 >
   <ng-template #modalTitle>
     <ng-container *ngIf="!generatedBet">Estas seguro?</ng-container>
@@ -420,26 +437,26 @@
   <ng-template #modalContent>
     <ng-container *ngIf="loadingSubmit">
       <div class="lottery-loading">
-        <i nz-icon nzType="loading" nzTheme="outline"></i>
+        <i nz-icon nzTheme="outline" nzType="loading"></i>
       </div>
     </ng-container>
     <ng-container *ngIf="generatedBet">
       <span class="modal-confirm-total">
-        <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+        <i nz-icon nzTheme="outline" nzType="shopping-cart"></i>
         TOTAL: ${{getSumBets(plays)}}
       </span>
-      <span class="modal-confirm-ticket-number" *ngIf="generatedBet._id">
+      <span *ngIf="generatedBet._id" class="modal-confirm-ticket-number">
         APUESTA: {{generatedBet._id.toString()}}<br>
         SN: {{generatedBet.sn}}
       </span>
       <div class="modal-confirm-buttons">
-        <a target="_blank" [href]="getSendWhatsApp(generatedBet)">
+        <a [href]="getSendWhatsApp(generatedBet)" target="_blank">
           <div class="custom-button-confirm" nz-tooltip="Enviar por whatsapp">
-            <i nz-icon nzType="whats-app" class="icon primary" nzTheme="outline"></i>
+            <i class="icon primary" nz-icon nzTheme="outline" nzType="whats-app"></i>
           </div>
         </a>
-        <div class="custom-button-confirm" nz-tooltip="Imprimir" (click)="printTicket(generatedBet)">
-          <i nz-icon nzType="printer" class="icon primary" nzTheme="outline"></i>
+        <div (click)="printTicket(generatedBet)" class="custom-button-confirm" nz-tooltip="Imprimir">
+          <i class="icon primary" nz-icon nzTheme="outline" nzType="printer"></i>
         </div>
       </div>
     </ng-container>
@@ -449,12 +466,13 @@
   </ng-template>
   <ng-template #modalFooter>
     <div class="modal-confirm-footer">
-      <button nz-button [disabled]="loadingSubmit" nzType="default" (click)="closeModalConfirm()">Cerrar</button>
-      <button nz-button nzType="primary"
-              *ngIf="!generatedBet"
-              [nzLoading]="loadingSubmit"
+      <button (click)="closeModalConfirm()" [disabled]="loadingSubmit" nz-button nzType="default">Cerrar</button>
+      <button (click)="onSubmitBetConfirm()" *ngIf="!generatedBet"
               [disabled]="loadingSubmit"
-              (click)="onSubmitBetConfirm()">Confirmar ticket</button>
+              [nzLoading]="loadingSubmit"
+              nz-button
+              nzType="primary">Confirmar ticket
+      </button>
     </div>
   </ng-template>
 </nz-modal>

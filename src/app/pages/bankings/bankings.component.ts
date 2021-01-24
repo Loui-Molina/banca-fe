@@ -22,24 +22,6 @@ import {UserInterface, UserService} from '../../services/user.service';
 })
 export class BankingsComponent {
 
-  constructor(private datePipe: DatePipe,
-              private formBuilder: FormBuilder,
-              private bankingService: BankingService,
-              private userService: UserService,
-              private consortiumsService: ConsortiumsService) {
-    this.formABM = this.formBuilder.group(this.defaultForm);
-    this.user = this.userService.getLoggedUser();
-    if (this.user?.role === this.userRole.Admin){
-      this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
-          this.consortiums = consortiums;
-        }, error => {
-          throw new HttpErrorResponse(error);
-        }
-      );
-    }
-  }
-
-
   columns = [
     {
       title: 'Banca',
@@ -79,14 +61,33 @@ export class BankingsComponent {
   formABM: FormGroup;
   consortiums: any;
   fetcher: Observable<BankingDto[]> = this.bankingService.bankingControllerFindAll();
+
+  constructor(private datePipe: DatePipe,
+              private formBuilder: FormBuilder,
+              private bankingService: BankingService,
+              private userService: UserService,
+              private consortiumsService: ConsortiumsService) {
+    this.formABM = this.formBuilder.group(this.defaultForm);
+    this.user = this.userService.getLoggedUser();
+    if (this.user?.role === this.userRole.Admin) {
+      this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
+          this.consortiums = consortiums;
+        }, error => {
+          throw new HttpErrorResponse(error);
+        }
+      );
+    }
+  }
+
   fetcherCreate: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerCreate(item);
   fetcherUpdate: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerUpdate(item);
   fetcherDelete: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerDelete(item._id);
-  setValueForm(mode, defaultForm, visibleObject): any{
-    if (mode === 'C'){
+
+  setValueForm(mode, defaultForm, visibleObject): any {
+    if (mode === 'C') {
       return {
         name: null,
-        status:  true,
+        status: true,
         selectedConsortium: null,
         showPercentage: true,
         ownerName: null,
@@ -105,6 +106,7 @@ export class BankingsComponent {
       };
     }
   }
+
   parseData = (mode: string, valueForm, visibleObject): CreateBankingDto | UpdateBankingDto => {
     if (mode === 'C') {
       return {
@@ -127,7 +129,7 @@ export class BankingsComponent {
         selectedConsortium: valueForm.selectedConsortium
       } as UpdateBankingDto;
     }
-  }
+  };
   getValidators = (mode: string) => {
     return {
       name: [Validators.required],
@@ -142,5 +144,5 @@ export class BankingsComponent {
       ] : [Validators.minLength(8),
         Validators.maxLength(35)]
     };
-  }
+  };
 }

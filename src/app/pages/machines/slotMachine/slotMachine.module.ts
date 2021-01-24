@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {NzInputModule} from 'ng-zorro-antd/input';
-import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import {NzSwitchModule} from 'ng-zorro-antd/switch';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import {NzGridModule} from 'ng-zorro-antd/grid';
+import {NzFormModule} from 'ng-zorro-antd/form';
+import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
 import {NzButtonModule} from 'ng-zorro-antd/button';
-import { NzCardModule } from 'ng-zorro-antd/card';
+import {NzCardModule} from 'ng-zorro-antd/card';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzMenuModule} from 'ng-zorro-antd/menu';
 import {NzLayoutModule} from 'ng-zorro-antd/layout';
@@ -38,4 +38,5 @@ import {SlotMachineRoutingModule} from './slotMachine-routing.module';
   declarations: [SlotMachineComponent],
   exports: [SlotMachineComponent]
 })
-export class SlotMachineModule { }
+export class SlotMachineModule {
+}

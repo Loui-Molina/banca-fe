@@ -17,22 +17,25 @@
 
 /*:host */
 ::ng-deep .ant-input-group-addon {
-    min-width: 140px;
+  min-width: 140px;
+
   .add-on-input {
   }
 }
+
 nz-select {
   width: 100%;
 }
 
 
-.schedule{
+.schedule {
   margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  .schedule-day{
+
+  .schedule-day {
     width: 100%;
     height: 100px;
     margin: 0 5px 0 5px;
@@ -40,25 +43,28 @@ nz-select {
     border-radius: 5px;
     padding: 5px;
     background-color: white;
-    .title{
+
+    .title {
       width: 100%;
       border-bottom: 1px solid #ccc;
       font-weight: bold;
       text-transform: uppercase;
     }
-    p{
+
+    p {
       font-size: 11px;
       text-align: center;
       margin-top: 7px;
     }
-    &.isOn{
+
+    &.isOn {
       background-color: #3cd2ff57;
     }
   }
 }
 
 
-.container-switch{
+.container-switch {
   display: flex;
   align-items: center;
   justify-content: center;

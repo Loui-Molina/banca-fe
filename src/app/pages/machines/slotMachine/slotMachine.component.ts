@@ -1,9 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {
-  trigger, state, animate, transition,
-  style
-} from '@angular/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 function shuffle(array): any[] {
   // tslint:disable-next-line:one-variable-per-declaration
@@ -118,7 +114,7 @@ export class SlotMachineComponent implements OnInit {
 
   getRates = (): any[] => {
     return this.RATES.sort(compare);
-  }
+  };
 
   play = (): void => {
     if (this.bet <= this.score) {
@@ -134,7 +130,7 @@ export class SlotMachineComponent implements OnInit {
       this.autoSpin = false;
       this.status = 'FINISHED';
     }
-  }
+  };
 
   changeBet = (value: number): void => {
     if (this.status !== 'PLAYING') {
@@ -146,7 +142,7 @@ export class SlotMachineComponent implements OnInit {
         this.bet += value;
       }
     }
-  }
+  };
 
   animateSpin = async (item) => {
     const cards = item.cards;
@@ -202,13 +198,13 @@ export class SlotMachineComponent implements OnInit {
         this.checkFinish();
       }
     }, itemIndex * 100);
-  }
+  };
 
   checkFinish = (): void => {
     if (Object.keys(this.result).length === this.multipleCards.length) {
       this.checkWinner();
     }
-  }
+  };
   checkWinner = () => {
     const x = {};
     for (let i = 0; i < this.BOXES; i++) {
@@ -238,7 +234,7 @@ export class SlotMachineComponent implements OnInit {
     } else {
       this.playAgain(2000);
     }
-  }
+  };
 
   isAWinner = (scoreToWin: number) => {
     const TIMES = 7;
@@ -251,7 +247,7 @@ export class SlotMachineComponent implements OnInit {
     this.changeScore(won);
     this.lastWin = won;
     this.playAgain(3500);
-  }
+  };
 
   playAgain = (timer) => {
     this.checkChartData();
@@ -262,7 +258,7 @@ export class SlotMachineComponent implements OnInit {
     } else {
       this.status = 'FINISHED';
     }
-  }
+  };
 
   changeScore = (SCORE: number) => {
     let x = 1;
@@ -276,7 +272,7 @@ export class SlotMachineComponent implements OnInit {
         this.score = this.score + x;
       }, (this.ANIMATIONS) ? ((1000 / loops) * i) : 0);
     }
-  }
+  };
 
   checkChartData = () => {
     const aux = [...this.lineChartData];
@@ -300,6 +296,6 @@ export class SlotMachineComponent implements OnInit {
       });
     }
     this.lineChartData = aux;
-  }
+  };
 
 }

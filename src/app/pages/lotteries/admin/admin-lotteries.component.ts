@@ -6,7 +6,7 @@ import {ExtraButton} from '../../../components/abm/abm.component';
 import {TranslateService} from '@ngx-translate/core';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {AdminLotteriesService, AdminLotteryResDto, ConsortiumLotteryDto} from "local-packages/banca-api";
+import {AdminLotteriesService, AdminLotteryResDto} from 'local-packages/banca-api';
 import DayEnum = AdminLotteryResDto.DayEnum;
 
 // TODO check all's working
@@ -16,16 +16,6 @@ import DayEnum = AdminLotteryResDto.DayEnum;
   styleUrls: ['./admin-lotteries.component.scss']
 })
 export class AdminLotteriesComponent implements OnInit {
-
-  constructor(private datePipe: DatePipe,
-              private translateService: TranslateService,
-              private formBuilder: FormBuilder,
-              private messageService: NzMessageService,
-              private modal: NzModalService,
-              private lotteriesService: AdminLotteriesService,
-  ) {
-    this.formABM = this.formBuilder.group(this.defaultForm);
-  }
 
   columns = [
     {
@@ -68,13 +58,23 @@ export class AdminLotteriesComponent implements OnInit {
   };
   days = DayEnum;
 
+  constructor(private datePipe: DatePipe,
+              private translateService: TranslateService,
+              private formBuilder: FormBuilder,
+              private messageService: NzMessageService,
+              private modal: NzModalService,
+              private lotteriesService: AdminLotteriesService,
+  ) {
+    this.formABM = this.formBuilder.group(this.defaultForm);
+  }
+
   ngOnInit(): void {
     this.extraButtons = [
-     // {
-     //   icon: 'trophy',
-     //   onClick: this.addNewResults,
-     //   tooltip: 'Agregar resultado'
-     // }
+      // {
+      //   icon: 'trophy',
+      //   onClick: this.addNewResults,
+      //   tooltip: 'Agregar resultado'
+      // }
     ];
   }
 
@@ -93,7 +93,7 @@ export class AdminLotteriesComponent implements OnInit {
       openTime: this.datePipe.transform(new Date(valueForm.openTime), 'HH:mm'),
       closeTime: this.datePipe.transform(new Date(valueForm.closeTime), 'HH:mm')
     };
-  }
+  };
   getValidators = (mode: string) => {
     return {
       closeTime: [Validators.required],
@@ -105,7 +105,7 @@ export class AdminLotteriesComponent implements OnInit {
       color: [Validators.required],
       status: [Validators.required]
     };
-  }
+  };
   setValueForm = (mode: string, defaultForm, item) => {
     return {
       closeTime: (item.closeTime) ? new Date(`1900-01-01T${item.closeTime}:00`) : null,
@@ -117,11 +117,7 @@ export class AdminLotteriesComponent implements OnInit {
       color: item.color,
       status: item.status
     };
-  }
-
-  private ts(key: string, params?): string {
-    return this.translateService.instant(key, params);
-  }
+  };
 
   getClosingDisabledMinutes() {
     //TODO IMPLEMENT
@@ -137,5 +133,9 @@ export class AdminLotteriesComponent implements OnInit {
 
   getOpeningDisabledHours() {
     //TODO implement
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

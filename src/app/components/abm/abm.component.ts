@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
@@ -13,12 +13,6 @@ import {NzMessageService} from 'ng-zorro-antd/message';
   styleUrls: ['./abm.component.scss']
 })
 export class AbmComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder,
-              private modal: NzModalService,
-              private translateService: TranslateService,
-              private messageService: NzMessageService) {
-  }
-
   @Input() title: string;
   @Input() formTemplate: TemplateRef<any>;
   @Input() viewTemplate: TemplateRef<any>;
@@ -36,7 +30,6 @@ export class AbmComponent implements OnInit {
   @Input() fetcherCreate: (item) => Observable<any>;
   @Input() fetcherUpdate: (item) => Observable<any>;
   @Input() fetcherDelete: (item) => Observable<Response>;
-
   filterValue = {};
   visibleFilter = {};
   visibleForm = false;
@@ -48,6 +41,12 @@ export class AbmComponent implements OnInit {
   loadingSave = false;
   loading = false;
 
+  constructor(private formBuilder: FormBuilder,
+              private modal: NzModalService,
+              private translateService: TranslateService,
+              private messageService: NzMessageService) {
+  }
+
   ngOnInit(): void {
     this.loadFetcher();
   }
@@ -57,12 +56,12 @@ export class AbmComponent implements OnInit {
     let c = keyArray.length;
     let aux = item;
     // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < keyArray.length; i++){
+    for (let i = 0; i < keyArray.length; i++) {
       // tslint:disable-next-line:no-shadowed-variable
       const key = keyArray[i];
       aux = aux[key];
       c -= 1;
-      if (c <= 0){
+      if (c <= 0) {
         return aux;
       }
     }
@@ -178,7 +177,7 @@ export class AbmComponent implements OnInit {
       obj[key] = (item[key] !== undefined) ? item[key] : this.defaultForm[key];
     }
     if (this.form) {
-      if (this.setValueForm){
+      if (this.setValueForm) {
         obj = this.setValueForm(mode, this.defaultForm, item);
       }
       this.form.setValue(obj);
@@ -222,18 +221,18 @@ export class AbmComponent implements OnInit {
     this.visibleFilter[key] = false;
     this.dataDisplayed = this.data.filter(item => {
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < Object.keys(this.filterValue).length; i++){
+      for (let i = 0; i < Object.keys(this.filterValue).length; i++) {
         const subkey = Object.keys(this.filterValue)[i];
-        if (this.filterValue[subkey] !== null && this.filterValue[subkey] !== undefined){
-          if (item[subkey]){
-            if (typeof item[subkey] === 'string' && item[subkey].indexOf(this.filterValue[subkey]) === -1){
+        if (this.filterValue[subkey] !== null && this.filterValue[subkey] !== undefined) {
+          if (item[subkey]) {
+            if (typeof item[subkey] === 'string' && item[subkey].indexOf(this.filterValue[subkey]) === -1) {
               return false;
-            } else if ( typeof item[subkey] === 'number' && item[subkey] !== (parseInt(this.filterValue[subkey], 0) || null)){
+            } else if (typeof item[subkey] === 'number' && item[subkey] !== (parseInt(this.filterValue[subkey], 0) || null)) {
               return false;
             } else {
               return true;
             }
-          } else if (item[subkey] === undefined){
+          } else if (item[subkey] === undefined) {
             return false;
           }
         }

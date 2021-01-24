@@ -22,6 +22,7 @@ export class AdminConsortiumsTableComponent implements OnInit {
     {name: 'NETO'},*/
     {name: 'Balance'}];
   consortiums: DashboardConsortiumDto[] = [];
+
   constructor(private dashboardService: DashboardService) {
   }
 

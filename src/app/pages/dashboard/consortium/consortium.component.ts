@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {DashboardGraphBankingDto, DashboardService} from 'local-packages/banca-api';
 
@@ -14,10 +14,6 @@ export class ConsortiumComponent implements OnInit {
   profits = 0;
   losses = 0;
   balance = 0;
-
-  constructor(private dashboardService: DashboardService) {
-  }
-
   barChartDataBankings: DashboardGraphBankingDto[] = [];
   single = [
     {
@@ -29,6 +25,9 @@ export class ConsortiumComponent implements OnInit {
       value: 233
     }
   ];
+
+  constructor(private dashboardService: DashboardService) {
+  }
 
   ngOnInit(): void {
     this.dashboardService.dashboardControllerGetGraphBankingStatistics().subscribe(res => {

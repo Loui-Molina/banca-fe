@@ -22,6 +22,7 @@ export class SharedBankingsTableComponent implements OnInit {
     {name: 'NETO'},
     {name: 'Balance'}];
   bankings: DashboardBankingDto[] = [];
+
   constructor(private dashboardService: DashboardService) {
   }
 

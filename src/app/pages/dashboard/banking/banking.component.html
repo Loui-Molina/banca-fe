@@ -1,38 +1,39 @@
 <div class="inner-content mb-20">
   <app-title-divider title="{{'HOME.DASHBOARD.DAILY_STATS' |translate}}"></app-title-divider>
-  <div nz-row class="fit-height" [nzGutter]="8">
-    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
-      <app-widget [title]="'HOME.DASHBOARD.TICKETS'| translate | uppercase"
-                  [value]="ticketsSold"
+  <div [nzGutter]="8" class="fit-height" nz-row>
+    <div class="mb-20" nz-col nzMd="24" nzXl="6" nzXs="24">
+      <app-widget [icon]="'stock'"
                   [prefix]="false"
-                  [icon]="'stock'"></app-widget>
+                  [title]="'HOME.DASHBOARD.TICKETS'| translate | uppercase"
+                  [value]="ticketsSold"></app-widget>
     </div>
-    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
-      <app-widget [title]="'HOME.DASHBOARD.INGRESS'| translate | uppercase"
-                  [backgroundColor]="'orange'"
-                  [value]="profits"
-                  [icon]="'rise'"></app-widget>
+    <div class="mb-20" nz-col nzMd="24" nzXl="6" nzXs="24">
+      <app-widget [backgroundColor]="'orange'"
+                  [icon]="'rise'"
+                  [title]="'HOME.DASHBOARD.INGRESS'| translate | uppercase"
+                  [value]="profits"></app-widget>
     </div>
-    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
-      <app-widget [title]="'HOME.DASHBOARD.EGRESS'| translate | uppercase"
-                  [backgroundColor]="'grey'"
-                  [value]="losses"
-                  [icon]="'fall'"></app-widget>
+    <div class="mb-20" nz-col nzMd="24" nzXl="6" nzXs="24">
+      <app-widget [backgroundColor]="'grey'"
+                  [icon]="'fall'"
+                  [title]="'HOME.DASHBOARD.EGRESS'| translate | uppercase"
+                  [value]="losses"></app-widget>
     </div>
-    <div nz-col nzXs="24" nzMd="24" nzXl="6" class="mb-20">
-      <app-widget [title]="'HOME.DASHBOARD.BALANCE' | translate | uppercase"
-                  [backgroundColor]="'green'"
-                  [value]="balance"
-                  [icon]="'fund'"></app-widget>
+    <div class="mb-20" nz-col nzMd="24" nzXl="6" nzXs="24">
+      <app-widget [backgroundColor]="'green'"
+                  [icon]="'fund'"
+                  [title]="'HOME.DASHBOARD.BALANCE' | translate | uppercase"
+                  [value]="balance"></app-widget>
     </div>
   </div>
 </div>
-<div nz-row [nzGutter]="8">
-  <div nz-col nzXs="24" nzXl="24">
+<div [nzGutter]="8" nz-row>
+  <div nz-col nzXl="24" nzXs="24">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider
         title="{{'Balance por dia' | translate}}"></app-title-divider>
-      <app-line-chart yAxisLabel="Balance" [legend]="false" [results]="barChartDataBalanceBankings" [xAxisTickFormatting]="dateTickFormatting"></app-line-chart>
+      <app-line-chart [legend]="false" [results]="barChartDataBalanceBankings" [xAxisTickFormatting]="dateTickFormatting"
+                      yAxisLabel="Balance"></app-line-chart>
     </div>
   </div>
   <!--<div nz-col nzXs="24" nzXl="12">
@@ -46,12 +47,12 @@
   <div class="inner-content mb-20">
     <app-title-divider title="TOP 10 numeros mas jugados durante el dia"></app-title-divider>
     <div class="balls-container">
-      <app-ball [title]="'11'" [description]="'91 veces'" [background]="'red'"></app-ball>
-      <app-ball [title]="'00'" [description]="'86 veces'" [background]="'red'"></app-ball>
-      <app-ball [title]="'47'" [description]="'60 veces'" [background]="'red'"></app-ball>
-      <app-ball [title]="'74'" [description]="'58 veces'" [background]="'grey'"></app-ball>
-      <app-ball [title]="'22'" [description]="'49 veces'" [background]="'grey'"></app-ball>
-      <app-ball [title]="'25'" [description]="'44 veces'" [background]="'grey'"></app-ball>
+      <app-ball [background]="'red'" [description]="'91 veces'" [title]="'11'"></app-ball>
+      <app-ball [background]="'red'" [description]="'86 veces'" [title]="'00'"></app-ball>
+      <app-ball [background]="'red'" [description]="'60 veces'" [title]="'47'"></app-ball>
+      <app-ball [background]="'grey'" [description]="'58 veces'" [title]="'74'"></app-ball>
+      <app-ball [background]="'grey'" [description]="'49 veces'" [title]="'22'"></app-ball>
+      <app-ball [background]="'grey'" [description]="'44 veces'" [title]="'25'"></app-ball>
     </div>
   </div>
 </div>
