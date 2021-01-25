@@ -187,11 +187,11 @@ export class AdminTransactionsComponent implements OnInit {
   private initDataSync(): Observable<any[]> {
     const transactionControllerGetAll = this.transactionsService.transactionControllerGetAll();
     const consortiums = this.consortiumsService.consortiumControllerGetAll();
-    const bankingControllerFindAll = this.bankingService.bankingControllerFindAll();
+    const bankingsControllerFindAll = this.bankingService.bankingsControllerFindAll();
     return forkJoin([
       transactionControllerGetAll,
       consortiums,
-      bankingControllerFindAll
+      bankingsControllerFindAll
     ]);
   }
 

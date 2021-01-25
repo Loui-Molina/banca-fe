@@ -210,6 +210,9 @@
             <nz-tag *ngIf="item.betStatus === betStatusEnum.Loser" [nzColor]="'grey'" style="padding: 0 2px 0 2px;">
               PERDEDOR
             </nz-tag>
+            <nz-tag *ngIf="item.betStatus === betStatusEnum.Reclaimed" [nzColor]="'gold'" style="padding: 0 2px 0 2px;">
+              RECLAMADO
+            </nz-tag>
           </div>
           <ul nz-list-item-actions>
             <nz-list-item-action>
@@ -315,16 +318,22 @@
   [nzWidth]="500"
 >
   <div class="drawer-caja">
-    <ng-container>
-      <div class="item"><b>Balance al cierre:</b><span>$3905.00</span></div>
-      <div class="item"><b>Pendientes de pago:</b><span>$2150.00</span></div>
-      <div class="item"><b>Tickets pendientes:</b><span>19</span></div>
-      <div class="item"><b>Tickets perdedores:</b><span>30</span></div>
-      <div class="item"><b>Tickets ganadores:</b><span>5</span></div>
-      <div class="item"><b>Total tickets:</b><span>54</span></div>
-      <div class="item"><b>Total ventas:</b><span>$6605.00</span></div>
-      <div class="item"><b>Total premios:</b><span>$2150.00</span></div>
-      <div class="item neto"><b>NETO:</b><span>$4455.00</span></div>
+    <ng-container *ngIf="reloadingResumeSells">
+      <div class="lottery-loading">
+        <i nz-icon nzTheme="outline" nzType="loading"></i>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!reloadingResumeSells && resumeSells">
+      <div class="item"><b>Pendientes de pago:</b><span>${{resumeSells.pendingPayments}}</span></div>
+      <div class="item"><b>Tickets cancelados:</b><span>{{resumeSells.cancelledBets}}</span></div>
+      <div class="item"><b>Tickets pendientes:</b><span>{{resumeSells.pendingBets}}</span></div>
+      <div class="item"><b>Tickets perdedores:</b><span>{{resumeSells.loserBets}}</span></div>
+      <div class="item"><b>Tickets ganadores:</b><span>{{resumeSells.winnerBets}}</span></div>
+      <div class="item"><b>Tickets reclamados:</b><span>{{resumeSells.reclaimedBets}}</span></div>
+      <div class="item"><b>Total tickets:</b><span>{{resumeSells.totalBets}}</span></div>
+      <div class="item"><b>Total ventas:</b><span>${{resumeSells.totalSells}}</span></div>
+      <div class="item"><b>Total premios (ganadores + reclamados):</b><span>${{resumeSells.totalAwards}}</span></div>
+      <div class="item neto"><b>BALANCE:</b><span>${{resumeSells.balance}}</span></div>
     </ng-container>
   </div>
 </nz-drawer>
@@ -343,7 +352,7 @@
   <div class="drawer-pagar-ticket">
     <ng-container>
       <p>Ingrese el serial de cobro:</p>
-      <input [(ngModel)]="payTicketValue" [type]="'number'" class="right-input" nz-input
+      <input [(ngModel)]="payTicketValue" [type]="'string'" class="right-input" nz-input
              placeholder="Serial de cobro"/>
       <button (click)="payTicket()" [disabled]="!payTicketValue" nz-button>Pagar ticket</button>
     </ng-container>
@@ -381,6 +390,10 @@
         <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Loser" [nzColor]="'grey'"
                 style="padding: 0 2px 0 2px;">
           PERDEDOR
+        </nz-tag>
+        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Reclaimed" [nzColor]="'gold'"
+                style="padding: 0 2px 0 2px;">
+          RECLAMADO
         </nz-tag>
       </div>
       <h2>ID: {{selectedTicket._id.toString()}}</h2>

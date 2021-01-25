@@ -187,11 +187,11 @@ export class ConsortiumTransactionsComponent implements OnInit {
   private initDataSync(): Observable<any[]> {
     const transactionControllerGetAll = this.transactionsService.transactionControllerGetAll();
     const consortium = this.consortiumsService.consortiumControllerGetConsortiumOfUser();
-    const bankingControllerFindAll = this.bankingService.bankingControllerFindAll();
+    const bankingsControllerFindAll = this.bankingService.bankingsControllerFindAll();
     return forkJoin([
       transactionControllerGetAll,
       consortium,
-      bankingControllerFindAll
+      bankingsControllerFindAll
     ]);
   }
 

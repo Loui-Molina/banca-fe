@@ -11,9 +11,9 @@ import {
   BettingPanelService,
   CreateBetDto,
   Play,
-  PlayNumbers,
+  PlayNumbers, ReclaimBetDto,
   ResultDto,
-  ResultsService
+  ResultsService, ResumeSellsDto
 } from 'local-packages/banca-api';
 import {forkJoin, Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -32,7 +32,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   now = new Date();
   number: string = null;
   amount: number = null;
-  payTicketValue: number = null;
+  payTicketValue: string = null;
   selectedTicket: Bet;
   drawerTickets = false;
   drawerCaja = false;
@@ -44,6 +44,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   loadingSubmit = false;
   generatedBet: BetDto;
   bets: Bet[] = [];
+  resumeSells: ResumeSellsDto;
   panels = [
     {title: 'DIRECTO', types: [Play.PlayTypeEnum.Direct]},
     {title: 'PALE', types: [Play.PlayTypeEnum.Pale]},
@@ -55,6 +56,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   loading = false;
   superPale = false;
   reloadingResults = false;
+  reloadingResumeSells = false;
   reloadingLotterys = false;
   reloadingTickets = false;
   lastResults: ResultDto[] = [];
@@ -478,6 +480,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     if (drawerName === 'drawerTickets') {
       this.reloadTickets();
     }
+    if (drawerName === 'drawerCaja') {
+      this.reloadResumeSells();
+    }
     this[drawerName] = true;
   };
 
@@ -608,7 +613,17 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   };
 
   onSubmitPayTicket = () => {
-    this.closeDrawer('drawerPagar');
+    const body: ReclaimBetDto = {
+      sn: this.payTicketValue
+    };
+    this.bettingPanelService.bettingPanelControllerReclaimTicket(body).subscribe(value => {
+      this.reloadTickets();
+      this.messageService.create('success', `Ticket pagado correctamente`, {nzDuration: 3000});
+      this.payTicketValue = null;
+      this.closeDrawer('drawerPagar');
+    }, error => {
+      throw new HttpErrorResponse(error);
+    });
   };
 
   canCancelTicket = (ticket: Bet): boolean => {
@@ -699,6 +714,17 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.reloadingTickets = false;
     }, error => {
       this.reloadingTickets = false;
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+  private reloadResumeSells(): void {
+    this.reloadingResumeSells = true;
+    this.bettingPanelService.bettingPanelControllerGetResumeSells().subscribe(data => {
+      this.resumeSells = data;
+      this.reloadingResumeSells = false;
+    }, error => {
+      this.reloadingResumeSells = false;
       throw new HttpErrorResponse(error);
     });
   }

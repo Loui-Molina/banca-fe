@@ -22,9 +22,10 @@ export interface Bet {
     modificationUserId: string;
 }
 export namespace Bet {
-    export type BetStatusEnum = 'cancelled' | 'pending' | 'winner' | 'loser';
+    export type BetStatusEnum = 'cancelled' | 'reclaimed' | 'pending' | 'winner' | 'loser';
     export const BetStatusEnum = {
         Cancelled: 'cancelled' as BetStatusEnum,
+        Reclaimed: 'reclaimed' as BetStatusEnum,
         Pending: 'pending' as BetStatusEnum,
         Winner: 'winner' as BetStatusEnum,
         Loser: 'loser' as BetStatusEnum

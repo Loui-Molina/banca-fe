@@ -129,7 +129,7 @@ export class ConsortiumLotteriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.bankingService.bankingControllerFindAll().subscribe(data => {
+    this.bankingService.bankingsControllerFindAll().subscribe(data => {
       this.bankings = data;
       this.loading = false;
     }, error => {

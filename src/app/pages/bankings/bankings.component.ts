@@ -60,7 +60,7 @@ export class BankingsComponent {
   userRole = User.RoleEnum;
   formABM: FormGroup;
   consortiums: any;
-  fetcher: Observable<BankingDto[]> = this.bankingService.bankingControllerFindAll();
+  fetcher: Observable<BankingDto[]> = this.bankingService.bankingsControllerFindAll();
 
   constructor(private datePipe: DatePipe,
               private formBuilder: FormBuilder,
@@ -79,9 +79,9 @@ export class BankingsComponent {
     }
   }
 
-  fetcherCreate: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerCreate(item);
-  fetcherUpdate: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerUpdate(item);
-  fetcherDelete: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerDelete(item._id);
+  fetcherCreate: (item) => Observable<Banking> = (item) => this.bankingService.bankingsControllerCreate(item);
+  fetcherUpdate: (item) => Observable<Banking> = (item) => this.bankingService.bankingsControllerUpdate(item);
+  fetcherDelete: (item) => Observable<Banking> = (item) => this.bankingService.bankingsControllerDelete(item._id);
 
   setValueForm(mode, defaultForm, visibleObject): any {
     if (mode === 'C') {
