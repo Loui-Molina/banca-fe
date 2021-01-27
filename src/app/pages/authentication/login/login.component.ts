@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {User} from '@banca-api/model/user';
 
 
 @Component({
@@ -37,19 +36,28 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     if (this.validateForm.valid) {
-      this.userService.login(this.validateForm.value.username,
-        this.validateForm.value.password).then(apiToken => {
-        this.navigate();
+      this.userService.login(this.validateForm.value.username, this.validateForm.value.password).then(value => {
+        this.userService.isLoginEnabled().then(isEnabled => {
+            // TODO ERROR MESSAGE
+            console.log(`is enabled = ${isEnabled}`);
+            if (isEnabled) {
+              console.log('continue cause it was enabled');
+              this.navigate();
+            } else {
+              console.log('loggin out cause it wasnt enabled');
+              this.userService.logout();
+            }
+          }
+        );
       }).catch(err => {
-        //TODO LOUI Verify connection to BE
         console.log(`error ${err}`);
         this.messageService.create('error', 'Usuario o contraseña incorrectos');
       });
     }
   }
 
-  private navigate() {
-    let routeCommands;
+  private navigate(): Promise<boolean> {
+    /*let routeCommands;
     if (this.userService.checkRoles([User.RoleEnum.Banker])) {
       routeCommands = ['banker'];
     } else if (this.userService.checkRoles([User.RoleEnum.Consortium])) {
@@ -59,6 +67,7 @@ export class LoginComponent implements OnInit {
     } else {
       alert('No role');
     }
+*/
     return this.router.navigate(['']);
   }
 }

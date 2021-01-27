@@ -15,7 +15,6 @@ export interface Transaction {
     _id: object;
     createdAt: string;
     amount: number;
-    description: string;
     type: Transaction.TypeEnum;
     lastBalance: number;
     actualBalance: number;
@@ -34,17 +33,15 @@ export namespace Transaction {
         Debit: 'debit' as TypeEnum,
         Adjust: 'adjust' as TypeEnum
     };
-    export type OriginObjectEnum = 'banking' | 'consortium' | 'unknown';
+    export type OriginObjectEnum = 'banking' | 'consortium';
     export const OriginObjectEnum = {
         Banking: 'banking' as OriginObjectEnum,
-        Consortium: 'consortium' as OriginObjectEnum,
-        Unknown: 'unknown' as OriginObjectEnum
+        Consortium: 'consortium' as OriginObjectEnum
     };
-    export type DestinationObjectEnum = 'banking' | 'consortium' | 'unknown';
+    export type DestinationObjectEnum = 'banking' | 'consortium';
     export const DestinationObjectEnum = {
         Banking: 'banking' as DestinationObjectEnum,
-        Consortium: 'consortium' as DestinationObjectEnum,
-        Unknown: 'unknown' as DestinationObjectEnum
+        Consortium: 'consortium' as DestinationObjectEnum
     };
 }
 

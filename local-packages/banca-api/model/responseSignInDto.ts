@@ -11,7 +11,9 @@
  */
 
 
-export interface ReclaimBetDto { 
-    sn: string;
+export interface ResponseSignInDto { 
+    accessToken: string;
+    expiresIn: string;
+    refreshToken: string;
 }
 
