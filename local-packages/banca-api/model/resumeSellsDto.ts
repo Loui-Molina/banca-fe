@@ -12,15 +12,15 @@
 
 
 export interface ResumeSellsDto { 
-    balance: string;
-    pendingPayments: string;
-    cancelledBets: string;
-    pendingBets: string;
-    winnerBets: string;
-    reclaimedBets: string;
-    loserBets: string;
-    totalBets: string;
-    totalSells: string;
-    totalAwards: string;
+    balance: number;
+    pendingPayments: number;
+    cancelledBets: number;
+    pendingBets: number;
+    winnerBets: number;
+    reclaimedBets: number;
+    loserBets: number;
+    totalBets: number;
+    totalSells: number;
+    totalAwards: number;
 }
 
