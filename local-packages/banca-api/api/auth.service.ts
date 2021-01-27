@@ -19,6 +19,7 @@ import { Observable }                                        from 'rxjs';
 
 import { ChangePasswordDto } from '../model/models';
 import { ResponseDto } from '../model/models';
+import { ResponseSignInDto } from '../model/models';
 import { SignInCredentialsDto } from '../model/models';
 import { SignUpCredentialsDto } from '../model/models';
 import { User } from '../model/models';
@@ -266,10 +267,10 @@ export class AuthService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<any>;
-    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpResponse<any>>;
-    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpEvent<any>>;
-    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined}): Observable<any> {
+    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public authControllerSingIn(signInCredentialsDto: SignInCredentialsDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (signInCredentialsDto === null || signInCredentialsDto === undefined) {
             throw new Error('Required parameter signInCredentialsDto was null or undefined when calling authControllerSingIn.');
         }
@@ -280,6 +281,7 @@ export class AuthService {
         if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
+                'application/json'
             ];
             httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }

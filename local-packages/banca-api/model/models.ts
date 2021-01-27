@@ -34,6 +34,7 @@ export * from './play';
 export * from './playNumbers';
 export * from './prizeLimit';
 export * from './responseDto';
+export * from './responseSignInDto';
 export * from './result';
 export * from './resultDto';
 export * from './resumeSellsDto';
