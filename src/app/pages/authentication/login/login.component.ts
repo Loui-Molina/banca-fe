@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {User} from '@banca-api/model/user';
 
 
 @Component({
@@ -14,6 +13,7 @@ import {User} from '@banca-api/model/user';
 export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
   loading: boolean;
+
   constructor(private fb: FormBuilder,
               private router: Router,
               private userService: UserService,
@@ -38,10 +38,21 @@ export class LoginComponent implements OnInit {
     }
     if (this.validateForm.valid) {
       this.loading = true;
-      this.userService.login(this.validateForm.value.username,
-        this.validateForm.value.password).then(apiToken => {
-        this.loading = false;
-        this.navigate();
+      this.userService.login(this.validateForm.value.username, this.validateForm.value.password).then(value => {
+        this.userService.isLoginEnabled().then(isEnabled => {
+            // TODO ERROR MESSAGE
+            this.loading = false;
+            console.log(`is enabled = ${isEnabled}`);
+            if (isEnabled) {
+              console.log('continue cause it was enabled');
+              this.navigate();
+            } else {
+              this.loading = false;
+              console.log('loggin out cause it wasnt enabled');
+              this.userService.logout();
+            }
+          }
+        );
       }).catch(err => {
         this.loading = false;
         //TODO LOUI Verify connection to BE
@@ -51,8 +62,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private navigate() {
-    let routeCommands;
+  private navigate(): Promise<boolean> {
+    /*let routeCommands;
     if (this.userService.checkRoles([User.RoleEnum.Banker])) {
       routeCommands = ['banker'];
     } else if (this.userService.checkRoles([User.RoleEnum.Consortium])) {
@@ -62,6 +73,7 @@ export class LoginComponent implements OnInit {
     } else {
       alert('No role');
     }
+*/
     return this.router.navigate(['']);
   }
 }

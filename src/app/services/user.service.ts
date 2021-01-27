@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-// @ts-ignore
 import jwtDecode from 'jwt-decode';
-import {User} from '@banca-api/model/user';
+import {AuthService, SignInCredentialsDto, User} from '../../../local-packages/banca-api';
+import {Subscription} from 'rxjs';
+import {HttpErrorResponse} from '@angular/common/http';
 
 export interface UserInterface {
   username: string;
@@ -37,7 +38,7 @@ export class MockUserService implements UserService {
     return !!loggedUser;
   }
 
-  login(username: string, password: string): Promise<string> {
+  login(username: string, password: string): Promise<Subscription> {
     return new Promise((resolve, reject) => {
       const actualUser = environment.users.find(value => value.username === username && value.password === password);
       if (actualUser) {
@@ -49,7 +50,7 @@ export class MockUserService implements UserService {
           role: actualUser.role
         };
         localStorage.setItem('loggedUser', JSON.stringify(userInterface));
-        resolve(JSON.stringify(userInterface));
+        resolve();
       } else {
         reject('Invalid username or password');
       }
@@ -60,11 +61,19 @@ export class MockUserService implements UserService {
   logout(): void {
     localStorage.clear();
   }
+
+  isLoginEnabled(): Promise<boolean> {
+    return Promise.resolve(true);
+  }
 }
 
 
 @Injectable({providedIn: 'root'})
 export class JWTUserService implements UserService {
+
+
+  constructor(private authService: AuthService) {
+  }
 
   getLoggedUser(): UserInterface {
     const accessToken = this.getApiToken();
@@ -101,33 +110,28 @@ export class JWTUserService implements UserService {
     return !!loggedUser;
   }
 
-  login(username: string, password: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const url = environment.urlApi + '/api/auth/sign-in';
-      const myHeaders = new Headers({
-        'Content-Type': 'application/json'
+  async login(username: string, password: string): Promise<Subscription> {
+    const promise = await this.authService.authControllerSingIn({username, password} as SignInCredentialsDto)
+      .toPromise()
+      .catch(reason => {
+        console.log(reason);
+        throw new HttpErrorResponse(reason);
       });
-      const myInit = {
-        method: 'POST',
-        headers: myHeaders,
-        body: JSON.stringify({username, password})
-      };
-      const myRequest = new Request(url, myInit);
-
-      fetch(myRequest).then(response => response.json())
-        .then(data => {
-          if (data && data.accessToken) {
-            localStorage.setItem('accessToken', data.accessToken);
-            localStorage.setItem('refreshToken', data.refreshToken);
-            resolve(data.accessToken);
-          }
-          reject(data.message);
-        });
-    });
+    if (promise && promise.accessToken) {
+      localStorage.setItem('accessToken', promise.accessToken);
+      localStorage.setItem('refreshToken', promise.refreshToken);
+    }
+    return promise;
   }
 
   logout(): void {
     localStorage.clear();
+  }
+
+  isLoginEnabled(): Promise<boolean> {
+    const promise: Promise<boolean> = this.authService.authControllerIsLoginEnabled().toPromise();
+    console.log(promise);
+    return promise;
   }
 }
 
@@ -144,5 +148,7 @@ export abstract class UserService {
 
   abstract checkRoles(requiredRoles: User.RoleEnum[]): boolean ;
 
-  abstract login(username: string, password: string): Promise<string>;
+  abstract login(username: string, password: string): Promise<Subscription>;
+
+  abstract isLoginEnabled(): Promise<boolean>;
 }

@@ -37,7 +37,6 @@ export * from './responseDto';
 export * from './responseSignInDto';
 export * from './result';
 export * from './resultDto';
-export * from './resumeSellsDto';
 export * from './signInCredentialsDto';
 export * from './signUpCredentialsDto';
 export * from './transaction';
