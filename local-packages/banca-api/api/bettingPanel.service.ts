@@ -19,8 +19,8 @@ import { Observable }                                        from 'rxjs';
 
 import { Bet } from '../model/models';
 import { BetDto } from '../model/models';
+import { ClaimBetDto } from '../model/models';
 import { CreateBetDto } from '../model/models';
-import { ReclaimBetDto } from '../model/models';
 import { ResumeSellsDto } from '../model/models';
 import { UpdateBetDto } from '../model/models';
 
@@ -134,6 +134,60 @@ export class BettingPanelService {
 
         return this.httpClient.put<BetDto>(`${this.configuration.basePath}/api/betting-panel/cancel`,
             updateBetDto,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param claimBetDto 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public bettingPanelControllerClaimTicket(claimBetDto: ClaimBetDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<BetDto>;
+    public bettingPanelControllerClaimTicket(claimBetDto: ClaimBetDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<BetDto>>;
+    public bettingPanelControllerClaimTicket(claimBetDto: ClaimBetDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<BetDto>>;
+    public bettingPanelControllerClaimTicket(claimBetDto: ClaimBetDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (claimBetDto === null || claimBetDto === undefined) {
+            throw new Error('Required parameter claimBetDto was null or undefined when calling bettingPanelControllerClaimTicket.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.put<BetDto>(`${this.configuration.basePath}/api/betting-panel/claim`,
+            claimBetDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -363,60 +417,6 @@ export class BettingPanelService {
         }
 
         return this.httpClient.get<any>(`${this.configuration.basePath}/api/betting-panel/resume/sells`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param reclaimBetDto 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public bettingPanelControllerReclaimTicket(reclaimBetDto: ReclaimBetDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<BetDto>;
-    public bettingPanelControllerReclaimTicket(reclaimBetDto: ReclaimBetDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<BetDto>>;
-    public bettingPanelControllerReclaimTicket(reclaimBetDto: ReclaimBetDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<BetDto>>;
-    public bettingPanelControllerReclaimTicket(reclaimBetDto: ReclaimBetDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (reclaimBetDto === null || reclaimBetDto === undefined) {
-            throw new Error('Required parameter reclaimBetDto was null or undefined when calling bettingPanelControllerReclaimTicket.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.put<BetDto>(`${this.configuration.basePath}/api/betting-panel/reclaim`,
-            reclaimBetDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

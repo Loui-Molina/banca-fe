@@ -17,7 +17,7 @@ export interface ResumeSellsDto {
     cancelledBets: number;
     pendingBets: number;
     winnerBets: number;
-    reclaimedBets: number;
+    claimedBets: number;
     loserBets: number;
     totalBets: number;
     totalSells: number;

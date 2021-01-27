@@ -210,7 +210,7 @@
             <nz-tag *ngIf="item.betStatus === betStatusEnum.Loser" [nzColor]="'grey'" style="padding: 0 2px 0 2px;">
               PERDEDOR
             </nz-tag>
-            <nz-tag *ngIf="item.betStatus === betStatusEnum.Reclaimed" [nzColor]="'gold'" style="padding: 0 2px 0 2px;">
+            <nz-tag *ngIf="item.betStatus === betStatusEnum.Claimed" [nzColor]="'gold'" style="padding: 0 2px 0 2px;">
               RECLAMADO
             </nz-tag>
           </div>
@@ -329,7 +329,7 @@
       <div class="item"><b>Tickets pendientes:</b><span>{{resumeSells.pendingBets}}</span></div>
       <div class="item"><b>Tickets perdedores:</b><span>{{resumeSells.loserBets}}</span></div>
       <div class="item"><b>Tickets ganadores:</b><span>{{resumeSells.winnerBets}}</span></div>
-      <div class="item"><b>Tickets reclamados:</b><span>{{resumeSells.reclaimedBets}}</span></div>
+      <div class="item"><b>Tickets reclamados:</b><span>{{resumeSells.claimedBets}}</span></div>
       <div class="item"><b>Total tickets:</b><span>{{resumeSells.totalBets}}</span></div>
       <div class="item"><b>Total ventas:</b><span>${{resumeSells.totalSells}}</span></div>
       <div class="item"><b>Total premios (ganadores + reclamados):</b><span>${{resumeSells.totalAwards}}</span></div>
@@ -391,7 +391,7 @@
                 style="padding: 0 2px 0 2px;">
           PERDEDOR
         </nz-tag>
-        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Reclaimed" [nzColor]="'gold'"
+        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Claimed" [nzColor]="'gold'"
                 style="padding: 0 2px 0 2px;">
           RECLAMADO
         </nz-tag>

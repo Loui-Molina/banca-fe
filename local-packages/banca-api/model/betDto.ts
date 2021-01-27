@@ -20,10 +20,10 @@ export interface BetDto {
     betStatus: BetDto.BetStatusEnum;
 }
 export namespace BetDto {
-    export type BetStatusEnum = 'cancelled' | 'reclaimed' | 'pending' | 'winner' | 'loser';
+    export type BetStatusEnum = 'cancelled' | 'claimed' | 'pending' | 'winner' | 'loser';
     export const BetStatusEnum = {
         Cancelled: 'cancelled' as BetStatusEnum,
-        Reclaimed: 'reclaimed' as BetStatusEnum,
+        Claimed: 'claimed' as BetStatusEnum,
         Pending: 'pending' as BetStatusEnum,
         Winner: 'winner' as BetStatusEnum,
         Loser: 'loser' as BetStatusEnum

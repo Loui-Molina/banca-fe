@@ -8,10 +8,10 @@ import {
   BankingLotteryDto,
   Bet,
   BetDto,
-  BettingPanelService,
+  BettingPanelService, ClaimBetDto,
   CreateBetDto,
   Play,
-  PlayNumbers, ReclaimBetDto,
+  PlayNumbers,
   ResultDto,
   ResultsService, ResumeSellsDto
 } from 'local-packages/banca-api';
@@ -613,10 +613,10 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   };
 
   onSubmitPayTicket = () => {
-    const body: ReclaimBetDto = {
+    const body: ClaimBetDto = {
       sn: this.payTicketValue
     };
-    this.bettingPanelService.bettingPanelControllerReclaimTicket(body).subscribe(value => {
+    this.bettingPanelService.bettingPanelControllerClaimTicket(body).subscribe(value => {
       this.reloadTickets();
       this.messageService.create('success', `Ticket pagado correctamente`, {nzDuration: 3000});
       this.payTicketValue = null;
