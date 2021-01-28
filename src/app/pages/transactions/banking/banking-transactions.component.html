@@ -10,7 +10,8 @@
       </thead>
       <tbody>
       <tr *ngFor="let item of basicTable.data">
-        <td *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'" class="table-td">
+        <td *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'" class="table-td"
+            [class.red]="column.type === 'numeric' && item[column.key] < 0">
           {{ column.valueFormatter ? column.valueFormatter(item, column) : item[column.key] }}
         </td>
       </tr>

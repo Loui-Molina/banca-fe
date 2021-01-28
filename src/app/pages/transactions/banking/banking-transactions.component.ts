@@ -21,9 +21,10 @@ export class BankingTransactionsComponent implements OnInit {
     {title: 'Fecha', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
     {title: 'Origen', key: 'originName'},
     {title: 'Destino', key: 'destinationName'},
-    {title: 'Monto', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Ultimo balance', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Balance actual', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Descripcion', key: 'description'},
+    {title: 'Monto', type: 'numeric', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Ultimo balance', type: 'numeric', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Balance actual', type: 'numeric', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
     {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
   ];
   transactions: TransactionDto[] = [];

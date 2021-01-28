@@ -13,7 +13,7 @@ import {User} from '@banca-api/model/user';
 })
 export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
-
+  loading: boolean;
   constructor(private fb: FormBuilder,
               private router: Router,
               private userService: UserService,
@@ -37,10 +37,13 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     if (this.validateForm.valid) {
+      this.loading = true;
       this.userService.login(this.validateForm.value.username,
         this.validateForm.value.password).then(apiToken => {
+        this.loading = false;
         this.navigate();
       }).catch(err => {
+        this.loading = false;
         //TODO LOUI Verify connection to BE
         console.log(`error ${err}`);
         this.messageService.create('error', 'Usuario o contraseña incorrectos');

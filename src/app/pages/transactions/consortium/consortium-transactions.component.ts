@@ -35,9 +35,10 @@ export class ConsortiumTransactionsComponent implements OnInit {
     {title: 'Fecha', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
     {title: 'Origen', key: 'originName'},
     {title: 'Destino', key: 'destinationName'},
-    {title: 'Monto', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Ultimo balance', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Balance actual', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Descripcion', key: 'description'},
+    {title: 'Monto', type: 'numeric', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Ultimo balance', type: 'numeric', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Balance actual', type: 'numeric', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
     {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
   ];
   transactions: TransactionDto[] = [];
@@ -63,6 +64,7 @@ export class ConsortiumTransactionsComponent implements OnInit {
         originId: [null, [Validators.required]],
         destinationId: [null, [Validators.required]],
         destinationObject: [null, [Validators.required]],
+        description: [null, [Validators.required]],
         amount: [null, [Validators.required, Validators.min(1)]]
       }
     );
@@ -98,13 +100,20 @@ export class ConsortiumTransactionsComponent implements OnInit {
   }
 
   onClickAcceptSubmit(): void {
+    const {amount,
+      originObject,
+      originId,
+      destinationId,
+      destinationObject,
+      description} = this.formTransaction.value;
     this.loading = true;
     const transaction: CreateTransactionDto = {
-      amount: this.formTransaction.value.amount,
-      originObject: this.formTransaction.value.originObject,
-      originId: this.formTransaction.value.originId,
-      destinationId: this.formTransaction.value.destinationId,
-      destinationObject: this.formTransaction.value.destinationObject
+      amount,
+      originObject,
+      originId,
+      destinationId,
+      destinationObject,
+      description,
     };
     this.transactionsService.transactionControllerCreateTransactionConsortium(transaction).subscribe(value => {
       this.loading = false;
