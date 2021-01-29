@@ -18,6 +18,7 @@ export interface BetDto {
     sn: string;
     date: string;
     betStatus: BetDto.BetStatusEnum;
+    amountWin: number;
 }
 export namespace BetDto {
     export type BetStatusEnum = 'cancelled' | 'claimed' | 'pending' | 'winner' | 'loser';

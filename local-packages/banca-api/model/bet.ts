@@ -18,6 +18,7 @@ export interface Bet {
     date: string;
     sn: string;
     betStatus: Bet.BetStatusEnum;
+    amountWin: number;
     deletionDate: string;
     modificationUserId: string;
 }
