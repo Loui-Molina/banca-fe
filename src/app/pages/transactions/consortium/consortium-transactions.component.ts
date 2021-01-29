@@ -114,7 +114,7 @@ export class ConsortiumTransactionsComponent implements OnInit {
       destinationId,
       destinationObject,
       description,
-    };
+    } as CreateTransactionDto;
     this.transactionsService.transactionControllerCreateTransactionConsortium(transaction).subscribe(value => {
       this.loading = false;
       this.messageService.create('success', 'Transaccion realizada correctamente');

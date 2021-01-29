@@ -8,12 +8,14 @@ import {
   BankingLotteryDto,
   Bet,
   BetDto,
-  BettingPanelService, ClaimBetDto,
+  BettingPanelService,
+  ClaimBetDto,
   CreateBetDto,
   Play,
   PlayNumbers,
   ResultDto,
-  ResultsService, ResumeSellsDto
+  ResultsService,
+  ResumeSellsDto
 } from 'local-packages/banca-api';
 import {forkJoin, Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -144,7 +146,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   regexPlay = (input) => {
     const match = input.value.match(/^(([0-9]+)?)+(\.|([Ss]+(([0-9]+)?)))?$/g);
-    if (!match){
+    if (!match) {
       input.value = this.lastInput;
     }
     this.lastInput = input.value;
@@ -211,11 +213,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.createBet();
       this.resetBet();
     }
-  };
+  }
 
   onCheckSuperPale = () => {
     this.superPale = !this.superPale;
-  };
+  }
 
   onSubmitBet = () => {
     if (this.plays.length <= 0) {
@@ -224,7 +226,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.modalOpened = true;
     this.modalConfirm = true;
     this.generatedBet = null;
-  };
+  }
 
   closeModalConfirm(): void {
     this.modalOpened = false;
@@ -252,21 +254,21 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.loadingSubmit = false;
       throw new HttpErrorResponse(error);
     });
-  };
+  }
 
   cleanAll = () => {
     this.number = null;
     this.amount = null;
     this.plays = [];
     this.selectedLotterys = [];
-  };
+  }
 
 
   onKeyEnterNumber = () => {
     if (this.number != null && this.number.length > 0) {
       this.inputAmount.nativeElement.focus();
     }
-  };
+  }
 
   getLimit = () => {
     if (this.number === null || this.number === undefined) {
@@ -297,7 +299,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       }
       return minor;
     }
-  };
+  }
 
   getPlaysToCreate(lottery: BankingLotteryDto, amount: number): PlayInterface[] {
     const playsToCreate: PlayInterface[] = [];
@@ -377,7 +379,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     } else {
       // Solo numeros
       const result = numbers.match(/.{1,2}/g);
-      if (result && result.length <= 3){
+      if (result && result.length <= 3) {
         if (result[result.length - 1].length === 1) {
           // Fixes last number
           result[result.length - 1] = result[result.length - 1];
@@ -433,7 +435,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
         playsToCreate = playsToCreate.concat(this.getPlaysToCreate(lottery, amount));
       }
     }
-    if (this.superPale){
+    if (this.superPale) {
       playsToCreate = playsToCreate.filter(play => play.playType === 'pale');
       for (const play of playsToCreate) {
         play.playType = Play.PlayTypeEnum.SuperPale;
@@ -484,11 +486,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.reloadResumeSells();
     }
     this[drawerName] = true;
-  };
+  }
 
   closeDrawer = (drawerName: string) => {
     this[drawerName] = false;
-  };
+  }
 
   disabledBet(): boolean {
     if (!this.number || !this.amount || this.amount === 0 || this.selectedLotterys.length === 0) {
@@ -526,7 +528,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   openTicket = (ticket: Bet) => {
     this.selectedTicket = ticket;
     this.openDrawer('drawerTicket');
-  };
+  }
 
   getSendWhatsApp = (bet: BetDto | Bet) => {
     // TODO Ver si tiene user y ponerle el numero como &phone=+5493543573840
@@ -538,7 +540,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       text += '📅: ' + this.datePipe.transform(bet.date, 'dd/MM/yyyy hh:mm:ss') + '\n\n';
       text += 'Tus jugadas son:\n';
       let sum = 0;
-      for (const play of bet.plays){
+      for (const play of bet.plays) {
         // TODO mostrar nombre de loteria
         text += `Loteria: ${play.lotteryId.toString()} - JUGADA: *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount} - TIPO: ${play.playType}\n`;
         sum += play.amount;
@@ -548,11 +550,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       text += 'Y buena suerte!! 🤞🏼🍀';
       return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
     }
-  };
+  }
 
   showParsedNumbers = (playNumbers: PlayNumbers) => {
     return showParsedNumbers(playNumbers);
-  };
+  }
 
   cloneTicket = (ticket: BetDto | Bet) => {
     this.modalOpened = true;
@@ -566,7 +568,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       nzOkText: this.ts('UTILS.CONFIRM'),
       nzCancelText: this.ts('UTILS.CANCEL')
     });
-  };
+  }
 
   cloneTicketSubmit = (ticket: BetDto | Bet) => {
     this.modalOpened = false;
@@ -589,11 +591,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       }
     });
     this.plays = plays;
-  };
+  }
 
   printTicket = (ticket: BetDto | Bet) => {
     printTicket(ticket);
-  };
+  }
 
   payTicket = () => {
     if (!this.payTicketValue) {
@@ -610,7 +612,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       nzOkText: this.ts('UTILS.CONFIRM'),
       nzCancelText: this.ts('UTILS.CANCEL')
     });
-  };
+  }
 
   onSubmitPayTicket = () => {
     const body: ClaimBetDto = {
@@ -624,14 +626,14 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }, error => {
       throw new HttpErrorResponse(error);
     });
-  };
+  }
 
   canCancelTicket = (ticket: Bet): boolean => {
     // @ts-ignore
     const diffMs = (new Date(ticket.date) - new Date());
     const diffMins = diffMs / 60000; // minutes
     return (diffMins > -5);
-  };
+  }
 
   cancelTicket = (ticket) => {
     if (!this.canCancelTicket(ticket)) {
@@ -649,7 +651,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       nzOkText: this.ts('UTILS.CONFIRM'),
       nzCancelText: this.ts('UTILS.CANCEL')
     });
-  };
+  }
 
   cancelTicketSubmit = (ticket) => {
     if (!this.canCancelTicket(ticket)) {
@@ -666,11 +668,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }, error => {
       throw new HttpErrorResponse(error);
     });
-  };
+  }
 
   getPanelSize = (size) => {
     return Math.floor(size);
-  };
+  }
 
   getSumBets(bets: PlayInterface[]): number {
     let sum = 0;

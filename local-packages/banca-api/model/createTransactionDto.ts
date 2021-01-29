@@ -27,15 +27,17 @@ export namespace CreateTransactionDto {
         Debit: 'debit' as TypeEnum,
         Adjust: 'adjust' as TypeEnum
     };
-    export type OriginObjectEnum = 'banking' | 'consortium';
+    export type OriginObjectEnum = 'banking' | 'consortium' | 'unknown';
     export const OriginObjectEnum = {
         Banking: 'banking' as OriginObjectEnum,
-        Consortium: 'consortium' as OriginObjectEnum
+        Consortium: 'consortium' as OriginObjectEnum,
+        Unknown: 'unknown' as OriginObjectEnum
     };
-    export type DestinationObjectEnum = 'banking' | 'consortium';
+    export type DestinationObjectEnum = 'banking' | 'consortium' | 'unknown';
     export const DestinationObjectEnum = {
         Banking: 'banking' as DestinationObjectEnum,
-        Consortium: 'consortium' as DestinationObjectEnum
+        Consortium: 'consortium' as DestinationObjectEnum,
+        Unknown: 'unknown' as DestinationObjectEnum
     };
 }
 
