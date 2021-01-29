@@ -40,24 +40,22 @@ export class LoginComponent implements OnInit {
       this.loading = true;
       this.userService.login(this.validateForm.value.username, this.validateForm.value.password).then(value => {
         this.userService.isLoginEnabled().then(isEnabled => {
-            // TODO ERROR MESSAGE
             this.loading = false;
-            console.log(`is enabled = ${isEnabled}`);
             if (isEnabled) {
-              console.log('continue cause it was enabled');
               this.navigate();
             } else {
-              this.loading = false;
-              console.log('loggin out cause it wasnt enabled');
               this.userService.logout();
             }
           }
         );
       }).catch(err => {
         this.loading = false;
-        //TODO LOUI Verify connection to BE
-        console.log(`error ${err}`);
-        this.messageService.create('error', 'Usuario o contraseña incorrectos');
+        if (err.status === 0) {
+          this.messageService.create('error', 'Sin coneccion');
+        } else {
+          this.messageService.create('error', 'Usuario o contraseña incorrectos');
+
+        }
       });
     }
   }
