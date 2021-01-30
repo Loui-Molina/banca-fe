@@ -90,4 +90,8 @@ export class ConsortiumsComponent implements OnInit {
       this.enumUsers = res;
     });
   }
+
+  print(visibleObject: any) {
+    console.log(visibleObject);
+  }
 }

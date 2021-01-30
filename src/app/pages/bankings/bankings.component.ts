@@ -52,6 +52,9 @@ export class BankingsComponent {
     status: true,
     selectedConsortium: null,
     showPercentage: true,
+    earningPercentage: null,
+    // header: null,
+    // footer: null,
     ownerName: null,
     username: null,
     password: null
@@ -84,12 +87,17 @@ export class BankingsComponent {
   fetcherDelete: (item) => Observable<Banking> = (item) => this.bankingService.bankingsControllerDelete(item._id);
 
   setValueForm(mode, defaultForm, visibleObject): any {
+    console.log({visibleObject});
+
     if (mode === 'C') {
       return {
         name: null,
         status: true,
         selectedConsortium: null,
-        showPercentage: true,
+        showPercentage: false,
+        earningPercentage: null,
+        // header: null,
+        // footer: null,
         ownerName: null,
         username: null,
         password: null
@@ -100,20 +108,26 @@ export class BankingsComponent {
         status: visibleObject.status,
         selectedConsortium: visibleObject.consortiumId,
         showPercentage: visibleObject.showPercentage,
+        earningPercentage: visibleObject.earningPercentage,
+        // header: visibleObject.header,
+        // footer: visibleObject.footer,
         ownerName: visibleObject.ownerName,
         username: visibleObject.ownerUsername,
-        password: null
+        password: null,
       };
     }
   }
 
+// TODO add new fields
   parseData = (mode: string, valueForm, visibleObject): CreateBankingDto | UpdateBankingDto => {
+    console.log({visibleObject});
     if (mode === 'C') {
       return {
         banking: {
           name: valueForm.name,
           status: valueForm.status,
-          showPercentage: valueForm.showPercentage
+          showPercentage: valueForm.showPercentage,
+          earningPercentage: valueForm.earningPercentage
         } as BankingDto,
         user: {username: valueForm.username, password: valueForm.password, name: valueForm.ownerName} as SignUpCredentialsDto,
         consortiumId: valueForm.selectedConsortium
@@ -130,14 +144,18 @@ export class BankingsComponent {
       } as UpdateBankingDto;
     }
   };
+
   getValidators = (mode: string) => {
     return {
       name: [Validators.required],
       status: [Validators.required],
-      showPercentage: [Validators.required],
       selectedConsortium: [Validators.required],
+      showPercentage: [Validators.required],
+      earningPercentage: [Validators.required],
+      header: (mode === 'C') ? [Validators.required] : [],
+      footer: (mode === 'C') ? [Validators.required] : [],
       ownerName: [Validators.required],
-      username: [Validators.required, Validators.minLength(4)],
+      username: [Validators.required],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35)
@@ -145,4 +163,8 @@ export class BankingsComponent {
         Validators.maxLength(35)]
     };
   };
+
+  getConsortiumName(consortiumId: any): string {
+    return this.consortiums.find(consortium => consortium._id === consortiumId).name;
+  }
 }

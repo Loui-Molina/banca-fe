@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 import { Consortium } from '../model/models';
 import { ConsortiumDto } from '../model/models';
 import { CreateConsortiumDto } from '../model/models';
+import { UpdateConsortiumDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -361,16 +362,16 @@ export class ConsortiumsService {
     }
 
     /**
-     * @param createConsortiumDto 
+     * @param updateConsortiumDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public consortiumControllerUpdate(createConsortiumDto: CreateConsortiumDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Consortium>;
-    public consortiumControllerUpdate(createConsortiumDto: CreateConsortiumDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Consortium>>;
-    public consortiumControllerUpdate(createConsortiumDto: CreateConsortiumDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Consortium>>;
-    public consortiumControllerUpdate(createConsortiumDto: CreateConsortiumDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (createConsortiumDto === null || createConsortiumDto === undefined) {
-            throw new Error('Required parameter createConsortiumDto was null or undefined when calling consortiumControllerUpdate.');
+    public consortiumControllerUpdate(updateConsortiumDto: UpdateConsortiumDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Consortium>;
+    public consortiumControllerUpdate(updateConsortiumDto: UpdateConsortiumDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Consortium>>;
+    public consortiumControllerUpdate(updateConsortiumDto: UpdateConsortiumDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Consortium>>;
+    public consortiumControllerUpdate(updateConsortiumDto: UpdateConsortiumDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (updateConsortiumDto === null || updateConsortiumDto === undefined) {
+            throw new Error('Required parameter updateConsortiumDto was null or undefined when calling consortiumControllerUpdate.');
         }
 
         let headers = this.defaultHeaders;
@@ -403,7 +404,7 @@ export class ConsortiumsService {
         }
 
         return this.httpClient.put<Consortium>(`${this.configuration.basePath}/api/consortiums`,
-            createConsortiumDto,
+            updateConsortiumDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

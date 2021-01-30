@@ -10,6 +10,7 @@ import {AdminLotteriesService, AdminLotteryResDto} from 'local-packages/banca-ap
 import DayEnum = AdminLotteryResDto.DayEnum;
 
 // TODO check all's working
+// TODO add color to table
 @Component({
   selector: 'app-lotteries-admin',
   templateUrl: './admin-lotteries.component.html',

@@ -64,29 +64,18 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <div class="description">
-          <span>
-            {{'Nombre'|translate}}:
-          </span>
-        <b>{{visibleObject.name}}</b>
-      </div>
-
-      <div class="description">
-          <span>
-              {{'Usuario'|translate}}:
-          </span>
-        <b>{{visibleObject.ownerUsername}}</b>
-      </div>
-
-      <div class="description">
-        <span>
-          {{'Estado'|translate}}:
-        </span>
-        <b>{{visibleObject.status ? 'Habilitada' : 'Inhabilitada'}}</b>
-      </div>
+      <nz-descriptions [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }" [nzTitle]="'Consorcio'|translate">
+        <nz-descriptions-item [nzTitle]="'Nombre'|translate">
+          {{visibleObject.name}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Usuario'|translate">
+          {{visibleObject.ownerUsername}}
+        </nz-descriptions-item>
+        <nz-descriptions-item
+          [nzTitle]="'Estado'|translate">{{visibleObject.status ? 'Habilitada' : 'Inhabilitada'}}</nz-descriptions-item>
+      </nz-descriptions>
 
       <nz-divider [nzText]="'Bancas'" class="title" nzOrientation="left"></nz-divider>
-
       <nz-table [nzData]="visibleObject.bankings"
                 [nzSize]="'small'"
                 nzLoading="false"

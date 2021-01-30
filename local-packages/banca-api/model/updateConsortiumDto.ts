@@ -9,9 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { SignUpCredentialsDto } from './signUpCredentialsDto';
 
 
-export interface ReclaimBetDto { 
-    sn: string;
+export interface UpdateConsortiumDto { 
+    user: SignUpCredentialsDto;
+    _id?: object;
+    ownerUserId?: object;
+    name: string;
+    status: boolean;
 }
 

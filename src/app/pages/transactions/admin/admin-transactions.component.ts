@@ -114,7 +114,7 @@ export class AdminTransactionsComponent implements OnInit {
       destinationId,
       destinationObject,
       description
-    };
+    } as CreateTransactionDto;
     this.transactionsService.transactionControllerCreateTransactionAdmin(transaction).subscribe(value => {
       this.loading = false;
       this.messageService.create('success', 'Transaccion realizada correctamente');

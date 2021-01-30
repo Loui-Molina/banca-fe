@@ -22,5 +22,6 @@ export interface BankingDto {
     createdAt: string;
     startOfOperation: string;
     showPercentage: boolean;
+    earningPercentage: number;
 }
 
