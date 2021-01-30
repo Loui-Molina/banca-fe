@@ -113,7 +113,7 @@ export class CommonService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/common/establishmentName`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/common/establishment-name`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

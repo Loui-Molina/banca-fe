@@ -251,7 +251,7 @@ export class AuthService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/auth/isEnabled`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/auth/is-enabled`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
