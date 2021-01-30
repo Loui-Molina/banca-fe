@@ -210,7 +210,7 @@
             <nz-tag *ngIf="item.betStatus === betStatusEnum.Loser" [nzColor]="'grey'" style="padding: 0 2px 0 2px;">
               PERDEDOR
             </nz-tag>
-            <nz-tag *ngIf="item.betStatus === betStatusEnum.Claimed" [nzColor]="'gold'" style="padding: 0 2px 0 2px;">
+            <nz-tag *ngIf="item.betStatus === betStatusEnum.Claimed" [nzColor]="'green'" style="padding: 0 2px 0 2px;">
               RECLAMADO
             </nz-tag>
           </div>
@@ -391,7 +391,7 @@
                 style="padding: 0 2px 0 2px;">
           PERDEDOR
         </nz-tag>
-        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Claimed" [nzColor]="'gold'"
+        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Claimed" [nzColor]="'green'"
                 style="padding: 0 2px 0 2px;">
           RECLAMADO
         </nz-tag>
@@ -400,6 +400,9 @@
       <h3>SN: {{selectedTicket.sn}}</h3>
       <p>Fecha: {{selectedTicket.date | date: 'dd/MM/yyyy'}}</p>
       <p>Hora: {{selectedTicket.date | date: 'HH:mm:ss'}}</p>
+      <ng-container *ngIf="[betStatusEnum.Winner, betStatusEnum.Claimed].includes(selectedTicket.betStatus)">
+        <h3>GANO: ${{selectedTicket.amountWin}}</h3>
+      </ng-container>
       <nz-table [nzData]="selectedTicket.plays"
                 [nzSize]="'small'"
                 nzLoading="false"

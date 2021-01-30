@@ -24,6 +24,7 @@ export interface TransactionDto {
     originName: string;
     destinationObject: TransactionDto.DestinationObjectEnum;
     destinationName: string;
+    description: string;
 }
 export namespace TransactionDto {
     export type TypeEnum = 'credit' | 'debit' | 'adjust';

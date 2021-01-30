@@ -17,16 +17,19 @@ export interface BetDto {
     plays: Array<Play>;
     sn: string;
     date: string;
+    claimDate: string;
     betStatus: BetDto.BetStatusEnum;
+    amountWin: number;
 }
 export namespace BetDto {
-    export type BetStatusEnum = 'cancelled' | 'claimed' | 'pending' | 'winner' | 'loser';
+    export type BetStatusEnum = 'cancelled' | 'claimed' | 'pending' | 'winner' | 'loser' | 'expired';
     export const BetStatusEnum = {
         Cancelled: 'cancelled' as BetStatusEnum,
         Claimed: 'claimed' as BetStatusEnum,
         Pending: 'pending' as BetStatusEnum,
         Winner: 'winner' as BetStatusEnum,
-        Loser: 'loser' as BetStatusEnum
+        Loser: 'loser' as BetStatusEnum,
+        Expired: 'expired' as BetStatusEnum
     };
 }
 

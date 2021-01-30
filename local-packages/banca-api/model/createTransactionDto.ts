@@ -17,6 +17,7 @@ export interface CreateTransactionDto {
     originId: object;
     destinationId: object;
     amount: number;
+    description: string;
     originObject: CreateTransactionDto.OriginObjectEnum;
     destinationObject: CreateTransactionDto.DestinationObjectEnum;
 }
