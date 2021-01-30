@@ -20,25 +20,27 @@ import {NzButtonModule} from 'ng-zorro-antd/button';
 import {SharedBankingsTableComponent} from './shared/shared-bankings-table/shared-bankings-table.component';
 import {AdminConsortiumsTableComponent} from './admin/admin-consortiums-table/admin-consortiums-table.component';
 import {NzTableModule} from 'ng-zorro-antd/table';
+import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    NzListModule,
-    NzTypographyModule,
-    LineChartModule,
-    PieChartModule,
-    NzGridModule,
-    ComponentsModule,
-    NzIconModule,
-    NzCalendarModule,
-    NzDividerModule,
-    TranslateModule,
-    NgxGraphModule,
-    NzButtonModule,
-    NzTableModule
-  ],
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        NzListModule,
+        NzTypographyModule,
+        LineChartModule,
+        PieChartModule,
+        NzGridModule,
+        ComponentsModule,
+        NzIconModule,
+        NzCalendarModule,
+        NzDividerModule,
+        TranslateModule,
+        NgxGraphModule,
+        NzButtonModule,
+        NzTableModule,
+        NzToolTipModule
+    ],
   declarations: [DashboardComponent,
     BankingComponent,
     ConsortiumComponent,

@@ -12,7 +12,7 @@ export class BankingComponent implements OnInit {
 
   ticketsSold = 0;
   profits = 0;
-  losses = 0;
+  awards = 0;
   balance = 0;
   single = [
     {
@@ -37,7 +37,7 @@ export class BankingComponent implements OnInit {
     this.dashboardService.dashboardControllerGetBankingWidgetsStatistics().subscribe(res => {
       this.ticketsSold = res.ticketsSold;
       this.profits = res.profits;
-      this.losses = res.losses;
+      this.awards = res.awards;
       this.balance = res.balance;
     }, error => {
       throw new HttpErrorResponse(error);

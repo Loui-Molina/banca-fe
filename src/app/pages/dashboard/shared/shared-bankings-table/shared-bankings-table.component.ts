@@ -9,18 +9,19 @@ import {DashboardBankingDto, DashboardConsortiumDto, DashboardService} from 'loc
 })
 export class SharedBankingsTableComponent implements OnInit {
   columns: ColumnItem[] = [
-    {name: 'BANCA'},
-    {name: 'W'},
-    {name: 'P'},
-    {name: 'L'},
-    {name: 'C'},
-    {name: 'TOTAL'},
-    {name: 'VENTA'},
-    {name: 'PREMIOS'},
-    {name: '%'},
-    {name: 'DESC'},
-    {name: 'NETO'},
-    {name: 'Balance'}];
+    {title: 'Banca', key: 'name', sum: false, titleFooter: 'Total', width: '100px'},
+    {title: 'W', tooltip: 'Winner', key: 'winner', sum: true},
+    {title: 'L', tooltip: 'Loser', key: 'loser', sum: true},
+    {title: 'P', tooltip: 'Pending', key: 'pending', sum: true},
+    {title: 'C', tooltip: 'Claimed', key: 'claimed', sum: true},
+    {title: 'E', tooltip: 'Expired', key: 'expired', sum: true},
+    {title: 'Ca', tooltip: 'Cancelled', key: 'cancelled', sum: true},
+    {title: 'T', tooltip: 'Total', key: 'total', sum: true},
+    {title: 'Profits', tooltip: 'Profits', key: 'profits', sum: true, prefix: '$'},
+    {title: 'Awards', tooltip: 'Awards', key: 'awards', sum: true, prefix: '$'},
+    {title: 'P. Awards', tooltip: 'Pending awards', key: 'pendingAwards', sum: true, prefix: '$'},
+    {title: 'Balance', tooltip: 'Balance', key: 'balance', sum: true, prefix: '$'},
+  ];
   bankings: DashboardBankingDto[] = [];
 
   constructor(private dashboardService: DashboardService) {
@@ -45,5 +46,11 @@ export class SharedBankingsTableComponent implements OnInit {
 }
 
 interface ColumnItem {
-  name: string;
+  title: string;
+  key: string;
+  prefix?: string;
+  tooltip?: string;
+  width?: string;
+  titleFooter?: string;
+  sum: boolean;
 }

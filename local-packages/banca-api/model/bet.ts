@@ -24,13 +24,14 @@ export interface Bet {
     modificationUserId: string;
 }
 export namespace Bet {
-    export type BetStatusEnum = 'cancelled' | 'claimed' | 'pending' | 'winner' | 'loser';
+    export type BetStatusEnum = 'cancelled' | 'claimed' | 'pending' | 'winner' | 'loser' | 'expired';
     export const BetStatusEnum = {
         Cancelled: 'cancelled' as BetStatusEnum,
         Claimed: 'claimed' as BetStatusEnum,
         Pending: 'pending' as BetStatusEnum,
         Winner: 'winner' as BetStatusEnum,
-        Loser: 'loser' as BetStatusEnum
+        Loser: 'loser' as BetStatusEnum,
+        Expired: 'expired' as BetStatusEnum
     };
 }
 
