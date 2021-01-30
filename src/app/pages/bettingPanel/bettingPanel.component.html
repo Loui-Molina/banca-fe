@@ -213,6 +213,9 @@
             <nz-tag *ngIf="item.betStatus === betStatusEnum.Claimed" [nzColor]="'green'" style="padding: 0 2px 0 2px;">
               RECLAMADO
             </nz-tag>
+            <nz-tag *ngIf="item.betStatus === betStatusEnum.Expired" [nzColor]="'red'" style="padding: 0 2px 0 2px;">
+              EXPIRADO
+            </nz-tag>
           </div>
           <ul nz-list-item-actions>
             <nz-list-item-action>
@@ -395,6 +398,10 @@
         <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Claimed" [nzColor]="'green'"
                 style="padding: 0 2px 0 2px;">
           RECLAMADO
+        </nz-tag>
+        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Expired" [nzColor]="'red'"
+                style="padding: 0 2px 0 2px;">
+          EXPIRADO
         </nz-tag>
       </div>
       <h2>ID: {{selectedTicket._id.toString()}}</h2>
