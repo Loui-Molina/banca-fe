@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {DashboardConsortiumDto, DashboardService} from 'local-packages/banca-api';
+import {DashboardBankingDto, DashboardConsortiumDto, DashboardService} from 'local-packages/banca-api';
 
 @Component({
   selector: 'app-admin-consortiums-table',
@@ -34,12 +34,13 @@ export class AdminConsortiumsTableComponent implements OnInit {
     });
   }
 
-  getColumnTotal(field: string): DashboardConsortiumDto[] {
-    const initialValue = 0;
-    return this.consortiums.reduce(
-      (accumulator, currentValue) =>
-        accumulator + (currentValue[field]) ? currentValue[field] : 0, initialValue
-    );
+  getColumnTotal(field: string): DashboardBankingDto | number {
+    const value = this.consortiums.reduce((a, b) => {
+      return (
+        a[field] + b[field]
+      );
+    });
+    return value ? value : 0;
   }
 }
 

@@ -17,6 +17,7 @@ export interface BetDto {
     plays: Array<Play>;
     sn: string;
     date: string;
+    claimDate: string;
     betStatus: BetDto.BetStatusEnum;
     amountWin: number;
 }

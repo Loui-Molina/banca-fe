@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {DashboardBankingDto, DashboardService} from 'local-packages/banca-api';
+import {DashboardBankingDto, DashboardConsortiumDto, DashboardService} from 'local-packages/banca-api';
 
 @Component({
   selector: 'app-shared-bankings-table',
@@ -34,12 +34,13 @@ export class SharedBankingsTableComponent implements OnInit {
     });
   }
 
-  getColumnTotal(field: string): DashboardBankingDto[] {
-    const initialValue = 0;
-    return this.bankings.reduce(
-      (accumulator, currentValue) =>
-        accumulator + (currentValue[field]) ? currentValue[field] : 0, initialValue
-    );
+  getColumnTotal(field: string): DashboardBankingDto | number {
+    const value = this.bankings.reduce((a, b) => {
+      return (
+        a[field] + b[field]
+      );
+    });
+    return value ? value : 0;
   }
 }
 
