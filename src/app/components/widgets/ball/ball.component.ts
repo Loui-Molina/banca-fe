@@ -6,8 +6,8 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./ball.component.scss']
 })
 export class BallComponent implements OnInit {
-  @Input('title') title: string;
-  @Input('description') description: string;
+  @Input('title') title: string | number;
+  @Input('description') description: string | number;
   @Input('size') size = 'medium';
   @Input('background') background: string;
   @Input('disabled') disabled: boolean;

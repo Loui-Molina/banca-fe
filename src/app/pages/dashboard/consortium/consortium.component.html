@@ -51,7 +51,7 @@
     <app-title-divider title="TOP 10 numeros mas jugados durante el dia"></app-title-divider>
     <div class="balls-container">
       <p *ngIf="numbersPlayed.length === 0">{{'Todavia no se hicieron apuestas' | translate}}</p>
-      <app-ball *ngFor="let item of numbersPlayed" [background]="item.amount > 50 ? 'red' : 'grey'" [description]="item.amount+' vez/veces'" [title]="formatResult(item.number)"></app-ball>
+      <app-ball *ngFor="let item of numbersPlayed" [background]="item.amount > 50 ? 'red' : 'grey'" [description]="item.amount" [title]="formatResult(item.number)"></app-ball>
     </div>
   </div>
 </div>
