@@ -580,14 +580,17 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       // tslint:disable-next-line:no-shadowed-variable
       const lottery = this.lotterys.filter((lottery) => lottery._id.toString() === play.lotteryId.toString()).pop();
       if (lottery && lottery.status && lottery.leftTime > 0) {
-        plays.push({
-          lotteryNickName: lottery.nickname,
-          uuid: uuidv4(),
-          playNumbers: play.playNumbers,
-          lotteryId: play.lotteryId,
-          playType: play.playType,
-          amount: play.amount
-        });
+        const bettingLimit = lottery.bettingLimits.find(bl => bl.playType === play.playType && bl.status === true);
+        if (!bettingLimit || play.amount <= bettingLimit.betAmount) {
+          plays.push({
+            lotteryNickName: lottery.nickname,
+            uuid: uuidv4(),
+            playNumbers: play.playNumbers,
+            lotteryId: play.lotteryId,
+            playType: play.playType,
+            amount: play.amount
+          });
+        }
       }
     });
     this.plays = plays;
