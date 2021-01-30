@@ -14,7 +14,7 @@
 export interface DashboardWidgetsDto { 
     ticketsSold: number;
     profits: number;
-    awards: number;
+    prizes: number;
     balance: number;
 }
 

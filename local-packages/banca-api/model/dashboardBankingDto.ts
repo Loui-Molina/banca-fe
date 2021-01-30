@@ -22,8 +22,8 @@ export interface DashboardBankingDto {
     loser: number;
     total: number;
     profits: number;
-    awards: number;
-    pendingAwards: number;
+    prizes: number;
+    pendingPrizes: number;
     balance: number;
 }
 

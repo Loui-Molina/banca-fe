@@ -18,8 +18,8 @@ export class AdminConsortiumsTableComponent implements OnInit {
     {title: 'Ca', tooltip: 'Cancelled', key: 'cancelled', sum: true},
     {title: 'T', tooltip: 'Total', key: 'total', sum: true},
     {title: 'Profits', tooltip: 'Profits', key: 'profits', sum: true, prefix: '$'},
-    {title: 'Awards', tooltip: 'Awards', key: 'awards', sum: true, prefix: '$'},
-    {title: 'P. Awards', tooltip: 'Pending awards', key: 'pendingAwards', sum: true, prefix: '$'},
+    {title: 'Prizes', tooltip: 'Prizes', key: 'prizes', sum: true, prefix: '$'},
+    {title: 'P. Prizes', tooltip: 'Pending prizes', key: 'pendingPrizes', sum: true, prefix: '$'},
     {title: 'Balance', tooltip: 'Balance', key: 'balance', sum: true, prefix: '$'},
   ];
   consortiums: DashboardConsortiumDto[] = [];
