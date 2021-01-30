@@ -19,6 +19,7 @@ import {NzInputModule} from 'ng-zorro-antd/input';
 import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
 import {NzSelectModule} from 'ng-zorro-antd/select';
 import {NzSwitchModule} from 'ng-zorro-antd/switch';
+import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import {NzSwitchModule} from 'ng-zorro-antd/switch';
     NzInputModule,
     NzCheckboxModule,
     NzSelectModule,
-    NzSwitchModule
+    NzSwitchModule,
+    NzDescriptionsModule
   ],
   declarations: [ConsortiumsComponent],
   exports: [ConsortiumsComponent],

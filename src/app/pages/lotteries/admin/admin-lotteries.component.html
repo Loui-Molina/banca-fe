@@ -108,53 +108,31 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <div class="description">
-        <span>
-          {{'Nombre'|translate}}:
-        </span>
-        <b>{{visibleObject.name}}</b>
-      </div>
+      <nz-descriptions [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }" [nzTitle]="'Loteria'| translate">
+        <nz-descriptions-item [nzTitle]="'Nombre'|translate">
+          {{visibleObject.name}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Alias'|translate">
+          {{visibleObject.nickname}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Horario de juego'|translate">
+          {{visibleObject.playTime}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Horario apertura'|translate">
+          {{visibleObject.openTime}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Horario cierre'|translate">
+          {{visibleObject.closeTime}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Estado'|translate">
+          {{visibleObject.status ? 'Habilitada' : 'Inhabilitada'}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Color'|translate">
+          <nz-tag [nzColor]="visibleObject.color">{{visibleObject.color}}</nz-tag>
+          <!--          <div [ngStyle]="{backgroundColor:visibleObject.color}" class="box"></div>-->
+        </nz-descriptions-item>
+      </nz-descriptions>
 
-      <div class="description">
-        <span>
-            {{'Alias'|translate}}:
-        </span>
-        <b>{{visibleObject.nickname}}</b>
-      </div>
-
-      <div class="description">
-        <span>
-            {{'Horario de juego'|translate}}:
-        </span>
-        <b>{{visibleObject.playTime}}</b>
-      </div>
-
-      <div class="description">
-        <span>
-            {{'Horario apertura'|translate}}:
-        </span>
-        <b>{{visibleObject.openTime}}</b>
-      </div>
-
-      <div class="description">
-        <span>
-          {{'Horario cierre'|translate}}:
-        </span>
-        <b>{{visibleObject.closeTime}}</b>
-      </div>
-
-      <div class="description">
-        <span>
-          {{'Estado'|translate}}:
-        </span>
-        <b>{{visibleObject.status ? 'Habilitada' : 'Inhabilitada'}}</b>
-      </div>
-      <div class="description color">
-        <span>
-          {{'Color'|translate}}:
-        </span>
-        <div [ngStyle]="{backgroundColor:visibleObject.color}" class="box"></div>
-      </div>
       <div class="schedule">
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Mon)" class="schedule-day">
           <span class="title">{{days.Mon}}</span>

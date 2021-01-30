@@ -16,6 +16,5 @@ export interface Banking {
     consortiumId: object;
     startOfOperation: string;
     status: boolean;
-    bankingFeeLimits: Array<string>;
 }
 
