@@ -39,23 +39,19 @@
       <app-bar-chart [results]="barChartDataBankings" xAxisLabel="Bancas" yAxisLabel="Balance"></app-bar-chart>
     </div>
   </div>
-  <!--<div nz-col nzXs="24" nzXl="12">
+  <div nz-col nzXl="12" nzXs="24">
     <div class="inner-content mb-20" style="min-height: 460px;">
-      <app-title-divider title="Ganancias vs Perdidas"></app-title-divider>
-      <app-pie-chart [height]="400" [results]="single"></app-pie-chart>
+      <app-title-divider title="Ventas vs Perdidas"></app-title-divider>
+      <app-pie-chart [height]="400" [results]="pieChartData"></app-pie-chart>
     </div>
-  </div>-->
+  </div>
 </div>
 <div nz-col nzXs="24" style="padding-bottom: 10px;">
   <div class="inner-content mb-20">
     <app-title-divider title="TOP 10 numeros mas jugados durante el dia"></app-title-divider>
     <div class="balls-container">
-      <app-ball [background]="'red'" [description]="'91 veces'" [title]="'11'"></app-ball>
-      <app-ball [background]="'red'" [description]="'86 veces'" [title]="'00'"></app-ball>
-      <app-ball [background]="'red'" [description]="'60 veces'" [title]="'47'"></app-ball>
-      <app-ball [background]="'grey'" [description]="'58 veces'" [title]="'74'"></app-ball>
-      <app-ball [background]="'grey'" [description]="'49 veces'" [title]="'22'"></app-ball>
-      <app-ball [background]="'grey'" [description]="'44 veces'" [title]="'25'"></app-ball>
+      <p *ngIf="numbersPlayed.length === 0">{{'Todavia no se hicieron apuestas' | translate}}</p>
+      <app-ball *ngFor="let item of numbersPlayed" [background]="item.amount > 50 ? 'red' : 'grey'" [description]="item.amount+' vez/veces'" [title]="formatResult(item.number)"></app-ball>
     </div>
   </div>
 </div>

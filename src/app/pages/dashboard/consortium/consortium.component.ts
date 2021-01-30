@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {DashboardGraphBankingDto, DashboardService} from 'local-packages/banca-api';
+import {DashboardGraphBankingDto, DashboardService, PlayedNumbersDto} from 'local-packages/banca-api';
 
 @Component({
   selector: 'app-dashboard-consortium',
@@ -15,18 +15,14 @@ export class ConsortiumComponent implements OnInit {
   prizes = 0;
   balance = 0;
   barChartDataBankings: DashboardGraphBankingDto[] = [];
-  single = [
-    {
-      name: 'Ganancias',
-      value: 541
-    },
-    {
-      name: 'Perdidas',
-      value: 233
-    }
-  ];
+  pieChartData = [];
+  numbersPlayed: PlayedNumbersDto[] = [];
 
   constructor(private dashboardService: DashboardService) {
+  }
+
+  formatResult(value: number): string {
+    return String(value).padStart(2, '0');
   }
 
   ngOnInit(): void {
@@ -40,6 +36,21 @@ export class ConsortiumComponent implements OnInit {
       this.profits = res.profits;
       this.prizes = res.prizes;
       this.balance = res.balance;
+      this.pieChartData = [
+        {
+          name: 'Ventas',
+          value: res.profits
+        },
+        {
+          name: 'Perdidas',
+          value: res.prizes
+        }
+      ];
+    }, error => {
+      throw new HttpErrorResponse(error);
+    });
+    this.dashboardService.dashboardControllerGetConsortiumPlayedNumbersStatistics().subscribe(res => {
+      this.numbersPlayed = res.numbers;
     }, error => {
       throw new HttpErrorResponse(error);
     });
