@@ -19,7 +19,7 @@ export class AdminComponent implements OnInit {
   miniMapPosition = MiniMapPosition;
   ticketsSold = 0;
   profits = 0;
-  awards = 0;
+  prizes = 0;
   balance = 0;
   clusters: DashboardDiagramClusterDto[] = [];
   nodes: DashboardDiagramNodeDto[] = [];
@@ -51,7 +51,7 @@ export class AdminComponent implements OnInit {
     this.dashboardService.dashboardControllerGetAdminWidgetsStatistics().subscribe(res => {
       this.ticketsSold = res.ticketsSold;
       this.profits = res.profits;
-      this.awards = res.awards;
+      this.prizes = res.prizes;
       this.balance = res.balance;
     }, error => {
       throw new HttpErrorResponse(error);
