@@ -12,15 +12,16 @@
 
 
 export interface ResumeSellsDto { 
+    cancelled: number;
+    expired: number;
+    claimed: number;
+    pending: number;
+    winner: number;
+    loser: number;
+    total: number;
+    profits: number;
+    prizes: number;
+    pendingPrizes: number;
     balance: number;
-    pendingPayments: number;
-    cancelledBets: number;
-    pendingBets: number;
-    winnerBets: number;
-    claimedBets: number;
-    loserBets: number;
-    totalBets: number;
-    totalSells: number;
-    totalAwards: number;
 }
 

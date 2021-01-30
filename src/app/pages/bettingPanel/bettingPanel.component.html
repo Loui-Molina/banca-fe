@@ -313,7 +313,7 @@
   [nzBodyStyle]="{ overflow: 'auto' }"
   [nzMaskClosable]="true"
   [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
-  [nzTitle]="'RESUMEN DE VENTAS'"
+  [nzTitle]="'CUADRE DE CAJA'"
   [nzVisible]="drawerCaja"
   [nzWidth]="500"
 >
@@ -324,15 +324,16 @@
       </div>
     </ng-container>
     <ng-container *ngIf="!reloadingResumeSells && resumeSells">
-      <div class="item"><b>Pendientes de pago:</b><span>${{resumeSells.pendingPayments}}</span></div>
-      <div class="item"><b>Tickets cancelados:</b><span>{{resumeSells.cancelledBets}}</span></div>
-      <div class="item"><b>Tickets pendientes:</b><span>{{resumeSells.pendingBets}}</span></div>
-      <div class="item"><b>Tickets perdedores:</b><span>{{resumeSells.loserBets}}</span></div>
-      <div class="item"><b>Tickets ganadores:</b><span>{{resumeSells.winnerBets}}</span></div>
-      <div class="item"><b>Tickets reclamados:</b><span>{{resumeSells.claimedBets}}</span></div>
-      <div class="item"><b>Total tickets:</b><span>{{resumeSells.totalBets}}</span></div>
-      <div class="item"><b>Total ventas:</b><span>${{resumeSells.totalSells}}</span></div>
-      <div class="item"><b>Total premios (ganadores + reclamados):</b><span>${{resumeSells.totalAwards}}</span></div>
+      <div class="item"><b>Ganadores: </b><span>{{resumeSells.winner}}</span></div>
+      <div class="item"><b>Perdedores: </b><span>{{resumeSells.loser}}</span></div>
+      <div class="item"><b>Pendientes: </b><span>{{resumeSells.pending}}</span></div>
+      <div class="item"><b>Reclamados: </b><span>{{resumeSells.claimed}}</span></div>
+      <div class="item"><b>Expirados: </b><span>{{resumeSells.expired}}</span></div>
+      <div class="item"><b>Cancelados: </b><span>{{resumeSells.cancelled}}</span></div>
+      <div class="item"><b>Total tickets: </b><span>{{resumeSells.total}}</span></div>
+      <div class="item"><b>Ganancias: </b><span>${{resumeSells.profits}}</span></div>
+      <div class="item"><b>Premios (ganadores + reclamados): </b><span>${{resumeSells.prizes}}</span></div>
+      <div class="item"><b>Premios pendientes: </b><span>${{resumeSells.pendingPrizes}}</span></div>
       <div class="item neto"><b>BALANCE:</b><span>${{resumeSells.balance}}</span></div>
     </ng-container>
   </div>
