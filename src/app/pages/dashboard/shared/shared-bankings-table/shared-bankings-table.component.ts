@@ -35,13 +35,11 @@ export class SharedBankingsTableComponent implements OnInit {
     });
   }
 
-  getColumnTotal(field: string): DashboardBankingDto | number {
-    const value = this.bankings.reduce((a, b) => {
-      return (
-        a[field] + b[field]
-      );
-    });
-    return value ? value : 0;
+  getColumnTotal(field: string): number {
+    // tslint:disable-next-line:only-arrow-functions
+    return this.bankings.reduce(function(acc, item): number {
+      return acc + (item[field] ? item[field] : 0);
+    }, 0);
   }
 }
 

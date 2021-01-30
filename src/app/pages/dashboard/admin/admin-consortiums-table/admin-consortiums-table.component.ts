@@ -35,13 +35,11 @@ export class AdminConsortiumsTableComponent implements OnInit {
     });
   }
 
-  getColumnTotal(field: string): DashboardBankingDto | number {
-    const value = this.consortiums.reduce((a, b) => {
-      return (
-        a[field] + b[field]
-      );
-    });
-    return value ? value : 0;
+  getColumnTotal(field: string): number {
+    // tslint:disable-next-line:only-arrow-functions
+    return this.consortiums.reduce(function(acc, item): number {
+      return acc + (item[field] ? item[field] : 0);
+    }, 0);
   }
 }
 
