@@ -16,6 +16,7 @@ export interface MessageDto {
     originId: object;
     destinationId: object;
     message: string;
+    readed: boolean;
     destinationName: string;
     originName: string;
     sender: boolean;

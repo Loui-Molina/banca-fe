@@ -42,7 +42,7 @@ export class ChatsComponent implements OnInit, OnDestroy {
               private formBuilder: FormBuilder) {
     this.user = this.userService.getLoggedUser();
     this.form = this.formBuilder.group({
-      message: [null, [Validators.required, Validators.minLength(0), Validators.maxLength(99)]]
+      message: [null, [Validators.required, Validators.minLength(0), Validators.maxLength(300)]]
     });
   }
 
@@ -51,6 +51,9 @@ export class ChatsComponent implements OnInit, OnDestroy {
     this.interval = setInterval(() => {
       this.reloadMessages();
     }, 15000);
+    if (this.user?.role === this.userRole.Banker){
+      this.markAsReaded(this.destinationId);
+    }
   }
 
   ngOnDestroy(): void {
@@ -79,6 +82,7 @@ export class ChatsComponent implements OnInit, OnDestroy {
           value.destinationId.toString() === this.destinationId.toString()).length;
       }
       if (lastLength !== newLength) {
+        this.markAsReaded(this.destinationId);
         this.scrollAutomatic();
       }
     }, error => {
@@ -96,6 +100,20 @@ export class ChatsComponent implements OnInit, OnDestroy {
     }
   }
 
+  markAsReaded(id): void {
+    const body = {
+      originId: id
+    };
+    this.messagesService.chatControllerReadMessages(body).subscribe(data => {
+    }, error => {
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+  onChangeDestination($event): void {
+    this.markAsReaded($event);
+    this.scrollAutomatic();
+  }
   scrollAutomatic(): void {
     setTimeout(() => {
       if (this.chatContainer && this.chatContainer.nativeElement){

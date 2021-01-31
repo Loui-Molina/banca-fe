@@ -27,6 +27,23 @@
     .message-text, .sender{
       margin: 0;
     }
+    .readed-icon{
+      position: absolute;
+      bottom: 5px;
+      right: 8px;
+      font-size: 10px;
+      color: #ccc;
+      &.second-icon{
+        right: 5px;
+      }
+    }
+    .not-readed-icon{
+      position: absolute;
+      bottom: 5px;
+      right: 8px;
+      font-size: 10px;
+      color: #ccc;
+    }
     .date{
       position: absolute;
       top: 5px;

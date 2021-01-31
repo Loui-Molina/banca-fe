@@ -4,7 +4,7 @@
     <nz-divider [nzText]="'Seleccione una banca'" class="title" nzOrientation="left"
                 style="margin-top: 0"></nz-divider>
     <nz-select
-      [(ngModel)]="destinationId" (ngModelChange)="scrollAutomatic()" nzPlaceHolder="Seleccione una banca" style="width: 100%;">
+      [(ngModel)]="destinationId" (ngModelChange)="onChangeDestination($event)" nzPlaceHolder="Seleccione una banca" style="width: 100%;">
       <nz-option *ngFor="let banking of bankings"
                  [nzLabel]="banking.name"
                  [nzValue]="banking._id"></nz-option>
@@ -17,11 +17,19 @@
     padding: 5px;"
      *ngIf="(user?.role === userRole.Consortium && destinationId) || (user?.role === userRole.Banker)">
   <div class="chat-container" style="padding: 30px;" #chatContainer>
+    <p *ngIf="messages.length === 0" style="text-align: center; color:black;margin:0">Todavia no has enviado ningun mensaje</p>
     <div class="message" [class.sender]="message.sender" *ngFor="let message of getMessages()">
       <div class="message-box">
         <p class="date">{{message.date | date: 'dd/MM/yyyy hh:mm:ss'}}</p>
         <p class="message-text">{{message.message}}</p>
         <p class="sender" *ngIf="!message.sender">{{message.originName}}</p>
+        <ng-container *ngIf="message.readed">
+          <i nz-icon class="readed-icon" nzType="check" nzTheme="outline"></i>
+          <i nz-icon class="readed-icon second-icon" nzType="check" nzTheme="outline"></i>
+        </ng-container>
+        <ng-container *ngIf="!message.readed">
+          <i nz-icon class="not-readed-icon"  nzType="check" nzTheme="outline"></i>
+        </ng-container>
       </div>
     </div>
   </div>

@@ -16,7 +16,6 @@ export * from './consortiumUpdateLotteryDto';
 export * from './createBankingDto';
 export * from './createBetDto';
 export * from './createConsortiumDto';
-export * from './createMessageDto';
 export * from './createTransactionDto';
 export * from './dashboardBankingDto';
 export * from './dashboardConsortiumDto';

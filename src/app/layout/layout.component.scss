@@ -86,3 +86,20 @@ nz-badge {
 nz-content {
   margin: 24px;
 }
+
+.chat-container{
+  min-width: 300px;
+  max-width: 300px;
+
+  .message{
+    .message-text{
+      overflow: hidden;
+      margin: 0;
+    }
+    .origin{
+      font-size: 12px;
+      color: #ccc;
+      margin: 0;
+    }
+  }
+}
