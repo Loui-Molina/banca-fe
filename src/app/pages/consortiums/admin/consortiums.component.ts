@@ -22,8 +22,8 @@ export class ConsortiumsComponent implements OnInit {
     },
     {
       title: 'Inicio Operacion',
-      key: 'firstTransactionDate',
-      valueFormatter: (data) => this.datePipe.transform(data.firstTransactionDate, 'dd/MM/yyyy')
+      key: 'startOfOperation',
+      valueFormatter: (data) => this.datePipe.transform(data.startOfOperation, 'dd/MM/yyyy')
     },
     {
       title: 'Estado',

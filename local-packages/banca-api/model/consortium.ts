@@ -19,7 +19,7 @@ export interface Consortium {
     ownerUserId: object;
     name: string;
     status: boolean;
-    firstTransactionDate: string;
+    startOfOperation: string;
     transactions: Array<string>;
     creationUserId: object;
     modificationUserId: object;
