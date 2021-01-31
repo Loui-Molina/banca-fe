@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -25,10 +25,12 @@ export class ChatsComponent implements OnInit, OnDestroy {
   user: UserInterface;
   userRole = User.RoleEnum;
   loading = false;
+  destinationId;
   form: FormGroup;
   messages: MessageDto[] = [];
   bankings: BankingDto[] = [];
   interval;
+  @ViewChild('chatContainer') chatContainer: ElementRef;
 
   constructor(private datePipe: DatePipe,
               private messageService: NzMessageService,
@@ -40,8 +42,7 @@ export class ChatsComponent implements OnInit, OnDestroy {
               private formBuilder: FormBuilder) {
     this.user = this.userService.getLoggedUser();
     this.form = this.formBuilder.group({
-      message: [null, [Validators.required, Validators.minLength(0), Validators.maxLength(99)]],
-      destinationId: [null, (this.user?.role === this.userRole.Consortium) ? [Validators.required] : []],
+      message: [null, [Validators.required, Validators.minLength(0), Validators.maxLength(99)]]
     });
   }
 
@@ -60,10 +61,45 @@ export class ChatsComponent implements OnInit, OnDestroy {
 
   reloadMessages(): void{
     this.messagesService.chatControllerGetAll().subscribe(data => {
+      let lastLength = 0;
+      if (this.user?.role === this.userRole.Banker){
+        lastLength = this.messages.length;
+      } else {
+        lastLength = this.messages.filter(value =>
+          value.originId.toString() === this.destinationId.toString() ||
+          value.destinationId.toString() === this.destinationId.toString()).length;
+      }
       this.messages = data;
+      let newLength = 0;
+      if (this.user?.role === this.userRole.Banker){
+        newLength = this.messages.length;
+      } else {
+        newLength = this.messages.filter(value =>
+          value.originId.toString() === this.destinationId.toString() ||
+          value.destinationId.toString() === this.destinationId.toString()).length;
+      }
+      if (lastLength !== newLength) {
+        this.scrollAutomatic();
+      }
     }, error => {
       throw new HttpErrorResponse(error);
     });
+  }
+
+  getMessages(): MessageDto[]{
+    if (this.user?.role === this.userRole.Banker){
+      return this.messages;
+    } else {
+      return this.messages.filter(value =>
+        value.originId.toString() === this.destinationId.toString() ||
+        value.destinationId.toString() === this.destinationId.toString());
+    }
+  }
+
+  scrollAutomatic(): void {
+    setTimeout(() => {
+      this.chatContainer.nativeElement.scroll({ top: this.chatContainer.nativeElement.scrollHeight, behavior: 'smooth' });
+    }, 500);
   }
 
   init(): void {
@@ -71,6 +107,7 @@ export class ChatsComponent implements OnInit, OnDestroy {
     this.messagesService.chatControllerGetAll().subscribe(data => {
       this.messages = data;
       this.loading = false;
+      this.scrollAutomatic();
     }, error => {
       this.loading = false;
       throw new HttpErrorResponse(error);
@@ -87,10 +124,10 @@ export class ChatsComponent implements OnInit, OnDestroy {
   }
 
   submitMessage(): void{
-    const { message, destinationId } = this.form.value;
+    const { message } = this.form.value;
     const body = {
       message,
-      destinationId
+      destinationId: this.destinationId
     };
     this.loading = true;
     this.messagesService.chatControllerCreate(body).subscribe(data => {

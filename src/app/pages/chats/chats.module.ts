@@ -14,7 +14,7 @@ import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {NzSwitchModule} from 'ng-zorro-antd/switch';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {ChatsComponent} from './chats.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {ChatsRoutingModule} from './chats-routing.module';
 import {NzSelectModule} from 'ng-zorro-antd/select';
@@ -46,7 +46,8 @@ import {NzButtonModule} from 'ng-zorro-antd/button';
     NzSwitchModule,
     NzDatePickerModule,
     NzInputNumberModule,
-    NzButtonModule
+    NzButtonModule,
+    FormsModule
   ],
   declarations: [ChatsComponent],
   exports: [ChatsComponent],
