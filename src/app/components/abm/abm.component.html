@@ -75,9 +75,10 @@
   [nzBodyStyle]="{ overflow: 'auto' }"
   [nzFooter]="footerTplForm"
   [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
   [nzTitle]="(mode === 'C'?'UTILS.NEW':'UTILS.EDIT') | translate"
   [nzVisible]="visibleForm"
-  [nzWidth]="720"
+  [nzWidth]="500"
 >
   <div>
     <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit: mode, visibleObject: visibleObject}">
