@@ -1,0 +1,41 @@
+@import 'src/styles';
+
+
+.chat-container{
+  max-height: 800px;
+  overflow: auto;
+}
+
+.message{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  &.sender{
+    justify-content: flex-end;
+  }
+
+  .message-box{
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 40%;
+    max-width: 40%;
+    background-color: #001529;
+    border-radius: 5px;
+    color: white;
+    text-align: left;
+    position: relative;
+    .message-text, .sender{
+      margin: 0;
+    }
+    .date{
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 10px;
+      color: #ccc;
+    }
+    .sender{
+      color: grey;
+    }
+  }
+}

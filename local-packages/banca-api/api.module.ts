@@ -13,6 +13,7 @@ import { ConsortiumLotteriesService } from './api/consortiumLotteries.service';
 import { ConsortiumsService } from './api/consortiums.service';
 import { DashboardService } from './api/dashboard.service';
 import { DefaultService } from './api/default.service';
+import { MessagesService } from './api/messages.service';
 import { ResultsService } from './api/results.service';
 import { TransactionsService } from './api/transactions.service';
 import { UsersService } from './api/users.service';
