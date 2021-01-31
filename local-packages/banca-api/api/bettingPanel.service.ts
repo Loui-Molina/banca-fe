@@ -378,7 +378,7 @@ export class BettingPanelService {
             responseType = 'text';
         }
 
-        return this.httpClient.put<any>(`${this.configuration.basePath}/api/betting-panel/get/claim`,
+        return this.httpClient.put<any>(`${this.configuration.basePath}/api/betting-panel/search/ticket`,
             claimBetDto,
             {
                 responseType: <any>responseType,
