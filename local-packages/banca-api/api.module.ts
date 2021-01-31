@@ -4,13 +4,16 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { AdminLotteriesService } from './api/adminLotteries.service';
+import { AuthService } from './api/auth.service';
 import { BankingService } from './api/banking.service';
 import { BankingLotteriesService } from './api/bankingLotteries.service';
 import { BettingPanelService } from './api/bettingPanel.service';
+import { CommonService } from './api/common.service';
 import { ConsortiumLotteriesService } from './api/consortiumLotteries.service';
 import { ConsortiumsService } from './api/consortiums.service';
 import { DashboardService } from './api/dashboard.service';
 import { DefaultService } from './api/default.service';
+import { MessagesService } from './api/messages.service';
 import { ResultsService } from './api/results.service';
 import { TransactionsService } from './api/transactions.service';
 import { UsersService } from './api/users.service';

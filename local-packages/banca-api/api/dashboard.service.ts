@@ -23,6 +23,7 @@ import { DashboardDiagramDto } from '../model/models';
 import { DashboardGraphBalanceBankingDto } from '../model/models';
 import { DashboardGraphBankingDto } from '../model/models';
 import { DashboardGraphConsortiumDto } from '../model/models';
+import { DashboardPlayedNumbersDto } from '../model/models';
 import { DashboardWidgetsDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -120,7 +121,47 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getAdminWidgetsStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/admin-widgets-statistics`,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public dashboardControllerGetBankingPlayedNumbersStatistics(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public dashboardControllerGetBankingPlayedNumbersStatistics(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public dashboardControllerGetBankingPlayedNumbersStatistics(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public dashboardControllerGetBankingPlayedNumbersStatistics(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/banking-played-numbers-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -160,7 +201,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getBankingWidgetsStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/banking-widgets-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -200,7 +241,47 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getBankingsStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/banking-statistics`,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public dashboardControllerGetConsortiumPlayedNumbersStatistics(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public dashboardControllerGetConsortiumPlayedNumbersStatistics(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public dashboardControllerGetConsortiumPlayedNumbersStatistics(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public dashboardControllerGetConsortiumPlayedNumbersStatistics(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/consortium-played-numbers-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -240,7 +321,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getConsortiumWidgetsStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/consortium-widgets-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -280,7 +361,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getConsortiumsStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/consortiums-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -320,7 +401,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getDashboardDiagram`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/diagram`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -360,7 +441,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getGraphBankingBalanceStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/graph-banking-balance-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -400,7 +481,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getGraphBankingStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/graph-banking-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -440,7 +521,7 @@ export class DashboardService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/getGraphConsortiumStatistics`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/graph-consortium-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

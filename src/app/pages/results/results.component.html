@@ -1,15 +1,15 @@
 <app-page-loader-bouncing [loading]="loading"></app-page-loader-bouncing>
 <div class="inner-content fit-height mb-20" style="min-height: 300px;">
-  <app-abm [title]="'Resultados'"
-           [fetcher]="fetcher"
-           [form]="formABM"
-           [fetcherCreate]="user?.role === userRole.Admin?fetcherCreate:null"
-           [formTemplate]="formTemplate"
-           [viewTemplate]="viewTemplate"
+  <app-abm [columns]="columns"
            [defaultForm]="defaultForm"
-           [parseData]="parseData"
+           [fetcherCreate]="user?.role === userRole.Admin?fetcherCreate:null"
+           [fetcher]="fetcher"
+           [formTemplate]="formTemplate"
+           [form]="formABM"
            [getValidators]="getValidators"
-           [columns]="columns">
+           [parseData]="parseData"
+           [title]="'Resultados'"
+           [viewTemplate]="viewTemplate">
   </app-abm>
 
 
@@ -21,8 +21,8 @@
           {{'Loteria'|translate}}
         </label>
         <br>
-        <nz-select id="lottery" (ngModelChange)="onChangeLottery($event)" formControlName="lottery" style="width: 100%">
-          <nz-option *ngFor="let lottery of lotteries" [nzValue]="lottery._id" [nzLabel]="lottery.name"></nz-option>
+        <nz-select (ngModelChange)="onChangeLottery($event)" formControlName="lottery" id="lottery" style="width: 100%">
+          <nz-option *ngFor="let lottery of lotteries" [nzLabel]="lottery.name" [nzValue]="lottery._id"></nz-option>
         </nz-select>
       </div>
       <p *ngIf="lotterySelected">Esta loteria se juega a las {{lotterySelected.playTime}}</p>
@@ -32,13 +32,12 @@
           {{'Primero'|translate}}
         </label>
         <nz-input-number
-          id="first"
-          style="width: 100%"
-          formControlName="first"
-          [nzMin]="0" [nzMax]="99"
-          class="right-input"></nz-input-number>
+          [nzMax]="99"
+          [nzMin]="0"
+          class="right-input"
+          formControlName="first" id="first"
+          style="width: 100%"></nz-input-number>
       </div>
-
 
 
       <div class="form-element">
@@ -46,11 +45,11 @@
           {{'Segundo'|translate}}
         </label>
         <nz-input-number
-          id="second"
-          style="width: 100%"
-          formControlName="second"
-          [nzMin]="0" [nzMax]="99"
-          class="right-input"></nz-input-number>
+          [nzMax]="99"
+          [nzMin]="0"
+          class="right-input"
+          formControlName="second" id="second"
+          style="width: 100%"></nz-input-number>
       </div>
 
       <div class="form-element">
@@ -58,18 +57,18 @@
           {{'Tercero'|translate}}
         </label>
         <nz-input-number
-          id="third"
-          style="width: 100%"
-          formControlName="third"
-          [nzMin]="0" [nzMax]="99"
-          class="right-input"></nz-input-number>
+          [nzMax]="99"
+          [nzMin]="0"
+          class="right-input"
+          formControlName="third" id="third"
+          style="width: 100%"></nz-input-number>
       </div>
 
       <div class="form-element">
         <label for="date">
           {{'Fecha'|translate}}
         </label>
-        <nz-date-picker id="date" formControlName="date"></nz-date-picker>
+        <nz-date-picker formControlName="date" id="date"></nz-date-picker>
       </div>
     </form>
   </ng-template>
@@ -96,13 +95,15 @@
       </div>
 
 
-
       <div style="margin-top: 20px;
     display: flex;
     justify-content: space-evenly;">
-        <app-ball [background]="'#fff'" [color]="'#000'" [title]="this.formatResult(visibleObject.draw?.first)"></app-ball>
-        <app-ball [background]="'#fff'" [color]="'#000'" [title]="this.formatResult(visibleObject.draw?.second)"></app-ball>
-        <app-ball [background]="'#fff'" [color]="'#000'" [title]="this.formatResult(visibleObject.draw?.third)"></app-ball>
+        <app-ball [background]="'#fff'" [color]="'#000'"
+                  [title]="this.formatResult(visibleObject.draw?.first)"></app-ball>
+        <app-ball [background]="'#fff'" [color]="'#000'"
+                  [title]="this.formatResult(visibleObject.draw?.second)"></app-ball>
+        <app-ball [background]="'#fff'" [color]="'#000'"
+                  [title]="this.formatResult(visibleObject.draw?.third)"></app-ball>
       </div>
 
     </ng-container>

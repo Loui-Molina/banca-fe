@@ -1,17 +1,15 @@
-
-
-<app-abm [title]="'SETTINGS.USERS.TITLE'"
-         [fetcher]="fetcher"
-         [fetcherUpdate]="fetcherUpdate"
+<app-abm [columns]="columns"
+         [defaultForm]="defaultForm"
          [fetcherCreate]="fetcherCreate"
          [fetcherDelete]="fetcherDelete"
+         [fetcherUpdate]="fetcherUpdate"
+         [fetcher]="fetcher"
          [formTemplate]="formTemplate"
-         [viewTemplate]="viewTemplate"
-         [defaultForm]="defaultForm"
          [form]="formABM"
          [getValidators]="getValidators"
          [setValueForm]="setValueForm"
-         [columns]="columns">
+         [title]="'SETTINGS.USERS.TITLE'"
+         [viewTemplate]="viewTemplate">
 </app-abm>
 
 
@@ -22,32 +20,32 @@
       <label for="name">
         {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}
       </label>
-      <input nz-input id="name" type="text" formControlName="name">
+      <input formControlName="name" id="name" nz-input type="text">
     </div>
 
     <div>
       <label for="username">
         {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
       </label>
-      <input nz-input [minLength]="4" id="username" type="text" formControlName="username">
+      <input [minLength]="4" formControlName="username" id="username" nz-input type="text">
     </div>
 
     <label for="password">
       {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
     </label>
-    <input nz-input [minLength]="8" [maxLength]="35" id="password" type="text" formControlName="password">
+    <input [maxLength]="35" [minLength]="8" formControlName="password" id="password" nz-input type="text">
 
     <div>
       <label for="role">
         {{'Rol'|translate}}
       </label>
-      <nz-select id="role" formControlName="role" style="width: 100%;">
-        <nz-option [nzValue]="roleEnum.Admin" [nzLabel]="roleEnum.Admin"></nz-option>
-        <nz-option [nzValue]="roleEnum.Consortium" [nzLabel]="roleEnum.Consortium"></nz-option>
-        <nz-option [nzValue]="roleEnum.Banker" [nzLabel]="roleEnum.Banker"></nz-option>
-        <nz-option [nzValue]="roleEnum.Carrier" [nzLabel]="roleEnum.Carrier"></nz-option>
-        <nz-option [nzValue]="roleEnum.Punter" [nzLabel]="roleEnum.Punter"></nz-option>
-        <nz-option [nzValue]="roleEnum.Supervisor" [nzLabel]="roleEnum.Supervisor"></nz-option>
+      <nz-select formControlName="role" id="role" style="width: 100%;">
+        <nz-option [nzLabel]="roleEnum.Admin" [nzValue]="roleEnum.Admin"></nz-option>
+        <nz-option [nzLabel]="roleEnum.Consortium" [nzValue]="roleEnum.Consortium"></nz-option>
+        <nz-option [nzLabel]="roleEnum.Banker" [nzValue]="roleEnum.Banker"></nz-option>
+        <nz-option [nzLabel]="roleEnum.Carrier" [nzValue]="roleEnum.Carrier"></nz-option>
+        <nz-option [nzLabel]="roleEnum.Punter" [nzValue]="roleEnum.Punter"></nz-option>
+        <nz-option [nzLabel]="roleEnum.Supervisor" [nzValue]="roleEnum.Supervisor"></nz-option>
       </nz-select>
     </div>
   </form>

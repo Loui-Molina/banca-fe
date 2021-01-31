@@ -1,71 +1,34 @@
 <div>
   <nz-table #table
-            nzLoading="false"
             [nzData]="consortiums"
-            nzTableLayout="auto"
             [nzPageSize]="10"
+            [nzScroll]="{ x: '700px' }"
             [nzSize]="'small'"
-            [nzScroll]="{ x: '700px' }">
+            nzLoading="false"
+            nzTableLayout="auto">
     <thead>
     <tr>
-      <th *ngFor="let column of columns">
-        {{column.name}}
+      <th *ngFor="let column of columns" [nzWidth]="column.width">
+        <span [nz-tooltip]="column.tooltip">{{column.title}}</span>
       </th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let data of table.data">
-      <td>{{ data.name }}</td>
-      <!--<td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>-->
-      <td>{{ '$' + data.balance }}</td>
+      <td *ngFor="let column of columns">
+        {{column.prefix}}{{data[column.key]}}
+      </td>
     </tr>
     </tbody>
     <tfoot *ngIf="table && table.data.length > 0">
     <tr>
-      <td class="tableFooter">
-        {{'Total'}}
-      </td>
-      <!--<td class="tableFooter">
-        {{getColumnTotal('winningTks')}}
-      </td>
-      <td class="tableFooter">
-        {{getColumnTotal('pendingTks')}}
-      </td>
-      <td class="tableFooter">
-        {{getColumnTotal('losingTks')}}
-      </td>
-      <td class="tableFooter">
-        {{getColumnTotal('canceledTks')}}
-      </td>
-      <td class="tableFooter">
-        {{getColumnTotal('totalTickets')}}
-      </td>
-      <td class="tableFooter">
-        {{'$' + getColumnTotal('earnings')}}
-      </td>
-      <td class="tableFooter">
-        {{'$' + getColumnTotal('prizes')}}
-      </td>
-      <td class="tableFooter">
-        {{ getColumnTotal('percentage')+ '%'}}
-      </td>
-      <td class="tableFooter">
-        {{ getColumnTotal('discount')+ '%'}}
-      </td>
-      <td class="tableFooter">
-        {{'$' + getColumnTotal('net')}}
-      </td>-->
-      <td class="tableFooter">
-        {{'$' + getColumnTotal('balance')}}
+      <td class="tableFooter" *ngFor="let column of columns">
+        <ng-container *ngIf="column.sum">
+          {{column.prefix}}{{getColumnTotal(column.key)}}
+        </ng-container>
+        <ng-container *ngIf="column.titleFooter">
+          {{column.titleFooter}}
+        </ng-container>
       </td>
     </tr>
     </tfoot>

@@ -9,7 +9,7 @@ import {
   ConsortiumLotteryDto,
   ConsortiumUpdateLotteryDto,
   PrizeLimit
-} from '../../../../../local-packages/banca-api';
+} from 'local-packages/banca-api';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
@@ -23,17 +23,6 @@ import BettingLimitPlayTypeEnum = BettingLimit.PlayTypeEnum;
   styleUrls: ['./consortium-lotteries.component.scss']
 })
 export class ConsortiumLotteriesComponent implements OnInit {
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private translateService: TranslateService,
-    private messageService: NzMessageService,
-    private modal: NzModalService,
-    private lotteriesService: ConsortiumLotteriesService,
-    private bankingService: BankingService,
-  ) {
-    this.formABM = this.formBuilder.group(this.defaultForm);
-  }
 
   columns = [
     {
@@ -116,10 +105,22 @@ export class ConsortiumLotteriesComponent implements OnInit {
     {title: 'Pale', key: 'betting.' + BettingLimitPlayTypeEnum.Pale},
     {title: 'Tripleta', key: 'betting.' + BettingLimitPlayTypeEnum.Tripleta}
   ];
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private translateService: TranslateService,
+    private messageService: NzMessageService,
+    private modal: NzModalService,
+    private lotteriesService: ConsortiumLotteriesService,
+    private bankingService: BankingService,
+  ) {
+    this.formABM = this.formBuilder.group(this.defaultForm);
+  }
+
   fetcherUpdate: (item) => Observable<ConsortiumUpdateLotteryDto> = (item) => this.lotteriesService.consortiumLotteryControllerUpdate(item);
 
-  onChangeBancas($event): void{
-    if ($event){
+  onChangeBancas($event): void {
+    if ($event) {
       this.bankingsSelected = this.bankings.filter(banking => $event.includes(banking._id));
     } else {
       this.bankingsSelected = [];
@@ -128,7 +129,7 @@ export class ConsortiumLotteriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.bankingService.bankingControllerFindAll().subscribe(data => {
+    this.bankingService.bankingsControllerFindAll().subscribe(data => {
       this.bankings = data;
       this.loading = false;
     }, error => {
@@ -146,14 +147,14 @@ export class ConsortiumLotteriesComponent implements OnInit {
 
 
     // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.availablePlays.length; i++){
+    for (let i = 0; i < this.availablePlays.length; i++) {
       const playType = this.availablePlays[i];
       const item = prizeLimits ? prizeLimits.find(prizeLimit => prizeLimit.playType === playType.key) : null;
       form[playType.key] = item ? item.paymentAmount : null;
       form['status.' + playType.key] = item ? item.status : false;
     }
     // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.availableBettingPlays.length; i++){
+    for (let i = 0; i < this.availableBettingPlays.length; i++) {
       const playType = this.availableBettingPlays[i];
       const key = playType.key.split('.')[1];
       const item = bettingLimits ? bettingLimits.find(bettingLimit => bettingLimit.playType === key) : null;
@@ -162,25 +163,25 @@ export class ConsortiumLotteriesComponent implements OnInit {
     }
 
     return form;
-  }
+  };
 
   parseData = (mode, valueForm, visibleObject) => {
     const prizeLimits: PrizeLimit[] = [];
     const bettingLimits: BettingLimit[] = [];
 
     // tslint:disable-next-line:forin prefer-for-of
-    for (let i = 0; i < this.availablePlays.length; i++){
+    for (let i = 0; i < this.availablePlays.length; i++) {
       const playTipe = this.availablePlays[i];
       const prizeLimit = this.createPrizeLimit(valueForm, playTipe.key);
-      if (prizeLimit){
+      if (prizeLimit) {
         prizeLimits.push(prizeLimit);
       }
     }
     // tslint:disable-next-line:forin prefer-for-of
-    for (let i = 0; i < this.availableBettingPlays.length; i++){
+    for (let i = 0; i < this.availableBettingPlays.length; i++) {
       const playType = this.availableBettingPlays[i];
       const bettingLimit = this.createBettingLimit(valueForm, playType.key);
-      if (bettingLimit){
+      if (bettingLimit) {
         bettingLimits.push(bettingLimit);
       }
     }
@@ -190,10 +191,10 @@ export class ConsortiumLotteriesComponent implements OnInit {
       prizeLimits,
       bettingLimits
     };
-  }
+  };
 
-  createPrizeLimit(valueForm, playType): PrizeLimit{
-    if (valueForm[playType] === null || valueForm[playType] === undefined){
+  createPrizeLimit(valueForm, playType): PrizeLimit {
+    if (valueForm[playType] === null || valueForm[playType] === undefined) {
       return null;
     }
     return {
@@ -203,8 +204,8 @@ export class ConsortiumLotteriesComponent implements OnInit {
     };
   }
 
-  createBettingLimit(valueForm, playType): BettingLimit{
-    if (valueForm[playType] === null || valueForm[playType] === undefined){
+  createBettingLimit(valueForm, playType): BettingLimit {
+    if (valueForm[playType] === null || valueForm[playType] === undefined) {
       return null;
     }
     const key = playType.split('.')[1];

@@ -1,12 +1,13 @@
-.action-icon{
+.action-icon {
   cursor: pointer;
   margin-right: 5px;
-  &.red{
+
+  &.red {
     color: red
   }
 }
 
-.page-header{
+.page-header {
   border-bottom: 1px solid #d0d0d0;
   margin-bottom: 20px;
 }
@@ -17,14 +18,14 @@
 }
 
 
-.table-td{
-  &.numeric{
+.table-td {
+  &.numeric {
     text-align: right;
   }
 }
 
-.table-th{
-  &.numeric{
+.table-th {
+  &.numeric {
     text-align: right;
   }
 }

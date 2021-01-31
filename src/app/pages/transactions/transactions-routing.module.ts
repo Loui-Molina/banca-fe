@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {RoleGuard} from '../../guards/role-guard.service';
 import {AuthGuard} from '../../guards/auth-guard.service';
 import {User} from '@banca-api/model/user';
@@ -9,7 +9,7 @@ import {ConsortiumTransactionsComponent} from './consortium/consortium-transacti
 import {BankingTransactionsComponent} from './banking/banking-transactions.component';
 
 const routes: Routes = [
-  { path: '', component: TransactionsComponent },
+  {path: '', component: TransactionsComponent},
   {
     path: 'admin', component: AdminTransactionsComponent,
     canActivate: [RoleGuard, AuthGuard],
@@ -31,4 +31,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TransactionsRoutingModule { }
+export class TransactionsRoutingModule {
+}

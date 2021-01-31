@@ -11,9 +11,15 @@
  */
 
 
-export interface ChangeCredentialsDto { 
-    username: string;
-    password: string;
-    newPassword: string;
+export interface MessageDto { 
+    _id: object;
+    originId: object;
+    destinationId: object;
+    message: string;
+    readed: boolean;
+    destinationName: string;
+    originName: string;
+    sender: boolean;
+    date: string;
 }
 

@@ -2,14 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {
-  AddResultDto,
-  AdminLotteriesService,
-  AdminLotteryResDto,
-  Result,
-  ResultDto,
-  ResultsService
-} from '../../../../local-packages/banca-api';
+import {AddResultDto, AdminLotteriesService, AdminLotteryResDto, Result, ResultDto, ResultsService} from 'local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
@@ -22,20 +15,7 @@ import {User} from '@banca-api/model/user';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit{
-
-  constructor(private datePipe: DatePipe,
-              private messageService: NzMessageService,
-              private translateService: TranslateService,
-              private modal: NzModalService,
-              private resultsService: ResultsService,
-              private lotteriesService: AdminLotteriesService,
-              private userService: UserService,
-              private formBuilder: FormBuilder) {
-    this.formABM = this.formBuilder.group(this.defaultForm);
-    this.user = this.userService.getLoggedUser();
-  }
-
+export class ResultsComponent implements OnInit {
 
   columns = [
     {
@@ -88,6 +68,19 @@ export class ResultsComponent implements OnInit{
   lotteries: AdminLotteryResDto[] = [];
   lotterySelected: AdminLotteryResDto;
   formABM: FormGroup;
+
+  constructor(private datePipe: DatePipe,
+              private messageService: NzMessageService,
+              private translateService: TranslateService,
+              private modal: NzModalService,
+              private resultsService: ResultsService,
+              private lotteriesService: AdminLotteriesService,
+              private userService: UserService,
+              private formBuilder: FormBuilder) {
+    this.formABM = this.formBuilder.group(this.defaultForm);
+    this.user = this.userService.getLoggedUser();
+  }
+
   fetcherCreate: (item) => Observable<Result> = (item) => this.resultsService.resultsControllerCreate(item);
 
   parseData = (mode: string, valueForm): AddResultDto => {
@@ -98,9 +91,9 @@ export class ResultsComponent implements OnInit{
       third: valueForm.third,
       lotteryId: valueForm.lottery
     };
-  }
+  };
 
-  formatResult(value: number): string{
+  formatResult(value: number): string {
     return String(value).padStart(2, '0');
   }
 
@@ -112,7 +105,7 @@ export class ResultsComponent implements OnInit{
       lottery: [Validators.required],
       date: [Validators.required]
     };
-  }
+  };
 
   ngOnInit(): void {
     if (this.user?.role === this.userRole.Admin) {
@@ -127,25 +120,25 @@ export class ResultsComponent implements OnInit{
     }
   }
 
-  onChangeLottery($event): void{
-    if ($event){
+  onChangeLottery($event): void {
+    if ($event) {
       this.lotterySelected = this.lotteries.filter(lottery => lottery._id === $event).pop();
     } else {
       this.lotterySelected = null;
     }
   }
 
+  // TODO LOUI implement
+  resultsValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+    const first = control.get('first');
+    const second = control.get('second');
+    const third = control.get('third');
+
+    return (first && second && third && (first.value === second.value || first.value === third.value || second.value === third.value)) ? {repeated: true} : null;
+  };
+
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
   }
-
-  // TODO LOUI implement
-   resultsValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-     const first = control.get('first');
-     const second = control.get('second');
-     const third = control.get('third');
-
-     return (first && second && third && (first.value === second.value || first.value === third.value|| second.value === third.value))  ? {repeated: true} : null;
-   };
 
 }

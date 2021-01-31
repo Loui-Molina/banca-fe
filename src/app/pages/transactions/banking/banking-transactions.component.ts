@@ -1,22 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {
-  BankingDto, BankingService,
-  ConsortiumDto,
-  ConsortiumsService, CreateTransactionDto,
-  Transaction, TransactionDto, TransactionsService,
-  User
-} from '../../../../../local-packages/banca-api';
-import {UserInterface, UserService} from '../../../services/user.service';
+import {Transaction, TransactionDto, TransactionsService} from 'local-packages/banca-api';
+import {UserService} from '../../../services/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {forkJoin, Observable} from 'rxjs';
-import OriginObjectEnum = Transaction.OriginObjectEnum;
-import DestinationObjectEnum = Transaction.DestinationObjectEnum;
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {TranslateService} from '@ngx-translate/core';
-import TypeEnum = TransactionDto.TypeEnum;
 
 @Component({
   selector: 'app-banking-transactions',
@@ -24,6 +15,19 @@ import TypeEnum = TransactionDto.TypeEnum;
   styleUrls: ['./banking-transactions.component.scss']
 })
 export class BankingTransactionsComponent implements OnInit {
+
+  loading = false;
+  columns = [
+    {title: 'Fecha', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
+    {title: 'Origen', key: 'originName'},
+    {title: 'Destino', key: 'destinationName'},
+    {title: 'Descripcion', key: 'description'},
+    {title: 'Monto', type: 'numeric', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Ultimo balance', type: 'numeric', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Balance actual', type: 'numeric', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
+  ];
+  transactions: TransactionDto[] = [];
 
   constructor(private datePipe: DatePipe,
               private userService: UserService,
@@ -35,34 +39,23 @@ export class BankingTransactionsComponent implements OnInit {
   ) {
   }
 
-  loading = false;
-  columns = [
-    {title: 'Fecha', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
-    {title: 'Origen', key: 'originName'},
-    {title: 'Destino', key: 'destinationName'},
-    {title: 'Monto', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Ultimo balance', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Balance actual', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
-  ];
-  transactions: TransactionDto[] = [];
-
-  valueFormatter(data: Transaction, column): any{
+  valueFormatter(data: Transaction, column): any {
     return '$' + data[column.key];
   }
 
-  valueFormatterDate(data: Transaction, column): any{
+  valueFormatterDate(data: Transaction, column): any {
     return this.datePipe.transform(data[column.key], 'dd/MM/yyyy hh:mm:ss');
   }
 
-  valueFormatterTipo(data: Transaction, column): any{
+  valueFormatterTipo(data: Transaction, column): any {
     return data[column.key];
   }
 
   ngOnInit(): void {
     this.init();
   }
-  init(): void{
+
+  init(): void {
     this.loading = true;
     this.initDataSync().subscribe(responseList => {
       this.transactions = responseList[0];

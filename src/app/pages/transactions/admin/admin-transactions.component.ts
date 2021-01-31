@@ -1,21 +1,24 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {
-  BankingDto, BankingService,
+  BankingDto,
+  BankingService,
   ConsortiumDto,
-  ConsortiumsService, CreateTransactionDto,
-  Transaction, TransactionDto, TransactionsService,
-  User
-} from '../../../../../local-packages/banca-api';
-import {UserInterface, UserService} from '../../../services/user.service';
+  ConsortiumsService,
+  CreateTransactionDto,
+  Transaction,
+  TransactionDto,
+  TransactionsService
+} from 'local-packages/banca-api';
+import {UserService} from '../../../services/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {forkJoin, Observable} from 'rxjs';
-import OriginObjectEnum = Transaction.OriginObjectEnum;
-import DestinationObjectEnum = Transaction.DestinationObjectEnum;
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {TranslateService} from '@ngx-translate/core';
+import OriginObjectEnum = Transaction.OriginObjectEnum;
+import DestinationObjectEnum = Transaction.DestinationObjectEnum;
 import TypeEnum = TransactionDto.TypeEnum;
 
 @Component({
@@ -24,6 +27,26 @@ import TypeEnum = TransactionDto.TypeEnum;
   styleUrls: ['./admin-transactions.component.scss']
 })
 export class AdminTransactionsComponent implements OnInit {
+
+  loading = false;
+  formTransaction: FormGroup;
+  drawerTransaction = false;
+  columns = [
+    {title: 'Fecha', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
+    {title: 'Origen', key: 'originName'},
+    {title: 'Destino', key: 'destinationName'},
+    {title: 'Descripcion', key: 'description'},
+    {title: 'Monto', type: 'numeric', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Ultimo balance', type: 'numeric', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Balance actual', type: 'numeric', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
+  ];
+  transactions: TransactionDto[] = [];
+  consortiums: ConsortiumDto[] = [];
+  bankings: BankingDto[] = [];
+  originObjectEnum = OriginObjectEnum;
+  destinationObjectEnum = DestinationObjectEnum;
+  transactionEnum = TypeEnum;
 
   constructor(private datePipe: DatePipe,
               private userService: UserService,
@@ -41,48 +64,30 @@ export class AdminTransactionsComponent implements OnInit {
         originId: [null, [Validators.required]],
         destinationId: [null, [Validators.required]],
         destinationObject: [null, [Validators.required]],
+        description: [null, [Validators.required]],
         amount: [null, [Validators.required, Validators.min(1)]]
       }
     );
   }
 
-  loading = false;
-  formTransaction: FormGroup;
-  drawerTransaction = false;
-  columns = [
-    {title: 'Fecha', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
-    {title: 'Origen', key: 'originName'},
-    {title: 'Destino', key: 'destinationName'},
-    {title: 'Monto', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Ultimo balance', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Balance actual', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
-  ];
-  transactions: TransactionDto[] = [];
-  consortiums: ConsortiumDto[] = [];
-  bankings: BankingDto[] = [];
-  originObjectEnum = OriginObjectEnum;
-  destinationObjectEnum = DestinationObjectEnum;
-  transactionEnum = TypeEnum;
-
-  valueFormatter(data: Transaction, column): any{
+  valueFormatter(data: Transaction, column): any {
     return '$' + data[column.key];
   }
 
-  valueFormatterDate(data: Transaction, column): any{
+  valueFormatterDate(data: Transaction, column): any {
     return this.datePipe.transform(data[column.key], 'dd/MM/yyyy hh:mm:ss');
   }
 
   openDrawer = (drawerName: string) => {
     this[drawerName] = true;
-  }
+  };
 
   closeDrawer = (drawerName: string) => {
     this[drawerName] = false;
-  }
+  };
 
-  onClickAccept(): void{
-    if (!this.formTransaction.valid){
+  onClickAccept(): void {
+    if (!this.formTransaction.valid) {
       return;
     }
     this.modalService.success({
@@ -94,15 +99,22 @@ export class AdminTransactionsComponent implements OnInit {
     });
   }
 
-  onClickAcceptSubmit(): void{
+  onClickAcceptSubmit(): void {
+    const {amount,
+      originObject,
+      originId,
+      destinationId,
+      destinationObject,
+      description} = this.formTransaction.value;
     this.loading = true;
     const transaction: CreateTransactionDto = {
-      amount: this.formTransaction.value.amount,
-      originObject: this.formTransaction.value.originObject,
-      originId: this.formTransaction.value.originId,
-      destinationId: this.formTransaction.value.destinationId,
-      destinationObject: this.formTransaction.value.destinationObject
-    };
+      amount,
+      originObject,
+      originId,
+      destinationId,
+      destinationObject,
+      description
+    } as CreateTransactionDto;
     this.transactionsService.transactionControllerCreateTransactionAdmin(transaction).subscribe(value => {
       this.loading = false;
       this.messageService.create('success', 'Transaccion realizada correctamente');
@@ -114,22 +126,22 @@ export class AdminTransactionsComponent implements OnInit {
     });
   }
 
-  onChangeOrigen($event): void{
-    if (this.formTransaction.value.originObject === this.originObjectEnum.Consortium){
+  onChangeOrigen($event): void {
+    if (this.formTransaction.value.originObject === this.originObjectEnum.Consortium) {
       this.formTransaction.controls.destinationId.setValue(null);
       this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Banking);
-    } else if (this.formTransaction.value.originObject === this.originObjectEnum.Banking){
+    } else if (this.formTransaction.value.originObject === this.originObjectEnum.Banking) {
       this.formTransaction.controls.destinationId.setValue(null);
       this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Consortium);
     }
     this.formTransaction.controls.originId.setValue(null);
   }
 
-  onChangeOrigenId($event): void{
-    if (this.formTransaction.value.originObject === this.originObjectEnum.Consortium){
+  onChangeOrigenId($event): void {
+    if (this.formTransaction.value.originObject === this.originObjectEnum.Consortium) {
       this.formTransaction.controls.destinationId.setValue(null);
       this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Banking);
-    } else if (this.formTransaction.value.originObject === this.originObjectEnum.Banking){
+    } else if (this.formTransaction.value.originObject === this.originObjectEnum.Banking) {
       this.formTransaction.controls.destinationId.setValue(null);
       this.formTransaction.controls.destinationObject.setValue(this.destinationObjectEnum.Consortium);
     } else {
@@ -140,7 +152,7 @@ export class AdminTransactionsComponent implements OnInit {
 
   getFilteredConsortiums(): ConsortiumDto[] {
     const banking = this.bankings.filter(banking => banking._id === this.formTransaction.value.originId).pop();
-    if (!banking){
+    if (!banking) {
       return [];
     }
     return this.consortiums.filter(consortium => consortium._id === banking.consortiumId);
@@ -148,19 +160,19 @@ export class AdminTransactionsComponent implements OnInit {
 
   getFilteredBankings(): BankingDto[] {
     const consortium = this.consortiums.filter(consortium => consortium._id === this.formTransaction.value.originId).pop();
-    if (!consortium){
+    if (!consortium) {
       return [];
     }
     return this.bankings.filter(banking => banking.consortiumId === consortium._id);
   }
 
 
-  onChangeDestination($event): void{
+  onChangeDestination($event): void {
     this.formTransaction.controls.destinationId.setValue(null);
   }
 
 
-  valueFormatterTipo(data: Transaction, column): any{
+  valueFormatterTipo(data: Transaction, column): any {
     return data[column.key];
   }
 
@@ -168,7 +180,7 @@ export class AdminTransactionsComponent implements OnInit {
     this.init();
   }
 
-  init(): void{
+  init(): void {
     this.loading = true;
     this.initDataSync().subscribe(responseList => {
       this.transactions = responseList[0];
@@ -184,11 +196,11 @@ export class AdminTransactionsComponent implements OnInit {
   private initDataSync(): Observable<any[]> {
     const transactionControllerGetAll = this.transactionsService.transactionControllerGetAll();
     const consortiums = this.consortiumsService.consortiumControllerGetAll();
-    const bankingControllerFindAll = this.bankingService.bankingControllerFindAll();
+    const bankingsControllerFindAll = this.bankingService.bankingsControllerFindAll();
     return forkJoin([
       transactionControllerGetAll,
       consortiums,
-      bankingControllerFindAll
+      bankingsControllerFindAll
     ]);
   }
 

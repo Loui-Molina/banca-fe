@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {UserInterface, UserService} from '../services/user.service';
 import jwtDecode from 'jwt-decode';
-import {DefaultService} from '../../../local-packages/banca-api';
+import {AuthService, DefaultService} from 'local-packages/banca-api';
 import {switchMap} from 'rxjs/operators';
 
 @Injectable({
@@ -16,7 +16,7 @@ import {switchMap} from 'rxjs/operators';
 })
 export class RolesInterceptor implements HttpInterceptor {
 
-    constructor(private userService: UserService, private defaultService: DefaultService) { }
+    constructor(private userService: UserService, private defaultService: DefaultService, private authService: AuthService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const apiToken = this.userService.getApiToken();
@@ -26,7 +26,7 @@ export class RolesInterceptor implements HttpInterceptor {
         }
         const user: UserInterface = jwtDecode(apiToken);
         const expiredAt = user && user.exp * 1000;
-        if (req.url.indexOf('api/auth/refreshToken') !== -1){
+        if (req.url.indexOf('api/auth/refresh-token') !== -1){
           // Is refreshing
           const refreshToken = this.userService.getRefreshToken();
           const customRequestRefresh = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + refreshToken) });
@@ -34,7 +34,7 @@ export class RolesInterceptor implements HttpInterceptor {
         }
         if (!(user && expiredAt > new Date().getTime())) {
           // EXPIRED
-          return this.defaultService.authControllerGetToken().pipe(
+          return this.authService.authControllerGetToken().pipe(
             switchMap((data) => {
               const newToken = data.accessToken;
               localStorage.setItem('accessToken', newToken);

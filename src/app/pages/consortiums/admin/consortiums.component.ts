@@ -2,14 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {
-  Consortium,
-  ConsortiumDto,
-  ConsortiumsService,
-  CreateConsortiumDto,
-  User,
-  UsersService
-} from '../../../../../local-packages/banca-api';
+import {Consortium, ConsortiumDto, ConsortiumsService, CreateConsortiumDto, User, UsersService} from 'local-packages/banca-api';
 
 @Component({
   selector: 'app-consortiums',
@@ -17,13 +10,6 @@ import {
   styleUrls: ['./consortiums.component.scss']
 })
 export class ConsortiumsComponent implements OnInit {
-
-  constructor(private datePipe: DatePipe,
-              private usersService: UsersService,
-              private consortiumsService: ConsortiumsService,
-              private formBuilder: FormBuilder) {
-    this.formABM = this.formBuilder.group(this.defaultForm);
-  }
 
   columns = [
     {
@@ -36,8 +22,8 @@ export class ConsortiumsComponent implements OnInit {
     },
     {
       title: 'Inicio Operacion',
-      key: 'firstTransactionDate',
-      valueFormatter: (data) => this.datePipe.transform(data.firstTransactionDate, 'dd/MM/yyyy')
+      key: 'startOfOperation',
+      valueFormatter: (data) => this.datePipe.transform(data.startOfOperation, 'dd/MM/yyyy')
     },
     {
       title: 'Estado',
@@ -61,10 +47,19 @@ export class ConsortiumsComponent implements OnInit {
   enumUsers: User[] = [];
   formABM: FormGroup;
   fetcher: Observable<ConsortiumDto[]> = this.consortiumsService.consortiumControllerGetAll();
+
+  constructor(private datePipe: DatePipe,
+              private usersService: UsersService,
+              private consortiumsService: ConsortiumsService,
+              private formBuilder: FormBuilder) {
+    this.formABM = this.formBuilder.group(this.defaultForm);
+  }
+
   fetcherCreate: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerCreate(item);
   fetcherUpdate: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerUpdate(item);
   fetcherDelete: (item) => Observable<Consortium> = (item) => this.consortiumsService.consortiumControllerDelete(item._id);
-  getValidators(mode: string): any{
+
+  getValidators(mode: string): any {
     return {
       name: [Validators.required],
       status: [Validators.required],
@@ -76,6 +71,7 @@ export class ConsortiumsComponent implements OnInit {
       ] : []
     };
   }
+
   parseData(mode, valueForm, visibleObject): CreateConsortiumDto {
     return {
       user: {
@@ -88,9 +84,14 @@ export class ConsortiumsComponent implements OnInit {
       ownerUserId: visibleObject?.ownerId
     };
   }
+
   ngOnInit(): void {
-    this.usersService.userControllerGetAll().subscribe(res => {
+    this.usersService.usersControllerGetAll().subscribe(res => {
       this.enumUsers = res;
     });
+  }
+
+  print(visibleObject: any) {
+    console.log(visibleObject);
   }
 }

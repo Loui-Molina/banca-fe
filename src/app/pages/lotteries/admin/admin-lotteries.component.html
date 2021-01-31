@@ -1,18 +1,18 @@
 <div class="inner-content fit-height mb-20" style="min-height: 300px;">
-  <app-abm [title]="'Loterias'"
-           [fetcher]="fetcher"
-           [fetcherCreate]="fetcherCreate"
-           [fetcherUpdate]="fetcherUpdate"
-           [fetcherDelete]="fetcherDelete"
-           [formTemplate]="formTemplate"
-           [viewTemplate]="viewTemplate"
+  <app-abm [columns]="columns"
            [defaultForm]="defaultForm"
-           [parseData]="parseData"
-           [getValidators]="getValidators"
-           [setValueForm]="setValueForm"
            [extraButtons]="extraButtons"
+           [fetcherCreate]="fetcherCreate"
+           [fetcherDelete]="fetcherDelete"
+           [fetcherUpdate]="fetcherUpdate"
+           [fetcher]="fetcher"
+           [formTemplate]="formTemplate"
            [form]="formABM"
-           [columns]="columns">
+           [getValidators]="getValidators"
+           [parseData]="parseData"
+           [setValueForm]="setValueForm"
+           [title]="'Loterias'"
+           [viewTemplate]="viewTemplate">
   </app-abm>
 
 
@@ -23,7 +23,7 @@
         <label for="name">
           {{'Nombre'|translate}}
         </label>
-        <input nz-input id="name" type="text" formControlName="name">
+        <input formControlName="name" id="name" nz-input type="text">
       </div>
 
 
@@ -31,58 +31,59 @@
         <label for="nickname">
           {{'Apodo'|translate}}
         </label>
-        <input nz-input id="nickname" type="text" formControlName="nickname">
+        <input formControlName="nickname" id="nickname" nz-input type="text">
       </div>
 
       <div class="form-element">
         <label for="color">
           {{'Color'|translate}}
         </label>
-        <input nz-input id="color" type="color" formControlName="color">
+        <input formControlName="color" id="color" nz-input type="color">
       </div>
 
       <div class="form-element">
         <label for="playTime">
           {{'Hora de juego'|translate}}
         </label>
-        <nz-time-picker id="playTime" nzPlaceHolder="Hora de juego" nzFormat="HH:mm" [nzMinuteStep]="5"
-                        formControlName="playTime"></nz-time-picker>
+        <nz-time-picker [nzMinuteStep]="5" formControlName="playTime" id="playTime" nzFormat="HH:mm"
+                        nzPlaceHolder="Hora de juego"></nz-time-picker>
       </div>
 
       <div nz-row nzGutter="8">
-        <div nz-col nzXs="8" class="form-element">
+        <div class="form-element" nz-col nzXs="8">
           <label for="openTime">
             {{'Apertura'|translate}}
           </label>
-          <nz-time-picker id="openTime"
-                          nzPlaceHolder="Hora de apertura"
-                          nzFormat="HH:mm"
-                          [nzMinuteStep]="5"
-                          [nzDisabledHours]="getOpeningDisabledHours()"
+          <nz-time-picker [nzDisabledHours]="getOpeningDisabledHours()"
                           [nzDisabledMinutes]="getOpeningDisabledMinutes()"
                           [nzHideDisabledOptions]="true"
-                          formControlName="openTime"></nz-time-picker>
+                          [nzMinuteStep]="5"
+                          formControlName="openTime"
+                          id="openTime"
+                          nzFormat="HH:mm"
+                          nzPlaceHolder="Hora de apertura"></nz-time-picker>
         </div>
-        <div nz-col nzXs="8" class="form-element">
+        <div class="form-element" nz-col nzXs="8">
           <label for="closeTime">
             {{'Cierre'|translate}}
           </label>
-          <nz-time-picker id="closeTime"
-                          nzPlaceHolder="Hora de cierre"
-                          nzFormat="HH:mm"
-                          [nzMinuteStep]="5"
-                          [nzDisabledHours]="getClosingDisabledHours()"
+          <nz-time-picker [nzDisabledHours]="getClosingDisabledHours()"
                           [nzDisabledMinutes]="getClosingDisabledMinutes()"
                           [nzHideDisabledOptions]="true"
-                          formControlName="closeTime"></nz-time-picker>
+                          [nzMinuteStep]="5"
+                          formControlName="closeTime"
+                          id="closeTime"
+                          nzFormat="HH:mm"
+                          nzPlaceHolder="Hora de cierre"></nz-time-picker>
         </div>
 
-        <div nz-col nzXs="8" class="form-element">
+        <div class="form-element" nz-col nzXs="8">
           <label for="day">
             {{'dias'|translate}}
           </label>
-          <nz-select class="day-selector" id="day" nzMode="tags" nzMaxTagCount="2" nzPlaceHolder="Seleccione los dias de apertura"
-                     formControlName="day">
+          <nz-select class="day-selector" formControlName="day" id="day" nzMaxTagCount="2"
+                     nzMode="tags"
+                     nzPlaceHolder="Seleccione los dias de apertura">
             <nz-option [nzLabel]="days.Mon" [nzValue]="days.Mon"></nz-option>
             <nz-option [nzLabel]="days.Tue" [nzValue]="days.Tue"></nz-option>
             <nz-option [nzLabel]="days.Wed" [nzValue]="days.Wed"></nz-option>
@@ -98,7 +99,7 @@
         <label for="status">
           {{'status'|translate}}
         </label>
-        <nz-switch style="padding-left: 10px" id="status" formControlName="status"></nz-switch>
+        <nz-switch formControlName="status" id="status" style="padding-left: 10px"></nz-switch>
       </div>
 
 
@@ -107,91 +108,69 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <div class="description">
-        <span>
-          {{'Nombre'|translate}}:
-        </span>
-        <b>{{visibleObject.name}}</b>
-      </div>
+      <nz-descriptions [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }" [nzTitle]="'Loteria'| translate">
+        <nz-descriptions-item [nzTitle]="'Nombre'|translate">
+          {{visibleObject.name}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Alias'|translate">
+          {{visibleObject.nickname}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Horario de juego'|translate">
+          {{visibleObject.playTime}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Horario apertura'|translate">
+          {{visibleObject.openTime}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Horario cierre'|translate">
+          {{visibleObject.closeTime}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Estado'|translate">
+          {{visibleObject.status ? 'Habilitada' : 'Inhabilitada'}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Color'|translate">
+          <nz-tag [nzColor]="visibleObject.color">{{visibleObject.color}}</nz-tag>
+          <!--          <div [ngStyle]="{backgroundColor:visibleObject.color}" class="box"></div>-->
+        </nz-descriptions-item>
+      </nz-descriptions>
 
-      <div class="description">
-        <span>
-            {{'Alias'|translate}}:
-        </span>
-        <b>{{visibleObject.nickname}}</b>
-      </div>
-
-      <div class="description">
-        <span>
-            {{'Horario de juego'|translate}}:
-        </span>
-        <b>{{visibleObject.playTime}}</b>
-      </div>
-
-      <div class="description">
-        <span>
-            {{'Horario apertura'|translate}}:
-        </span>
-        <b>{{visibleObject.openTime}}</b>
-      </div>
-
-      <div class="description">
-        <span>
-          {{'Horario cierre'|translate}}:
-        </span>
-        <b>{{visibleObject.closeTime}}</b>
-      </div>
-
-      <div class="description">
-        <span>
-          {{'Estado'|translate}}:
-        </span>
-        <b>{{visibleObject.status ? 'Habilitada' : 'Inhabilitada'}}</b>
-      </div>
-      <div class="description color">
-        <span>
-          {{'Color'|translate}}:
-        </span>
-        <div class="box" [ngStyle]="{backgroundColor:visibleObject.color}"></div>
-      </div>
       <div class="schedule">
-        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Mon)">
+        <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Mon)" class="schedule-day">
           <span class="title">{{days.Mon}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Mon)">{{visibleObject.openTime}}
             <br>To<br>{{visibleObject.closeTime}}</p>
         </div>
-        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Tue)">
+        <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Tue)" class="schedule-day">
           <span class="title">{{days.Tue}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Tue)">{{visibleObject.openTime}}
             <br>To<br>{{visibleObject.closeTime}}</p>
         </div>
-        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Wed)">
+        <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Wed)" class="schedule-day">
           <span class="title">{{days.Wed}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Wed)">{{visibleObject.openTime}}
             <br>To<br>{{visibleObject.closeTime}}</p>
         </div>
-        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Thu)">
+        <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Thu)" class="schedule-day">
           <span class="title">{{days.Thu}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Thu)">{{visibleObject.openTime}}
             <br>To<br>{{visibleObject.closeTime}}</p>
         </div>
-        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Fri)">
+        <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Fri)" class="schedule-day">
           <span class="title">{{days.Fri}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Fri)">{{visibleObject.openTime}}
             <br>To<br>{{visibleObject.closeTime}}</p>
         </div>
-        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sat)">
+        <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sat)" class="schedule-day">
           <span class="title">{{days.Sat}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sat)">{{visibleObject.openTime}}
             <br>To<br>{{visibleObject.closeTime}}</p>
         </div>
-        <div class="schedule-day" [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sun)">
+        <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sun)" class="schedule-day">
           <span class="title">{{days.Sun}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sun)">{{visibleObject.openTime}}

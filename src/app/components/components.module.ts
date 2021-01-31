@@ -28,10 +28,11 @@ import {TranslateModule} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { PageLoaderComponent } from './loaders/page-loader/page-loader.component';
+import {PageLoaderComponent} from './loaders/page-loader/page-loader.component';
 import {PageLoaderBouncingComponent} from './loaders/page-loader-bouncing/page-loader-bouncing.component';
-import { BoxSpinnerComponent } from './loaders/box-spinner/box-spinner.component';
+import {BoxSpinnerComponent} from './loaders/box-spinner/box-spinner.component';
 import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
+import {DescriptionsComponent} from './descriptions/descriptions.component';
 
 
 const components = [
@@ -45,8 +46,9 @@ const components = [
   AbmComponent,
   PageLoaderComponent,
   BoxSpinnerComponent,
-  PageLoaderBouncingComponent
-  ];
+  PageLoaderBouncingComponent,
+  DescriptionsComponent,
+];
 
 
 @NgModule({

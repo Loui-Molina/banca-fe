@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {DashboardBankingDto, DashboardService} from '../../../../../../local-packages/banca-api';
+import {DashboardBankingDto, DashboardConsortiumDto, DashboardService} from 'local-packages/banca-api';
 
 @Component({
   selector: 'app-shared-bankings-table',
@@ -9,19 +9,21 @@ import {DashboardBankingDto, DashboardService} from '../../../../../../local-pac
 })
 export class SharedBankingsTableComponent implements OnInit {
   columns: ColumnItem[] = [
-    {name: 'BANCA'},
-    {name: 'W'},
-    {name: 'P'},
-    {name: 'L'},
-    {name: 'C'},
-    {name: 'TOTAL'},
-    {name: 'VENTA'},
-    {name: 'PREMIOS'},
-    {name: '%'},
-    {name: 'DESC'},
-    {name: 'NETO'},
-    {name: 'Balance'}];
+    {title: 'Banca', key: 'name', sum: false, titleFooter: 'Total', width: '100px'},
+    {title: 'W', tooltip: 'Winner', key: 'winner', sum: true},
+    {title: 'L', tooltip: 'Loser', key: 'loser', sum: true},
+    {title: 'P', tooltip: 'Pending', key: 'pending', sum: true},
+    {title: 'C', tooltip: 'Claimed', key: 'claimed', sum: true},
+    {title: 'E', tooltip: 'Expired', key: 'expired', sum: true},
+    {title: 'Ca', tooltip: 'Cancelled', key: 'cancelled', sum: true},
+    {title: 'T', tooltip: 'Total', key: 'total', sum: true},
+    {title: 'Profits', tooltip: 'Profits', key: 'profits', sum: true, prefix: '$'},
+    {title: 'Prizes', tooltip: 'Prizes', key: 'prizes', sum: true, prefix: '$'},
+    {title: 'P. Prizes', tooltip: 'Pending prizes', key: 'pendingPrizes', sum: true, prefix: '$'},
+    {title: 'Balance', tooltip: 'Balance', key: 'balance', sum: true, prefix: '$'},
+  ];
   bankings: DashboardBankingDto[] = [];
+
   constructor(private dashboardService: DashboardService) {
   }
 
@@ -33,15 +35,20 @@ export class SharedBankingsTableComponent implements OnInit {
     });
   }
 
-  getColumnTotal(field: string): DashboardBankingDto[] {
-    const initialValue = 0;
-    return this.bankings.reduce(
-      (accumulator, currentValue) =>
-        accumulator + (currentValue[field]) ? currentValue[field] : 0, initialValue
-    );
+  getColumnTotal(field: string): number {
+    // tslint:disable-next-line:only-arrow-functions
+    return this.bankings.reduce(function(acc, item): number {
+      return acc + (item[field] ? item[field] : 0);
+    }, 0);
   }
 }
 
 interface ColumnItem {
-  name: string;
+  title: string;
+  key: string;
+  prefix?: string;
+  tooltip?: string;
+  width?: string;
+  titleFooter?: string;
+  sum: boolean;
 }

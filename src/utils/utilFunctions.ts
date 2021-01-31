@@ -1,4 +1,4 @@
-import {BetDto, PlayNumbers} from '../../local-packages/banca-api';
+import {BetDto, PlayNumbers} from 'local-packages/banca-api';
 
 export function uuidv4(): string {
   // tslint:disable-next-line:only-arrow-functions
@@ -46,6 +46,7 @@ export function printTicket(bet: BetDto): void {
     '      <th style="width: 33%">Loteria</th>\n' +
     '      <th style="width: 33%">Jugada</th>\n' +
     '      <th style="width: 33%">Monto</th>\n' +
+    '      <th style="width: 33%">Tipo</th>\n' +
     '    </tr>\n';
   let total = 0;
   bet.plays.map((play) => {
@@ -54,6 +55,7 @@ export function printTicket(bet: BetDto): void {
       '      <td style="text-align: center">' + play.lotteryId + '</td>\n' + // TODO pasar loteria
       '      <td style="text-align: center">' + showParsedNumbers(play.playNumbers) + '</td>\n' +
       '      <td style="text-align: center">$' + play.amount + '</td>\n' +
+      '      <td style="text-align: center">' + play.playType + '</td>\n' +
       '    </tr>\n';
   });
 

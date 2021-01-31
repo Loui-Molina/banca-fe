@@ -15,11 +15,13 @@ import {NzGridModule} from 'ng-zorro-antd/grid';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {NzTimePickerModule} from 'ng-zorro-antd/time-picker';
-import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
 import {NzTableModule} from 'ng-zorro-antd/table';
+import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
+import {NzTagModule} from 'ng-zorro-antd/tag';
 
 @NgModule({
   imports: [
@@ -40,7 +42,9 @@ import {NzTableModule} from 'ng-zorro-antd/table';
     FormsModule,
     NzButtonModule,
     NzDividerModule,
-    NzTableModule
+    NzTableModule,
+    NzDescriptionsModule,
+    NzTagModule
   ],
   providers: [FormBuilder, DatePipe],
   declarations: [LotteriesComponent, AdminLotteriesComponent, ConsortiumLotteriesComponent],

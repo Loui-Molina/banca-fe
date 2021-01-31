@@ -15,9 +15,6 @@ export interface PrizeLimit {
     playType?: PrizeLimit.PlayTypeEnum;
     paymentAmount: number;
     status: boolean;
-    creationUserId?: string;
-    deletionDate?: string;
-    modificationUserId?: string;
 }
 export namespace PrizeLimit {
     export type PlayTypeEnum = 'first' | 'second' | 'third' | 'double' | 'pale' | 'paleTwoThree' | 'triplet' | 'twoNumbers' | 'superPale' | 'cashThreeStraight' | 'cashThreeStraightDoubles' | 'playFourStraight' | 'pickFiveStraight' | 'cashThreeBoxThreeWay' | 'cashThreeBoxSixWay' | 'playFourBoxFourWay' | 'playFourBoxSixWay' | 'playFourBoxTwelfthWay' | 'playFourBoxTwentyFourthWay' | 'pickFiveBoxFifthWay' | 'pickFiveBoxTenthWay' | 'pickFiveBoxTwentiethWay' | 'pickFiveBoxThirtiethWay' | 'pickFiveBoxSixtiethWay' | 'pickFiveBoxOneHundredTwentiethWay' | 'singulationOne' | 'singulationTwo' | 'singulationThree' | 'bolitaOne' | 'bolitaTwo';

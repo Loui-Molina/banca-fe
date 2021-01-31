@@ -14,6 +14,16 @@
 export interface DashboardConsortiumDto { 
     _id: object;
     name: string;
+    cancelled: number;
+    expired: number;
+    claimed: number;
+    pending: number;
+    winner: number;
+    loser: number;
+    total: number;
+    profits: number;
+    prizes: number;
+    pendingPrizes: number;
     balance: number;
 }
 

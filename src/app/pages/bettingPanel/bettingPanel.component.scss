@@ -31,13 +31,14 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   padding-left: 10px;
   padding-right: 10px;
 
-  .topbar-action{
+  .topbar-action {
     font-size: 20px;
     color: $White;
     margin-right: 10px;
     cursor: pointer;
     transition: color 0.3s ease-in-out;
-    &:hover{
+
+    &:hover {
       color: $Primary;
     }
   }
@@ -48,7 +49,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
     flex-wrap: wrap;
     justify-content: flex-end;
 
-    .confirm-button{
+    .confirm-button {
       cursor: pointer;
       background-color: $Primary;
       box-shadow: $boxShadow;
@@ -56,13 +57,14 @@ $boxShadow: 0px 1px 4px 0px #00000090;
       font-weight: bold;
       padding: 5px 10px;
       margin-bottom: 0;
-      &.disabled{
+
+      &.disabled {
         background-color: $Grey;
         cursor: default;
       }
     }
 
-    .clean-button{
+    .clean-button {
       cursor: pointer;
       background-color: $Secondary;
       box-shadow: $boxShadow;
@@ -70,7 +72,8 @@ $boxShadow: 0px 1px 4px 0px #00000090;
       font-weight: bold;
       padding: 5px 10px;
       margin-bottom: 0;
-      &.disabled{
+
+      &.disabled {
         background-color: $Grey;
         cursor: default;
       }
@@ -126,34 +129,41 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
           margin-bottom: 4px;
 
-          .description{
+          .description {
             color: $Grey;
           }
-          .play-insert{
+
+          .play-insert {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            .select{
+
+            .select {
               width: 30%;
             }
-            .left-input{
+
+            .left-input {
               width: 50%;
               margin-right: 5px;
             }
-            .right-input{
+
+            .right-input {
               width: 50%;
               margin-left: 5px;
             }
-            .play-enter{
+
+            .play-enter {
               width: 10%;
-              margin-left:10px;
+              margin-left: 10px;
             }
-            .super-pale{
+
+            .super-pale {
               width: 10%;
-              margin-left:10px;
+              margin-left: 10px;
               background-color: $Grey;
               color: $White;
-              &.selected{
+
+              &.selected {
                 background-color: orange;
                 color: $Black;
               }
@@ -177,14 +187,16 @@ $boxShadow: 0px 1px 4px 0px #00000090;
           .lottery-panel-body {
             height: 100%;
             overflow-y: auto;
-            .lottery{
+
+            .lottery {
               padding: 5px;
               width: 100%;
               background-color: #ffffff0f;
               border-bottom: 1px solid #ccc;
               color: $Black;
               cursor: pointer;
-              &.closed{
+
+              &.closed {
                 color: $White;
                 background-color: #757575 !important;
               }
@@ -205,19 +217,23 @@ $boxShadow: 0px 1px 4px 0px #00000090;
             background-color: $DarkBlue;
             color: $White;
           }
+
           .last-plays-panel-body {
             overflow-y: auto;
-            .play{
+
+            .play {
               padding: 5px;
               width: 100%;
               border-bottom: 1px solid #ccc;
               color: $Black;
-              .play-result{
+
+              .play-result {
                 color: $Black;
                 background-color: $Primary;
                 padding: 0 14px;
                 font-weight: bold;
-                &.error{
+
+                &.error {
                   background-color: $Error;
                 }
               }
@@ -227,6 +243,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
 
       }
+
       &.bet-column {
         display: flex;
         flex-direction: column;
@@ -269,7 +286,8 @@ $boxShadow: 0px 1px 4px 0px #00000090;
             border-bottom: 1px solid #ccc;
             margin-bottom: 1px;
             color: $Black;
-            .last-column{
+
+            .last-column {
               text-align: right;
             }
           }
@@ -320,31 +338,36 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 }
 
 
-.center-column{
+.center-column {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.icon{
+
+.icon {
   &.primary {
     color: $Primary;
   }
-  &.error {
-    color: $Error;
-  }
-}
-.action-icon {
-  cursor: pointer;
-  transition: color 0.3s ease-in-out;
-  &.primary {
-    color: $Primary;
-  }
+
   &.error {
     color: $Error;
   }
 }
 
-.custom-button{
+.action-icon {
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+
+  &.primary {
+    color: $Primary;
+  }
+
+  &.error {
+    color: $Error;
+  }
+}
+
+.custom-button {
   background-color: $Primary;
   padding: 5px;
   text-align: center;
@@ -353,78 +376,87 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   font-weight: bold;
   transition: background-color 0.3s ease-in-out;
 
-  &.disabled{
+  &.disabled {
     cursor: default;
     background-color: $Grey;
     color: $White;
   }
 }
 
-.drawer-help{
-  p{
+.drawer-help {
+  p {
     margin: 0;
-    &.bold{
+
+    &.bold {
       font-weight: bold;
     }
   }
-  span{
-    &.bold{
+
+  span {
+    &.bold {
       font-weight: bold;
     }
   }
-  ul{
+
+  ul {
     margin: 0;
   }
 }
 
-.drawer-tickets{
-  nz-list-item{
+.drawer-tickets {
+  nz-list-item {
     font-size: 12px;
-    .left-side{
+
+    .left-side {
       width: 50%;
     }
-    .right-side{
+
+    .right-side {
       width: 50%;
       text-align: right;
-      nz-tag{
+
+      nz-tag {
         font-size: 8px;
       }
     }
   }
 }
 
-.drawer-ticket{
+.drawer-ticket {
   position: relative;
-  .status{
+
+  .status {
     position: absolute;
     top: 10px;
     right: 10px;
   }
 }
 
-.drawer-pagar-ticket{
+.drawer-pagar-ticket {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  button{
+
+  button {
     margin-top: 10px;
   }
 }
 
-.drawer-caja{
-  .item{
+.drawer-caja {
+  .item {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #ccc;
     margin: 10px 5px;
     padding: 10px;
-    &.neto{
+
+    &.neto {
       background-color: #cfd4f9;
     }
   }
 }
 
-.lottery-loading{
+.lottery-loading {
   display: flex;
   height: 100%;
   justify-content: center;
@@ -432,19 +464,20 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   font-size: 40px;
 }
 
-.modal-confirm-footer{
+.modal-confirm-footer {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
 
-.modal-confirm-buttons{
+.modal-confirm-buttons {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  .custom-button-confirm{
+
+  .custom-button-confirm {
     margin: 10px;
     cursor: pointer;
     background-color: $Primary;
@@ -457,17 +490,19 @@ $boxShadow: 0px 1px 4px 0px #00000090;
     min-width: 100px;
     max-width: 100px;
     transition: 0.5s;
-    i{
+
+    i {
       color: $Black;
       font-size: 50px;
     }
-    &:hover{
+
+    &:hover {
       background-color: $Secondary;
     }
   }
 }
 
-.modal-confirm-ticket-number{
+.modal-confirm-ticket-number {
   background-color: $Primary;
   box-shadow: 0px 1px 4px 0px #00000090;
   color: $Black;
@@ -481,7 +516,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   margin-bottom: 5px;
 }
 
-.modal-confirm-total{
+.modal-confirm-total {
   background-color: #e8d711;
   box-shadow: 0px 1px 4px 0px #00000090;
   color: #000000;

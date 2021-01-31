@@ -11,7 +11,7 @@ import {
   SignUpCredentialsDto,
   UpdateBankingDto,
   User
-} from '../../../../local-packages/banca-api';
+} from 'local-packages/banca-api';
 import {HttpErrorResponse} from '@angular/common/http';
 import {UserInterface, UserService} from '../../services/user.service';
 
@@ -21,24 +21,6 @@ import {UserInterface, UserService} from '../../services/user.service';
   styleUrls: ['./bankings.component.scss']
 })
 export class BankingsComponent {
-
-  constructor(private datePipe: DatePipe,
-              private formBuilder: FormBuilder,
-              private bankingService: BankingService,
-              private userService: UserService,
-              private consortiumsService: ConsortiumsService) {
-    this.formABM = this.formBuilder.group(this.defaultForm);
-    this.user = this.userService.getLoggedUser();
-    if (this.user?.role === this.userRole.Admin){
-      this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
-          this.consortiums = consortiums;
-        }, error => {
-          throw new HttpErrorResponse(error);
-        }
-      );
-    }
-  }
-
 
   columns = [
     {
@@ -70,6 +52,9 @@ export class BankingsComponent {
     status: true,
     selectedConsortium: null,
     showPercentage: true,
+    earningPercentage: null,
+    // header: null,
+    // footer: null,
     ownerName: null,
     username: null,
     password: null
@@ -78,17 +63,41 @@ export class BankingsComponent {
   userRole = User.RoleEnum;
   formABM: FormGroup;
   consortiums: any;
-  fetcher: Observable<BankingDto[]> = this.bankingService.bankingControllerFindAll();
-  fetcherCreate: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerCreate(item);
-  fetcherUpdate: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerUpdate(item);
-  fetcherDelete: (item) => Observable<Banking> = (item) => this.bankingService.bankingControllerDelete(item._id);
-  setValueForm(mode, defaultForm, visibleObject): any{
-    if (mode === 'C'){
+  fetcher: Observable<BankingDto[]> = this.bankingService.bankingsControllerFindAll();
+
+  constructor(private datePipe: DatePipe,
+              private formBuilder: FormBuilder,
+              private bankingService: BankingService,
+              private userService: UserService,
+              private consortiumsService: ConsortiumsService) {
+    this.formABM = this.formBuilder.group(this.defaultForm);
+    this.user = this.userService.getLoggedUser();
+    if (this.user?.role === this.userRole.Admin) {
+      this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
+          this.consortiums = consortiums;
+        }, error => {
+          throw new HttpErrorResponse(error);
+        }
+      );
+    }
+  }
+
+  fetcherCreate: (item) => Observable<Banking> = (item) => this.bankingService.bankingsControllerCreate(item);
+  fetcherUpdate: (item) => Observable<Banking> = (item) => this.bankingService.bankingsControllerUpdate(item);
+  fetcherDelete: (item) => Observable<Banking> = (item) => this.bankingService.bankingsControllerDelete(item._id);
+
+  setValueForm(mode, defaultForm, visibleObject): any {
+    console.log({visibleObject});
+
+    if (mode === 'C') {
       return {
         name: null,
-        status:  true,
+        status: true,
         selectedConsortium: null,
-        showPercentage: true,
+        showPercentage: false,
+        earningPercentage: null,
+        // header: null,
+        // footer: null,
         ownerName: null,
         username: null,
         password: null
@@ -99,19 +108,26 @@ export class BankingsComponent {
         status: visibleObject.status,
         selectedConsortium: visibleObject.consortiumId,
         showPercentage: visibleObject.showPercentage,
+        earningPercentage: visibleObject.earningPercentage,
+        // header: visibleObject.header,
+        // footer: visibleObject.footer,
         ownerName: visibleObject.ownerName,
         username: visibleObject.ownerUsername,
-        password: null
+        password: null,
       };
     }
   }
+
+// TODO add new fields
   parseData = (mode: string, valueForm, visibleObject): CreateBankingDto | UpdateBankingDto => {
+    console.log({visibleObject});
     if (mode === 'C') {
       return {
         banking: {
           name: valueForm.name,
           status: valueForm.status,
-          showPercentage: valueForm.showPercentage
+          showPercentage: valueForm.showPercentage,
+          earningPercentage: valueForm.earningPercentage
         } as BankingDto,
         user: {username: valueForm.username, password: valueForm.password, name: valueForm.ownerName} as SignUpCredentialsDto,
         consortiumId: valueForm.selectedConsortium
@@ -127,20 +143,28 @@ export class BankingsComponent {
         selectedConsortium: valueForm.selectedConsortium
       } as UpdateBankingDto;
     }
-  }
+  };
+
   getValidators = (mode: string) => {
     return {
       name: [Validators.required],
       status: [Validators.required],
-      showPercentage: [Validators.required],
       selectedConsortium: [Validators.required],
+      showPercentage: [Validators.required],
+      earningPercentage: [Validators.required],
+      header: (mode === 'C') ? [Validators.required] : [],
+      footer: (mode === 'C') ? [Validators.required] : [],
       ownerName: [Validators.required],
-      username: [Validators.required, Validators.minLength(4)],
+      username: [Validators.required],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35)
       ] : [Validators.minLength(8),
         Validators.maxLength(35)]
     };
+  };
+
+  getConsortiumName(consortiumId: any): string {
+    return this.consortiums.find(consortium => consortium._id === consortiumId).name;
   }
 }
