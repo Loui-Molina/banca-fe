@@ -45,6 +45,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   modalConfirm = false;
   loadingSubmit = false;
   generatedBet: BetDto;
+  payTicketFounded: BetDto;
   bets: Bet[] = [];
   resumeSells: ResumeSellsDto;
   panels = [
@@ -489,6 +490,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   closeDrawer = (drawerName: string) => {
+    if (drawerName === 'drawerPagar') {
+      this.payTicketFounded = null;
+    }
     this[drawerName] = false;
   }
 
@@ -625,7 +629,23 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.reloadTickets();
       this.messageService.create('success', `Ticket pagado correctamente`, {nzDuration: 3000});
       this.payTicketValue = null;
+      this.payTicketFounded = null;
       this.closeDrawer('drawerPagar');
+    }, error => {
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+  searchPayTicket = () => {
+    this.payTicketFounded = null;
+    if (!this.payTicketValue) {
+      return;
+    }
+    const body: ClaimBetDto = {
+      sn: this.payTicketValue
+    };
+    this.bettingPanelService.bettingPanelControllerGetClaimTicket(body).subscribe(data => {
+      this.payTicketFounded = data;
     }, error => {
       throw new HttpErrorResponse(error);
     });

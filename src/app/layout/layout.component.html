@@ -84,27 +84,29 @@
           </span>
         </div>
         <div class="app-header-right">
-          <span class="header-trigger">
+          <ng-container *ngIf="[userRole.Consortium, userRole.Banker].includes(user?.role)">
+            <span class="header-trigger" >
             <nz-badge [nzCount]="messages.length"  [nzShowZero]="false">
               <i [nzDropdownMenu]="menu2" nzTrigger="click" style="font-size: 20px;" nz-dropdown nz-icon nzTheme="outline" nzType="message"></i>
             </nz-badge>
           </span>
-          <nz-dropdown-menu #menu2="nzDropdownMenu">
-            <ul nz-menu nzSelectable class="chat-container">
-              <li *ngIf="messages.length === 0" (click)="goToChat()"
-                  nz-menu-item>
-                <p style="margin: 0">No hay mensajes nuevos</p>
-              </li>
-              <li class="message" *ngFor="let message of getTopMessages()" (click)="goToChat()"
-                  nz-menu-item>
-                <p class="message-text">{{message.message}}</p>
-                <p class="origin">{{message.originName}}</p>
-              </li>
-              <li *ngIf="messages.length > 5" (click)="goToChat()" nz-menu-item>
+            <nz-dropdown-menu #menu2="nzDropdownMenu">
+              <ul nz-menu nzSelectable class="chat-container">
+                <li *ngIf="messages.length === 0" (click)="goToChat()"
+                    nz-menu-item>
+                  <p style="margin: 0">No hay mensajes nuevos</p>
+                </li>
+                <li class="message" *ngFor="let message of getTopMessages()" (click)="goToChat()"
+                    nz-menu-item>
+                  <p class="message-text">{{message.message}}</p>
+                  <p class="origin">{{message.originName}}</p>
+                </li>
+                <li *ngIf="messages.length > 5" (click)="goToChat()" nz-menu-item>
                   <p style="text-align: center; margin: 0">{{messages.length - getTopMessages().length}} mas</p>
-              </li>
-            </ul>
-          </nz-dropdown-menu>
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </ng-container>
           <span class="header-trigger">
             <i [nzDropdownMenu]="menu" nz-dropdown nz-icon nzTheme="outline" nzType="translation"></i>
           </span>

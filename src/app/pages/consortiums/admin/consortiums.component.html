@@ -51,13 +51,12 @@
         <input [minLength]="4" formControlName="ownerUsername" id="ownerUsername" nz-input type="text">
       </div>
 
-      <ng-container *ngIf="mode === 'C'">
+      <div>
         <label for="password">
           {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
         </label>
         <input [maxLength]="35" [minLength]="8" formControlName="password" id="password" nz-input type="text">
-      </ng-container>
-
+      </div>
 
     </form>
   </ng-template>

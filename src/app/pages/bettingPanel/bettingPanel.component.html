@@ -358,7 +358,17 @@
       <p>Ingrese el serial de cobro:</p>
       <input [(ngModel)]="payTicketValue" [type]="'string'" class="right-input" nz-input
              placeholder="Serial de cobro"/>
-      <button (click)="payTicket()" [disabled]="!payTicketValue" nz-button>Pagar ticket</button>
+      <button (click)="searchPayTicket()" [disabled]="!payTicketValue" nz-button>Buscar ticket</button>
+      <ng-container *ngIf="payTicketFounded">
+        <div style="margin-top: 10px">
+          <h2>ID: {{selectedTicket._id.toString()}}</h2>
+          <h3>SN: {{selectedTicket.sn}}</h3>
+          <p>Fecha: {{selectedTicket.date | date: 'dd/MM/yyyy'}}</p>
+          <p>Hora: {{selectedTicket.date | date: 'HH:mm:ss'}}</p>
+          <h3>Monto ganador: ${{payTicketFounded.amountWin}}</h3>
+        </div>
+        <button (click)="payTicket()" [disabled]="!payTicketValue" nz-button>Pagar ticket</button>
+      </ng-container>
     </ng-container>
   </div>
 </nz-drawer>

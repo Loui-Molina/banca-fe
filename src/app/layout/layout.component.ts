@@ -81,11 +81,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
     }, error => {
       throw new HttpErrorResponse(error);
     });
-
-    this.reloadMessages();
-    this.interval = setInterval(() => {
+    if ([this.userRole.Consortium, this.userRole.Banker].includes(this.user?.role)) {
       this.reloadMessages();
-    }, 15000);
+      this.interval = setInterval(() => {
+        this.reloadMessages();
+      }, 15000);
+    }
   }
 }
 
