@@ -13,12 +13,12 @@
     <ul [nzInlineCollapsed]="isCollapsed" nz-menu nzMode="inline" nzTheme="dark">
       <li nz-submenu nzIcon="home" nzOpen nzTitle="{{'HOME.TITLE' | translate}}">
         <ul>
-          <li *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium || user?.role === userRole.Banker" nz-menu-item
+          <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker].includes(user?.role)" nz-menu-item
               nzMatchRouter>
             <i nz-icon nzTheme="outline" nzType="dashboard"></i>
             <a routerLink="/dashboard">{{'HOME.DASHBOARD.TITLE' | translate}}</a>
           </li>
-          <li *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium || user?.role === userRole.Banker" nz-menu-item
+          <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker].includes(user?.role)" nz-menu-item
               nzMatchRouter>
             <i nz-icon nzType="wallet"></i>
             <a routerLink="/transactions">{{'HOME.TRANSACTIONS.TITLE' | translate}}</a>
@@ -27,15 +27,19 @@
             <i nz-icon nzType="apartment"></i>
             <a routerLink="/consortiums">{{'Consorcios' | translate}}</a>
           </li>
-          <li *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium" nz-menu-item nzMatchRouter>
+          <li *ngIf="[userRole.Consortium, userRole.Banker].includes(user?.role)" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="message"></i>
+            <a routerLink="/chat">{{'Chat' | translate}}</a>
+          </li>
+          <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="shop"></i>
             <a routerLink="/bankings">{{'HOME.BANKINGS.TITLE' | translate}}</a>
           </li>
-          <li *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium" nz-menu-item nzMatchRouter>
+          <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="trophy"></i>
             <a routerLink="/lotteries">{{'HOME.LOTTERIES.TITLE' | translate}}</a>
           </li>
-          <li *ngIf="user?.role === userRole.Admin || user?.role === userRole.Consortium" nz-menu-item nzMatchRouter>
+          <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="reconciliation"></i>
             <a routerLink="/results">{{'Resultados' | translate}}</a>
           </li>
