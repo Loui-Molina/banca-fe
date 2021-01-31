@@ -98,8 +98,10 @@ export class ChatsComponent implements OnInit, OnDestroy {
 
   scrollAutomatic(): void {
     setTimeout(() => {
-      this.chatContainer.nativeElement.scroll({ top: this.chatContainer.nativeElement.scrollHeight, behavior: 'smooth' });
-    }, 500);
+      if (this.chatContainer && this.chatContainer.nativeElement){
+        this.chatContainer.nativeElement.scroll({ top: this.chatContainer.nativeElement.scrollHeight, behavior: 'smooth' });
+      }
+    }, 100);
   }
 
   init(): void {
