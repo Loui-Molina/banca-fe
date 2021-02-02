@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
-import {User} from '@banca-api/model/user';
+import {User} from '../../../../local-packages/banca-api';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +18,8 @@ export class DashboardComponent {
       routeCommands.push('consortium');
     } else if (this.userService.checkRoles([User.RoleEnum.Admin])) {
       routeCommands.push('admin');
+    } else if (this.userService.checkRoles([User.RoleEnum.Webuser])) {
+      routeCommands.push('webuser');
     } else {
       alert('No role');
     }

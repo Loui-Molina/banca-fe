@@ -26,4 +26,6 @@ export * from './transactions.service';
 import { TransactionsService } from './transactions.service';
 export * from './users.service';
 import { UsersService } from './users.service';
-export const APIS = [AdminLotteriesService, AuthService, BankingService, BankingLotteriesService, BettingPanelService, CommonService, ConsortiumLotteriesService, ConsortiumsService, DashboardService, DefaultService, MessagesService, ResultsService, TransactionsService, UsersService];
+export * from './webusers.service';
+import { WebusersService } from './webusers.service';
+export const APIS = [AdminLotteriesService, AuthService, BankingService, BankingLotteriesService, BettingPanelService, CommonService, ConsortiumLotteriesService, ConsortiumsService, DashboardService, DefaultService, MessagesService, ResultsService, TransactionsService, UsersService, WebusersService];

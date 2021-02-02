@@ -16,16 +16,17 @@ export interface SignUpCredentialsDto {
     password: string;
     name: string;
     role?: SignUpCredentialsDto.RoleEnum;
+    _id?: object;
 }
 export namespace SignUpCredentialsDto {
-    export type RoleEnum = 'admin' | 'banker' | 'punter' | 'supervisor' | 'consortium' | 'carrier';
+    export type RoleEnum = 'admin' | 'banker' | 'supervisor' | 'consortium' | 'carrier' | 'webuser';
     export const RoleEnum = {
         Admin: 'admin' as RoleEnum,
         Banker: 'banker' as RoleEnum,
-        Punter: 'punter' as RoleEnum,
         Supervisor: 'supervisor' as RoleEnum,
         Consortium: 'consortium' as RoleEnum,
-        Carrier: 'carrier' as RoleEnum
+        Carrier: 'carrier' as RoleEnum,
+        Webuser: 'webuser' as RoleEnum
     };
 }
 

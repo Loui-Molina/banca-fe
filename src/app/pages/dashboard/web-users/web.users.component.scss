@@ -1,0 +1,45 @@
+.help-widget{
+  border-radius: 5px;
+  margin-top: 20px;
+  background-color: #b9d7d9;
+  box-shadow: 0 4px 6px 0 #0000001a;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+
+  img{
+    width: 100%;
+    object-fit: cover;
+  }
+}
+.play{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .start{
+    font-size: 30px;
+    cursor: pointer;
+    margin: 0;
+    &:hover{
+      color:grey;
+    }
+  }
+}
+
+
+.balls{
+  position: relative; background-color: transparent; border:1px solid #ccc; color: black; width: 100%; height: 400px;
+  .box{
+    background-color: transparent;
+  }
+}
+
+:host ::ng-deep{
+  .balls{
+    .box{
+      background-color: transparent;
+    }
+  }
+}

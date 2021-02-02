@@ -4,7 +4,7 @@ import {LayoutComponent} from './layout/layout.component';
 import {Page404Component} from './pages/problems/404/page404.component';
 import {RoleGuard} from './guards/role-guard.service';
 import {AuthGuard} from './guards/auth-guard.service';
-import {User} from '@banca-api/model/user';
+import {User} from '../../local-packages/banca-api';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         canActivate: [RoleGuard, AuthGuard],
-        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker, User.RoleEnum.Webuser]},
         loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
@@ -67,6 +67,12 @@ const routes: Routes = [
         canActivate: [RoleGuard, AuthGuard],
         data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
         loadChildren: () => import('./pages/results/results.module').then(m => m.ResultsModule)
+      },
+      {
+        path: 'web-users',
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
+        loadChildren: () => import('./pages/web-users/web.users.module').then(m => m.WebUsersModule)
       },
       {
         path: 'help',

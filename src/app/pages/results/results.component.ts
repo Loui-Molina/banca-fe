@@ -2,13 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {AddResultDto, AdminLotteriesService, AdminLotteryResDto, Result, ResultDto, ResultsService} from 'local-packages/banca-api';
+import {AddResultDto, AdminLotteriesService, AdminLotteryResDto, Result, ResultDto, ResultsService, User} from 'local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {UserInterface, UserService} from '../../services/user.service';
-import {User} from '@banca-api/model/user';
 
 @Component({
   selector: 'app-results',

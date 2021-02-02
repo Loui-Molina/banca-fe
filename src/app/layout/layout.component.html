@@ -13,7 +13,7 @@
     <ul [nzInlineCollapsed]="isCollapsed" nz-menu nzMode="inline" nzTheme="dark">
       <li nz-submenu nzIcon="home" nzOpen nzTitle="{{'HOME.TITLE' | translate}}">
         <ul>
-          <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker].includes(user?.role)" nz-menu-item
+          <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker, userRole.Webuser].includes(user?.role)" nz-menu-item
               nzMatchRouter>
             <i nz-icon nzTheme="outline" nzType="dashboard"></i>
             <a routerLink="/dashboard">{{'HOME.DASHBOARD.TITLE' | translate}}</a>
@@ -42,6 +42,10 @@
           <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="reconciliation"></i>
             <a routerLink="/results">{{'Resultados' | translate}}</a>
+          </li>
+          <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker].includes(user?.role)" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="team"></i>
+            <a routerLink="/web-users">{{'Usuarios web' | translate}}</a>
           </li>
           <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="question"></i>

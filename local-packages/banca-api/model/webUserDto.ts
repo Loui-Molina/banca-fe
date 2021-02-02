@@ -11,8 +11,14 @@
  */
 
 
-export interface CreateMessageDto { 
-    destinationId?: object;
-    message: string;
+export interface WebUserDto { 
+    _id: object;
+    status: boolean;
+    ownerUserId: object;
+    bankingId: object;
+    ownerUsername: string;
+    ownerName: string;
+    createdAt: string;
+    startOfOperation: string;
 }
 

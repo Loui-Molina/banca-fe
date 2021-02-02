@@ -17,6 +17,7 @@ import { MessagesService } from './api/messages.service';
 import { ResultsService } from './api/results.service';
 import { TransactionsService } from './api/transactions.service';
 import { UsersService } from './api/users.service';
+import { WebusersService } from './api/webusers.service';
 
 @NgModule({
   imports:      [],
