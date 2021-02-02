@@ -601,7 +601,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   printTicket = (ticket: BetDto | Bet) => {
-    printTicket(ticket);
+    if(this.canSeeSn(ticket)){
+      printTicket(ticket);
+    }
   }
 
   payTicket = () => {
@@ -656,6 +658,13 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     const diffMs = (new Date(ticket.date) - new Date());
     const diffMins = diffMs / 60000; // minutes
     return (diffMins > -5);
+  }
+
+  canSeeSn(bet: Bet | BetDto): boolean {
+    // @ts-ignore
+    const diffMs = new Date(bet.date) - new Date();
+    const diffMins = diffMs / 60000; // minutes
+    return diffMins > -10;
   }
 
   cancelTicket = (ticket) => {
