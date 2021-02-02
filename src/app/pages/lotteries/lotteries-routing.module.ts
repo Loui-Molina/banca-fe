@@ -5,7 +5,7 @@ import {RoleGuard} from '../../guards/role-guard.service';
 import {AuthGuard} from '../../guards/auth-guard.service';
 import {AdminLotteriesComponent} from './admin/admin-lotteries.component';
 import {ConsortiumLotteriesComponent} from './consortium/consortium-lotteries.component';
-import {User} from '@banca-api/model/user';
+import {User} from '../../../../local-packages/banca-api';
 
 const routes: Routes = [
   {

@@ -2,8 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Router} from '@angular/router';
 import {UserInterface, UserService} from '../services/user.service';
-import {User} from '@banca-api/model/user';
-import {AuthService, CommonService, MessageDto, MessagesService} from '../../../local-packages/banca-api';
+import {AuthService, CommonService, MessageDto, MessagesService, User} from '../../../local-packages/banca-api';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({

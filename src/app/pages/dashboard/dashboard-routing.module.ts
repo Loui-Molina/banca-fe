@@ -6,7 +6,7 @@ import {AdminComponent} from './admin/admin.component';
 import {ConsortiumComponent} from './consortium/consortium.component';
 import {RoleGuard} from '../../guards/role-guard.service';
 import {AuthGuard} from '../../guards/auth-guard.service';
-import {User} from '@banca-api/model/user';
+import {User} from '../../../../local-packages/banca-api';
 
 const routes: Routes = [
   {

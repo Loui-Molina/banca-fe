@@ -4,7 +4,7 @@ import {LayoutComponent} from './layout/layout.component';
 import {Page404Component} from './pages/problems/404/page404.component';
 import {RoleGuard} from './guards/role-guard.service';
 import {AuthGuard} from './guards/auth-guard.service';
-import {User} from '@banca-api/model/user';
+import {User} from '../../local-packages/banca-api';
 
 const routes: Routes = [
   {

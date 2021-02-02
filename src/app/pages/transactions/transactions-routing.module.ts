@@ -2,11 +2,11 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RoleGuard} from '../../guards/role-guard.service';
 import {AuthGuard} from '../../guards/auth-guard.service';
-import {User} from '@banca-api/model/user';
 import {AdminTransactionsComponent} from './admin/admin-transactions.component';
 import {TransactionsComponent} from './transactions.component';
 import {ConsortiumTransactionsComponent} from './consortium/consortium-transactions.component';
 import {BankingTransactionsComponent} from './banking/banking-transactions.component';
+import {User} from '../../../../local-packages/banca-api';
 
 const routes: Routes = [
   {path: '', component: TransactionsComponent},
