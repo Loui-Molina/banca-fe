@@ -6,12 +6,12 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 import {
   BankingLotteriesService,
   BankingLotteryDto,
-  BetDto,
+  BetDto, BettingLimit,
   BettingPanelService,
   ClaimBetDto,
   CreateBetDto,
   Play,
-  PlayNumbers,
+  PlayNumbers, PrizeLimit,
   ResultDto,
   ResultsService,
   ResumeSellsDto
@@ -20,6 +20,8 @@ import {forkJoin, Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
 import {UpdateBetDto} from 'local-packages/banca-api/model/models';
+import PrizeLimitPlayTypeEnum = PrizeLimit.PlayTypeEnum;
+import BettingLimitPlayTypeEnum = BettingLimit.PlayTypeEnum;
 
 @Component({
   selector: 'app-betting-panel',
@@ -34,12 +36,15 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   number: string = null;
   amount: number = null;
   payTicketValue: string = null;
+  lotteryId = null;
   selectedTicket: BetDto;
+  selectedLotteryLimit: BankingLotteryDto;
   drawerTickets = false;
   drawerCaja = false;
   drawerPagar = false;
   drawerHelp = false;
   drawerTicket = false;
+  drawerLotteryLimits = false;
   modalOpened = false;
   modalConfirm = false;
   loadingSubmit = false;
@@ -52,6 +57,22 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     {title: 'PALE', types: [Play.PlayTypeEnum.Pale]},
     {title: 'TRIPLETA', types: [Play.PlayTypeEnum.Tripleta]},
     {title: 'SUPERPALE', types: [Play.PlayTypeEnum.SuperPale]}
+  ];
+  availablePlays = [
+    {title: 'First', key: PrizeLimitPlayTypeEnum.First},
+    {title: 'Second', key: PrizeLimitPlayTypeEnum.Second},
+    {title: 'Third', key: PrizeLimitPlayTypeEnum.Third},
+    {title: 'Double', key: PrizeLimitPlayTypeEnum.Double},
+    {title: 'Pale', key: PrizeLimitPlayTypeEnum.Pale},
+    {title: 'PaleTwoThree', key: PrizeLimitPlayTypeEnum.PaleTwoThree},
+    {title: 'Triplet', key: PrizeLimitPlayTypeEnum.Triplet},
+    {title: 'TwoNumbers', key: PrizeLimitPlayTypeEnum.TwoNumbers},
+    {title: 'SuperPale', key: PrizeLimitPlayTypeEnum.SuperPale}
+  ];
+  availableBettingPlays = [
+    {title: 'Direct', key: 'betting.' + BettingLimitPlayTypeEnum.Direct},
+    {title: 'Pale', key: 'betting.' + BettingLimitPlayTypeEnum.Pale},
+    {title: 'Tripleta', key: 'betting.' + BettingLimitPlayTypeEnum.Tripleta}
   ];
   lotterys: BankingLotteryDto[] = [];
   selectedLotterys: string[] = [];
@@ -699,6 +720,26 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }, error => {
       throw new HttpErrorResponse(error);
     });
+  }
+
+
+  onChangeLotterySelected = ($event) => {
+    const lottery = this.lotterys.find(lottery => lottery._id.toString() === $event.toString());
+    this.selectedLotteryLimit = lottery;
+  }
+
+  getValueOfPlay = (play, limits) => {
+    const founded = limits.find(limit => limit.playType === play);
+    if (founded) {
+      return founded.paymentAmount;
+    }
+  }
+
+  getValueOfBettingPlay = (play, limits) => {
+    const founded = limits.find(limit => limit.playType === play);
+    if (founded) {
+      return founded.betAmount;
+    }
   }
 
   getPanelSize = (size) => {

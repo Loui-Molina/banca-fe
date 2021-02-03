@@ -25,6 +25,8 @@ import {NzListModule} from 'ng-zorro-antd/list';
 import {CountdownModule} from 'ngx-countdown';
 import {NzModalModule} from 'ng-zorro-antd/modal';
 import {NzTableModule} from 'ng-zorro-antd/table';
+import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -53,7 +55,9 @@ import {NzTableModule} from 'ng-zorro-antd/table';
     CountdownModule,
     NzListModule,
     NzModalModule,
-    NzTableModule
+    NzTableModule,
+    NzInputNumberModule,
+    TranslateModule
   ],
   providers: [DatePipe],
   declarations: [BettingPanelComponent],
