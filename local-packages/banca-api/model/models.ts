@@ -24,6 +24,7 @@ export * from './dashboardDiagramLinkDto';
 export * from './dashboardDiagramNodeDto';
 export * from './dashboardGraphBalanceBankingDto';
 export * from './dashboardGraphBankingDto';
+export * from './dashboardGraphConsortiumBalanceBankingDto';
 export * from './dashboardGraphConsortiumDto';
 export * from './dashboardPlayedNumbersDto';
 export * from './dashboardWidgetsDto';
