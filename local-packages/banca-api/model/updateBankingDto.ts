@@ -20,5 +20,7 @@ export interface UpdateBankingDto {
     user: SignUpCredentialsDto;
     showPercentage: boolean;
     selectedConsortium: object;
+    header: string;
+    footer: string;
 }
 

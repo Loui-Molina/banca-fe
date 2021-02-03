@@ -39,15 +39,8 @@ export class LoginComponent implements OnInit {
     if (this.validateForm.valid) {
       this.loading = true;
       this.userService.login(this.validateForm.value.username, this.validateForm.value.password).then(value => {
-        this.userService.isLoginEnabled().then(isEnabled => {
-            this.loading = false;
-            if (isEnabled) {
-              this.navigate();
-            } else {
-              this.userService.logout();
-            }
-          }
-        );
+        this.loading = false;
+        this.navigate();
       }).catch(err => {
         this.loading = false;
         if (err.status === 0) {

@@ -51,10 +51,10 @@ export class BankingsComponent {
     name: null,
     status: true,
     selectedConsortium: null,
-    showPercentage: true,
+    showPercentage: false,
     earningPercentage: null,
-    // header: null,
-    // footer: null,
+    header: null,
+    footer: null,
     ownerName: null,
     username: null,
     password: null
@@ -87,8 +87,6 @@ export class BankingsComponent {
   fetcherDelete: (item) => Observable<Banking> = (item) => this.bankingService.bankingsControllerDelete(item._id);
 
   setValueForm(mode, defaultForm, visibleObject): any {
-    console.log({visibleObject});
-
     if (mode === 'C') {
       return {
         name: null,
@@ -96,8 +94,8 @@ export class BankingsComponent {
         selectedConsortium: null,
         showPercentage: false,
         earningPercentage: null,
-        // header: null,
-        // footer: null,
+        header: null,
+        footer: null,
         ownerName: null,
         username: null,
         password: null
@@ -109,8 +107,8 @@ export class BankingsComponent {
         selectedConsortium: visibleObject.consortiumId,
         showPercentage: visibleObject.showPercentage,
         earningPercentage: visibleObject.earningPercentage,
-        // header: visibleObject.header,
-        // footer: visibleObject.footer,
+        header: visibleObject.header,
+        footer: visibleObject.footer,
         ownerName: visibleObject.ownerName,
         username: visibleObject.ownerUsername,
         password: null,
@@ -118,16 +116,16 @@ export class BankingsComponent {
     }
   }
 
-// TODO add new fields
   parseData = (mode: string, valueForm, visibleObject): CreateBankingDto | UpdateBankingDto => {
-    console.log({visibleObject});
     if (mode === 'C') {
       return {
         banking: {
           name: valueForm.name,
           status: valueForm.status,
           showPercentage: valueForm.showPercentage,
-          earningPercentage: valueForm.earningPercentage
+          earningPercentage: valueForm.earningPercentage,
+          header: valueForm.header,
+          footer: valueForm.footer
         } as BankingDto,
         user: {username: valueForm.username, password: valueForm.password, name: valueForm.ownerName} as SignUpCredentialsDto,
         consortiumId: valueForm.selectedConsortium
@@ -140,7 +138,9 @@ export class BankingsComponent {
         showPercentage: valueForm.showPercentage,
         ownerUserId: visibleObject.ownerUserId,
         user: {username: valueForm.username, password: valueForm.password, name: valueForm.ownerName} as SignUpCredentialsDto,
-        selectedConsortium: valueForm.selectedConsortium
+        selectedConsortium: valueForm.selectedConsortium,
+        header: valueForm.header,
+        footer: valueForm.footer
       } as UpdateBankingDto;
     }
   };
@@ -150,10 +150,8 @@ export class BankingsComponent {
       name: [Validators.required],
       status: [Validators.required],
       selectedConsortium: [Validators.required],
-      showPercentage: [Validators.required],
-      earningPercentage: [Validators.required],
-      header: (mode === 'C') ? [Validators.required] : [],
-      footer: (mode === 'C') ? [Validators.required] : [],
+      header: [Validators.required],
+      footer: [Validators.required],
       ownerName: [Validators.required],
       username: [Validators.required],
       password: (mode === 'C') ? [Validators.required,
@@ -165,6 +163,9 @@ export class BankingsComponent {
   };
 
   getConsortiumName(consortiumId: any): string {
-    return this.consortiums.find(consortium => consortium._id === consortiumId).name;
+    if (consortiumId) {
+      return this.consortiums.find(consortium => consortium._id === consortiumId).name;
+    }
+    return '';
   }
 }

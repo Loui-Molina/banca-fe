@@ -40,6 +40,7 @@
             <div nz-col nzSpan="16">
               <nz-input-number
                 [nzMin]="0"
+                [nzMax]="100"
                 formControlName="earningPercentage"
                 style="width:100%">
               </nz-input-number>
@@ -58,20 +59,19 @@
       </div>
 
       <nz-divider [nzText]="'Datos ticket'" class="title" nzOrientation="left"></nz-divider>
+      <div>
+        <label for="header">
+          {{'Encabezado'|translate}}
+        </label>
+        <input id="header" formControlName="header" nz-input type="text">
+      </div>
 
-      <!--      <div>
-              <label for="header">
-                {{'Encabezado'|translate}}
-              </label>
-              <input id="header" nz-input type="text">
-            </div>
-
-            <div>
-              <label for="footer">
-                {{'Pie'|translate}}
-              </label>
-              <input id="footer" nz-input type="text">
-            </div>-->
+      <div>
+        <label for="footer">
+          {{'Pie'|translate}}
+        </label>
+        <input id="footer" formControlName="footer" nz-input type="text">
+      </div>
 
       <nz-divider [nzText]="'Datos de inicio de sesion'" class="title" nzOrientation="left"></nz-divider>
 
@@ -101,7 +101,8 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <nz-descriptions [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }" [nzTitle]="'banca'|translate">
+      <nz-divider [nzText]="'banca'|translate" class="title" nzOrientation="left"></nz-divider>
+      <nz-descriptions>
         <nz-descriptions-item [nzTitle]="'Nombre'|translate">
           {{visibleObject.name}}
         </nz-descriptions-item>
@@ -118,15 +119,17 @@
           {{visibleObject.earningPercentage}}%
         </nz-descriptions-item>
       </nz-descriptions>
-      <nz-descriptions [nzTitle]="'ticket'|translate">
+      <nz-divider [nzText]="'ticket'|translate" class="title" nzOrientation="left"></nz-divider>
+      <nz-descriptions>
         <nz-descriptions-item [nzTitle]="'header'| translate">
-          <!--          {{visibleObject.header}}-->
+          {{visibleObject.header}}
         </nz-descriptions-item>
         <nz-descriptions-item [nzTitle]="'footer'| translate">
-          <!--          {{visibleObject.footer}}-->
+          {{visibleObject.footer}}
         </nz-descriptions-item>
       </nz-descriptions>
-      <nz-descriptions [nzTitle]="'dueño'|translate">
+      <nz-divider [nzText]="'dueño'|translate" class="title" nzOrientation="left"></nz-divider>
+      <nz-descriptions>
         <nz-descriptions-item [nzTitle]="'ownerName'| translate">
           {{visibleObject.ownerName}}
         </nz-descriptions-item>

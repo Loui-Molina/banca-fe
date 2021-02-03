@@ -45,54 +45,64 @@
         <label for="playTime">
           {{'Hora de juego'|translate}}
         </label>
+
         <nz-time-picker [nzMinuteStep]="5" formControlName="playTime" id="playTime" nzFormat="HH:mm"
-                        nzPlaceHolder="Hora de juego"></nz-time-picker>
+                        nzPlaceHolder="Hora de juego" (ngModelChange)="resetOpenAndCloseTime()"></nz-time-picker>
       </div>
 
+      {{formABM.value | json}}
+
+
       <div nz-row nzGutter="8">
-        <div class="form-element" nz-col nzXs="8">
+        <div class="form-element" nz-col nzXs="12">
           <label for="openTime">
             {{'Apertura'|translate}}
           </label>
-          <nz-time-picker [nzDisabledHours]="getOpeningDisabledHours()"
-                          [nzDisabledMinutes]="getOpeningDisabledMinutes()"
+          <nz-time-picker [nzDisabledHours]="getOpeningDisabledHours"
+                          [nzDisabledMinutes]="getOpeningDisabledMinutes"
                           [nzHideDisabledOptions]="true"
                           [nzMinuteStep]="5"
+                          [nzDisabled]="isOpeningTimeEnabled()"
+                          [nzAllowEmpty]="true"
                           formControlName="openTime"
                           id="openTime"
                           nzFormat="HH:mm"
-                          nzPlaceHolder="Hora de apertura"></nz-time-picker>
+                          nzPlaceHolder="Hora de apertura">
+          </nz-time-picker>
         </div>
-        <div class="form-element" nz-col nzXs="8">
+        <div class="form-element" nz-col nzXs="12">
           <label for="closeTime">
             {{'Cierre'|translate}}
           </label>
-          <nz-time-picker [nzDisabledHours]="getClosingDisabledHours()"
-                          [nzDisabledMinutes]="getClosingDisabledMinutes()"
+          <nz-time-picker [nzDisabledHours]="getClosingDisabledHours"
+                          [nzDisabledMinutes]="getClosingDisabledMinutes"
                           [nzHideDisabledOptions]="true"
                           [nzMinuteStep]="5"
+                          [nzDisabled]="isClosingTimeEnabled()"
+                          [nzAllowEmpty]="true"
                           formControlName="closeTime"
                           id="closeTime"
                           nzFormat="HH:mm"
-                          nzPlaceHolder="Hora de cierre"></nz-time-picker>
+                          nzPlaceHolder="Hora de cierre">
+          </nz-time-picker>
         </div>
+      </div>
 
-        <div class="form-element" nz-col nzXs="8">
-          <label for="day">
-            {{'dias'|translate}}
-          </label>
-          <nz-select class="day-selector" formControlName="day" id="day" nzMaxTagCount="2"
-                     nzMode="tags"
-                     nzPlaceHolder="Seleccione los dias de apertura">
-            <nz-option [nzLabel]="days.Mon" [nzValue]="days.Mon"></nz-option>
-            <nz-option [nzLabel]="days.Tue" [nzValue]="days.Tue"></nz-option>
-            <nz-option [nzLabel]="days.Wed" [nzValue]="days.Wed"></nz-option>
-            <nz-option [nzLabel]="days.Thu" [nzValue]="days.Thu"></nz-option>
-            <nz-option [nzLabel]="days.Fri" [nzValue]="days.Fri"></nz-option>
-            <nz-option [nzLabel]="days.Sat" [nzValue]="days.Sat"></nz-option>
-            <nz-option [nzLabel]="days.Sun" [nzValue]="days.Sun"></nz-option>
-          </nz-select>
-        </div>
+      <div class="form-element" >
+        <label for="day">
+          {{'dias'|translate}}
+        </label>
+        <nz-select class="day-selector" formControlName="day" id="day" nzMaxTagCount="7"
+                   nzMode="tags"
+                   nzPlaceHolder="Seleccione los dias de apertura">
+          <nz-option [nzLabel]="days.Mon" [nzValue]="days.Mon"></nz-option>
+          <nz-option [nzLabel]="days.Tue" [nzValue]="days.Tue"></nz-option>
+          <nz-option [nzLabel]="days.Wed" [nzValue]="days.Wed"></nz-option>
+          <nz-option [nzLabel]="days.Thu" [nzValue]="days.Thu"></nz-option>
+          <nz-option [nzLabel]="days.Fri" [nzValue]="days.Fri"></nz-option>
+          <nz-option [nzLabel]="days.Sat" [nzValue]="days.Sat"></nz-option>
+          <nz-option [nzLabel]="days.Sun" [nzValue]="days.Sun"></nz-option>
+        </nz-select>
       </div>
 
       <div class="form-element">
@@ -108,7 +118,7 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <nz-descriptions [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }" [nzTitle]="'Loteria'| translate">
+      <nz-descriptions [nzTitle]="'Loteria'| translate">
         <nz-descriptions-item [nzTitle]="'Nombre'|translate">
           {{visibleObject.name}}
         </nz-descriptions-item>

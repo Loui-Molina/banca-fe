@@ -23,5 +23,7 @@ export interface BankingDto {
     startOfOperation: string;
     showPercentage: boolean;
     earningPercentage: number;
+    header: string;
+    footer: string;
 }
 

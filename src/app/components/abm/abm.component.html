@@ -7,7 +7,7 @@
       <button (click)="onAdd()" *ngIf="fetcherCreate" nz-button nzType="primary">{{'UTILS.NEW' | translate}}</button>
     </nz-page-header-extra>
     <nz-page-header-content>
-      <nz-descriptions [nzColumn]="3" nzSize="small">
+      <nz-descriptions [nzBordered]="false" nzSize="small">
         <nz-descriptions-item [nzSpan]="3" nzTitle="{{'UTILS.AMOUNT' | translate}}">
           {{dataDisplayed.length}}
         </nz-descriptions-item>

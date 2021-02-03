@@ -63,7 +63,8 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <nz-descriptions [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }" [nzTitle]="'Consorcio'|translate">
+      <nz-divider [nzText]="'Consorcio'" class="title" nzOrientation="left"></nz-divider>
+      <nz-descriptions>
         <nz-descriptions-item [nzTitle]="'Nombre'|translate">
           {{visibleObject.name}}
         </nz-descriptions-item>
@@ -75,7 +76,9 @@
       </nz-descriptions>
 
       <nz-divider [nzText]="'Bancas'" class="title" nzOrientation="left"></nz-divider>
+      <!-- TODO CHANGE NO BANKINGS MESSAGE -->
       <nz-table [nzData]="visibleObject.bankings"
+                [nzNoResult]="'Sin bancas'"
                 [nzSize]="'small'"
                 nzLoading="false"
                 nzTableLayout="auto"
