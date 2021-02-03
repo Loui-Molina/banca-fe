@@ -6,7 +6,6 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 import {
   BankingLotteriesService,
   BankingLotteryDto,
-  Bet,
   BetDto,
   BettingPanelService,
   ClaimBetDto,
@@ -35,7 +34,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   number: string = null;
   amount: number = null;
   payTicketValue: string = null;
-  selectedTicket: Bet;
+  selectedTicket: BetDto;
   drawerTickets = false;
   drawerCaja = false;
   drawerPagar = false;
@@ -46,7 +45,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   loadingSubmit = false;
   generatedBet: BetDto;
   payTicketFounded: BetDto;
-  bets: Bet[] = [];
+  bets: BetDto[] = [];
   resumeSells: ResumeSellsDto;
   panels = [
     {title: 'DIRECTO', types: [Play.PlayTypeEnum.Direct]},
@@ -63,7 +62,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   reloadingLotterys = false;
   reloadingTickets = false;
   lastResults: ResultDto[] = [];
-  betStatusEnum = Bet.BetStatusEnum;
+  betStatusEnum = BetDto.BetStatusEnum;
   plays: PlayInterface[] = [];
   lastInput = null;
   lastClick = null;
@@ -529,12 +528,12 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.plays = this.plays.filter(item => item.uuid !== play.uuid);
   }
 
-  openTicket = (ticket: Bet) => {
+  openTicket = (ticket: BetDto) => {
     this.selectedTicket = ticket;
     this.openDrawer('drawerTicket');
   }
 
-  getSendWhatsApp = (bet: BetDto | Bet) => {
+  getSendWhatsApp = (bet: BetDto) => {
     // TODO Ver si tiene user y ponerle el numero como &phone=+5493543573840
     if (bet && bet._id) {
       let text = 'Hola! 👋🏼👋🏼 \n\n'; // TODO poner nombre de usuario
@@ -560,7 +559,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     return showParsedNumbers(playNumbers);
   }
 
-  cloneTicket = (ticket: BetDto | Bet) => {
+  cloneTicket = (ticket: BetDto) => {
     this.modalOpened = true;
     this.modalService.success({
       nzTitle: 'Clonar ticket',
@@ -574,7 +573,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     });
   }
 
-  cloneTicketSubmit = (ticket: BetDto | Bet) => {
+  cloneTicketSubmit = (ticket: BetDto) => {
     this.modalOpened = false;
     this.closeDrawer('drawerTickets');
     this.closeDrawer('drawerTicket');
@@ -600,7 +599,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.plays = plays;
   }
 
-  printTicket = (ticket: BetDto | Bet) => {
+  printTicket = (ticket: BetDto) => {
     if(this.canSeeSn(ticket)){
       printTicket(ticket);
     }
@@ -653,14 +652,14 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     });
   }
 
-  canCancelTicket = (ticket: Bet): boolean => {
+  canCancelTicket = (ticket: BetDto): boolean => {
     // @ts-ignore
     const diffMs = (new Date(ticket.date) - new Date());
     const diffMins = diffMs / 60000; // minutes
     return (diffMins > -5);
   }
 
-  canSeeSn(bet: Bet | BetDto): boolean {
+  canSeeSn(bet: BetDto): boolean {
     // @ts-ignore
     const diffMs = new Date(bet.date) - new Date();
     const diffMins = diffMs / 60000; // minutes
