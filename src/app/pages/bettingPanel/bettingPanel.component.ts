@@ -109,7 +109,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
-    if ([this.drawerTickets, this.drawerCaja, this.drawerPagar, this.drawerHelp, this.drawerTicket].includes(true) || this.modalOpened) {
+    if ([this.drawerTickets, this.drawerCaja, this.drawerPagar, this.drawerHelp, this.drawerTicket, this.drawerLotteryLimits].includes(true) || this.modalOpened) {
       return;
     }
 
@@ -565,8 +565,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       text += 'Tus jugadas son:\n';
       let sum = 0;
       for (const play of bet.plays) {
-        // TODO mostrar nombre de loteria
-        text += `Loteria: ${play.lotteryId.toString()} - JUGADA: *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount} - TIPO: ${play.playType}\n`;
+        text += `Loteria: ${play.lotteryName} - JUGADA: *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount} - TIPO: ${play.playType}\n`;
         sum += play.amount;
       }
       text += `Total: $${sum}\n`;
@@ -681,6 +680,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   canSeeSn(bet: BetDto): boolean {
+    if (this.betStatusEnum.Pending !== bet.betStatus){
+      return false;
+    }
     // @ts-ignore
     const diffMs = new Date(bet.date) - new Date();
     const diffMins = diffMs / 60000; // minutes
@@ -724,8 +726,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
 
   onChangeLotterySelected = ($event) => {
-    const lottery = this.lotterys.find(lottery => lottery._id.toString() === $event.toString());
-    this.selectedLotteryLimit = lottery;
+    this.selectedLotteryLimit = this.lotterys.find((lot) => lot._id.toString() === $event.toString());
   }
 
   getValueOfPlay = (play, limits) => {

@@ -34,6 +34,7 @@ export * from './inlineResponse200';
 export * from './inlineResponse503';
 export * from './messageDto';
 export * from './play';
+export * from './playDto';
 export * from './playNumbers';
 export * from './playedNumbersDto';
 export * from './prizeLimit';

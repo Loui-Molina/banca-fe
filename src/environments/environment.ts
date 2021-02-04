@@ -7,7 +7,7 @@ import {User} from 'local-packages/banca-api';
 export const environment = {
   production: false,
   jwtEnabled: true,
-  urlApi: 'http://localhost:3000',
+  urlApi: 'http://192.168.0.42:3000',
   users: [
     {
       username: 'banking',

@@ -119,27 +119,19 @@
             <div class="last-plays-panel-body">
               <div *ngFor="let result of lastResults" class="play">
                 <div class="row-style panel-container" nz-row>
-                  <div class="col-style center-column" nz-col nzSpan="6"
-                       style="justify-content: flex-start;padding-left: 5px">{{result.lotteryName}}</div>
-                  <div *ngIf="result.draw" class="col-style center-column" nz-col nzSpan="6">
-                    <!--<span class="play-result" [class.error]="result.number <= 0">{{result.number}}</span>-->
+                  <div class="col-style center-column" nz-col nzSpan="8"
+                       style="justify-content: flex-start;">{{result.lotteryName}}</div>
+                  <div *ngIf="result.draw" class="col-style center-column" nz-col nzSpan="8" style="justify-content: flex-end">
+                    {{result.date | date: 'dd/MM/yyyy'}}
                   </div>
-                  <div *ngIf="result.draw" class="col-style center-column" nz-col nzSpan="12"
-                       style="justify-content: flex-start">
+                  <div *ngIf="result.draw" class="col-style center-column" nz-col nzSpan="8"
+                       style="justify-content: flex-end">
                     <app-ball *ngIf="result.draw.first" [background]="'red'" [size]="'tiny'"
                               [title]="this.formatResult(result.draw.first)" style="margin-left: 5px"></app-ball>
                     <app-ball *ngIf="result.draw.second" [background]="'red'" [size]="'tiny'"
                               [title]="this.formatResult(result.draw.second)" style="margin-left: 5px"></app-ball>
                     <app-ball *ngIf="result.draw.third" [background]="'red'" [size]="'tiny'"
                               [title]="this.formatResult(result.draw.third)" style="margin-left: 5px"></app-ball>
-                    <app-ball *ngIf="result.draw.fourth" [background]="'red'" [size]="'tiny'"
-                              [title]="this.formatResult(result.draw.fourth)" style="margin-left: 5px"></app-ball>
-                    <app-ball *ngIf="result.draw.fifth" [background]="'red'" [size]="'tiny'"
-                              [title]="this.formatResult(result.draw.fifth)" style="margin-left: 5px"></app-ball>
-                    <app-ball *ngIf="result.draw.sixth" [background]="'red'" [size]="'tiny'"
-                              [title]="this.formatResult(result.draw.sixth)" style="margin-left: 5px"></app-ball>
-                    <app-ball *ngIf="result.draw.seventh" [background]="'red'" [size]="'tiny'"
-                              [title]="this.formatResult(result.draw.seventh)" style="margin-left: 5px"></app-ball>
                   </div>
                 </div>
               </div>
@@ -196,7 +188,7 @@
 >
   <div class="drawer-tickets">
     <ng-container *ngIf="reloadingTickets">
-      <div class="lottery-loading">
+      <div class="lottery-loading">en
         <i nz-icon nzTheme="outline" nzType="loading"></i>
       </div>
     </ng-container>
@@ -452,7 +444,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let data of selectedTicket.plays">
-          <td>{{ data.lotteryId }}</td>
+          <td>{{ data.lotteryName }}</td>
           <td>{{ data.amount }}</td>
           <td>{{ showParsedNumbers(data.playNumbers) }} </td>
           <td>{{ data.playType }} </td>
@@ -487,8 +479,6 @@
 >
   <div class="drawer-lottery-limits">
     <ng-container>
-      <nz-divider [nzText]="'Seleccione una banca'" class="title" nzOrientation="left"
-                  style="margin-top: 0"></nz-divider>
       <nz-select
         [(ngModel)]="lotteryId" (ngModelChange)="onChangeLotterySelected($event)" nzPlaceHolder="Seleccione una loteria"
         style="width: 100%;">

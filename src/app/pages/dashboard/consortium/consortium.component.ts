@@ -19,6 +19,7 @@ export class ConsortiumComponent implements OnInit {
   lineChartDataBankings: any[] = [];
   pieChartData = [];
   numbersPlayed: PlayedNumbersDto[] = [];
+  hideDashboard = true;
 
   constructor(private dashboardService: DashboardService, private datePipe: DatePipe) {
   }
@@ -48,6 +49,11 @@ export class ConsortiumComponent implements OnInit {
           value: res.prizes
         }
       ];
+      if (res.profits || res.prizes){
+        this.hideDashboard = false;
+      } else {
+        this.hideDashboard = true;
+      }
     }, error => {
       throw new HttpErrorResponse(error);
     });

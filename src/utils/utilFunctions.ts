@@ -52,7 +52,7 @@ export function printTicket(bet: BetDto): void {
   bet.plays.map((play) => {
     total += play.amount;
     toWrite += '    <tr>\n' +
-      '      <td style="text-align: center">' + play.lotteryId + '</td>\n' + // TODO pasar loteria
+      '      <td style="text-align: center">' + play.lotteryName + '</td>\n' +
       '      <td style="text-align: center">' + showParsedNumbers(play.playNumbers) + '</td>\n' +
       '      <td style="text-align: center">$' + play.amount + '</td>\n' +
       '      <td style="text-align: center">' + play.playType + '</td>\n' +

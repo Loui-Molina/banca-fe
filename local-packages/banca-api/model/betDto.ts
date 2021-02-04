@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Play } from './play';
+import { PlayDto } from './playDto';
 
 
 export interface BetDto { 
     _id: object;
-    plays: Array<Play>;
+    plays: Array<PlayDto>;
     sn: string;
     date: string;
     claimDate: string;

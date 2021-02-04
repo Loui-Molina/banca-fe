@@ -42,7 +42,14 @@
   <div nz-col nzXl="12" nzXs="24">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider title="Ventas vs Perdidas"></app-title-divider>
-      <app-pie-chart [height]="400" [results]="pieChartData"></app-pie-chart>
+      <ng-container *ngIf="hideDashboard">
+        <div style="text-align: center">
+          <img src="assets/imgs/nodata.png" style="width: 50%;padding-top: 10%; object-fit: cover" alt="No data"/>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!hideDashboard">
+        <app-pie-chart [height]="400" [results]="pieChartData"></app-pie-chart>
+      </ng-container>
     </div>
   </div>
 </div>
