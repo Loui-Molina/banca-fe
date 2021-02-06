@@ -548,7 +548,7 @@
     <ng-container *ngIf="generatedBet">
       <span class="modal-confirm-total">
         <i nz-icon nzTheme="outline" nzType="shopping-cart"></i>
-        TOTAL: ${{getSumBets(plays)}}
+        TOTAL: ${{getSumBets(generatedBet.plays)}}
       </span>
       <span *ngIf="generatedBet._id" class="modal-confirm-ticket-number">
         APUESTA: {{generatedBet._id.toString()}}

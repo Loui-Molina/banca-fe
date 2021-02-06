@@ -14,6 +14,7 @@
 export interface Banking { 
     _id: object;
     consortiumId: object;
+    cancellationTime: number;
     startOfOperation: string;
     status: boolean;
 }

@@ -4,13 +4,14 @@ import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {
+  Banking,
   BankingLotteriesService,
-  BankingLotteryDto,
+  BankingLotteryDto, BankingService,
   BetDto, BettingLimit,
   BettingPanelService,
   ClaimBetDto,
   CreateBetDto, LimitVerifyDto,
-  Play,
+  Play, PlayDto,
   PlayNumbers, PrizeLimit,
   ResultDto,
   ResultsService,
@@ -75,6 +76,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     {title: 'Tripleta', key: 'betting.' + BettingLimitPlayTypeEnum.Tripleta}
   ];
   lotterys: BankingLotteryDto[] = [];
+  banking: Banking;
   selectedLotterys: string[] = [];
   loading = false;
   superPale = false;
@@ -99,6 +101,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
               private resultsService: ResultsService,
               private bankingLotteriesService: BankingLotteriesService,
               private bettingPanelService: BettingPanelService,
+              private bankingService: BankingService,
               private datePipe: DatePipe,
               private translateService: TranslateService,
               private messageService: NzMessageService) {
@@ -220,6 +223,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.initDataSync().subscribe(responseList => {
       this.lastResults = responseList[0];
       this.lotterys = responseList[1];
+      this.banking = responseList[2];
       this.startReloadResults();
       this.loading = false;
     }, error => {
@@ -275,6 +279,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     });
     this.bettingPanelService.bettingPanelControllerCreate(body).subscribe(data => {
       this.generatedBet = data;
+      this.plays = [];
       this.loadingSubmit = false;
     }, error => {
       this.loadingSubmit = false;
@@ -709,7 +714,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     // @ts-ignore
     const diffMs = (new Date(ticket.date) - new Date());
     const diffMins = diffMs / 60000; // minutes
-    return (diffMins > -5);
+    const cancellationTime = this.banking.cancellationTime;
+    if (cancellationTime === null || cancellationTime === undefined) {
+      return true;
+    }
+    return (diffMins > -(cancellationTime));
   }
 
   canSeeSn(bet: BetDto): boolean {
@@ -780,8 +789,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     return Math.floor(size);
   }
 
-  getSumBets(bets: PlayInterface[]): number {
+  getSumBets(bets: PlayInterface[] | PlayDto[]): number {
     let sum = 0;
+    // @ts-ignore
     bets.map(item => {
       sum += item.amount;
     });
@@ -791,9 +801,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   private initDataSync(): Observable<any[]> {
     const resultsControllerGetAll = this.resultsService.resultsControllerGetAll();
     const bankingLotteryControllerGetAll = this.bankingLotteriesService.bankingLotteryControllerGetAll();
+    const bankingsControllerGetBankingOfBanquer = this.bankingService.bankingsControllerGetBankingOfBanquer();
     return forkJoin([
       resultsControllerGetAll,
-      bankingLotteryControllerGetAll
+      bankingLotteryControllerGetAll,
+      bankingsControllerGetBankingOfBanquer,
     ]);
   }
 

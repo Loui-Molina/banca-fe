@@ -58,6 +58,18 @@
         </nz-select>
       </div>
 
+      <div class="form-element">
+        <label for="cancellationTime">
+          {{'Tiempo de cancelacion (minutos)'|translate}}
+        </label>
+        <nz-input-number
+          [nzMin]="0"
+          id="cancellationTime"
+          formControlName="cancellationTime"
+          style="width:100%">
+        </nz-input-number>
+      </div>
+
       <nz-divider [nzText]="'Datos ticket'" class="title" nzOrientation="left"></nz-divider>
       <div>
         <label for="header">
