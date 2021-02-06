@@ -6,6 +6,7 @@ import {
   Banking,
   BankingDto,
   BankingService,
+  Consortium,
   ConsortiumsService,
   CreateBankingDto,
   SignUpCredentialsDto,
@@ -62,7 +63,7 @@ export class BankingsComponent {
   user: UserInterface;
   userRole = User.RoleEnum;
   formABM: FormGroup;
-  consortiums: any;
+  consortiums: Consortium[];
   fetcher: Observable<BankingDto[]> = this.bankingService.bankingsControllerFindAll();
 
   constructor(private datePipe: DatePipe,
@@ -70,15 +71,23 @@ export class BankingsComponent {
               private bankingService: BankingService,
               private userService: UserService,
               private consortiumsService: ConsortiumsService) {
+
     this.formABM = this.formBuilder.group(this.defaultForm);
     this.user = this.userService.getLoggedUser();
     if (this.user?.role === this.userRole.Admin) {
       this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
+          this.consortiums = [];
           this.consortiums = consortiums;
         }, error => {
           throw new HttpErrorResponse(error);
         }
       );
+    } else if (this.user?.role === this.userRole.Consortium) {
+      this.consortiumsService.consortiumControllerGetConsortiumOfUser().subscribe(consortium => {
+        console.log(consortium);
+        this.consortiums = [];
+        this.consortiums.push(consortium);
+      });
     }
   }
 

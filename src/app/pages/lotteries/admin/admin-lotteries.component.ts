@@ -94,7 +94,7 @@ export class AdminLotteriesComponent implements OnInit {
       openTime: this.datePipe.transform(new Date(valueForm.openTime), 'HH:mm'),
       closeTime: this.datePipe.transform(new Date(valueForm.closeTime), 'HH:mm')
     };
-  };
+  }
   getValidators = (mode: string) => {
     return {
       closeTime: [Validators.required],
@@ -106,7 +106,7 @@ export class AdminLotteriesComponent implements OnInit {
       color: [Validators.required],
       status: [Validators.required]
     };
-  };
+  }
   setValueForm = (mode: string, defaultForm, item) => {
     return {
       closeTime: (item.closeTime) ? new Date(`1900-01-01T${item.closeTime}:00`) : null,
@@ -118,7 +118,7 @@ export class AdminLotteriesComponent implements OnInit {
       color: item.color,
       status: item.status
     };
-  };
+  }
 
   getClosingDisabledMinutes = (hour: number): Array<number> => {
     if (this.formABM && this.formABM.value) {
@@ -142,7 +142,7 @@ export class AdminLotteriesComponent implements OnInit {
       }
     }
     return [];
-  };
+  }
 
   getClosingDisabledHours = (): Array<number> => {
     if (this.formABM && this.formABM.value) {
@@ -160,7 +160,7 @@ export class AdminLotteriesComponent implements OnInit {
       }
     }
     return [];
-  };
+  }
 
   getOpeningDisabledMinutes = (hour: number): Array<number> => {
     if (this.formABM && this.formABM.value) {
@@ -177,7 +177,7 @@ export class AdminLotteriesComponent implements OnInit {
       }
     }
     return [];
-  };
+  }
 
   getOpeningDisabledHours = (): Array<number> => {
     if (this.formABM && this.formABM.value) {
@@ -191,22 +191,23 @@ export class AdminLotteriesComponent implements OnInit {
       }
     }
     return [];
-  };
+  }
 
 
   isOpeningTimeEnabled = (): boolean => {
     return !(this.formABM.value.playTime);
-  };
+  }
 
   isClosingTimeEnabled = (): boolean => {
     return !(this.formABM.value.playTime && this.formABM.value.openTime);
-  };
+  }
 
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
   }
 
   resetOpenAndCloseTime = (): void => {
-// TODO FIXME MAKE THIS SHIT WORK
-  };
+    this.formABM.controls.openTime.setValue(null);
+    this.formABM.controls.closeTime.setValue(null);
+  }
 }

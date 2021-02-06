@@ -128,10 +128,19 @@
   dependencies:
     tslib "^2.0.0"
 
-"@angular/cdk@^10.2.4", "@angular/cdk@^10.2.5":
+"@angular/cdk@^10.2.5":
   version "10.2.7"
   resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-10.2.7.tgz"
   integrity sha512-ZQjDfTRTn7JuAKsf3jiIdU2XBaxxGBi/ZWYv5Pb3HCl6B4PISsIE5VWRhkoUogoAB0MiFHpjnWeIqknJEm11YQ==
+  dependencies:
+    tslib "^2.0.0"
+  optionalDependencies:
+    parse5 "^5.0.0"
+
+"@angular/cdk@^11.0.2":
+  version "11.1.2"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-11.1.2.tgz#89708a97be340bbfb7d64c84dbc7bb100f77d7ff"
+  integrity sha512-RnKvMWAIcWbWoUdBfAoOs4pQl6t5O+1OuPlBNK5aL2FYqoLv5U0fP88Rf7OhjPlD0ASsPGLG45t+dA5sUVZ46Q==
   dependencies:
     tslib "^2.0.0"
   optionalDependencies:
@@ -241,19 +250,19 @@
   dependencies:
     tslib "^2.0.0"
 
-"@ant-design/colors@^3.1.0":
-  version "3.2.2"
-  resolved "https://registry.npmjs.org/@ant-design/colors/-/colors-3.2.2.tgz"
-  integrity sha512-YKgNbG2dlzqMhA9NtI3/pbY16m3Yl/EeWBRa+lB1X1YaYxHrxNexiQYCLTWO/uDvAjLFMEDU+zR901waBtMtjQ==
+"@ant-design/colors@^5.0.0":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@ant-design/colors/-/colors-5.0.1.tgz#09670f2f44a7473d7bc01be901c48ec10f12c7a4"
+  integrity sha512-x1TUaRILaqy3zgFNo+kIqOa3eTYPt81H1/3E4dCjDP4Qvk/xaPEizLDFdRUcIx0cWwyu2LklwfyLHWpbYK8v6A==
   dependencies:
-    tinycolor2 "^1.4.1"
+    "@ctrl/tinycolor" "^3.3.1"
 
-"@ant-design/icons-angular@^10.0.0":
-  version "10.0.1"
-  resolved "https://registry.npmjs.org/@ant-design/icons-angular/-/icons-angular-10.0.1.tgz"
-  integrity sha512-RXVzUR1gYUURIkm6jp1LV8U2/9l02IhUGfYHt1SqP73vijzrbXVmkdJSATFbL4wjnoOc+d6VGKTNu6DeVtzldg==
+"@ant-design/icons-angular@^11.0.1":
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/@ant-design/icons-angular/-/icons-angular-11.0.1.tgz#8ff3131f3d9b4b25fd28c64c4a9bdfe36da54942"
+  integrity sha512-WwxVx/aToxTjWmB5+O+3rOjSYdF8FC/Yd/8jF1ZGQMtLWAzP8/foQmKvPAktTUsh0/Ijhtur7LrHN2VuUedMcA==
   dependencies:
-    "@ant-design/colors" "^3.1.0"
+    "@ant-design/colors" "^5.0.0"
     tslib "^2.0.0"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
@@ -1100,7 +1109,12 @@
     to-fast-properties "^2.0.0"
 
 "@banca-api@file:local-packages/banca-api":
-  version "6.9.0"
+  version "1.0.3"
+
+"@ctrl/tinycolor@^3.3.1":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.3.4.tgz#59691edd031eedc431bda1bdf601257c06289a40"
+  integrity sha512-8vmPV/nIULFDWsnJalQJDqFLC2uTPx6A/ASA2t27QGp+7oXnbWWXCe0uV8xasIH2rGbI/XoB2vmkdP/94WvMrw==
 
 "@istanbuljs/schema@^0.1.2":
   version "0.1.2"
@@ -5887,13 +5901,13 @@ next-tick@~1.0.0:
   resolved "https://registry.npmjs.org/next-tick/-/next-tick-1.0.0.tgz"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-ng-zorro-antd@^10.0.2:
-  version "10.1.0"
-  resolved "https://registry.npmjs.org/ng-zorro-antd/-/ng-zorro-antd-10.1.0.tgz"
-  integrity sha512-vj+4+nmvJEtZFiCFSKYqILAtQWtAYx09yP9RzZFYZQoAVuGq41UWO3yLq7WSeIIhZ1ggN6Q0Mf0n1gSwvDPhUg==
+ng-zorro-antd@^11.1.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/ng-zorro-antd/-/ng-zorro-antd-11.1.0.tgz#2b6f982fccc73749d2ba61e60220288e2fb80d3c"
+  integrity sha512-3EMqRRM7Gc4OghfjmKtQxRV1dv0Mao2USNyokAPSxAXDhYVtMz+AJRVwf7bpnjxxzxe7RQU5GChGeNewUNmPBw==
   dependencies:
-    "@angular/cdk" "^10.2.4"
-    "@ant-design/icons-angular" "^10.0.0"
+    "@angular/cdk" "^11.0.2"
+    "@ant-design/icons-angular" "^11.0.1"
     date-fns "^2.10.0"
     resize-observer-polyfill "^1.5.1"
     tslib "^2.0.0"
@@ -8394,11 +8408,6 @@ timsort@^0.3.0:
   version "0.3.0"
   resolved "https://registry.npmjs.org/timsort/-/timsort-0.3.0.tgz"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
-
-tinycolor2@^1.4.1:
-  version "1.4.2"
-  resolved "https://registry.npmjs.org/tinycolor2/-/tinycolor2-1.4.2.tgz"
-  integrity sha512-vJhccZPs965sV/L2sU4oRQVAos0pQXwsvTLkWYdqJ+a8Q5kPFzJTuOFwy7UniPli44NKQGAglksjvOcpo95aZA==
 
 tmp@0.0.30:
   version "0.0.30"
