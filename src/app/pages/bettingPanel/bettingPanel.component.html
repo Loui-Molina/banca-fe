@@ -45,9 +45,10 @@
           <div class="control-panel">
             <div class="play-insert">
               <input #inputNumber
+                     (ngModelChange)="searchLimit()"
                      (keyup.enter)="onKeyEnterNumber()" [(ngModel)]="number"
                      autofocus class="left-input" nz-input (input)="regexPlay(inputNumber)" placeholder="JUGADA"/>
-              <input #inputLimit [disabled]="true" [type]="'number'" [value]="getLimit()" class="right-input"
+              <input #inputLimit [disabled]="true" [type]="'number'" [value]="limit" class="right-input"
                      nz-input placeholder="LIMITE" readonly/>
               <input #inputAmount (keyup.enter)="onKeyEnter()" [(ngModel)]="amount" [type]="'number'"
                      class="right-input"
@@ -56,12 +57,10 @@
                     nz-tooltip="SUPERPALE">
                 S
               </span>
-              <span (click)="onKeyEnter()" [class.disabled]="disabledBet()" class="custom-button play-enter"><i nz-icon
-                                                                                                                nzTheme="outline"
-                                                                                                                nzType="caret-right"></i></span>
-
+              <span (click)="onKeyEnter()" [class.disabled]="disabledBet()" class="custom-button play-enter">
+                <i nz-icon nzTheme="outline" [nzType]="loadingSearchLimit ? 'loading' : 'caret-right'"></i>
+              </span>
             </div>
-
           </div>
           <div class="lottery-panel">
             <div class="lottery-panel-header">
@@ -188,7 +187,7 @@
 >
   <div class="drawer-tickets">
     <ng-container *ngIf="reloadingTickets">
-      <div class="lottery-loading">en
+      <div class="lottery-loading">
         <i nz-icon nzTheme="outline" nzType="loading"></i>
       </div>
     </ng-container>
