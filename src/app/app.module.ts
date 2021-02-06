@@ -33,7 +33,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-const ngZorroConfig = {
+const ngZorroConfig: NzConfig  = {
   descriptions: {
     nzColumn: 1,
     nzBordered: true,

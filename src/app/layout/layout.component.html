@@ -43,6 +43,10 @@
             <i nz-icon nzType="reconciliation"></i>
             <a routerLink="/results">{{'Resultados' | translate}}</a>
           </li>
+          <!--<li *ngIf="[userRole.Admin].includes(user?.role)" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="reconciliation"></i>
+            <a routerLink="/subscriptions">{{'Subscripciones' | translate}}</a>
+          </li>-->
           <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="question"></i>
             <a routerLink="/help">{{'Help' | translate}}</a>
@@ -85,9 +89,10 @@
         </div>
         <div class="app-header-right">
           <ng-container *ngIf="[userRole.Consortium, userRole.Banker].includes(user?.role)">
-            <span class="header-trigger" >
-            <nz-badge [nzCount]="messages.length"  [nzShowZero]="false">
-              <i [nzDropdownMenu]="menu2" nzTrigger="click" style="font-size: 20px;" nz-dropdown nz-icon nzTheme="outline" nzType="message"></i>
+            <span class="header-trigger">
+            <nz-badge [nzCount]="messages.length" [nzShowZero]="false">
+              <i [nzDropdownMenu]="menu2" nzTrigger="click" style="font-size: 20px;" nz-dropdown nz-icon
+                 nzTheme="outline" nzType="message"></i>
             </nz-badge>
           </span>
             <nz-dropdown-menu #menu2="nzDropdownMenu">
