@@ -333,8 +333,10 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
         this.loadingSearchLimit = false;
         let minor: number;
         for (const res of responseArray){
-          if (!minor || res < minor) {
-            minor = res;
+          if (res != null){
+            if (!minor || res < minor) {
+              minor = res;
+            }
           }
         }
         this.limit = minor;
