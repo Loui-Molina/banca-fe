@@ -68,12 +68,12 @@ const routes: Routes = [
         data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
         loadChildren: () => import('./pages/results/results.module').then(m => m.ResultsModule)
       },
-      {
-        path: 'help',
-        canActivate: [RoleGuard, AuthGuard],
-        data: {requiredRoles: [User.RoleEnum.Admin]},
-        loadChildren: () => import('./pages/help/help.module').then(m => m.HelpModule)
-      }
+      // {
+      //   path: 'help',
+      //   canActivate: [RoleGuard, AuthGuard],
+      //   data: {requiredRoles: [User.RoleEnum.Admin]},
+      //   loadChildren: () => import('./pages/help/help.module').then(m => m.HelpModule)
+      // }
     ]
   },
   {
