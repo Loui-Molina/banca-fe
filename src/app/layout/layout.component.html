@@ -46,11 +46,11 @@
           <!--<li *ngIf="[userRole.Admin].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="reconciliation"></i>
             <a routerLink="/subscriptions">{{'Subscripciones' | translate}}</a>
-          </li>-->
+          </li>
           <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="question"></i>
             <a routerLink="/help">{{'Help' | translate}}</a>
-          </li>
+          </li>-->
         </ul>
       </li>
       <li nz-submenu nzIcon="form" nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}">
