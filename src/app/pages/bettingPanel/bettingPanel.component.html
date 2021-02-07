@@ -3,17 +3,17 @@
   <div class="col-style header" nz-col nzSpan="24">
     <div class="left-side">
       <i class="topbar-action" nz-icon nzTheme="outline" nzType="home" routerLink="/"></i>
-      <i (click)="openDrawer('drawerTickets')" class="topbar-action" nz-icon nz-tooltip="Buscar ticket"
+      <i (click)="openDrawer(drawerBets, {})" class="topbar-action" nz-icon nz-tooltip="Buscar ticket"
          nzTheme="outline"
          nzTooltipPlacement="bottom" nzType="file-search"></i>
-      <i (click)="openDrawer('drawerCaja')" class="topbar-action" nz-icon nz-tooltip="Cuadre de caja" nzTheme="outline"
+      <i (click)="openDrawer('drawerCaja', {})" class="topbar-action" nz-icon nz-tooltip="Cuadre de caja" nzTheme="outline"
          nzTooltipPlacement="bottom" nzType="wallet"></i>
-      <i (click)="openDrawer('drawerPagar')" class="topbar-action" nz-icon nz-tooltip="Pagar ticket" nzTheme="outline"
+      <i (click)="openDrawer('drawerPagar', {})" class="topbar-action" nz-icon nz-tooltip="Pagar ticket" nzTheme="outline"
          nzTooltipPlacement="bottom" nzType="audit"></i>
-      <i (click)="openDrawer('drawerLotteryLimits')" class="topbar-action" nz-icon nz-tooltip="Limites de loterias"
+      <i (click)="openDrawer('drawerLotteryLimits', {})" class="topbar-action" nz-icon nz-tooltip="Limites de loterias"
          nzTheme="outline"
          nzTooltipPlacement="bottom" nzType="dollar"></i>
-      <i (click)="openDrawer('drawerHelp')" class="topbar-action" nz-icon nz-tooltip="Ayuda" nzTheme="outline"
+      <i (click)="openDrawer('drawerHelp', {})" class="topbar-action" nz-icon nz-tooltip="Ayuda" nzTheme="outline"
          nzTooltipPlacement="bottom" nzType="question"></i>
     </div>
     <div class="right-side">
@@ -175,85 +175,6 @@
   </div>
 </div>
 
-<!--Search ticket drawer-->
-<nz-drawer
-  (nzOnClose)="closeDrawer('drawerTickets')"
-  [nzBodyStyle]="{ overflow: 'auto' }"
-  [nzMaskClosable]="true"
-  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
-  [nzTitle]="'BUSCAR TICKET'"
-  [nzVisible]="drawerTickets"
-  [nzWidth]="500"
->
-  <div class="drawer-tickets">
-    <ng-container *ngIf="reloadingTickets">
-      <div class="lottery-loading">
-        <i nz-icon nzTheme="outline" nzType="loading"></i>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="!reloadingTickets">
-      <nz-list *ngIf="bets.length > 0" nzBordered nzSize="small">
-        <nz-list-item *ngFor="let item of bets">
-          <div class="left-side">
-            <b>#{{item._id.toString()}}</b> <br> {{item.date | date: 'dd/MM/yyyy HH:mm:ss'}}
-          </div>
-          <div class="right-side">
-            <nz-tag *ngIf="item.betStatus === betStatusEnum.Winner" [nzColor]="'green'" style="padding: 0 2px 0 2px;">
-              GANADOR
-            </nz-tag>
-            <nz-tag *ngIf="item.betStatus === betStatusEnum.Pending" [nzColor]="'blue'" style="padding: 0 2px 0 2px;">
-              PENDIENTE
-            </nz-tag>
-            <nz-tag *ngIf="item.betStatus === betStatusEnum.Cancelled" [nzColor]="'brown'"
-                    style="padding: 0 2px 0 2px;">
-              CANCELADO
-            </nz-tag>
-            <nz-tag *ngIf="item.betStatus === betStatusEnum.Loser" [nzColor]="'red'" style="padding: 0 2px 0 2px;">
-              PERDEDOR
-            </nz-tag>
-            <nz-tag *ngIf="item.betStatus === betStatusEnum.Claimed" [nzColor]="'darkgreen'"
-                    style="padding: 0 2px 0 2px;">
-              RECLAMADO
-            </nz-tag>
-            <nz-tag *ngIf="item.betStatus === betStatusEnum.Expired" [nzColor]="'red'" style="padding: 0 2px 0 2px;">
-              EXPIRADO
-            </nz-tag>
-          </div>
-          <ul nz-list-item-actions>
-            <nz-list-item-action *ngIf="canSeeSn(item)">
-              <a target="_blank" [href]="getSendWhatsApp(item)">
-                <i nz-icon nzType="whats-app" class="icon primary" nzTheme="outline"></i>
-              </a>
-            </nz-list-item-action>
-            <nz-list-item-action>
-              <a (click)="openTicket(item)">
-                <i class="icon primary" nz-icon nz-tooltip="Ver ticket" nzTheme="outline" nzType="eye"></i>
-              </a>
-            </nz-list-item-action>
-            <nz-list-item-action>
-              <a (click)="cloneTicket(item)">
-                <i class="icon primary" nz-icon nz-tooltip="Clonar ticket" nzTheme="outline" nzType="file-add"></i>
-              </a>
-            </nz-list-item-action>
-            <nz-list-item-action *ngIf="canSeeSn(item)">
-              <a (click)="printTicket(item)">
-                <i class="icon primary" nz-icon nz-tooltip="Imprimir ticket" nzTheme="outline" nzType="printer"></i>
-              </a>
-            </nz-list-item-action>
-            <nz-list-item-action *ngIf="item.betStatus === betStatusEnum.Pending && canCancelTicket(item)">
-              <a (click)="cancelTicket(item)">
-                <i class="icon error" nz-icon nz-tooltip="Cancelar ticket" nzTheme="outline" nzType="delete"></i>
-              </a>
-            </nz-list-item-action>
-          </ul>
-        </nz-list-item>
-      </nz-list>
-      <p *ngIf="bets.length === 0" style="text-align: center">NO HAY TICKETS DISPONIBLES</p>
-    </ng-container>
-  </div>
-</nz-drawer>
-
-
 <!--Help drawer-->
 <nz-drawer
   (nzOnClose)="closeDrawer('drawerHelp')"
@@ -370,96 +291,13 @@
       <button (click)="searchPayTicket()" [disabled]="!payTicketValue" nz-button>Buscar ticket</button>
       <ng-container *ngIf="payTicketFounded">
         <div style="margin-top: 10px">
-          <h2>ID: {{selectedTicket._id.toString()}}</h2>
-          <p>Fecha: {{selectedTicket.date | date: 'dd/MM/yyyy'}}</p>
-          <p>Hora: {{selectedTicket.date | date: 'HH:mm:ss'}}</p>
+          <!--<h2>ID: {{payTicketFounded._id.toString()}}</h2>
+          <p>Fecha: {{payTicketFounded.date | date: 'dd/MM/yyyy'}}</p>
+          <p>Hora: {{payTicketFounded.date | date: 'HH:mm:ss'}}</p>-->
           <h3>Monto ganador: ${{payTicketFounded.amountWin}}</h3>
         </div>
         <button (click)="payTicket()" [disabled]="!payTicketValue" nz-button>Pagar ticket</button>
       </ng-container>
-    </ng-container>
-  </div>
-</nz-drawer>
-
-
-<!--
-// Display ticket drawer
--->
-<nz-drawer
-  (nzOnClose)="closeDrawer('drawerTicket')"
-  [nzBodyStyle]="{ overflow: 'auto' }"
-  [nzMaskClosable]="true"
-  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
-  [nzTitle]="'VER TICKET'"
-  [nzVisible]="drawerTicket"
-  [nzWidth]="500"
->
-  <div class="drawer-ticket">
-    <ng-container *ngIf="selectedTicket">
-      <div class="status">
-        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Winner" [nzColor]="'green'"
-                style="padding: 0 2px 0 2px;">
-          GANADOR
-        </nz-tag>
-        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Pending" [nzColor]="'blue'"
-                style="padding: 0 2px 0 2px;">
-          PENDIENTE
-        </nz-tag>
-        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Cancelled" [nzColor]="'brown'"
-                style="padding: 0 2px 0 2px;">
-          CANCELADO
-        </nz-tag>
-        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Loser" [nzColor]="'red'"
-                style="padding: 0 2px 0 2px;">
-          PERDEDOR
-        </nz-tag>
-        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Claimed" [nzColor]="'darkgreen'"
-                style="padding: 0 2px 0 2px;">
-          RECLAMADO
-        </nz-tag>
-        <nz-tag *ngIf="selectedTicket.betStatus === betStatusEnum.Expired" [nzColor]="'red'"
-                style="padding: 0 2px 0 2px;">
-          EXPIRADO
-        </nz-tag>
-      </div>
-      <h2>ID: {{selectedTicket._id.toString()}}</h2>
-      <p>Fecha: {{selectedTicket.date | date: 'dd/MM/yyyy'}}</p>
-      <p>Hora: {{selectedTicket.date | date: 'HH:mm:ss'}}</p>
-      <ng-container *ngIf="[betStatusEnum.Winner, betStatusEnum.Claimed].includes(selectedTicket.betStatus)">
-        <h3>GANO: ${{selectedTicket.amountWin}}</h3>
-      </ng-container>
-      <nz-table [nzData]="selectedTicket.plays"
-                [nzSize]="'small'"
-                nzLoading="false"
-                nzShowPagination="false"
-                nzTableLayout="auto"
-                style="margin-top: 20px">
-        <thead>
-        <tr>
-          <th *ngFor="let column of columnsPlays">
-            {{column.title}}
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let data of selectedTicket.plays">
-          <td>{{ data.lotteryName }}</td>
-          <td>{{ data.amount }}</td>
-          <td>{{ showParsedNumbers(data.playNumbers) }} </td>
-          <td>{{ data.playType }} </td>
-        </tr>
-        </tbody>
-      </nz-table>
-      <br>
-      <button *ngIf="canSeeSn(selectedTicket)" (click)="printTicket(selectedTicket)">IMPRIMIR</button>
-      <br>
-      <br>
-      <button (click)="cloneTicket(selectedTicket)">CLONAR TICKET</button>
-      <br>
-      <br>
-      <a *ngIf="canSeeSn(selectedTicket)" [href]="getSendWhatsApp(selectedTicket)" target="_blank">
-        <button style="color: black">ENVIAR POR WHATSAPP</button>
-      </a>
     </ng-container>
   </div>
 </nz-drawer>
@@ -528,6 +366,7 @@
 </nz-drawer>
 
 
+
 <nz-modal
   [(nzVisible)]="modalConfirm"
   [nzContent]="modalContent"
@@ -581,4 +420,23 @@
     </div>
   </ng-template>
 </nz-modal>
+
+
+<app-drawer-bets #drawerBets
+                 [nzTitle]="'BUSCAR TICKET'"
+                 [canSeeSn]="canSeeSn"
+                 [getSendWhatsApp]="getSendWhatsApp"
+                 [openTicket]="openTicket"
+                 [cloneTicket]="cloneTicket"
+                 [canCancelTicket]="canCancelTicket"
+>
+</app-drawer-bets>
+
+<app-drawer-bet #drawerBet
+                 [nzTitle]="'VER TICKET'"
+                 [canSeeSn]="canSeeSn"
+                 [getSendWhatsApp]="getSendWhatsApp"
+                 [cloneTicket]="cloneTicket"
+>
+</app-drawer-bet>
 

@@ -30,7 +30,8 @@ import BettingLimitPlayTypeEnum = BettingLimit.PlayTypeEnum;
   styleUrls: ['./bettingPanel.component.scss']
 })
 export class BettingPanelComponent implements OnInit, OnDestroy {
-
+  @ViewChild('drawerBets') drawerBets: ElementRef;
+  @ViewChild('drawerBet') drawerBet: ElementRef;
   @ViewChild('inputNumber', {static: false}) inputNumber: ElementRef;
   @ViewChild('inputAmount', {static: false}) inputAmount: ElementRef;
   now = new Date();
@@ -38,20 +39,17 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   amount: number = null;
   payTicketValue: string = null;
   lotteryId = null;
-  selectedTicket: BetDto;
   selectedLotteryLimit: BankingLotteryDto;
-  drawerTickets = false;
   drawerCaja = false;
   drawerPagar = false;
   drawerHelp = false;
-  drawerTicket = false;
   drawerLotteryLimits = false;
   modalOpened = false;
   modalConfirm = false;
   loadingSubmit = false;
   generatedBet: BetDto;
   payTicketFounded: BetDto;
-  bets: BetDto[] = [];
+
   resumeSells: ResumeSellsDto;
   panels = [
     {title: 'DIRECTO', types: [Play.PlayTypeEnum.Direct]},
@@ -83,19 +81,15 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   reloadingResults = false;
   reloadingResumeSells = false;
   reloadingLotterys = false;
-  reloadingTickets = false;
+  limit: number;
+  loadingSearchLimit = false;
   lastResults: ResultDto[] = [];
   betStatusEnum = BetDto.BetStatusEnum;
   plays: PlayInterface[] = [];
   lastInput = null;
   lastClick = null;
   interval;
-  columnsPlays = [
-    {title: 'Loteria'},
-    {title: 'Monto'},
-    {title: 'Jugadas'},
-    {title: 'Tipo'},
-  ];
+
 
   constructor(private modalService: NzModalService,
               private resultsService: ResultsService,
@@ -112,11 +106,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
-    if ([this.drawerTickets,
-      this.drawerCaja,
+    if ([this.drawerCaja,
       this.drawerPagar,
       this.drawerHelp,
-      this.drawerTicket,
       this.drawerLotteryLimits].includes(true) || this.modalOpened) {
       return;
     }
@@ -136,19 +128,19 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
 
     if (event.key === 'b' || event.key === 'B') {
-      this.openDrawer('drawerTickets');
+      this.openDrawer(this.drawerBets, {});
     }
 
     if (event.key === 'h' || event.key === 'H') {
-      this.openDrawer('drawerHelp');
+      this.openDrawer('drawerHelp', {});
     }
 
     if (event.key === 'c' || event.key === 'C') {
-      this.openDrawer('drawerCaja');
+      this.openDrawer('drawerCaja', {});
     }
 
     if (event.key === 'p' || event.key === 'P') {
-      this.openDrawer('drawerPagar');
+      this.openDrawer('drawerPagar', {});
     }
 
     if (event.key === ' ') {
@@ -302,8 +294,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  limit: number;
-  loadingSearchLimit = false;
+
 
   searchLimit = () => {
     this.loadingSearchLimit = true;
@@ -538,21 +529,19 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.inputNumber.nativeElement.focus();
   }
 
-  openDrawer = (drawerName: string) => {
-    if (drawerName === 'drawerTickets') {
-      this.reloadTickets();
-    }
-    if (drawerName === 'drawerCaja') {
-      this.reloadResumeSells();
-    }
-    this[drawerName] = true;
+  openDrawer = (drawer, params: {}) => {
+    drawer.open(params);
+    // if (drawerName === 'drawerCaja') {
+    //   this.reloadResumeSells();
+    // }
+    // this[drawerName] = true;
   }
 
-  closeDrawer = (drawerName: string) => {
-    if (drawerName === 'drawerPagar') {
-      this.payTicketFounded = null;
-    }
-    this[drawerName] = false;
+  closeDrawer = (drawer) => {
+    // if (drawerName === 'drawerPagar') {
+    //   this.payTicketFounded = null;
+    // }
+    drawer.close();
   }
 
   disabledBet(): boolean {
@@ -587,9 +576,8 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.plays = this.plays.filter(item => item.uuid !== play.uuid);
   }
 
-  openTicket = (ticket: BetDto) => {
-    this.selectedTicket = ticket;
-    this.openDrawer('drawerTicket');
+  openTicket = (bet: BetDto) => {
+    this.openDrawer(this.drawerBet, {bet});
   }
 
   getSendWhatsApp = (bet: BetDto) => {
@@ -633,8 +621,8 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   cloneTicketSubmit = (ticket: BetDto) => {
     this.modalOpened = false;
-    this.closeDrawer('drawerTickets');
-    this.closeDrawer('drawerTicket');
+    this.closeDrawer(this.drawerBets);
+    this.closeDrawer(this.drawerBet);
     this.cleanAll();
     const plays: PlayInterface[] = [];
     ticket.plays.map(play => {
@@ -658,7 +646,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   printTicket = (ticket: BetDto) => {
-    if(this.canSeeSn(ticket)){
+    if (this.canSeeSn(ticket)){
       printTicket(ticket);
     }
   }
@@ -685,7 +673,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       sn: this.payTicketValue
     };
     this.bettingPanelService.bettingPanelControllerClaimTicket(body).subscribe(value => {
-      this.reloadTickets();
       this.messageService.create('success', `Ticket pagado correctamente`, {nzDuration: 3000});
       this.payTicketValue = null;
       this.payTicketFounded = null;
@@ -731,40 +718,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     return diffMins > -10;
   }
 
-  cancelTicket = (ticket) => {
-    if (!this.canCancelTicket(ticket)) {
-      this.messageService.create('warning', `Este ticket ya no puede ser cancelado`, {nzDuration: 3000});
-      return;
-    }
-    this.modalOpened = true;
-    this.modalService.success({
-      nzTitle: 'Cancelar ticket',
-      nzContent: this.ts('UTILS.ARE_YOU_SURE'),
-      nzOnOk: () => this.cancelTicketSubmit(ticket),
-      nzOnCancel: () => {
-        this.modalOpened = false;
-      },
-      nzOkText: this.ts('UTILS.CONFIRM'),
-      nzCancelText: this.ts('UTILS.CANCEL')
-    });
-  }
 
-  cancelTicketSubmit = (ticket) => {
-    if (!this.canCancelTicket(ticket)) {
-      this.messageService.create('warning', `Este ticket ya no puede ser cancelado`, {nzDuration: 3000});
-      this.modalOpened = false;
-      return;
-    }
-    const body: UpdateBetDto = {
-      _id: ticket._id
-    };
-    this.bettingPanelService.bettingPanelControllerCancelBet(body).subscribe(value => {
-      this.reloadTickets();
-      this.messageService.create('success', `Ticket cancelado correctamente`, {nzDuration: 3000});
-    }, error => {
-      throw new HttpErrorResponse(error);
-    });
-  }
 
 
   onChangeLotterySelected = ($event) => {
@@ -827,16 +781,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     });
   }
 
-  private reloadTickets(): void {
-    this.reloadingTickets = true;
-    this.bettingPanelService.bettingPanelControllerGetAll().subscribe(data => {
-      this.bets = data;
-      this.reloadingTickets = false;
-    }, error => {
-      this.reloadingTickets = false;
-      throw new HttpErrorResponse(error);
-    });
-  }
+
 
   private reloadResumeSells(): void {
     this.reloadingResumeSells = true;
