@@ -47,6 +47,10 @@ export class DrawerBetsComponent implements OnInit {
     this.reloadTickets();
   }
 
+  isVisible(): boolean{
+    return this.nzVisible;
+  }
+
   close(): void{
     this.nzVisible = false;
   }

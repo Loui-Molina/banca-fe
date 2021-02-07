@@ -29,6 +29,10 @@ import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
 import {TranslateModule} from '@ngx-translate/core';
 import { DrawerBetsComponent } from './drawer-bets/drawer-bets.component';
 import {DrawerBetComponent} from './drawer-bet/drawer-bet.component';
+import { DrawerHelpComponent } from './drawer-help/drawer-help.component';
+import { DrawerLotteriesComponent } from './drawer-lotteries/drawer-lotteries.component';
+import { DrawerPayBetComponent } from './drawer-pay-bet/drawer-pay-bet.component';
+import { DrawerResumeSellsComponent } from './drawer-resume-sells/drawer-resume-sells.component';
 
 @NgModule({
   imports: [
@@ -62,7 +66,15 @@ import {DrawerBetComponent} from './drawer-bet/drawer-bet.component';
     TranslateModule
   ],
   providers: [DatePipe],
-  declarations: [BettingPanelComponent, DrawerBetsComponent, DrawerBetComponent],
+  declarations: [
+    BettingPanelComponent,
+    DrawerBetsComponent,
+    DrawerBetComponent,
+    DrawerHelpComponent,
+    DrawerLotteriesComponent,
+    DrawerPayBetComponent,
+    DrawerResumeSellsComponent
+  ],
   exports: [BettingPanelComponent]
 })
 export class BettingPanelModule {

@@ -47,6 +47,10 @@ export class DrawerBetComponent implements OnInit {
     this.nzVisible = true;
   }
 
+  isVisible(): boolean{
+    return this.nzVisible;
+  }
+
   close(): void{
     this.bet = null;
     this.nzVisible = false;
