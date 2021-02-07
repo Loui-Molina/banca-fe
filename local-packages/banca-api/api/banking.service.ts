@@ -281,10 +281,10 @@ export class BankingService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public bankingsControllerGetBankingOfBanquer(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public bankingsControllerGetBankingOfBanquer(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public bankingsControllerGetBankingOfBanquer(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public bankingsControllerGetBankingOfBanquer(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public bankingsControllerGetUserBanking(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public bankingsControllerGetUserBanking(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public bankingsControllerGetUserBanking(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public bankingsControllerGetUserBanking(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -306,7 +306,7 @@ export class BankingService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/banking/bankingOfBanquer`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/banking/user-banking`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

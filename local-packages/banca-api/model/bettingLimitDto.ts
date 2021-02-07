@@ -11,12 +11,12 @@
  */
 
 
-export interface BettingLimit { 
-    playType: BettingLimit.PlayTypeEnum;
-    status: boolean;
+export interface BettingLimitDto { 
+    playType?: BettingLimitDto.PlayTypeEnum;
+    status?: boolean;
     betAmount?: number;
 }
-export namespace BettingLimit {
+export namespace BettingLimitDto {
     export type PlayTypeEnum = 'direct' | 'pale' | 'tripleta' | 'superPale' | 'cash3straight' | 'cash3Box' | 'play4Straight' | 'play4Box' | 'pick5Straigh' | 'pick5Box' | 'singulation' | 'bolita';
     export const PlayTypeEnum = {
         Direct: 'direct' as PlayTypeEnum,

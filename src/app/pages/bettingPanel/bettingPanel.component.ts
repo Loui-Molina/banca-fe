@@ -1,12 +1,5 @@
 import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {
-  formatResult,
-  getCombinations,
-  printTicket,
-  reverseString,
-  showParsedNumbers,
-  uuidv4
-} from '../../../utils/utilFunctions';
+import {formatResult, getCombinations, printTicket, reverseString, showParsedNumbers, uuidv4} from '../../../utils/utilFunctions';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
@@ -16,29 +9,28 @@ import {
   BankingLotteryDto,
   BankingService,
   BetDto,
-  BettingLimit,
+  BettingLimitDto,
   BettingPanelService,
   CreateBetDto,
   LimitVerifyDto,
   Play,
   PlayDto,
   PlayNumbers,
-  PrizeLimit,
+  PrizeLimitDto,
   ResultDto,
-  ResultsService,
-  ResumeSellsDto
+  ResultsService
 } from 'local-packages/banca-api';
 import {forkJoin, Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
-import PrizeLimitPlayTypeEnum = PrizeLimit.PlayTypeEnum;
-import BettingLimitPlayTypeEnum = BettingLimit.PlayTypeEnum;
-import {DrawerBetsComponent} from "./drawer-bets/drawer-bets.component";
-import {DrawerBetComponent} from "./drawer-bet/drawer-bet.component";
-import {DrawerHelpComponent} from "./drawer-help/drawer-help.component";
-import {DrawerPayBetComponent} from "./drawer-pay-bet/drawer-pay-bet.component";
-import {DrawerResumeSellsComponent} from "./drawer-resume-sells/drawer-resume-sells.component";
-import {DrawerLotteriesComponent} from "./drawer-lotteries/drawer-lotteries.component";
+import {DrawerBetsComponent} from './drawer-bets/drawer-bets.component';
+import {DrawerBetComponent} from './drawer-bet/drawer-bet.component';
+import {DrawerHelpComponent} from './drawer-help/drawer-help.component';
+import {DrawerPayBetComponent} from './drawer-pay-bet/drawer-pay-bet.component';
+import {DrawerResumeSellsComponent} from './drawer-resume-sells/drawer-resume-sells.component';
+import {DrawerLotteriesComponent} from './drawer-lotteries/drawer-lotteries.component';
+import PrizeLimitPlayTypeEnum = PrizeLimitDto.PlayTypeEnum;
+import BettingLimitPlayTypeEnum = BettingLimitDto.PlayTypeEnum;
 
 @Component({
   selector: 'app-betting-panel',
@@ -702,7 +694,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   private initDataSync(): Observable<any[]> {
     const resultsControllerGetAll = this.resultsService.resultsControllerGetAll();
     const bankingLotteryControllerGetAll = this.bankingLotteriesService.bankingLotteryControllerGetAll();
-    const bankingsControllerGetBankingOfBanquer = this.bankingService.bankingsControllerGetBankingOfBanquer();
+    const bankingsControllerGetBankingOfBanquer = this.bankingService.bankingsControllerGetUserBanking();
     return forkJoin([
       resultsControllerGetAll,
       bankingLotteryControllerGetAll,

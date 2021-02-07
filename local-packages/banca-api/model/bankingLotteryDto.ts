@@ -9,15 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { BettingLimit } from './bettingLimit';
-import { PrizeLimit } from './prizeLimit';
+import { PrizeLimitDto } from './prizeLimitDto';
+import { BettingLimitDto } from './bettingLimitDto';
 
 
 export interface BankingLotteryDto { 
     _id?: object;
     bankings?: Array<string>;
-    bettingLimits?: Array<BettingLimit>;
-    prizeLimits?: Array<PrizeLimit>;
+    bettingLimits?: Array<BettingLimitDto>;
+    prizeLimits?: Array<PrizeLimitDto>;
     name: string;
     nickname: string;
     color: string;
