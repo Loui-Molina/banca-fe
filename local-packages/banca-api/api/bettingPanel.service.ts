@@ -523,7 +523,7 @@ export class BettingPanelService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<number>(`${this.configuration.basePath}/api/betting-panel/verifyLimit`,
+        return this.httpClient.post<number>(`${this.configuration.basePath}/api/betting-panel/verify-limit`,
             limitVerifyDto,
             {
                 responseType: <any>responseType,
