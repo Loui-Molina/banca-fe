@@ -15,6 +15,8 @@ import {
 } from 'local-packages/banca-api';
 import {HttpErrorResponse} from '@angular/common/http';
 import {UserInterface, UserService} from '../../services/user.service';
+import {ModalChangePasswordComponent} from '../../components/modals/modal-change-password/modal-change-password.component';
+import {NzModalService} from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-bankings',
@@ -71,6 +73,7 @@ export class BankingsComponent {
               private formBuilder: FormBuilder,
               private bankingService: BankingService,
               private userService: UserService,
+              private nzModalService: NzModalService,
               private consortiumsService: ConsortiumsService) {
 
     this.formABM = this.formBuilder.group(this.defaultForm);
@@ -151,7 +154,7 @@ export class BankingsComponent {
         showPercentage: valueForm.showPercentage,
         cancellationTime: valueForm.cancellationTime,
         ownerUserId: visibleObject.ownerUserId,
-        user: {username: valueForm.username, password: valueForm.password, name: valueForm.ownerName} as SignUpCredentialsDto,
+        user: {username: valueForm.username, password: null, name: valueForm.ownerName} as SignUpCredentialsDto,
         selectedConsortium: valueForm.selectedConsortium,
         header: valueForm.header,
         footer: valueForm.footer
@@ -172,8 +175,7 @@ export class BankingsComponent {
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35)
-      ] : [Validators.minLength(8),
-        Validators.maxLength(35)]
+      ] : []
     };
   };
 
@@ -182,5 +184,18 @@ export class BankingsComponent {
       return this.consortiums.find(consortium => consortium._id === consortiumId).name;
     }
     return '';
+  }
+
+  changePassword(userId): void {
+    this.nzModalService.create({
+      nzTitle: 'Cambiar Contraseña',
+      nzContent: ModalChangePasswordComponent,
+      nzMaskClosable: false,
+      nzClosable: false,
+      nzComponentParams: {
+        userId
+      },
+      nzFooter: null
+    });
   }
 }

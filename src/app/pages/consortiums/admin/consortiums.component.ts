@@ -3,6 +3,8 @@ import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Consortium, ConsortiumDto, ConsortiumsService, CreateConsortiumDto, User, UsersService} from 'local-packages/banca-api';
+import {ModalChangePasswordComponent} from '../../../components/modals/modal-change-password/modal-change-password.component';
+import {NzModalService} from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-consortiums',
@@ -50,6 +52,7 @@ export class ConsortiumsComponent implements OnInit {
 
   constructor(private datePipe: DatePipe,
               private usersService: UsersService,
+              private nzModalService: NzModalService,
               private consortiumsService: ConsortiumsService,
               private formBuilder: FormBuilder) {
     this.formABM = this.formBuilder.group(this.defaultForm);
@@ -88,6 +91,19 @@ export class ConsortiumsComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.usersControllerGetAll().subscribe(res => {
       this.enumUsers = res;
+    });
+  }
+
+  changePassword(userId): void {
+    this.nzModalService.create({
+      nzTitle: 'Cambiar Contraseña',
+      nzContent: ModalChangePasswordComponent,
+      nzMaskClosable: false,
+      nzClosable: false,
+      nzComponentParams: {
+        userId
+      },
+      nzFooter: null
     });
   }
 }

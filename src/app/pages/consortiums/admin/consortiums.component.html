@@ -14,7 +14,7 @@
   </app-abm>
 
 
-  <ng-template #formTemplate let-mode>
+  <ng-template #formTemplate let-mode let-visibleObject="visibleObject">
     <form [formGroup]="formABM">
 
       <nz-divider [nzText]="'Datos del consorcio'" class="title" nzOrientation="left"
@@ -51,12 +51,16 @@
         <input [minLength]="4" formControlName="ownerUsername" id="ownerUsername" nz-input type="text">
       </div>
 
-      <div>
+      <div  *ngIf="mode === 'C'">
         <label for="password">
           {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
         </label>
         <input [maxLength]="35" [minLength]="8" formControlName="password" id="password" nz-input type="text">
       </div>
+
+      <ng-container *ngIf="mode === 'U'">
+        <p class="button-link" (click)="changePassword(visibleObject.ownerId)">Cambiar Contraseña</p>
+      </ng-container>
 
     </form>
   </ng-template>
