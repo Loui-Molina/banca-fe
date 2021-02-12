@@ -11,9 +11,13 @@
  */
 
 
-export interface ChangePasswordDto { 
-    _id: object;
-    newPassword: string;
-    verifyPassword: string;
+export interface PlayNumbersDto { 
+    first?: number;
+    second?: number;
+    third?: number;
+    fourth?: number;
+    fifth?: number;
+    sixth?: number;
+    seventh?: number;
 }
 

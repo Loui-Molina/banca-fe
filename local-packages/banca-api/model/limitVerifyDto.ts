@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { PlayNumbers } from './playNumbers';
+import { PlayNumbersDto } from './playNumbersDto';
 
 
 export interface LimitVerifyDto { 
     playType: LimitVerifyDto.PlayTypeEnum;
-    playNumbers: PlayNumbers;
+    playNumbers: PlayNumbersDto;
     lotteryId: string;
 }
 export namespace LimitVerifyDto {

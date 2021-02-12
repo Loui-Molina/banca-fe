@@ -4,7 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {AuthService, ResponseDto, User, UsersService} from 'local-packages/banca-api';
-
+import {NzModalService} from 'ng-zorro-antd/modal';
+import {ModalChangePasswordComponent} from '../../components/modals/modal-change-password/modal-change-password.component';
 
 @Component({
   selector: 'app-users',
@@ -31,6 +32,7 @@ export class UsersComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private usersService: UsersService,
               private authService: AuthService,
+              private nzModalService: NzModalService,
               private translateService: TranslateService) {
     this.formABM = this.formBuilder.group(this.defaultForm);
   }
@@ -55,12 +57,25 @@ export class UsersComponent implements OnInit {
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35)
-      ] : [Validators.minLength(8),
-        Validators.maxLength(35)],
+      ] : [],
       role: [Validators.required]
     };
   }
 
   ngOnInit(): void {
+  }
+
+
+  changePassword(userId): void {
+    this.nzModalService.create({
+      nzTitle: 'Cambiar Contraseña',
+      nzContent: ModalChangePasswordComponent,
+      nzMaskClosable: false,
+      nzClosable: false,
+      nzComponentParams: {
+        userId
+      },
+      nzFooter: null
+    });
   }
 }

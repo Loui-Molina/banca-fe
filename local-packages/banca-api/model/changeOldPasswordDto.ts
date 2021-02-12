@@ -11,8 +11,9 @@
  */
 
 
-export interface ChangePasswordDto { 
+export interface ChangeOldPasswordDto { 
     _id: object;
+    oldPassword: string;
     newPassword: string;
     verifyPassword: string;
 }

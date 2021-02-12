@@ -22,6 +22,7 @@ export interface User {
     preferences: UserPreference;
     salt: string;
     creationUserId: object;
+    oldPasswords: Array<string>;
     deletionDate: string;
     modificationUserId: object;
 }

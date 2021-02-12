@@ -9,13 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { PlayNumbers } from './playNumbers';
+import { PlayNumbersDto } from './playNumbersDto';
 
 
 export interface PlayDto { 
     playType: PlayDto.PlayTypeEnum;
     amount: number;
-    playNumbers: PlayNumbers;
+    playNumbers: PlayNumbersDto;
     lotteryId: object;
     lotteryName: string;
 }

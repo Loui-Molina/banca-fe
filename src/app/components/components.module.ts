@@ -32,6 +32,7 @@ import {PageLoaderComponent} from './loaders/page-loader/page-loader.component';
 import {PageLoaderBouncingComponent} from './loaders/page-loader-bouncing/page-loader-bouncing.component';
 import {BoxSpinnerComponent} from './loaders/box-spinner/box-spinner.component';
 import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
+import { ModalChangePasswordComponent } from './modals/modal-change-password/modal-change-password.component';
 
 
 const components = [
@@ -46,6 +47,7 @@ const components = [
   PageLoaderComponent,
   BoxSpinnerComponent,
   PageLoaderBouncingComponent,
+  ModalChangePasswordComponent
 ];
 
 
