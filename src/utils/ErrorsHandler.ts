@@ -45,7 +45,7 @@ export class ErrorsHandler implements ErrorHandler {
         case 4:
           if (error.error && error.error.message){
            this.notifyError(ErrorsHandler.defaultErrorTitle, error.error.message);
-           return; 
+           return;
           }
           this.notifyError(ErrorsHandler.defaultErrorTitle, 'ERROR.SYSTEM_ERROR');
           return;
