@@ -480,3 +480,15 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   display: block;
   text-align: center;
 }
+
+:host ::ng-deep{
+  nz-badge{
+    &.custom{
+      .ant-badge-count, .ant-badge-dot, .ant-badge .ant-scroll-number-custom-component{
+        transform: translate(-70%, -23%) !important;
+      }
+    }
+  }
+}
+
+

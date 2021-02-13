@@ -34,8 +34,8 @@ export class RolesInterceptor implements HttpInterceptor {
             retry(1),
             catchError((error: HttpErrorResponse) => {
               if (error.status === 401) {
-                localStorage.clear();
-                window.location.replace(window.location.origin);
+                // localStorage.clear();
+                // window.location.replace(window.location.origin);
                 return throwError(error);
               }
               return throwError(error);

@@ -33,6 +33,8 @@ import { DrawerHelpComponent } from './drawer-help/drawer-help.component';
 import { DrawerLotteriesComponent } from './drawer-lotteries/drawer-lotteries.component';
 import { DrawerPayBetComponent } from './drawer-pay-bet/drawer-pay-bet.component';
 import { DrawerResumeSellsComponent } from './drawer-resume-sells/drawer-resume-sells.component';
+import {DrawerChatComponent} from './drawer-chat/drawer-chat.component';
+import {NzBadgeModule} from 'ng-zorro-antd/badge';
 
 @NgModule({
   imports: [
@@ -63,7 +65,8 @@ import { DrawerResumeSellsComponent } from './drawer-resume-sells/drawer-resume-
     NzModalModule,
     NzTableModule,
     NzInputNumberModule,
-    TranslateModule
+    TranslateModule,
+    NzBadgeModule
   ],
   providers: [DatePipe],
   declarations: [
@@ -73,7 +76,8 @@ import { DrawerResumeSellsComponent } from './drawer-resume-sells/drawer-resume-
     DrawerHelpComponent,
     DrawerLotteriesComponent,
     DrawerPayBetComponent,
-    DrawerResumeSellsComponent
+    DrawerResumeSellsComponent,
+    DrawerChatComponent
   ],
   exports: [BettingPanelComponent]
 })

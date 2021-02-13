@@ -12,7 +12,7 @@ import {
   BettingLimitDto,
   BettingPanelService,
   CreateBetDto,
-  LimitVerifyDto,
+  LimitVerifyDto, MessageDto, MessagesService,
   Play,
   PlayDto,
   PlayNumbers,
@@ -41,6 +41,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   @ViewChild('drawerBets') drawerBets: DrawerBetsComponent;
   @ViewChild('drawerBet') drawerBet: DrawerBetComponent;
   @ViewChild('drawerHelp') drawerHelp: DrawerHelpComponent;
+  @ViewChild('drawerChat') drawerChat: DrawerHelpComponent;
   @ViewChild('drawerPayBet') drawerPayBet: DrawerPayBetComponent;
   @ViewChild('drawerResumeSells') drawerResumeSells: DrawerResumeSellsComponent;
   @ViewChild('drawerLotteryLimits') drawerLotteryLimits: DrawerLotteriesComponent;
@@ -49,12 +50,12 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   now = new Date();
   number: string = null;
   amount: number = null;
-  payTicketValue: string = null;
   drawerCaja = false;
   modalOpened = false;
   modalConfirm = false;
   loadingSubmit = false;
   generatedBet: BetDto;
+  messages: MessageDto[] = [];
 
   panels = [
     {title: 'DIRECTO', types: [Play.PlayTypeEnum.Direct]},
@@ -102,6 +103,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
               private bettingPanelService: BettingPanelService,
               private bankingService: BankingService,
               private datePipe: DatePipe,
+              private messagesService: MessagesService,
               private translateService: TranslateService,
               private messageService: NzMessageService) {
     setInterval(() => {
@@ -115,6 +117,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.drawerBets,
       this.drawerBet,
       this.drawerHelp,
+      this.drawerChat,
       this.drawerPayBet,
       this.drawerResumeSells,
       this.drawerLotteryLimits,
@@ -225,8 +228,21 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
   }
 
+  reloadMessages(): void{
+    this.messagesService.chatControllerGetAllUnreadMessages().subscribe(data => {
+      this.messages = data;
+    }, error => {
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+
   ngOnInit(): void {
     this.loading = true;
+    this.reloadMessages();
+    this.interval = setInterval(() => {
+      this.reloadMessages();
+    }, 15000);
     this.initDataSync().subscribe(responseList => {
       this.lastResults = responseList[0];
       this.lotterys = responseList[1];
