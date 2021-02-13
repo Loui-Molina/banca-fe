@@ -34,16 +34,18 @@ export namespace Transaction {
         Debit: 'debit' as TypeEnum,
         Adjust: 'adjust' as TypeEnum
     };
-    export type OriginObjectEnum = 'banking' | 'consortium' | 'unknown';
+    export type OriginObjectEnum = 'banking' | 'consortium' | 'webuser' | 'unknown';
     export const OriginObjectEnum = {
         Banking: 'banking' as OriginObjectEnum,
         Consortium: 'consortium' as OriginObjectEnum,
+        Webuser: 'webuser' as OriginObjectEnum,
         Unknown: 'unknown' as OriginObjectEnum
     };
-    export type DestinationObjectEnum = 'banking' | 'consortium' | 'unknown';
+    export type DestinationObjectEnum = 'banking' | 'consortium' | 'webuser' | 'unknown';
     export const DestinationObjectEnum = {
         Banking: 'banking' as DestinationObjectEnum,
         Consortium: 'consortium' as DestinationObjectEnum,
+        Webuser: 'webuser' as DestinationObjectEnum,
         Unknown: 'unknown' as DestinationObjectEnum
     };
 }

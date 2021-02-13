@@ -23,7 +23,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         canActivate: [RoleGuard, AuthGuard],
-        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker, User.RoleEnum.Webuser]},
         loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
@@ -68,7 +68,14 @@ const routes: Routes = [
         data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
         loadChildren: () => import('./pages/results/results.module').then(m => m.ResultsModule)
       },
+      {
+        path: 'web-users',
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
+        loadChildren: () => import('./pages/web-users/web.users.module').then(m => m.WebUsersModule)
+      },
       /*{
+      {
         path: 'subscriptions',
         canActivate: [RoleGuard, AuthGuard],
         data: {requiredRoles: [User.RoleEnum.Admin]},

@@ -1,0 +1,13 @@
+<div>
+  <nz-input-number [nzPlaceHolder]="'Monto'" [nzMin]="1" [(ngModel)]="amount"
+                   style="margin-bottom: 10px; width: 100%"></nz-input-number>
+
+  <div class="footer-buttons">
+    <button (click)="cancel()" [disabled]="loading" [nzType]="'default'" nz-button>Cancelar</button>
+    <button (click)="accept()"
+            [nzLoading]="loading"
+            [disabled]="!amount"
+            [nzType]="'primary'" nz-button>Aceptar</button>
+  </div>
+</div>
+

@@ -21,6 +21,7 @@ import {SharedBankingsTableComponent} from './shared/shared-bankings-table/share
 import {AdminConsortiumsTableComponent} from './admin/admin-consortiums-table/admin-consortiums-table.component';
 import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
+import {WebUsersComponent} from './web-users/web.users.component';
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
   declarations: [DashboardComponent,
     BankingComponent,
     ConsortiumComponent,
+    WebUsersComponent,
     AdminComponent,
     SharedBankingsTableComponent,
     AdminConsortiumsTableComponent],

@@ -18,6 +18,8 @@ export class DashboardComponent {
       routeCommands.push('consortium');
     } else if (this.userService.checkRoles([User.RoleEnum.Admin])) {
       routeCommands.push('admin');
+    } else if (this.userService.checkRoles([User.RoleEnum.Webuser])) {
+      routeCommands.push('webuser');
     } else {
       alert('No role');
     }

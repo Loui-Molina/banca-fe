@@ -17,9 +17,10 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { CreateTransactionDto } from '../model/models';
-import { Transaction } from '../model/models';
-import { TransactionDto } from '../model/models';
+import { CreateWebUserDto } from '../model/models';
+import { UpdateWebUserDto } from '../model/models';
+import { WebUser } from '../model/models';
+import { WebUserDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -29,7 +30,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class TransactionsService {
+export class WebusersService {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();
@@ -88,16 +89,16 @@ export class TransactionsService {
     }
 
     /**
-     * @param createTransactionDto 
+     * @param createWebUserDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public transactionControllerCreateTransactionAdmin(createTransactionDto: CreateTransactionDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Transaction>;
-    public transactionControllerCreateTransactionAdmin(createTransactionDto: CreateTransactionDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Transaction>>;
-    public transactionControllerCreateTransactionAdmin(createTransactionDto: CreateTransactionDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Transaction>>;
-    public transactionControllerCreateTransactionAdmin(createTransactionDto: CreateTransactionDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (createTransactionDto === null || createTransactionDto === undefined) {
-            throw new Error('Required parameter createTransactionDto was null or undefined when calling transactionControllerCreateTransactionAdmin.');
+    public webUsersControllerCreate(createWebUserDto: CreateWebUserDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WebUser>;
+    public webUsersControllerCreate(createWebUserDto: CreateWebUserDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WebUser>>;
+    public webUsersControllerCreate(createWebUserDto: CreateWebUserDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WebUser>>;
+    public webUsersControllerCreate(createWebUserDto: CreateWebUserDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (createWebUserDto === null || createWebUserDto === undefined) {
+            throw new Error('Required parameter createWebUserDto was null or undefined when calling webUsersControllerCreate.');
         }
 
         let headers = this.defaultHeaders;
@@ -129,116 +130,8 @@ export class TransactionsService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<Transaction>(`${this.configuration.basePath}/api/transactions/create/transaction/admin`,
-            createTransactionDto,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param createTransactionDto 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public transactionControllerCreateTransactionBanking(createTransactionDto: CreateTransactionDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Transaction>;
-    public transactionControllerCreateTransactionBanking(createTransactionDto: CreateTransactionDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Transaction>>;
-    public transactionControllerCreateTransactionBanking(createTransactionDto: CreateTransactionDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Transaction>>;
-    public transactionControllerCreateTransactionBanking(createTransactionDto: CreateTransactionDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (createTransactionDto === null || createTransactionDto === undefined) {
-            throw new Error('Required parameter createTransactionDto was null or undefined when calling transactionControllerCreateTransactionBanking.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<Transaction>(`${this.configuration.basePath}/api/transactions/create/transaction/banker`,
-            createTransactionDto,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param createTransactionDto 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public transactionControllerCreateTransactionConsortium(createTransactionDto: CreateTransactionDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Transaction>;
-    public transactionControllerCreateTransactionConsortium(createTransactionDto: CreateTransactionDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Transaction>>;
-    public transactionControllerCreateTransactionConsortium(createTransactionDto: CreateTransactionDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Transaction>>;
-    public transactionControllerCreateTransactionConsortium(createTransactionDto: CreateTransactionDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (createTransactionDto === null || createTransactionDto === undefined) {
-            throw new Error('Required parameter createTransactionDto was null or undefined when calling transactionControllerCreateTransactionConsortium.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<Transaction>(`${this.configuration.basePath}/api/transactions/create/transaction/consortium`,
-            createTransactionDto,
+        return this.httpClient.post<WebUser>(`${this.configuration.basePath}/api/webusers`,
+            createWebUserDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -254,12 +147,12 @@ export class TransactionsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public transactionControllerGet(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public transactionControllerGet(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public transactionControllerGet(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public transactionControllerGet(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public webUsersControllerDelete(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WebUser>;
+    public webUsersControllerDelete(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WebUser>>;
+    public webUsersControllerDelete(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WebUser>>;
+    public webUsersControllerDelete(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling transactionControllerGet.');
+            throw new Error('Required parameter id was null or undefined when calling webUsersControllerDelete.');
         }
 
         let headers = this.defaultHeaders;
@@ -282,7 +175,7 @@ export class TransactionsService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/transactions/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<WebUser>(`${this.configuration.basePath}/api/webusers/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -297,10 +190,10 @@ export class TransactionsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public transactionControllerGetAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public transactionControllerGetAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public transactionControllerGetAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public transactionControllerGetAll(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public webUsersControllerFindAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public webUsersControllerFindAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public webUsersControllerFindAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public webUsersControllerFindAll(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -322,7 +215,7 @@ export class TransactionsService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/transactions`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/webusers`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -334,22 +227,22 @@ export class TransactionsService {
     }
 
     /**
-     * @param q 
+     * @param field 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public transactionControllerGetFiltered(q: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public transactionControllerGetFiltered(q: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public transactionControllerGetFiltered(q: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public transactionControllerGetFiltered(q: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (q === null || q === undefined) {
-            throw new Error('Required parameter q was null or undefined when calling transactionControllerGetFiltered.');
+    public webUsersControllerFindOne(field: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public webUsersControllerFindOne(field: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public webUsersControllerFindOne(field: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public webUsersControllerFindOne(field: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (field === null || field === undefined) {
+            throw new Error('Required parameter field was null or undefined when calling webUsersControllerFindOne.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
-        if (q !== undefined && q !== null) {
+        if (field !== undefined && field !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
-            <any>q, 'q');
+            <any>field, 'field');
         }
 
         let headers = this.defaultHeaders;
@@ -372,9 +265,63 @@ export class TransactionsService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/transactions/search`,
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/webusers/search`,
             {
                 params: queryParameters,
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param updateWebUserDto 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public webUsersControllerUpdate(updateWebUserDto: UpdateWebUserDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<WebUser>;
+    public webUsersControllerUpdate(updateWebUserDto: UpdateWebUserDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<WebUser>>;
+    public webUsersControllerUpdate(updateWebUserDto: UpdateWebUserDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<WebUser>>;
+    public webUsersControllerUpdate(updateWebUserDto: UpdateWebUserDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (updateWebUserDto === null || updateWebUserDto === undefined) {
+            throw new Error('Required parameter updateWebUserDto was null or undefined when calling webUsersControllerUpdate.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.put<WebUser>(`${this.configuration.basePath}/api/webusers`,
+            updateWebUserDto,
+            {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -80,7 +80,8 @@ export class ConsortiumsComponent implements OnInit {
       user: {
         name: valueForm.ownerName,
         username: valueForm.ownerUsername,
-        password: valueForm.password
+        password: valueForm.password,
+        _id: valueForm.ownerUserId,
       },
       name: valueForm.name,
       status: valueForm.status,

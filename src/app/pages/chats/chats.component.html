@@ -48,7 +48,7 @@
         formControlName="message"
         style="width: 100%"/>
     </div>
-    <button (click)="submitMessage()" [disabled]="!this.form.valid || this.loading"
+    <button (click)="submitMessage()" [nzLoading]="this.loading" [disabled]="!this.form.valid"
             nz-button>{{'Enviar'|translate}}</button>
   </form>
 </div>

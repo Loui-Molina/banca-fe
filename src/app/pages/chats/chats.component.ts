@@ -20,7 +20,6 @@ import {UserInterface, UserService} from '../../services/user.service';
   styleUrls: ['./chats.component.scss']
 })
 export class ChatsComponent implements OnInit, OnDestroy {
-  defaultForm: FormGroup;
   user: UserInterface;
   userRole = User.RoleEnum;
   loading = false;

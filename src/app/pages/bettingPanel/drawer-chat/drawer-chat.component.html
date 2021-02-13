@@ -1,0 +1,49 @@
+<nz-drawer
+  (nzOnClose)="close()"
+  [nzBodyStyle]="{ overflow: 'auto', padding: 0 }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="nzTitle"
+  [nzVisible]="nzVisible"
+  [nzWidth]="500"
+>
+  <div class="drawer">
+    <ng-container>
+      <div class="chat-container" style="padding: 30px;" #chatContainer>
+        <p *ngIf="messages.length === 0" style="text-align: center; color:black;margin:0">Todavia no has enviado ningun mensaje</p>
+        <div class="message" [class.sender]="message.sender" *ngFor="let message of getMessages()">
+          <div class="message-box">
+            <p class="date">{{message.date | date: 'dd/MM/yyyy hh:mm:ss'}}</p>
+            <p class="message-text">{{message.message}}</p>
+            <p class="sender" *ngIf="!message.sender">{{message.originName}}</p>
+            <ng-container *ngIf="message.readed">
+              <i nz-icon class="readed-icon" nzType="check" nzTheme="outline"></i>
+              <i nz-icon class="readed-icon second-icon" nzType="check" nzTheme="outline"></i>
+            </ng-container>
+            <ng-container *ngIf="!message.readed">
+              <i nz-icon class="not-readed-icon"  nzType="check" nzTheme="outline"></i>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="inner-content fit-height mb-20">
+        <form [formGroup]="form">
+          <div class="form-element">
+            <label for="message">
+              {{'Mensaje'|translate}}
+            </label>
+            <input
+              nz-input
+              id="message"
+              placeholder="Escribe aqui..."
+              class="right-input"
+              formControlName="message"
+              style="width: 100%"/>
+          </div>
+          <button (click)="submitMessage()" [nzLoading]="this.loading" [disabled]="!this.form.valid"
+                  nz-button>{{'Enviar'|translate}}</button>
+        </form>
+      </div>
+    </ng-container>
+  </div>
+</nz-drawer>

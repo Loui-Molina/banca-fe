@@ -15,6 +15,10 @@
          nzTooltipPlacement="bottom" nzType="dollar"></i>
       <i (click)="openDrawer(drawerHelp, {})" class="topbar-action" nz-icon nz-tooltip="Ayuda" nzTheme="outline"
          nzTooltipPlacement="bottom" nzType="question"></i>
+      <nz-badge class="custom" [nzDot]="messages.length > 0" [nzShowZero]="false">
+        <i (click)="openDrawer(drawerChat, {})" class="topbar-action" nz-icon nz-tooltip="Chat" nzTheme="outline"
+           nzTooltipPlacement="bottom" nzType="message"></i>
+      </nz-badge>
     </div>
     <div class="right-side">
 
@@ -255,6 +259,11 @@
   #drawerHelp
   [nzTitle]="'AYUDA'"
 ></app-drawer-help>
+
+<app-drawer-chat
+  #drawerChat
+  [nzTitle]="'CHAT'"
+></app-drawer-chat>
 
 <app-drawer-lotteries
   #drawerLotteryLimits
