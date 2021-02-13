@@ -14,6 +14,9 @@ import {
 } from 'local-packages/banca-api';
 import {HttpErrorResponse} from '@angular/common/http';
 import {UserInterface, UserService} from '../../services/user.service';
+import {ModalChangePasswordComponent} from '../../components/modals/modal-change-password/modal-change-password.component';
+import {NzModalService} from 'ng-zorro-antd/modal';
+import {ModalAddTransactionComponent} from '../../components/modals/modal-add-transaction/modal-add-transaction.component';
 
 @Component({
   selector: 'app-web-users',
@@ -64,6 +67,7 @@ export class WebUsersComponent {
               private formBuilder: FormBuilder,
               private webusersService: WebusersService,
               private userService: UserService,
+              private nzModalService: NzModalService,
               private bankingService: BankingService) {
     this.formABM = this.formBuilder.group(this.defaultForm);
     this.user = this.userService.getLoggedUser();
@@ -139,12 +143,38 @@ export class WebUsersComponent {
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35)
-      ] : [Validators.minLength(8),
-        Validators.maxLength(35)]
+      ] : []
     };
   };
 
   getBankingName(id): string {
-    return this.bankings.find(banking => banking._id === id).name;
+    return this.bankings && this.bankings.find(banking => banking._id === id).name;
+  }
+
+  changePassword(userId): void {
+    this.nzModalService.create({
+      nzTitle: 'Cambiar Contraseña',
+      nzContent: ModalChangePasswordComponent,
+      nzMaskClosable: false,
+      nzClosable: false,
+      nzComponentParams: {
+        userId
+      },
+      nzFooter: null
+    });
+  }
+
+  chargeBalance(bankingId, webUserId): void {
+    this.nzModalService.create({
+      nzTitle: 'Agregar balance',
+      nzContent: ModalAddTransactionComponent,
+      nzMaskClosable: false,
+      nzClosable: false,
+      nzComponentParams: {
+        bankingId,
+        webUserId,
+      },
+      nzFooter: null
+    });
   }
 }

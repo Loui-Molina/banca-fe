@@ -4,12 +4,12 @@ import {
   HttpHandler,
   HttpRequest, HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import { Injectable } from '@angular/core';
 import {UserInterface, UserService} from '../services/user.service';
 import jwtDecode from 'jwt-decode';
 import {AuthService, DefaultService} from 'local-packages/banca-api';
-import {switchMap} from 'rxjs/operators';
+import {catchError, retry, switchMap} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -30,7 +30,17 @@ export class RolesInterceptor implements HttpInterceptor {
           // Is refreshing
           const refreshToken = this.userService.getRefreshToken();
           const customRequestRefresh = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + refreshToken) });
-          return next.handle(customRequestRefresh);
+          return next.handle(customRequestRefresh).pipe(
+            retry(1),
+            catchError((error: HttpErrorResponse) => {
+              if (error.status === 401) {
+                localStorage.clear();
+                window.location.replace(window.location.origin);
+                return throwError(error);
+              }
+              return throwError(error);
+            })
+          );
         }
         if (!(user && expiredAt > new Date().getTime())) {
           // EXPIRED
