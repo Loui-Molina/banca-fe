@@ -43,6 +43,10 @@ export class ErrorsHandler implements ErrorHandler {
       switch (Math.floor(status / 100)) {
         // 4XX family errors
         case 4:
+          if (error.error && error.error.message){
+           this.notifyError(ErrorsHandler.defaultErrorTitle, error.error.message);
+           return; 
+          }
           this.notifyError(ErrorsHandler.defaultErrorTitle, 'ERROR.SYSTEM_ERROR');
           return;
         // 5XX family errors

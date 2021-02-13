@@ -1,0 +1,59 @@
+<nz-drawer
+  (nzOnClose)="close()"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="nzTitle"
+  [nzVisible]="nzVisible"
+  [nzWidth]="500"
+>
+  <div class="drawer">
+    <ng-container>
+      <nz-select
+        [(ngModel)]="lotteryId" (ngModelChange)="onChangeLotterySelected($event)" nzPlaceHolder="Seleccione una loteria"
+        style="width: 100%;">
+        <nz-option *ngFor="let lottery of lotteries"
+                   [nzLabel]="lottery.name"
+                   [nzValue]="lottery._id"></nz-option>
+      </nz-select>
+
+      <ng-container *ngIf="selectedLotteryLimit">
+        <nz-divider [nzText]="'Precios'" class="title" nzOrientation="left"></nz-divider>
+
+        <div id="prizes" nz-row nzGutter="8">
+          <div *ngFor="let play of availablePlays" class="form-element" nz-col nzXs="12">
+            <nz-input-group [id]="play.key" class="add-on-input" nzAddOnBefore="{{play.title|translate}}">
+              <div nz-row>
+                <div nz-col nzSpan="24">
+                  <input nz-input
+                         [readOnly]="true"
+                         [ngModel]="getValueOfPlay(play.key, selectedLotteryLimit.prizeLimits)"
+                         style="width:100%"/>
+                </div>
+              </div>
+            </nz-input-group>
+          </div>
+        </div>
+
+        <nz-divider [nzText]="'Limites'" class="title" nzOrientation="left"></nz-divider>
+
+
+        <div id="bettings" nz-row nzGutter="8">
+          <div *ngFor="let play of availableBettingPlays" class="form-element" nz-col nzXs="12">
+            <nz-input-group [id]="play.key" class="add-on-input" nzAddOnBefore="{{play.title|translate}}">
+              <div nz-row>
+                <div nz-col nzSpan="24">
+                  <input nz-input
+                         [readOnly]="true"
+                         [ngModel]="getValueOfBettingPlay(play.key.split('.')[1], selectedLotteryLimit.bettingLimits)"
+                         style="width:100%"/>
+                </div>
+              </div>
+            </nz-input-group>
+          </div>
+
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</nz-drawer>

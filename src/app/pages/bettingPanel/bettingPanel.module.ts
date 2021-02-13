@@ -25,6 +25,14 @@ import {NzListModule} from 'ng-zorro-antd/list';
 import {CountdownModule} from 'ngx-countdown';
 import {NzModalModule} from 'ng-zorro-antd/modal';
 import {NzTableModule} from 'ng-zorro-antd/table';
+import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
+import {TranslateModule} from '@ngx-translate/core';
+import { DrawerBetsComponent } from './drawer-bets/drawer-bets.component';
+import {DrawerBetComponent} from './drawer-bet/drawer-bet.component';
+import { DrawerHelpComponent } from './drawer-help/drawer-help.component';
+import { DrawerLotteriesComponent } from './drawer-lotteries/drawer-lotteries.component';
+import { DrawerPayBetComponent } from './drawer-pay-bet/drawer-pay-bet.component';
+import { DrawerResumeSellsComponent } from './drawer-resume-sells/drawer-resume-sells.component';
 
 @NgModule({
   imports: [
@@ -44,8 +52,8 @@ import {NzTableModule} from 'ng-zorro-antd/table';
     NzTypographyModule,
     NzSwitchModule,
     ComponentsModule,
-    NzDrawerModule,
     NzSelectModule,
+    NzDrawerModule,
     NzDropDownModule,
     NzToolTipModule,
     NzDividerModule,
@@ -53,10 +61,20 @@ import {NzTableModule} from 'ng-zorro-antd/table';
     CountdownModule,
     NzListModule,
     NzModalModule,
-    NzTableModule
+    NzTableModule,
+    NzInputNumberModule,
+    TranslateModule
   ],
   providers: [DatePipe],
-  declarations: [BettingPanelComponent],
+  declarations: [
+    BettingPanelComponent,
+    DrawerBetsComponent,
+    DrawerBetComponent,
+    DrawerHelpComponent,
+    DrawerLotteriesComponent,
+    DrawerPayBetComponent,
+    DrawerResumeSellsComponent
+  ],
   exports: [BettingPanelComponent]
 })
 export class BettingPanelModule {

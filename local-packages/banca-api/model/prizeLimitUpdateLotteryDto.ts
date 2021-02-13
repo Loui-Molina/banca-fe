@@ -11,12 +11,12 @@
  */
 
 
-export interface PrizeLimit { 
-    playType?: PrizeLimit.PlayTypeEnum;
-    paymentAmount: number;
-    status: boolean;
+export interface PrizeLimitUpdateLotteryDto { 
+    playType?: PrizeLimitUpdateLotteryDto.PlayTypeEnum;
+    paymentAmount?: number;
+    status?: boolean;
 }
-export namespace PrizeLimit {
+export namespace PrizeLimitUpdateLotteryDto {
     export type PlayTypeEnum = 'first' | 'second' | 'third' | 'double' | 'pale' | 'paleTwoThree' | 'triplet' | 'twoNumbers' | 'superPale' | 'cashThreeStraight' | 'cashThreeStraightDoubles' | 'playFourStraight' | 'pickFiveStraight' | 'cashThreeBoxThreeWay' | 'cashThreeBoxSixWay' | 'playFourBoxFourWay' | 'playFourBoxSixWay' | 'playFourBoxTwelfthWay' | 'playFourBoxTwentyFourthWay' | 'pickFiveBoxFifthWay' | 'pickFiveBoxTenthWay' | 'pickFiveBoxTwentiethWay' | 'pickFiveBoxThirtiethWay' | 'pickFiveBoxSixtiethWay' | 'pickFiveBoxOneHundredTwentiethWay' | 'singulationOne' | 'singulationTwo' | 'singulationThree' | 'bolitaOne' | 'bolitaTwo';
     export const PlayTypeEnum = {
         First: 'first' as PlayTypeEnum,

@@ -22,6 +22,7 @@ import { DashboardConsortiumDto } from '../model/models';
 import { DashboardDiagramDto } from '../model/models';
 import { DashboardGraphBalanceBankingDto } from '../model/models';
 import { DashboardGraphBankingDto } from '../model/models';
+import { DashboardGraphConsortiumBalanceBankingDto } from '../model/models';
 import { DashboardGraphConsortiumDto } from '../model/models';
 import { DashboardPlayedNumbersDto } from '../model/models';
 import { DashboardWidgetsDto } from '../model/models';
@@ -482,6 +483,46 @@ export class DashboardService {
         }
 
         return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/graph-banking-statistics`,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public dashboardControllerGetGraphConsortiumBankingBalanceStatistics(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public dashboardControllerGetGraphConsortiumBankingBalanceStatistics(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public dashboardControllerGetGraphConsortiumBankingBalanceStatistics(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public dashboardControllerGetGraphConsortiumBankingBalanceStatistics(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.get<any>(`${this.configuration.basePath}/api/dashboard/graph-consortium-banking-balance-statistics`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

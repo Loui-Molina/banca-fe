@@ -4,18 +4,18 @@ import {Observable} from 'rxjs';
 import {
   BankingDto,
   BankingService,
-  BettingLimit,
+  BettingLimitDto,
   ConsortiumLotteriesService,
   ConsortiumLotteryDto,
   ConsortiumUpdateLotteryDto,
-  PrizeLimit
+  PrizeLimitDto
 } from 'local-packages/banca-api';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {HttpErrorResponse} from '@angular/common/http';
-import PrizeLimitPlayTypeEnum = PrizeLimit.PlayTypeEnum;
-import BettingLimitPlayTypeEnum = BettingLimit.PlayTypeEnum;
+import PrizeLimitPlayTypeEnum = PrizeLimitDto.PlayTypeEnum;
+import BettingLimitPlayTypeEnum = BettingLimitDto.PlayTypeEnum;
 
 @Component({
   selector: 'app-lotteries-consortium',
@@ -166,8 +166,8 @@ export class ConsortiumLotteriesComponent implements OnInit {
   };
 
   parseData = (mode, valueForm, visibleObject) => {
-    const prizeLimits: PrizeLimit[] = [];
-    const bettingLimits: BettingLimit[] = [];
+    const prizeLimits: PrizeLimitDto[] = [];
+    const bettingLimits: BettingLimitDto[] = [];
 
     // tslint:disable-next-line:forin prefer-for-of
     for (let i = 0; i < this.availablePlays.length; i++) {
@@ -193,7 +193,7 @@ export class ConsortiumLotteriesComponent implements OnInit {
     };
   };
 
-  createPrizeLimit(valueForm, playType): PrizeLimit {
+  createPrizeLimit(valueForm, playType): PrizeLimitDto {
     if (valueForm[playType] === null || valueForm[playType] === undefined) {
       return null;
     }
@@ -204,7 +204,7 @@ export class ConsortiumLotteriesComponent implements OnInit {
     };
   }
 
-  createBettingLimit(valueForm, playType): BettingLimit {
+  createBettingLimit(valueForm, playType): BettingLimitDto {
     if (valueForm[playType] === null || valueForm[playType] === undefined) {
       return null;
     }

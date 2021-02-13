@@ -19,6 +19,9 @@ export interface UpdateBankingDto {
     ownerUserId?: object;
     user: SignUpCredentialsDto;
     showPercentage: boolean;
+    cancellationTime: number;
     selectedConsortium: object;
+    header: string;
+    footer: string;
 }
 

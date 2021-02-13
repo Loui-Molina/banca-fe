@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {DashboardGraphBankingDto, DashboardService, PlayedNumbersDto} from 'local-packages/banca-api';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-consortium',
@@ -15,10 +16,12 @@ export class ConsortiumComponent implements OnInit {
   prizes = 0;
   balance = 0;
   barChartDataBankings: DashboardGraphBankingDto[] = [];
+  lineChartDataBankings: any[] = [];
   pieChartData = [];
   numbersPlayed: PlayedNumbersDto[] = [];
+  hideDashboard = true;
 
-  constructor(private dashboardService: DashboardService) {
+  constructor(private dashboardService: DashboardService, private datePipe: DatePipe) {
   }
 
   formatResult(value: number): string {
@@ -46,6 +49,11 @@ export class ConsortiumComponent implements OnInit {
           value: res.prizes
         }
       ];
+      if (res.profits || res.prizes){
+        this.hideDashboard = false;
+      } else {
+        this.hideDashboard = true;
+      }
     }, error => {
       throw new HttpErrorResponse(error);
     });
@@ -54,5 +62,14 @@ export class ConsortiumComponent implements OnInit {
     }, error => {
       throw new HttpErrorResponse(error);
     });
+    this.dashboardService.dashboardControllerGetGraphConsortiumBankingBalanceStatistics().subscribe(res => {
+      this.lineChartDataBankings = res;
+    }, error => {
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+  dateTickFormatting = (val: string) => {
+    return this.datePipe.transform(new Date(val), 'dd-MM-yy');
   }
 }

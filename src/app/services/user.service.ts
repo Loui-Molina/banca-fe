@@ -62,9 +62,6 @@ export class MockUserService implements UserService {
     localStorage.clear();
   }
 
-  isLoginEnabled(): Promise<boolean> {
-    return Promise.resolve(true);
-  }
 }
 
 
@@ -128,11 +125,6 @@ export class JWTUserService implements UserService {
     localStorage.clear();
   }
 
-  isLoginEnabled(): Promise<boolean> {
-    const promise: Promise<boolean> = this.authService.authControllerIsLoginEnabled().toPromise();
-    console.log(promise);
-    return promise;
-  }
 }
 
 export abstract class UserService {
@@ -149,6 +141,4 @@ export abstract class UserService {
   abstract checkRoles(requiredRoles: User.RoleEnum[]): boolean ;
 
   abstract login(username: string, password: string): Promise<Subscription>;
-
-  abstract isLoginEnabled(): Promise<boolean>;
 }

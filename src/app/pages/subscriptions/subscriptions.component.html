@@ -1,0 +1,121 @@
+<div class="inner-content fit-height mb-20" style="min-height: 300px;">
+  <div class="inner-content fit-height mb-20" style="min-height: 300px;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px">
+      <app-title-divider title="{{'Subscripciones' |translate}}"></app-title-divider>
+      <button (click)="openDrawer('drawerSubscriptions')" nz-button>
+        {{'Registrar pago'|translate}}
+      </button>
+    </div>
+    <nz-table #basicTable [nzData]="subscriptions" [nzScroll]="{ x: '700px' }" [nzSize]="'small'">
+      <thead>
+      <tr>
+        <th *ngFor="let column of columns" [class.numeric]="column.alignment === 'RIGHT'"
+            class="table-th">{{column.title | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of basicTable.data">
+        <td *ngFor="let column of columns" [class.numeric]="column.alignment === 'RIGHT'" class="table-td"
+            [class.red]="column.alignment === 'RIGHT' && item[column.key] < 0">
+          {{ column.valueFormatter ? column.valueFormatter(item, column) : item[column.key] }}
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+
+  </div>
+</div>
+<nz-drawer
+  (nzOnClose)="closeDrawer('drawerSubscriptions')"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="'Registrar pago'"
+  [nzVisible]="drawerSubscriptions"
+  [nzWidth]="500"
+>
+  <div class="drawer-subscriptions">
+    <ng-container *ngIf="formSubscription">
+      <form [formGroup]="formSubscription">
+        <nz-divider [nzText]="'Origen'" class="title" nzOrientation="left" style="margin-top: 0"></nz-divider>
+        <div [nzGutter]="8" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-select (ngModelChange)="onChangeOrigen($event)" formControlName="originObject"
+                       nzPlaceHolder="Seleccione un origen" style="width: 100%;">
+              <nz-option [nzLabel]="'Consorcio'" [nzValue]="originObjectEnum.Consortium"></nz-option>
+              <nz-option [nzLabel]="'Banca'" [nzValue]="originObjectEnum.Banking"></nz-option>
+            </nz-select>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <ng-container *ngIf="formSubscription.value.originObject === originObjectEnum.Consortium">
+              <nz-select (ngModelChange)="onChangeOrigenId($event)" formControlName="originId"
+                         nzPlaceHolder="Seleccione un consorcio" style="width: 100%;">
+                <nz-option *ngFor="let consortium of consortiums"
+                           [nzLabel]="consortium.name"
+                           [nzValue]="consortium._id"></nz-option>
+              </nz-select>
+            </ng-container>
+            <ng-container *ngIf="formSubscription.value.originObject === originObjectEnum.Banking">
+              <nz-select (ngModelChange)="onChangeOrigenId($event)" formControlName="originId"
+                         nzPlaceHolder="Seleccione una banca" style="width: 100%;">
+                <nz-option *ngFor="let banking of bankings"
+                           [nzLabel]="banking.name"
+                           [nzValue]="banking._id"></nz-option>
+              </nz-select>
+            </ng-container>
+          </div>
+        </div>
+        <nz-divider [nzText]="'Destino'" class="title" nzOrientation="left"></nz-divider>
+        <div [nzGutter]="8" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-select (ngModelChange)="onChangeDestination($event)"
+                       [nzDisabled]="true"
+                       formControlName="destinationObject"
+                       nzPlaceHolder="Seleccione un destino"
+                       style="width: 100%;">
+              <nz-option [nzLabel]="'Consorcio'" [nzValue]="destinationObjectEnum.Consortium"></nz-option>
+              <nz-option [nzLabel]="'Banca'" [nzValue]="destinationObjectEnum.Banking"></nz-option>
+            </nz-select>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <ng-container *ngIf="formSubscription.value.destinationObject === destinationObjectEnum.Consortium">
+              <nz-select
+                [nzDisabled]="!formSubscription.value.originId"
+                formControlName="destinationId" nzPlaceHolder="Seleccione un consorcio" style="width: 100%;">
+                <nz-option *ngFor="let consortium of getFilteredConsortiums()"
+                           [nzLabel]="consortium.name"
+                           [nzValue]="consortium._id"></nz-option>
+              </nz-select>
+            </ng-container>
+            <ng-container *ngIf="formSubscription.value.destinationObject === destinationObjectEnum.Banking">
+              <nz-select
+                [nzDisabled]="!formSubscription.value.originId"
+                formControlName="destinationId" nzPlaceHolder="Seleccione una banca" style="width: 100%;">
+                <nz-option *ngFor="let banking of getFilteredBankings()"
+                           [nzLabel]="banking.name"
+                           [nzValue]="banking._id"></nz-option>
+              </nz-select>
+            </ng-container>
+          </div>
+        </div>
+
+        <nz-divider [nzText]="'Descripcion'" class="title" nzOrientation="left"></nz-divider>
+
+        <label>
+          <input nz-input formControlName="description"
+                 style="margin-bottom: 10px; width: 100%"/>
+        </label>
+
+        <nz-divider [nzText]="'Monto'" class="title" nzOrientation="left"></nz-divider>
+
+        <nz-input-number [nzMin]="1" formControlName="amount"
+                         style="margin-bottom: 10px; width: 100%"></nz-input-number>
+
+      </form>
+      <div style="width: 100%; text-align: center">
+        <button (click)="onClickAccept()" [disabled]="formSubscription && !formSubscription.valid || loading" [nzLoading]="loading"
+                nz-button>{{'Aceptar'|translate}}</button>
+      </div>
+    </ng-container>
+  </div>
+</nz-drawer>

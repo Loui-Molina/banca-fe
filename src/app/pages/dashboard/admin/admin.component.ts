@@ -18,6 +18,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class AdminComponent implements OnInit {
   miniMapPosition = MiniMapPosition;
   ticketsSold = 0;
+  hideDashboard = false;
   profits = 0;
   prizes = 0;
   balance = 0;
@@ -35,6 +36,11 @@ export class AdminComponent implements OnInit {
       this.clusters = res.clusters;
       this.links = res.links;
       this.nodes = res.nodes;
+      if (this.links.length > 0 || this.nodes.length > 0) {
+        this.hideDashboard = false;
+      } else {
+        this.hideDashboard = true;
+      }
     }, error => {
       throw new HttpErrorResponse(error);
     });

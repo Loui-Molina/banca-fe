@@ -17,10 +17,10 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { Bet } from '../model/models';
 import { BetDto } from '../model/models';
 import { ClaimBetDto } from '../model/models';
 import { CreateBetDto } from '../model/models';
+import { LimitVerifyDto } from '../model/models';
 import { ResumeSellsDto } from '../model/models';
 import { UpdateBetDto } from '../model/models';
 
@@ -471,6 +471,60 @@ export class BettingPanelService {
         }
 
         return this.httpClient.get<any>(`${this.configuration.basePath}/api/betting-panel/resume/sells`,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param limitVerifyDto 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public bettingPanelControllerVerifyLimit(limitVerifyDto: LimitVerifyDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<number>;
+    public bettingPanelControllerVerifyLimit(limitVerifyDto: LimitVerifyDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<number>>;
+    public bettingPanelControllerVerifyLimit(limitVerifyDto: LimitVerifyDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<number>>;
+    public bettingPanelControllerVerifyLimit(limitVerifyDto: LimitVerifyDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (limitVerifyDto === null || limitVerifyDto === undefined) {
+            throw new Error('Required parameter limitVerifyDto was null or undefined when calling bettingPanelControllerVerifyLimit.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.post<number>(`${this.configuration.basePath}/api/betting-panel/verify-limit`,
+            limitVerifyDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

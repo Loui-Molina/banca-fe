@@ -54,7 +54,7 @@ export class AdminLotteriesComponent implements OnInit {
     name: null,
     nickname: null,
     playTime: null,
-    color: '#000',
+    color: '#000000',
     status: true
   };
   days = DayEnum;
@@ -120,23 +120,97 @@ export class AdminLotteriesComponent implements OnInit {
     };
   };
 
-  getClosingDisabledMinutes() {
-    //TODO IMPLEMENT
-  }
+  getClosingDisabledMinutes = (hour: number): Array<number> => {
+    if (this.formABM && this.formABM.value) {
+      const playTime: Date = this.formABM.value.playTime;
+      const openTime: Date = this.formABM.value.openTime;
+      if (playTime && openTime) {
+        const playHour: number = playTime.getHours();
+        const openHour: number = openTime.getHours();
+        const minutes: Array<number> = [];
+        if (hour === playHour) {
+          for (let i = playTime.getMinutes() + 1; i < 60; i++) {
+            minutes.push(i);
+          }
+          return minutes;
+        } else if (hour === openHour) {
+          for (let i = 0; i < openTime.getMinutes(); i++) {
+            minutes.push(i);
+          }
+          return minutes;
+        }
+      }
+    }
+    return [];
+  };
 
-  getClosingDisabledHours() {
-    //TODO implement
-  }
+  getClosingDisabledHours = (): Array<number> => {
+    if (this.formABM && this.formABM.value) {
+      const playTime: Date = this.formABM.value.playTime;
+      const openTime: Date = this.formABM.value.openTime;
+      if (playTime && openTime) {
+        const hours: Array<number> = [];
+        for (let i = 0; i < openTime.getHours(); i++) {
+          hours.push(i);
+        }
+        for (let i = playTime.getHours() + 1; i < 24; i++) {
+          hours.push(i);
+        }
+        return hours;
+      }
+    }
+    return [];
+  };
 
-  getOpeningDisabledMinutes() {
-    //TODO implement
-  }
+  getOpeningDisabledMinutes = (hour: number): Array<number> => {
+    if (this.formABM && this.formABM.value) {
+      const playTime: Date = this.formABM.value.playTime;
+      if (playTime) {
+        const playHour: number = playTime.getHours();
+        const minutes: Array<number> = [];
+        if (hour === playHour) {
+          for (let i = playTime.getMinutes() + 1; i < 60; i++) {
+            minutes.push(i);
+          }
+          return minutes;
+        }
+      }
+    }
+    return [];
+  };
 
-  getOpeningDisabledHours() {
-    //TODO implement
-  }
+  getOpeningDisabledHours = (): Array<number> => {
+    if (this.formABM && this.formABM.value) {
+      const playTime: Date = this.formABM.value.playTime;
+      if (playTime) {
+        const hours: Array<number> = [];
+        for (let i = playTime.getHours() + 1; i < 24; i++) {
+          hours.push(i);
+        }
+        return hours;
+      }
+    }
+    return [];
+  };
+
+
+  isOpeningTimeEnabled = (): boolean => {
+    return !(this.formABM.value.playTime);
+  };
+
+  isClosingTimeEnabled = (): boolean => {
+    return !(this.formABM.value.playTime && this.formABM.value.openTime);
+  };
 
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
   }
+
+  resetOpenAndCloseTime = (): void => {
+    console.log(this.formABM);
+    if (this.formABM.controls.playTime.touched) {
+      this.formABM.controls.openTime.setValue(null);
+      this.formABM.controls.closeTime.setValue(null);
+    }
+  };
 }

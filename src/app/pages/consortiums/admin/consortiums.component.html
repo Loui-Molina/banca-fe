@@ -14,7 +14,7 @@
   </app-abm>
 
 
-  <ng-template #formTemplate let-mode>
+  <ng-template #formTemplate let-mode let-visibleObject="visibleObject">
     <form [formGroup]="formABM">
 
       <nz-divider [nzText]="'Datos del consorcio'" class="title" nzOrientation="left"
@@ -51,19 +51,24 @@
         <input [minLength]="4" formControlName="ownerUsername" id="ownerUsername" nz-input type="text">
       </div>
 
-      <div>
+      <div  *ngIf="mode === 'C'">
         <label for="password">
           {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
         </label>
         <input [maxLength]="35" [minLength]="8" formControlName="password" id="password" nz-input type="text">
       </div>
 
+      <ng-container *ngIf="mode === 'U'">
+        <p class="button-link" (click)="changePassword(visibleObject.ownerId)">Cambiar Contraseña</p>
+      </ng-container>
+
     </form>
   </ng-template>
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <nz-descriptions [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }" [nzTitle]="'Consorcio'|translate">
+      <nz-divider [nzText]="'Consorcio'" class="title" nzOrientation="left"></nz-divider>
+      <nz-descriptions>
         <nz-descriptions-item [nzTitle]="'Nombre'|translate">
           {{visibleObject.name}}
         </nz-descriptions-item>
@@ -75,7 +80,9 @@
       </nz-descriptions>
 
       <nz-divider [nzText]="'Bancas'" class="title" nzOrientation="left"></nz-divider>
+      <!-- TODO CHANGE NO BANKINGS MESSAGE -->
       <nz-table [nzData]="visibleObject.bankings"
+                [nzNoResult]="'Sin bancas'"
                 [nzSize]="'small'"
                 nzLoading="false"
                 nzTableLayout="auto"

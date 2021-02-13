@@ -1,0 +1,78 @@
+<nz-drawer
+  (nzOnClose)="close()"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="nzTitle"
+  [nzVisible]="nzVisible"
+  [nzWidth]="500"
+>
+  <div class="drawer">
+    <ng-container *ngIf="bet">
+      <div class="status">
+        <nz-tag *ngIf="bet.betStatus === betStatusEnum.Winner" [nzColor]="'green'"
+                style="padding: 0 2px 0 2px;">
+          GANADOR
+        </nz-tag>
+        <nz-tag *ngIf="bet.betStatus === betStatusEnum.Pending" [nzColor]="'blue'"
+                style="padding: 0 2px 0 2px;">
+          PENDIENTE
+        </nz-tag>
+        <nz-tag *ngIf="bet.betStatus === betStatusEnum.Cancelled" [nzColor]="'brown'"
+                style="padding: 0 2px 0 2px;">
+          CANCELADO
+        </nz-tag>
+        <nz-tag *ngIf="bet.betStatus === betStatusEnum.Loser" [nzColor]="'red'"
+                style="padding: 0 2px 0 2px;">
+          PERDEDOR
+        </nz-tag>
+        <nz-tag *ngIf="bet.betStatus === betStatusEnum.Claimed" [nzColor]="'darkgreen'"
+                style="padding: 0 2px 0 2px;">
+          RECLAMADO
+        </nz-tag>
+        <nz-tag *ngIf="bet.betStatus === betStatusEnum.Expired" [nzColor]="'red'"
+                style="padding: 0 2px 0 2px;">
+          EXPIRADO
+        </nz-tag>
+      </div>
+      <h2>ID: {{bet._id.toString()}}</h2>
+      <p>Fecha: {{bet.date | date: 'dd/MM/yyyy'}}</p>
+      <p>Hora: {{bet.date | date: 'HH:mm:ss'}}</p>
+      <ng-container *ngIf="[betStatusEnum.Winner, betStatusEnum.Claimed].includes(bet.betStatus)">
+        <h3>GANO: ${{bet.amountWin}}</h3>
+      </ng-container>
+      <nz-table [nzData]="bet.plays"
+                [nzSize]="'small'"
+                nzLoading="false"
+                nzShowPagination="false"
+                nzTableLayout="auto"
+                style="margin-top: 20px">
+        <thead>
+        <tr>
+          <th *ngFor="let column of columnsPlays">
+            {{column.title}}
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of bet.plays">
+          <td>{{ data.lotteryName }}</td>
+          <td>{{ data.amount }}</td>
+          <td>{{ showParsedNumbers(data.playNumbers) }} </td>
+          <td>{{ data.playType }} </td>
+        </tr>
+        </tbody>
+      </nz-table>
+      <br>
+      <button *ngIf="canSeeSn(bet)" (click)="printTicket(bet)">IMPRIMIR</button>
+      <br>
+      <br>
+      <button (click)="cloneTicket(bet)">CLONAR TICKET</button>
+      <br>
+      <br>
+      <a *ngIf="canSeeSn(bet)" [href]="getSendWhatsApp(bet)" target="_blank">
+        <button style="color: black">ENVIAR POR WHATSAPP</button>
+      </a>
+    </ng-container>
+  </div>
+</nz-drawer>

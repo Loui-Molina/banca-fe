@@ -383,25 +383,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   }
 }
 
-.drawer-help {
-  p {
-    margin: 0;
 
-    &.bold {
-      font-weight: bold;
-    }
-  }
-
-  span {
-    &.bold {
-      font-weight: bold;
-    }
-  }
-
-  ul {
-    margin: 0;
-  }
-}
 
 .drawer-tickets {
   nz-list-item {
@@ -422,39 +404,9 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   }
 }
 
-.drawer-ticket {
-  position: relative;
 
-  .status {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-}
 
-.drawer-pagar-ticket {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 
-  button {
-    margin-top: 10px;
-  }
-}
-
-.drawer-caja {
-  .item {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #ccc;
-    margin: 10px 5px;
-    padding: 10px;
-
-    &.neto {
-      background-color: #cfd4f9;
-    }
-  }
-}
 
 .lottery-loading {
   display: flex;

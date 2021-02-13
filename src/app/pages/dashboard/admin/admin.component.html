@@ -25,32 +25,40 @@
 <div nz-col nzXs="24">
   <div #containerRef class="inner-content mb-20" style="min-height: 450px;max-height: 450px;overflow: hidden;">
     <app-title-divider title="Diagrama de organizacion"></app-title-divider>
-    <ngx-graph
-      [autoCenter]="false"
-      [autoZoom]="true"
-      [clusters]="clusters"
-      [draggingEnabled]="false"
-      [links]="links"
-      [miniMapPosition]="miniMapPosition.UpperLeft"
-      [nodes]="nodes"
-      [showMiniMap]="true"
-      [view]="[containerRef.offsetWidth, 400]"
-      class="chart-container"
-      layout="dagreCluster"
-    >
-      <ng-template #nodeTemplate let-node>
-        <svg:g class="node">
-          <svg:rect
-            [attr.fill]="node.data.color"
-            [attr.height]="node.dimension.height"
-            [attr.width]="node.dimension.width"
-          />
-          <svg:text [attr.x]="10" [attr.y]="node.dimension.height / 2" alignment-baseline="central">
-            {{node.label}}
-          </svg:text>
-        </svg:g>
-      </ng-template>
-    </ngx-graph>
+    <ng-container *ngIf="hideDashboard">
+      <div style="text-align: center">
+        <img src="assets/imgs/nodata.png" style="width: 50%;padding-top: 10%; object-fit: cover" alt="No data"/>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!hideDashboard">
+      <ngx-graph
+        [autoCenter]="false"
+        [autoZoom]="true"
+        [clusters]="clusters"
+        [draggingEnabled]="false"
+        [links]="links"
+        [miniMapPosition]="miniMapPosition.UpperLeft"
+        [nodes]="nodes"
+        [showMiniMap]="true"
+        [view]="[containerRef.offsetWidth, 400]"
+        class="chart-container"
+        layout="dagreCluster"
+      >
+        <ng-template #nodeTemplate let-node>
+          <svg:g class="node">
+            <svg:rect
+              [attr.fill]="node.data.color"
+              [attr.height]="node.dimension.height"
+              [attr.width]="node.dimension.width"
+            />
+            <svg:text [attr.x]="10" [attr.y]="node.dimension.height / 2" alignment-baseline="central">
+              {{node.label}}
+            </svg:text>
+          </svg:g>
+        </ng-template>
+      </ngx-graph>
+    </ng-container>
+
   </div>
 </div>
 

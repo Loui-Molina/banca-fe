@@ -15,7 +15,6 @@ export interface UserDto {
     _id: string;
     name: string;
     username: string;
-    password: string;
     role: UserDto.RoleEnum;
 }
 export namespace UserDto {

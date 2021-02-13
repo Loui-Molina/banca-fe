@@ -15,6 +15,7 @@ export class BankingComponent implements OnInit {
   prizes = 0;
   balance = 0;
   pieChartData = [];
+  hideDashboard = true;
   barChartDataBalanceBankings = [];
   numbersPlayed: PlayedNumbersDto[] = [];
 
@@ -45,6 +46,11 @@ export class BankingComponent implements OnInit {
           value: res.prizes
         }
       ];
+      if (res.profits || res.prizes){
+        this.hideDashboard = false;
+      } else {
+        this.hideDashboard = true;
+      }
     }, error => {
       throw new HttpErrorResponse(error);
     });

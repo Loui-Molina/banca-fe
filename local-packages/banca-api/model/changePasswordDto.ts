@@ -12,8 +12,7 @@
 
 
 export interface ChangePasswordDto { 
-    username: string;
-    password: string;
+    _id: object;
     newPassword: string;
     verifyPassword: string;
 }

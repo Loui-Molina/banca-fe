@@ -1,0 +1,62 @@
+<nz-drawer
+  (nzOnClose)="close()"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="nzTitle"
+  [nzVisible]="nzVisible"
+  [nzWidth]="500"
+>
+  <div class="drawer">
+    <ng-container>
+      <nz-divider nzOrientation="left" nzText="Teclas" style="margin-top: 0px"></nz-divider>
+      <p>/ = cambiar loteria seleccionada</p>
+      <p>Barra espaciadora = confirmar e imprimir</p>
+      <p>** = confirmar e imprimir</p>
+      <p>L = limpiar</p>
+      <p>B = Buscar ticket</p>
+      <p>H = Ayuda</p>
+      <p>C = Cuadre de caja</p>
+      <p>P = Pagar ticket</p>
+      <nz-divider nzOrientation="left" nzText="Como jugar?"></nz-divider>
+      <p class="bold">Directo:</p>
+      <ol>
+        <li>Ingresar la jugada con un numero de 2 digitos y presionar Enter</li>
+        <li>Ingresar el monto y presionar Enter</li>
+      </ol>
+      <p class="bold">Pale:</p>
+      <ol>
+        <li>Ingresar la jugada con un numero de 4 digitos y presionar Enter</li>
+        <li>Ingresar el monto y presionar Enter</li>
+      </ol>
+      <p class="bold">Tripleta:</p>
+      <ol>
+        <li>Ingresar la jugada con un numero de 6 digitos y presionar Enter</li>
+        <li>Ingresar el monto y presionar Enter</li>
+      </ol>
+      <p class="bold">Superpale:</p>
+      <ol>
+        <li>Ingresar la jugada con un numero de 4 digitos y presionar Enter</li>
+        <li>Marcar el boton "S" para realizar la jugada</li>
+        <li>Seleccionar 2 loterias</li>
+        <li>Ingresar el monto y presionar Enter</li>
+      </ol>
+      <nz-divider nzOrientation="left" nzText="Combinaciones"></nz-divider>
+      <p class="bold">Secuencia (Directo):</p>
+      <ol>
+        <li>Ingresar la jugada como A<span class="bold">S</span>B siendo A el primer limite y B el final</li>
+        <li>Ingresar el monto y presionar Enter</li>
+      </ol>
+      <p class="bold">Combinacion (Directo):</p>
+      <ol>
+        <li>Ingresar la jugada con un numero de 2 digitos seguido de un . y presionar Enter</li>
+        <li>Ingresar el monto y presionar Enter</li>
+      </ol>
+      <p class="bold">Combinacion (Pale):</p>
+      <ol>
+        <li>Ingresar la jugada con un numero de 4 o mas digitos seguido de un . y presionar Enter</li>
+        <li>Ingresar el monto y presionar Enter</li>
+      </ol>
+    </ng-container>
+  </div>
+</nz-drawer>

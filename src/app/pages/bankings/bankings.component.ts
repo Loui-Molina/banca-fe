@@ -6,6 +6,7 @@ import {
   Banking,
   BankingDto,
   BankingService,
+  Consortium,
   ConsortiumsService,
   CreateBankingDto,
   SignUpCredentialsDto,
@@ -14,6 +15,8 @@ import {
 } from 'local-packages/banca-api';
 import {HttpErrorResponse} from '@angular/common/http';
 import {UserInterface, UserService} from '../../services/user.service';
+import {ModalChangePasswordComponent} from '../../components/modals/modal-change-password/modal-change-password.component';
+import {NzModalService} from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-bankings',
@@ -51,10 +54,11 @@ export class BankingsComponent {
     name: null,
     status: true,
     selectedConsortium: null,
-    showPercentage: true,
+    showPercentage: false,
     earningPercentage: null,
-    // header: null,
-    // footer: null,
+    cancellationTime: null,
+    header: null,
+    footer: null,
     ownerName: null,
     username: null,
     password: null
@@ -62,23 +66,32 @@ export class BankingsComponent {
   user: UserInterface;
   userRole = User.RoleEnum;
   formABM: FormGroup;
-  consortiums: any;
+  consortiums: Consortium[];
   fetcher: Observable<BankingDto[]> = this.bankingService.bankingsControllerFindAll();
 
   constructor(private datePipe: DatePipe,
               private formBuilder: FormBuilder,
               private bankingService: BankingService,
               private userService: UserService,
+              private nzModalService: NzModalService,
               private consortiumsService: ConsortiumsService) {
+
     this.formABM = this.formBuilder.group(this.defaultForm);
     this.user = this.userService.getLoggedUser();
     if (this.user?.role === this.userRole.Admin) {
       this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
+          this.consortiums = [];
           this.consortiums = consortiums;
         }, error => {
           throw new HttpErrorResponse(error);
         }
       );
+    } else if (this.user?.role === this.userRole.Consortium) {
+      this.consortiumsService.consortiumControllerGetConsortiumOfUser().subscribe(consortium => {
+        console.log(consortium);
+        this.consortiums = [];
+        this.consortiums.push(consortium);
+      });
     }
   }
 
@@ -87,8 +100,6 @@ export class BankingsComponent {
   fetcherDelete: (item) => Observable<Banking> = (item) => this.bankingService.bankingsControllerDelete(item._id);
 
   setValueForm(mode, defaultForm, visibleObject): any {
-    console.log({visibleObject});
-
     if (mode === 'C') {
       return {
         name: null,
@@ -96,8 +107,9 @@ export class BankingsComponent {
         selectedConsortium: null,
         showPercentage: false,
         earningPercentage: null,
-        // header: null,
-        // footer: null,
+        cancellationTime: 5,
+        header: null,
+        footer: null,
         ownerName: null,
         username: null,
         password: null
@@ -109,8 +121,9 @@ export class BankingsComponent {
         selectedConsortium: visibleObject.consortiumId,
         showPercentage: visibleObject.showPercentage,
         earningPercentage: visibleObject.earningPercentage,
-        // header: visibleObject.header,
-        // footer: visibleObject.footer,
+        cancellationTime: visibleObject.cancellationTime ? visibleObject.cancellationTime : null,
+        header: visibleObject.header,
+        footer: visibleObject.footer,
         ownerName: visibleObject.ownerName,
         username: visibleObject.ownerUsername,
         password: null,
@@ -118,16 +131,17 @@ export class BankingsComponent {
     }
   }
 
-// TODO add new fields
   parseData = (mode: string, valueForm, visibleObject): CreateBankingDto | UpdateBankingDto => {
-    console.log({visibleObject});
     if (mode === 'C') {
       return {
         banking: {
           name: valueForm.name,
           status: valueForm.status,
           showPercentage: valueForm.showPercentage,
-          earningPercentage: valueForm.earningPercentage
+          earningPercentage: valueForm.earningPercentage,
+          cancellationTime: valueForm.cancellationTime,
+          header: valueForm.header,
+          footer: valueForm.footer
         } as BankingDto,
         user: {username: valueForm.username, password: valueForm.password, name: valueForm.ownerName} as SignUpCredentialsDto,
         consortiumId: valueForm.selectedConsortium
@@ -138,9 +152,12 @@ export class BankingsComponent {
         name: valueForm.name,
         status: valueForm.status,
         showPercentage: valueForm.showPercentage,
+        cancellationTime: valueForm.cancellationTime,
         ownerUserId: visibleObject.ownerUserId,
-        user: {username: valueForm.username, password: valueForm.password, name: valueForm.ownerName} as SignUpCredentialsDto,
-        selectedConsortium: valueForm.selectedConsortium
+        user: {username: valueForm.username, password: null, name: valueForm.ownerName} as SignUpCredentialsDto,
+        selectedConsortium: valueForm.selectedConsortium,
+        header: valueForm.header,
+        footer: valueForm.footer
       } as UpdateBankingDto;
     }
   };
@@ -150,21 +167,35 @@ export class BankingsComponent {
       name: [Validators.required],
       status: [Validators.required],
       selectedConsortium: [Validators.required],
-      showPercentage: [Validators.required],
-      earningPercentage: [Validators.required],
-      header: (mode === 'C') ? [Validators.required] : [],
-      footer: (mode === 'C') ? [Validators.required] : [],
+      header: [Validators.required],
+      cancellationTime: [],
+      footer: [Validators.required],
       ownerName: [Validators.required],
       username: [Validators.required],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35)
-      ] : [Validators.minLength(8),
-        Validators.maxLength(35)]
+      ] : []
     };
   };
 
   getConsortiumName(consortiumId: any): string {
-    return this.consortiums.find(consortium => consortium._id === consortiumId).name;
+    if (consortiumId) {
+      return this.consortiums.find(consortium => consortium._id === consortiumId).name;
+    }
+    return '';
+  }
+
+  changePassword(userId): void {
+    this.nzModalService.create({
+      nzTitle: 'Cambiar Contraseña',
+      nzContent: ModalChangePasswordComponent,
+      nzMaskClosable: false,
+      nzClosable: false,
+      nzComponentParams: {
+        userId
+      },
+      nzFooter: null
+    });
   }
 }

@@ -1,0 +1,19 @@
+.drawer {
+  p {
+    margin: 0;
+
+    &.bold {
+      font-weight: bold;
+    }
+  }
+
+  span {
+    &.bold {
+      font-weight: bold;
+    }
+  }
+
+  ul {
+    margin: 0;
+  }
+}

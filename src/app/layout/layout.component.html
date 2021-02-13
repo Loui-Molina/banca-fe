@@ -47,10 +47,14 @@
             <i nz-icon nzType="team"></i>
             <a routerLink="/web-users">{{'Usuarios web' | translate}}</a>
           </li>
+          <!--<li *ngIf="[userRole.Admin].includes(user?.role)" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="reconciliation"></i>
+            <a routerLink="/subscriptions">{{'Subscripciones' | translate}}</a>
+          </li>
           <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="question"></i>
             <a routerLink="/help">{{'Help' | translate}}</a>
-          </li>
+          </li>-->
         </ul>
       </li>
       <li nz-submenu nzIcon="form" nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}">
@@ -68,7 +72,7 @@
       </li>
     </ul>
   </nz-sider>
-  <nz-layout>
+  <nz-layout style="overflow-y: auto">
     <nz-header>
       <div class="app-header">
         <div class="app-header-left">
@@ -89,9 +93,10 @@
         </div>
         <div class="app-header-right">
           <ng-container *ngIf="[userRole.Consortium, userRole.Banker].includes(user?.role)">
-            <span class="header-trigger" >
-            <nz-badge [nzCount]="messages.length"  [nzShowZero]="false">
-              <i [nzDropdownMenu]="menu2" nzTrigger="click" style="font-size: 20px;" nz-dropdown nz-icon nzTheme="outline" nzType="message"></i>
+            <span class="header-trigger">
+            <nz-badge [nzCount]="messages.length" [nzShowZero]="false">
+              <i [nzDropdownMenu]="menu2" nzTrigger="click" style="font-size: 20px;" nz-dropdown nz-icon
+                 nzTheme="outline" nzType="message"></i>
             </nz-badge>
           </span>
             <nz-dropdown-menu #menu2="nzDropdownMenu">
