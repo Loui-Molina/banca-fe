@@ -74,8 +74,8 @@ const routes: Routes = [
         data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
         loadChildren: () => import('./pages/web-users/web.users.module').then(m => m.WebUsersModule)
       },
-      {
       /*{
+      {
         path: 'subscriptions',
         canActivate: [RoleGuard, AuthGuard],
         data: {requiredRoles: [User.RoleEnum.Admin]},
