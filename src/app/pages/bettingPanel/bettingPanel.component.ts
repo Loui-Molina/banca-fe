@@ -608,8 +608,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   getSendWhatsApp = (bet: BetDto) => {
     // TODO Ver si tiene user y ponerle el numero como &phone=+5493543573840
-    if (bet && bet._id) {
+    if (bet && bet._id && this.banking) {
       let text = 'Hola! 👋🏼👋🏼 \n\n'; // TODO poner nombre de usuario
+      text += this.banking.header + '\n';
       text += 'Este es el detalle de tu ticket 🎟️:\n';
       text += '🆔:  *' + bet._id.toString() + '*\n';
       text += '🆔 SN:  *' + bet.sn + '*\n';
@@ -623,6 +624,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       text += `Total: $${sum}\n`;
       text += 'Gracias por elegirnos! 🙏🏼🙏🏼';
       text += 'Y buena suerte!! 🤞🏼🍀';
+      text += '\n' + this.banking.footer;
       return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
     }
   }
@@ -673,7 +675,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   printTicket = (ticket: BetDto) => {
     if (this.canSeeSn(ticket)){
-      printTicket(ticket);
+      printTicket(ticket, this.banking);
     }
   }
 

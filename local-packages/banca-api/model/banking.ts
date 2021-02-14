@@ -17,5 +17,7 @@ export interface Banking {
     cancellationTime: number;
     startOfOperation: string;
     status: boolean;
+    header: string;
+    footer: string;
 }
 

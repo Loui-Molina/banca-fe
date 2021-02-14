@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {printTicket, showParsedNumbers } from '../../../../utils/utilFunctions';
-import {BetDto, BettingPanelService, PlayNumbers} from '../../../../../local-packages/banca-api';
+import {Banking, BetDto, BettingPanelService, PlayNumbers} from '../../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
@@ -21,6 +21,7 @@ export class DrawerBetComponent implements OnInit {
   @Input() getSendWhatsApp: Function;
   // tslint:disable-next-line:ban-types
   @Input() cloneTicket: Function;
+  @Input() banking: Banking;
 
 
   nzVisible = false;
@@ -62,7 +63,7 @@ export class DrawerBetComponent implements OnInit {
 
   printTicket = (ticket: BetDto) => {
     if (this.canSeeSn(ticket)){
-      printTicket(ticket);
+      printTicket(ticket, this.banking);
     }
   }
 

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {BetDto, BettingPanelService, UpdateBetDto} from '../../../../../local-packages/banca-api';
+import {Banking, BetDto, BettingPanelService, UpdateBetDto} from '../../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
@@ -26,6 +26,7 @@ export class DrawerBetsComponent implements OnInit {
   @Input() cloneTicket: Function;
   // tslint:disable-next-line:ban-types
   @Input() canCancelTicket: Function;
+  @Input() banking: Banking;
 
 
   nzVisible = false;
@@ -100,7 +101,7 @@ export class DrawerBetsComponent implements OnInit {
 
   printTicket = (ticket: BetDto) => {
     if (this.canSeeSn(ticket)){
-      printTicket(ticket);
+      printTicket(ticket, this.banking);
     }
   }
 

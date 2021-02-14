@@ -1,4 +1,4 @@
-import {BetDto, PlayNumbers} from 'local-packages/banca-api';
+import {Banking, BetDto, PlayNumbers} from 'local-packages/banca-api';
 
 export function uuidv4(): string {
   // tslint:disable-next-line:only-arrow-functions
@@ -28,7 +28,7 @@ export function getCombinations(chars: string[], length: number = null, separato
 }
 
 
-export function printTicket(bet: BetDto): void {
+export function printTicket(bet: BetDto, banking: Banking): void {
   const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
   let toWrite = '<html>\n' +
     '<head>\n' +
@@ -36,6 +36,7 @@ export function printTicket(bet: BetDto): void {
     '</head>' +
     '<body style="font-family: monospace">\n' +
     '<div class="page">\n' +
+    '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;">' + banking.header + '</h3>\n' +
     '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;">TICKET #' + bet._id.toString() + '</h3>\n' +
     '  <h4 style="text-align: center; border-bottom: 1px dashed #000; margin: 0">SN:' + bet.sn + '</h4>\n' +
     '  <p>Fecha: ' + bet.date.toString() + '</p>\n' +
@@ -61,6 +62,8 @@ export function printTicket(bet: BetDto): void {
 
   toWrite += '  </table>\n' +
     '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;border-bottom: 1px dashed #000; ">TOTAL $' + total + '</h3>\n' +
+    // tslint:disable-next-line:max-line-length
+    '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;border-bottom: 1px dashed #000; ">' + banking.footer + '</h3>\n' +
     '</div>\n' +
     '</body>\n' +
     '<style>\n' +

@@ -180,7 +180,6 @@
 </div>
 
 
-
 <nz-modal
   [(nzVisible)]="modalConfirm"
   [nzContent]="modalContent"
@@ -240,6 +239,7 @@
 #drawerBets
 [nzTitle]="'BUSCAR TICKET'"
 [canSeeSn]="canSeeSn"
+[banking]="banking"
 [getSendWhatsApp]="getSendWhatsApp"
 [openTicket]="openTicket"
 [cloneTicket]="cloneTicket"
@@ -249,6 +249,7 @@
 <app-drawer-bet
   #drawerBet
   [nzTitle]="'VER TICKET'"
+  [banking]="banking"
   [canSeeSn]="canSeeSn"
   [getSendWhatsApp]="getSendWhatsApp"
   [cloneTicket]="cloneTicket"
