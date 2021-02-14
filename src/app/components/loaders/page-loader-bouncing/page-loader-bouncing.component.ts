@@ -18,6 +18,9 @@ export class PageLoaderBouncingComponent implements OnInit {
       }
     }, 200);
   }
+  @Input('background') background = '#00000059';
+  @Input('shadow') shadow;
+
   constructor() {
     this.numberA = Math.floor(Math.random() * 99);
     this.numberB = Math.floor(Math.random() * 99);

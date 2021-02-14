@@ -1,0 +1,29 @@
+<div style="padding: 10px">
+  <app-widget [backgroundColor]="'green'"
+              [icon]="'fund'"
+              [title]="'HOME.DASHBOARD.BALANCE' | translate | uppercase"
+              [value]="balance"></app-widget>
+
+  <div class="buttons">
+    <div class="bets" (click)="gotoBets()">
+      <h4>APUESTAS</h4>
+      <app-page-loader  [size]="'small'" [loading]="true"></app-page-loader>
+    </div>
+    <div class="transactions" (click)="gotoTransactions()">
+      <h4>TRANSACCIONES</h4>
+    </div>
+  </div>
+
+  <h2 class="title-divider">Loterias</h2>
+  <div class="lottery" (click)="!lottery.disabled && goToLottery(lottery)" *ngFor="let lottery of lotteries"
+       [class.disabled]="lottery.disabled">
+    <div class="container-logo">
+      <div class="logo">{{lottery.nickname}}</div>
+    </div>
+    <div class="description">
+      <h2 class="name">{{lottery.name}}</h2>
+      <h3 class="time">22:00hs</h3>
+      <h3 class="time" *ngIf="lottery.disabled">Cerrado</h3>
+    </div>
+  </div>
+</div>

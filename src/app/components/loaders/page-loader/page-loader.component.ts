@@ -18,6 +18,7 @@ export class PageLoaderComponent implements OnInit {
       }
     }, 200);
   }
+  @Input('size') size: string;
   constructor() {
     this.numberA = Math.floor(Math.random() * 99);
     this.numberB = Math.floor(Math.random() * 99);

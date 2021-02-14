@@ -1,16 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {WebUsersComponent} from './web.users.component';
+import {WebUsersLotteryComponent} from './web.users-lottery.component';
 
 const routes: Routes = [
-  {
-    path: '', component: WebUsersComponent
-  },
+  {path: '', component: WebUsersLotteryComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class WebUsersRoutingModule {
+export class WebUsersLotteryRoutingModule {
 }

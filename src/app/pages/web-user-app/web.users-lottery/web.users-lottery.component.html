@@ -1,0 +1,45 @@
+<div class="header">
+  <i class="goback" (click)="goBack()" nz-icon nzType="left"></i>
+  <h2 class="title">{{lottery.name}}</h2>
+</div>
+<div style="padding: 10px; height: calc(100% - 200px)">
+  <div class="containers-input">
+    <nz-input-number
+      autofocus
+      #inputNumber
+      [nzMax]="999999"
+      [nzMin]="0"
+      (keyup.enter)="onKeyEnterNumber()"
+      [(ngModel)]="number"
+      [nzPlaceHolder]="'JUGADA'"
+      class="right-input"
+      style="width: 100%"></nz-input-number>
+    <nz-input-number
+      autofocus
+      #inputAmount
+      [nzMax]="limit"
+      [nzMin]="1"
+      (keyup.enter)="onKeyEnterAmount()"
+      [(ngModel)]="amount"
+      [nzPlaceHolder]="'MONTO'"
+      class="right-input"
+      style="width: 100%"></nz-input-number>
+    <span (click)="onKeyEnter()" [class.disabled]="disabledBet()" class=" play-enter">
+      <i nz-icon nzTheme="outline" [nzType]="loadingSearchLimit ? 'loading' : 'caret-right'"></i>
+    </span>
+  </div>
+  <button nz-button (click)="submitBet()" [disabled]="this.plays.length <= 0">CONFIRMAR</button>
+
+  <div class="list" >
+      <div class="bet" *ngFor="let bet of plays">
+        <div class="row-style panel-container" nz-row>
+          <div class="col-style center-column" nz-col nzSpan="6">{{bet.lotteryNickName}}</div>
+          <div class="col-style center-column" nz-col nzSpan="7">{{showParsedNumbers(bet.playNumbers)}}</div>
+          <div class="col-style center-column" nz-col nzSpan="7">${{bet.amount}}</div>
+          <div class="col-style center-column last-column" nz-col nzSpan="4">
+            <i (click)="deleteBet(bet)" class="action-icon error" nz-icon nzTheme="outline" nzType="delete"></i>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+@import 'src/styles';
+
+.title-divider{
+  margin: 20px 0;
+  color: #ddd;
+}
+
+.header{
+  height: 50px;
+  width: 100%;
+  background-color: #286098;
+  box-shadow: 1px 6px 10px 0 #00000030;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  .title{
+    padding-left: 15px;
+    margin: 0;
+    color: #ddd;
+  }
+  .goback{
+    font-size: 20px;
+    color: #ddd;
+    cursor: pointer;
+  }
+}
+
+.containers-input{
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  nz-input-number{
+
+  }
+}
+
+.play-enter{
+  background-color: green;
+  border-radius: 5px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 79px;
+  margin-left: 10px;
+}
+
+.confirm{
+  width: 100%;
+  background-color: green;
+  color: white;
+}
+
+.action-icon {
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+
+  &.primary {
+    color: $Primary;
+  }
+
+  &.error {
+    color: $Error;
+  }
+}
+
+
+
+
+.list{
+  margin-top: 8px;
+  height: 100%;
+  width: 100%;
+  background-color: $White;
+  flex: 10;
+  overflow-y: auto;
+
+  .bet {
+    padding: 5px;
+    min-height: 30px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1px;
+    color: $Black;
+
+    .last-column {
+      text-align: right;
+    }
+  }
+}

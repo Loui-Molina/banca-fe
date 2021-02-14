@@ -25,6 +25,7 @@ import {NgxPermissionsModule} from 'ngx-permissions';
 import {JWTUserService, MockUserService, UserService} from './services/user.service';
 import {httpInterceptorProviders} from './interceptors';
 import {NZ_CONFIG, NzConfig} from 'ng-zorro-antd/core/config';
+import {WebUsersAppModule} from './pages/web-user-app/web.users-app.module';
 
 
 registerLocaleData(es);
@@ -58,6 +59,7 @@ const ngZorroConfig: NzConfig  = {
     }),
     AppRoutingModule,
     LayoutModule,
+    WebUsersAppModule,
     RouterModule,
     AppRoutingModule,
     NzSwitchModule,

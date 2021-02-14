@@ -5,6 +5,7 @@ import {Page404Component} from './pages/problems/404/page404.component';
 import {RoleGuard} from './guards/role-guard.service';
 import {AuthGuard} from './guards/auth-guard.service';
 import {User} from '../../local-packages/banca-api';
+import {WebUsersAppComponent} from './pages/web-user-app/web.users-app.component';
 
 const routes: Routes = [
   {
@@ -94,6 +95,37 @@ const routes: Routes = [
     canActivate: [RoleGuard, AuthGuard],
     data: {requiredRoles: [User.RoleEnum.Admin]},
     loadChildren: () => import('./pages/machines/slotMachine/slotMachine.module').then(m => m.SlotMachineModule)
+  },
+  {
+    path: 'app',
+    component: WebUsersAppComponent,
+    children: [
+      {
+        path: 'main',
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Webuser]},
+        loadChildren: () => import('./pages/web-user-app/web.users-main/web.users-main.module').then(m => m.WebUsersMainModule)
+      },
+      {
+        path: 'lottery/:id',
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Webuser]},
+        loadChildren: () => import('./pages/web-user-app/web.users-lottery/web.users-lottery.module').then(m => m.WebUsersLotteryModule)
+      },
+      {
+        path: 'bets',
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Webuser]},
+        loadChildren: () => import('./pages/web-user-app/web.users-bets/web.users-bets.module').then(m => m.WebUsersBetsModule)
+      },
+      {
+        path: 'transactions',
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Webuser]},
+        // tslint:disable-next-line:max-line-length
+        loadChildren: () => import('./pages/web-user-app/web.users-transactions/web.users-transactions.module').then(m => m.WebUsersTransactionsModule)
+      },
+    ],
   },
   {
     path: 'bettingPanel',

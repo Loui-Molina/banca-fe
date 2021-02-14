@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {WebUsersComponent} from './web.users.component';
+
 import {NzListModule} from 'ng-zorro-antd/list';
 import {CommonModule, DatePipe} from '@angular/common';
 import {NzTypographyModule} from 'ng-zorro-antd/typography';
 import {LineChartModule, PieChartModule} from '@swimlane/ngx-charts';
 import {NzGridModule} from 'ng-zorro-antd/grid';
-import {ComponentsModule} from '../../components/components.module';
+import {ComponentsModule} from '../../../components/components.module';
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzCalendarModule} from 'ng-zorro-antd/calendar';
 import {NzDividerModule} from 'ng-zorro-antd/divider';
@@ -19,12 +19,13 @@ import {NzSelectModule} from 'ng-zorro-antd/select';
 import {NzSwitchModule} from 'ng-zorro-antd/switch';
 import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
-import {WebUsersRoutingModule} from './web.users-routing.module';
+import {WebUsersMainRoutingModule} from './web.users-main-routing.module';
+import {WebUsersMainComponent} from './web.users-main.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    WebUsersRoutingModule,
+    WebUsersMainRoutingModule,
     NzListModule,
     NzTypographyModule,
     LineChartModule,
@@ -43,11 +44,11 @@ import {WebUsersRoutingModule} from './web.users-routing.module';
     NzSelectModule,
     NzSwitchModule,
     NzInputNumberModule,
-    NzDescriptionsModule
+    NzDescriptionsModule,
   ],
-  declarations: [WebUsersComponent],
-  exports: [WebUsersComponent],
+  declarations: [WebUsersMainComponent],
+  exports: [WebUsersMainComponent],
   providers: [DatePipe]
 })
-export class WebUsersModule {
+export class WebUsersMainModule {
 }
