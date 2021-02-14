@@ -653,12 +653,16 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.closeDrawer(this.drawerBet);
     this.cleanAll();
     const plays: PlayInterface[] = [];
-    ticket.plays.map(play => {
-      // tslint:disable-next-line:no-shadowed-variable
-      const lottery = this.lotterys.filter((lottery) => lottery._id.toString() === play.lotteryId.toString()).pop();
-      if (lottery && lottery.status && lottery.leftTime > 0) {
-        const bettingLimit = lottery.bettingLimits.find(bl => bl.playType === play.playType && bl.status === true);
-        if (!bettingLimit || play.amount <= bettingLimit.betAmount) {
+    if (ticket.plays.length === 0) {
+      this.plays = plays;
+      return;
+    }
+    this.loading = true;
+    this.searchSync(ticket.plays).subscribe(value => {
+      let i = 0;
+      for (const play of ticket.plays) {
+        const lottery = this.lotterys.find((lot) => lot._id.toString() === play.lotteryId.toString());
+        if (lottery && lottery.status && play.amount <= value[i]) {
           plays.push({
             lotteryNickName: lottery.nickname,
             uuid: uuidv4(),
@@ -668,9 +672,26 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
             amount: play.amount
           });
         }
+        i++;
       }
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+      throw new HttpErrorResponse(error);
     });
+
     this.plays = plays;
+  }
+
+  private searchSync(plays: PlayDto[]): Observable<any[]> {
+    const arrayService = [];
+    for (const item of plays){
+      const reqs: LimitVerifyDto[] = [
+        {playType: item.playType, lotteryId: item.lotteryId.toString(), playNumbers: item.playNumbers}
+      ];
+      arrayService.push(this.searchLimitSync(reqs));
+    }
+    return forkJoin(arrayService);
   }
 
   printTicket = (ticket: BetDto) => {
