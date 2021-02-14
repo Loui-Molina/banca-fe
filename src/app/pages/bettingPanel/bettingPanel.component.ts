@@ -95,6 +95,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   lastInput = null;
   lastClick = null;
   interval;
+  interval2;
 
 
   constructor(private modalService: NzModalService,
@@ -240,7 +241,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loading = true;
     this.reloadMessages();
-    this.interval = setInterval(() => {
+    this.interval2 = setInterval(() => {
       this.reloadMessages();
     }, 15000);
     this.initDataSync().subscribe(responseList => {
@@ -258,6 +259,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.interval) {
       clearInterval(this.interval);
+    }
+    if (this.interval2) {
+      clearInterval(this.interval2);
     }
   }
 

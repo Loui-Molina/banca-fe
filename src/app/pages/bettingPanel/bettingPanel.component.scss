@@ -51,7 +51,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
     .confirm-button {
       cursor: pointer;
-      background-color: $Primary;
+      background-color: $Secondary;
       box-shadow: $boxShadow;
       color: $Black;
       font-weight: bold;
@@ -66,7 +66,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 
     .clean-button {
       cursor: pointer;
-      background-color: $Secondary;
+      background-color: $White;
       box-shadow: $boxShadow;
       color: $Black;
       font-weight: bold;
@@ -368,7 +368,7 @@ $boxShadow: 0px 1px 4px 0px #00000090;
 }
 
 .custom-button {
-  background-color: $Primary;
+  background-color: $Secondary;
   padding: 5px;
   text-align: center;
   cursor: pointer;

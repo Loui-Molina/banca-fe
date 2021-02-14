@@ -16,43 +16,7 @@ import {UserInterface, UserService} from '../../services/user.service';
 })
 export class ResultsComponent implements OnInit {
 
-  columns = [
-    {
-      title: 'Loteria',
-      key: 'lotteryName'
-    },
-    {
-      title: '1er',
-      key: 'draw.first',
-      valueFormatter: (data) => {
-        return this.formatResult(data.draw.first);
-      }
-    },
-    {
-      title: '2do',
-      key: 'draw.second',
-      valueFormatter: (data) => {
-        return this.formatResult(data.draw.second);
-      }
-    },
-    {
-      title: '3ro',
-      key: 'draw.third',
-      valueFormatter: (data) => {
-        return this.formatResult(data.draw.third);
-      }
-    },
-    {
-      title: 'Fecha',
-      key: 'date',
-      valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy', '+0000')
-    },
-    {
-      title: 'Fecha creacion',
-      key: 'createdAt',
-      valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm:ss')
-    }
-  ];
+  columns = [];
   fetcher: Observable<ResultDto[]> = this.resultsService.resultsControllerGetAll();
   defaultForm = {
     first: null,
@@ -78,6 +42,51 @@ export class ResultsComponent implements OnInit {
               private formBuilder: FormBuilder) {
     this.formABM = this.formBuilder.group(this.defaultForm);
     this.user = this.userService.getLoggedUser();
+    const aux = [];
+    if (this.user?.role === this.userRole.Admin) {
+      aux.push({
+        title: 'Usuario',
+        key: 'creationUsername',
+      });
+    }
+    this.columns = [
+      ...aux,
+      {
+        title: 'Loteria',
+        key: 'lotteryName'
+      },
+      {
+        title: '1er',
+        key: 'draw.first',
+        valueFormatter: (data) => {
+          return this.formatResult(data.draw.first);
+        }
+      },
+      {
+        title: '2do',
+        key: 'draw.second',
+        valueFormatter: (data) => {
+          return this.formatResult(data.draw.second);
+        }
+      },
+      {
+        title: '3ro',
+        key: 'draw.third',
+        valueFormatter: (data) => {
+          return this.formatResult(data.draw.third);
+        }
+      },
+      {
+        title: 'Fecha',
+        key: 'date',
+        valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy', '+0000')
+      },
+      {
+        title: 'Fecha creacion',
+        key: 'createdAt',
+        valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm:ss')
+      }
+    ];
   }
 
   fetcherCreate: (item) => Observable<Result> = (item) => this.resultsService.resultsControllerCreate(item);

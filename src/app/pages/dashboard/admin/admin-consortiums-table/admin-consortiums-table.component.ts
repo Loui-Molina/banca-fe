@@ -10,17 +10,17 @@ import {DashboardBankingDto, DashboardConsortiumDto, DashboardService} from 'loc
 export class AdminConsortiumsTableComponent implements OnInit {
   columns: ColumnItem[] = [
     {title: 'Consorcio', key: 'name', sum: false, titleFooter: 'Total', width: '100px'},
-    {title: 'W', tooltip: 'Winner', key: 'winner', sum: true},
-    {title: 'L', tooltip: 'Loser', key: 'loser', sum: true},
-    {title: 'P', tooltip: 'Pending', key: 'pending', sum: true},
-    {title: 'C', tooltip: 'Claimed', key: 'claimed', sum: true},
-    {title: 'E', tooltip: 'Expired', key: 'expired', sum: true},
-    {title: 'Ca', tooltip: 'Cancelled', key: 'cancelled', sum: true},
-    {title: 'T', tooltip: 'Total', key: 'total', sum: true},
-    {title: 'Profits', tooltip: 'Profits', key: 'profits', sum: true, prefix: '$'},
-    {title: 'Prizes', tooltip: 'Prizes', key: 'prizes', sum: true, prefix: '$'},
-    {title: 'P. Prizes', tooltip: 'Pending prizes', key: 'pendingPrizes', sum: true, prefix: '$'},
-    {title: 'Balance', tooltip: 'Balance', key: 'balance', sum: true, prefix: '$'},
+    {title: 'W', tooltip: 'Winner', key: 'winner', sum: true, type: 'numeric'},
+    {title: 'L', tooltip: 'Loser', key: 'loser', sum: true, type: 'numeric'},
+    {title: 'P', tooltip: 'Pending', key: 'pending', sum: true, type: 'numeric'},
+    {title: 'C', tooltip: 'Claimed', key: 'claimed', sum: true, type: 'numeric'},
+    {title: 'E', tooltip: 'Expired', key: 'expired', sum: true, type: 'numeric'},
+    {title: 'Ca', tooltip: 'Cancelled', key: 'cancelled', sum: true, type: 'numeric'},
+    {title: 'T', tooltip: 'Total', key: 'total', sum: true, type: 'numeric'},
+    {title: 'Profits', tooltip: 'Profits', key: 'profits', sum: true, prefix: '$', type: 'numeric'},
+    {title: 'Prizes', tooltip: 'Prizes', key: 'prizes', sum: true, prefix: '$', type: 'numeric'},
+    {title: 'P. Prizes', tooltip: 'Pending prizes', key: 'pendingPrizes', sum: true, prefix: '$', type: 'numeric'},
+    {title: 'Balance', tooltip: 'Balance', key: 'balance', sum: true, prefix: '$', type: 'numeric'},
   ];
   consortiums: DashboardConsortiumDto[] = [];
 
@@ -48,6 +48,7 @@ interface ColumnItem {
   key: string;
   prefix?: string;
   tooltip?: string;
+  type?: string;
   width?: string;
   titleFooter?: string;
   sum: boolean;
