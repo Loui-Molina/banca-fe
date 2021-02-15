@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {WebUserLotteriesService, WebUserLotteryDto} from '../../../../../local-packages/banca-api';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-web.users-main',
@@ -7,14 +9,18 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./web.users-main.component.scss']
 })
 export class WebUsersMainComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private webUserLotteriesService: WebUserLotteriesService) {
   }
-  lotteries = [
-    {name: 'Loteria 1', nickname: 'LOT 1', disabled: false, id: 1},
-    {name: 'Loteria 2', nickname: 'LOT 2', disabled: false, id: 2},
-    {name: 'Loteria 3', nickname: 'LOT 3', disabled: true, id: 3},
-  ];
+  loading = true;
+  lotteries: WebUserLotteryDto[] = [];
   ngOnInit(): void {
+    this.webUserLotteriesService.webUserLotteryControllerGetAll().subscribe(data => {
+      this.loading = false;
+      this.lotteries = data;
+    }, error => {
+      this.loading = false;
+      throw new HttpErrorResponse(error);
+    });
   }
   goToLottery(lottery): void {
     this.router.navigate(['app/lottery/' + lottery.id] );

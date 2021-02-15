@@ -61,3 +61,4 @@ export * from './userDto';
 export * from './userPreference';
 export * from './webUser';
 export * from './webUserDto';
+export * from './webUserLotteryDto';
