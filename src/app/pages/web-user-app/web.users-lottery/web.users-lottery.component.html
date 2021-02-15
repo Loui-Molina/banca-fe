@@ -24,7 +24,7 @@
       [(ngModel)]="number"
       [nzPlaceHolder]="'JUGADA'"
       class="right-input"
-      style="width: 100%"></nz-input-number>
+      style="margin-right: 5px"></nz-input-number>
     <nz-input-number
       autofocus
       #inputAmount
@@ -34,7 +34,7 @@
       [(ngModel)]="amount"
       [nzPlaceHolder]="'MONTO'"
       class="right-input"
-      style="width: 100%"></nz-input-number>
+      style="margin-left: 5px"></nz-input-number>
     <span (click)="onKeyEnter()" [class.disabled]="disabledBet()" class=" play-enter">
       <i nz-icon nzTheme="outline" [nzType]="loadingSearchLimit ? 'loading' : 'caret-right'"></i>
     </span>
