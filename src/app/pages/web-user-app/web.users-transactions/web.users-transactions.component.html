@@ -3,5 +3,16 @@
   <h2 class="title">TRANSACCIONES</h2>
 </div>
 <div style="padding: 10px; height: calc(100% - 200px)">
-  TRANSACCIONES
+  <p *ngIf="transactions.length === 0" style="text-align: center">No hay transacciones</p>
+  <div class="transaction" *ngFor="let transaction of transactions">
+    <div>
+      <p class="amount">${{transaction.amount}}</p>
+      <p class="date">{{transaction.createdAt| date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+    </div>
+    <div class="icon-container">
+      <p class="balance">Balance: {{transaction.actualBalance}}</p>
+      <i nz-icon class="icon up" *ngIf="transaction.amount >= 0" nzType="up-circle" nzTheme="outline"></i>
+      <i nz-icon class="icon down" *ngIf="transaction.amount < 0" nzType="down-circle" nzTheme="outline"></i>
+    </div>
+  </div>
 </div>

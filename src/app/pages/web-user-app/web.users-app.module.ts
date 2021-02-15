@@ -5,6 +5,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
 import {NzIconModule} from 'ng-zorro-antd/icon';
+import {ComponentsModule} from '../../components/components.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
     RouterModule,
     BrowserModule,
     NzIconModule,
+    ComponentsModule,
   ],
   declarations: [WebUsersAppComponent],
   exports: [CommonModule, WebUsersAppComponent, NzIconModule]

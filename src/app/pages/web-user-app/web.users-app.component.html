@@ -1,7 +1,12 @@
 
 <div class="app">
+  <app-page-loader-bouncing  [loading]="loading"></app-page-loader-bouncing>
   <div class="header">
-    <h2 class="title">Bienvenido: {{establishmentName}}</h2>
+    <div class="description">
+      <h3 class="title">{{establishmentName}}</h3>
+      <div class="balance-amount">${{balance}}<p class="balance">Mi balance</p></div>
+    </div>
+
     <i class="logout" (click)="logout()" nz-icon nzType="logout"></i>
   </div>
   <div class="body">

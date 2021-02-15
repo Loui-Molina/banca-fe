@@ -24,3 +24,38 @@
     cursor: pointer;
   }
 }
+
+.transaction{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #286098;
+  margin: 10px 0;
+  padding: 10px;
+  .amount{
+    font-size: 20px;
+    margin: 0;
+  }
+  .date{
+    margin: 0;
+    font-size: 11px;
+  }
+  .icon{
+    font-size: 25px;
+    &.up{
+      color: #06d206;
+    }
+    &.down{
+      color: red;
+    }
+  }
+
+  .icon-container{
+    display: flex;
+    .balance{
+      margin: 0;
+      padding-right: 10px;
+    }
+  }
+}

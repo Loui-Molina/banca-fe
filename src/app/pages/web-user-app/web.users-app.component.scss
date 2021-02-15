@@ -17,10 +17,31 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    .description{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     .title{
       margin: 0;
       color: #ddd;
     }
+    .balance-amount{
+      padding-right: 13px;
+      position: relative;
+      font-size: 18px;
+      color: #ddd;
+      .balance{
+        margin: 0;
+        font-size: 11px;
+        position: absolute;
+        bottom: -12px;
+        width: 100px;
+        right: -34px;
+      }
+    }
+
     .logout{
       font-size: 25px;
       cursor: pointer;
@@ -31,7 +52,7 @@
   .body{
     overflow-y: auto;
     height: 100%;
-    color: white;
+    color: #ccc;
   }
 }
 
