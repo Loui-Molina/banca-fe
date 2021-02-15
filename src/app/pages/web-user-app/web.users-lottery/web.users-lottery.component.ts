@@ -186,10 +186,10 @@ export class WebUsersLotteryComponent implements OnInit, OnDestroy {
         });
       }
       this.searchLimitSync(reqs).subscribe(responseArray => {
-        let minor: number;
+        let minor: number = null;
         for (const res of responseArray){
           if (res != null){
-            if (!minor || res < minor) {
+            if (minor === null || res < minor) {
               minor = res;
             }
           }
