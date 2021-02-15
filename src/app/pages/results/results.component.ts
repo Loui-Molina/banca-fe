@@ -79,7 +79,7 @@ export class ResultsComponent implements OnInit {
       {
         title: 'Fecha',
         key: 'date',
-        valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy', '+0000')
+        valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy')
       },
       {
         title: 'Fecha creacion',
