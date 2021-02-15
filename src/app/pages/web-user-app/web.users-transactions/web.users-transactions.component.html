@@ -3,7 +3,7 @@
   <i class="goback" (click)="goBack()" nz-icon nzType="left"></i>
   <h2 class="title">TRANSACCIONES</h2>
 </div>
-<div style="padding: 10px; height: calc(100% - 200px)">
+<div style="padding: 10px; height: calc(100% - 120px); overflow-y: auto">
   <p *ngIf="transactions.length === 0 && !loading" style="text-align: center">No hay transacciones</p>
   <div class="transaction" *ngFor="let transaction of transactions">
     <div>
