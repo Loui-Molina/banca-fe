@@ -22,6 +22,7 @@ import {AdminConsortiumsTableComponent} from './admin/admin-consortiums-table/ad
 import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {WebUsersComponent} from './web-users/web.users.component';
+import {SharedWebusersTableComponent} from './shared/shared-webusers-table/shared-webusers-table.component';
 
 @NgModule({
     imports: [
@@ -48,6 +49,7 @@ import {WebUsersComponent} from './web-users/web.users.component';
     WebUsersComponent,
     AdminComponent,
     SharedBankingsTableComponent,
+    SharedWebusersTableComponent,
     AdminConsortiumsTableComponent],
   providers: [DatePipe],
   exports: [

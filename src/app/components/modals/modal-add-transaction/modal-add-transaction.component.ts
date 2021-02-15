@@ -1,16 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NzModalRef} from 'ng-zorro-antd/modal';
-import {
-  AuthPasswordService, Banking, BankingService,
-  ChangePasswordDto,
-  CreateTransactionDto,
-  Transaction,
-  TransactionsService
-} from '../../../../../local-packages/banca-api';
+import {Banking, CreateTransactionDto, Transaction, TransactionsService} from '../../../../../local-packages/banca-api';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import OriginObjectEnum = Transaction.OriginObjectEnum;
-import {UserService} from '../../../services/user.service';
+import TypeEnum = Transaction.TypeEnum;
 
 
 @Component({
@@ -26,6 +20,8 @@ export class ModalAddTransactionComponent implements OnInit {
   bankingId: object;
 
   amount: number;
+  type = TypeEnum;
+  typeSelected: TypeEnum;
   loading: boolean;
   banking: Banking;
 
@@ -43,13 +39,13 @@ export class ModalAddTransactionComponent implements OnInit {
   accept(): void {
     this.loading = true;
     const body: CreateTransactionDto = {
-      type: 'credit',
+      type: this.typeSelected,
       amount: this.amount,
-      originId: this.bankingId,
-      originObject: OriginObjectEnum.Banking,
-      destinationId: this.webUserId,
-      destinationObject: OriginObjectEnum.Webuser,
-      description: 'Add balance to a user',
+      originId: this.typeSelected === this.type.Credit ? this.webUserId : this.bankingId,
+      originObject: this.typeSelected === this.type.Credit ? OriginObjectEnum.Webuser : OriginObjectEnum.Banking,
+      destinationId: this.typeSelected === this.type.Credit ? this.bankingId : this.webUserId,
+      destinationObject: this.typeSelected === this.type.Credit ? OriginObjectEnum.Banking : OriginObjectEnum.Webuser,
+      description: this.typeSelected === this.type.Credit ? 'Add balance to a user' : 'Remove balance to a user',
     };
     this.transactionsService.transactionControllerCreateTransactionBanking(body).subscribe(value => {
       this.loading = false;

@@ -30,6 +30,7 @@ export * from './dashboardGraphBankingDto';
 export * from './dashboardGraphConsortiumBalanceBankingDto';
 export * from './dashboardGraphConsortiumDto';
 export * from './dashboardPlayedNumbersDto';
+export * from './dashboardWebuserDto';
 export * from './dashboardWidgetsDto';
 export * from './draw';
 export * from './inlineResponse200';

@@ -17,6 +17,7 @@
       #inputNumber
       [nzMax]="999999"
       [nzMin]="0"
+      (ngModelChange)="searchLimit()"
       (keyup.enter)="onKeyEnterNumber()"
       [(ngModel)]="number"
       [nzPlaceHolder]="'JUGADA'"

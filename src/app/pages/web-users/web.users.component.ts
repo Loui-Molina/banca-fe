@@ -164,9 +164,9 @@ export class WebUsersComponent {
     });
   }
 
-  chargeBalance(bankingId, webUserId): void {
+  editBalance(bankingId, webUserId): void {
     this.nzModalService.create({
-      nzTitle: 'Agregar balance',
+      nzTitle: 'Depositar/Retirar balance',
       nzContent: ModalAddTransactionComponent,
       nzMaskClosable: false,
       nzClosable: false,

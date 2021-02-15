@@ -53,7 +53,7 @@
       </ng-container>
 
       <ng-container *ngIf="mode === 'U' && this.userRole.Banker === this.user?.role">
-        <p class="button-link" (click)="chargeBalance(visibleObject.bankingId, visibleObject._id)">Agregar balance</p>
+        <p class="button-link" (click)="editBalance(visibleObject.bankingId, visibleObject._id)">Depositar/Retirar balance</p>
       </ng-container>
 
       <div class="form-element">

@@ -28,18 +28,14 @@
       color: #ddd;
     }
     .balance-amount{
-      padding-right: 13px;
-      position: relative;
       font-size: 18px;
       color: #ddd;
-      .balance{
-        margin: 0;
-        font-size: 11px;
-        position: absolute;
-        bottom: -12px;
-        width: 100px;
-        right: -34px;
-      }
+    }
+    .balance{
+      margin: 0;
+      font-size: 11px;
+      width: 100px;
+      color: #ddd;
     }
 
     .logout{

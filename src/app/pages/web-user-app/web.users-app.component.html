@@ -4,7 +4,11 @@
   <div class="header">
     <div class="description">
       <h3 class="title">{{establishmentName}}</h3>
-      <div class="balance-amount">${{balance}}<p class="balance">Mi balance</p></div>
+      <div style="text-align: right;padding-right: 13px;">
+        <div class="balance-amount">${{balance}}</div>
+        <p class="balance">Mi balance</p>
+      </div>
+
     </div>
 
     <i class="logout" (click)="logout()" nz-icon nzType="logout"></i>

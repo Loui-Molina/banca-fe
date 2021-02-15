@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PlayInterface} from '../../bettingPanel/bettingPanel.component';
 import {
-  BankingLotteryDto, BettingPanelService, CreateBetDto,
+  BankingLotteryDto, BettingPanelService, CreateBetDto, LimitVerifyDto,
   Play,
   PlayDto,
   PlayNumbers,
@@ -14,6 +14,7 @@ import {showParsedNumbers, uuidv4} from '../../../../utils/utilFunctions';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {HttpErrorResponse} from '@angular/common/http';
+import {forkJoin, Observable} from 'rxjs';
 
 @Component({
   selector: 'app-web.users-lottery',
@@ -21,17 +22,6 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./web.users-lottery.component.scss']
 })
 export class WebUsersLotteryComponent implements OnInit, OnDestroy {
-  @ViewChild('inputNumber', {static: false}) inputNumber: any;
-  @ViewChild('inputAmount', {static: false}) inputAmount: any;
-  lotteryId;
-  interval;
-  lottery: WebUserLotteryDto;
-  plays: PlayInterface[] = [];
-  limit = 100;
-  loading = true;
-  number: number;
-  amount: number;
-  loadingSearchLimit: boolean;
   constructor(private route: ActivatedRoute,
               private translateService: TranslateService,
               private router: Router,
@@ -43,6 +33,19 @@ export class WebUsersLotteryComponent implements OnInit, OnDestroy {
       this.lotteryId = params.id;
     });
   }
+  @ViewChild('inputNumber', {static: false}) inputNumber: any;
+  @ViewChild('inputAmount', {static: false}) inputAmount: any;
+  lotteryId;
+  interval;
+  lottery: WebUserLotteryDto;
+  plays: PlayInterface[] = [];
+  limit = 100;
+  loading = true;
+  number: number;
+  amount: number;
+  loadingSearchLimit: boolean;
+
+  a:number;
 
   ngOnInit(): void {
     this.reloadLotterys();
@@ -154,6 +157,64 @@ export class WebUsersLotteryComponent implements OnInit, OnDestroy {
 
   deleteBet(play: PlayInterface): void {
     this.plays = this.plays.filter(item => item.uuid !== play.uuid);
+  }
+  searchLimit = () => {
+    this.loadingSearchLimit = true;
+    this.limit = null;
+    const key = Math.random();
+    this.a = key;
+    setTimeout(() => {
+      if (this.a !== key) {
+        return;
+      }
+      if (this.number === null || this.number === undefined || !this.lottery) {
+        this.loadingSearchLimit = false;
+        return null;
+      }
+      this.loadingSearchLimit = true;
+      const playsToCreate: PlayInterface[] = this.getPlaysToCreate(this.lottery, 0);
+      const reqs: LimitVerifyDto[] = [];
+      if (playsToCreate.length === 0) {
+        this.loadingSearchLimit = false;
+        return null;
+      }
+      for (const play of playsToCreate) {
+        reqs.push({
+          playType: play.playType,
+          playNumbers: play.playNumbers,
+          lotteryId: play.lotteryId.toString(),
+        });
+      }
+      this.searchLimitSync(reqs).subscribe(responseArray => {
+        let minor: number;
+        for (const res of responseArray){
+          if (res != null){
+            if (!minor || res < minor) {
+              minor = res;
+            }
+          }
+        }
+        if (this.a !== key) {
+          return;
+        }
+        this.loadingSearchLimit = false;
+        this.limit = minor;
+        if (this.amount > minor) {
+          this.amount = null;
+        }
+      }, error => {
+        this.loadingSearchLimit = false;
+        throw new HttpErrorResponse(error);
+      });
+    }, 500);
+  }
+
+  private searchLimitSync(reqs: LimitVerifyDto[]): Observable<any[]> {
+    const array = [];
+    for (const req of reqs){
+      array.push(this.bettingPanelService.bettingPanelControllerVerifyLimit(req));
+    }
+    return forkJoin(array);
   }
 
   showParsedNumbers = (playNumbers: PlayNumbers) => {

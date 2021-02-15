@@ -1,0 +1,12 @@
+@import 'src/styles';
+
+
+.tableFooter {
+  background-color: #ededed;
+  font-weight: bold;
+}
+.table-td, .tableFooter{
+  &.red{
+    color: red;
+  }
+}
