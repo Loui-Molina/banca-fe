@@ -5,7 +5,7 @@
 </div>
 <div style="padding: 10px; height: calc(100% - 120px); overflow-y: auto">
   <p *ngIf="transactions.length === 0 && !loading" style="text-align: center">No hay transacciones</p>
-  <div class="transaction" *ngFor="let transaction of transactions">
+  <div class="transaction" *ngFor="let transaction of transactions" (click)="openTransaction(transaction)">
     <div>
       <p class="amount">${{transaction.amount}}</p>
       <p class="date">{{transaction.createdAt| date: 'dd/MM/yyyy HH:mm:ss'}}</p>
@@ -17,3 +17,33 @@
     </div>
   </div>
 </div>
+
+
+
+<nz-modal
+  [(nzVisible)]="modalConfirm"
+  [nzContent]="modalContent"
+  [nzTitle]="modalTitle"
+  [nzFooter]="modalFooter"
+  nzTitle="Modal"
+>
+  <ng-template #modalTitle>
+    <ng-container *ngIf="selectedTransaction">Transaccion</ng-container>
+  </ng-template>
+  <ng-template #modalContent>
+    <ng-container *ngIf="selectedTransaction">
+      <p>Fecha: {{selectedTransaction.createdAt | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+      <p>Monto: ${{selectedTransaction.amount}}</p>
+      <p>Balance: ${{selectedTransaction.actualBalance}}</p>
+      <p>Descripcion: {{selectedTransaction.description}}</p>
+    </ng-container>
+    <ng-container *ngIf="!selectedTransaction">
+      <h3 style="text-align: center">Desea confirmar la apuesta?</h3>
+    </ng-container>
+  </ng-template>
+  <ng-template #modalFooter>
+    <div>
+      <button nz-button (click)="closeTransaction()">CERRAR</button>
+    </div>
+  </ng-template>
+</nz-modal>

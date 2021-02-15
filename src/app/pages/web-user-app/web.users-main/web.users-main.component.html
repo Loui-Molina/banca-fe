@@ -19,9 +19,9 @@
     </div>
     <div class="description">
       <h2 class="name">{{lottery.name}}</h2>
-      <h3 class="time">{{lottery.playTime}}</h3>
-      <countdown #cd (event)="onChangeCounter($event, lottery)" *ngIf="lottery.leftTime"
-                 [config]="{leftTime:lottery.leftTime}"></countdown>
+      <h3 class="time"><countdown style="color:#ddd" #cd (event)="onChangeCounter($event, lottery)" *ngIf="lottery.leftTime"
+                                  [config]="{leftTime:lottery.leftTime}"></countdown> - {{lottery.playTime}} </h3>
+
       <h3 class="time" *ngIf="!lottery.status || !lottery.leftTime">Cerrado</h3>
     </div>
   </div>

@@ -2,11 +2,13 @@
 <div class="header">
   <div class="container-lottery">
     <i class="goback" (click)="goBack()" nz-icon nzType="left"></i>
-    <h2 class="title">{{lottery?.name}}</h2>
-    <countdown style="display: none" #cd (event)="onChangeCounter($event, lottery)" *ngIf="lottery.leftTime"
-               [config]="{leftTime:lottery.leftTime}"></countdown>
+    <ng-container *ngIf="lottery">
+      <h2 class="title">{{lottery.name}}</h2>
+      <countdown style="display: none" #cd (event)="onChangeCounter($event, lottery)" *ngIf="lottery.leftTime"
+                 [config]="{leftTime:lottery.leftTime}"></countdown>
+    </ng-container>
   </div>
-  <span>
+  <span style="color: #ddd;">
     TOTAL: ${{getSumBets(plays)}}
   </span>
 </div>

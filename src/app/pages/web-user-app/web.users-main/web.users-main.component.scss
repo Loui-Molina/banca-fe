@@ -27,13 +27,15 @@
     border-radius: 5px 0 0 5px;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
     z-index: 100;
     h4{
-      color: white;
+      color: #ddd;
       z-index: 101;
     }
   }
   .transactions{
+    cursor: pointer;
     margin-left: 1px;
     border-radius: 0 5px 5px 0;
     background: url("../../../../assets/imgs/moneygrow.gif") no-repeat center;

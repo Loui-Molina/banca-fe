@@ -38,6 +38,21 @@ import BettingLimitPlayTypeEnum = BettingLimitDto.PlayTypeEnum;
   styleUrls: ['./bettingPanel.component.scss']
 })
 export class BettingPanelComponent implements OnInit, OnDestroy {
+
+
+  constructor(private modalService: NzModalService,
+              private resultsService: ResultsService,
+              private bankingLotteriesService: BankingLotteriesService,
+              private bettingPanelService: BettingPanelService,
+              private bankingService: BankingService,
+              private datePipe: DatePipe,
+              private messagesService: MessagesService,
+              private translateService: TranslateService,
+              private messageService: NzMessageService) {
+    setInterval(() => {
+      this.now = new Date();
+    }, 1000);
+  }
   @ViewChild('drawerBets') drawerBets: DrawerBetsComponent;
   @ViewChild('drawerBet') drawerBet: DrawerBetComponent;
   @ViewChild('drawerHelp') drawerHelp: DrawerHelpComponent;
@@ -97,20 +112,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   interval;
   interval2;
 
-
-  constructor(private modalService: NzModalService,
-              private resultsService: ResultsService,
-              private bankingLotteriesService: BankingLotteriesService,
-              private bettingPanelService: BettingPanelService,
-              private bankingService: BankingService,
-              private datePipe: DatePipe,
-              private messagesService: MessagesService,
-              private translateService: TranslateService,
-              private messageService: NzMessageService) {
-    setInterval(() => {
-      this.now = new Date();
-    }, 1000);
-  }
+  a:number;
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
@@ -332,7 +334,12 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   searchLimit = () => {
     this.loadingSearchLimit = true;
     this.limit = null;
+    const key = Math.random();
+    this.a = key;
     setTimeout(() => {
+      if (this.a !== key) {
+        return;
+      }
       if (this.number === null || this.number === undefined || this.selectedLotterys.length === 0) {
         this.loadingSearchLimit = false;
         return null;
@@ -359,7 +366,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
         });
       }
       this.searchLimitSync(reqs).subscribe(responseArray => {
-        this.loadingSearchLimit = false;
         let minor: number;
         for (const res of responseArray){
           if (res != null){
@@ -368,6 +374,10 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
             }
           }
         }
+        if (this.a !== key) {
+          return;
+        }
+        this.loadingSearchLimit = false;
         this.limit = minor;
       }, error => {
         this.loadingSearchLimit = false;

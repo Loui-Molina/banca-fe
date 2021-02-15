@@ -15,7 +15,9 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class WebUsersTransactionsComponent implements OnInit {
   transactions: TransactionDto[] = [];
+  selectedTransaction: TransactionDto;
   loading = true;
+  modalConfirm = false;
   constructor(private route: ActivatedRoute,
               private translateService: TranslateService,
               private router: Router,
@@ -36,6 +38,16 @@ export class WebUsersTransactionsComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['app/main']);
+  }
+
+  openTransaction(transaction: TransactionDto): void {
+    this.selectedTransaction = transaction;
+    this.modalConfirm = true;
+  }
+
+  closeTransaction(): void {
+    this.modalConfirm = false;
+    this.selectedTransaction = null;
   }
 
   private ts(key: string, params?): string {
