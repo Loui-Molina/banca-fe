@@ -13,6 +13,11 @@
   padding: 10px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  .container-lottery{
+    display: flex;
+    align-items: center;
+  }
   .title{
     padding-left: 15px;
     margin: 0;

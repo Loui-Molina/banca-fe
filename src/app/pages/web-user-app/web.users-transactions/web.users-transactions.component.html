@@ -1,9 +1,10 @@
+<app-page-loader-bouncing  [loading]="loading"></app-page-loader-bouncing>
 <div class="header">
   <i class="goback" (click)="goBack()" nz-icon nzType="left"></i>
   <h2 class="title">TRANSACCIONES</h2>
 </div>
 <div style="padding: 10px; height: calc(100% - 200px)">
-  <p *ngIf="transactions.length === 0" style="text-align: center">No hay transacciones</p>
+  <p *ngIf="transactions.length === 0 && !loading" style="text-align: center">No hay transacciones</p>
   <div class="transaction" *ngFor="let transaction of transactions">
     <div>
       <p class="amount">${{transaction.amount}}</p>

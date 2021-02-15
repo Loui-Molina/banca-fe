@@ -51,6 +51,10 @@ export class ErrorsHandler implements ErrorHandler {
           return;
         // 5XX family errors
         case 5:
+          if (error.error && error.error.message){
+            this.notifyError(ErrorsHandler.defaultErrorTitle, error.error.message);
+            return;
+          }
           this.notifyError(ErrorsHandler.defaultErrorTitle, 'ERROR.SYSTEM_ERROR');
           return;
         // no errors

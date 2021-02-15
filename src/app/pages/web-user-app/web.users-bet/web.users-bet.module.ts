@@ -19,15 +19,15 @@ import {NzSelectModule} from 'ng-zorro-antd/select';
 import {NzSwitchModule} from 'ng-zorro-antd/switch';
 import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
-import {WebUsersBetsRoutingModule} from './web.users-bets-routing.module';
-import {WebUsersBetsComponent} from './web.users-bets.component';
+import {WebUsersBetRoutingModule} from './web.users-bet-routing.module';
+import {WebUsersBetComponent} from './web.users-bet.component';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzTagModule} from 'ng-zorro-antd/tag';
 
 @NgModule({
     imports: [
         CommonModule,
-        WebUsersBetsRoutingModule,
+        WebUsersBetRoutingModule,
         NzListModule,
         NzTypographyModule,
         LineChartModule,
@@ -51,9 +51,9 @@ import {NzTagModule} from 'ng-zorro-antd/tag';
         FormsModule,
         NzTagModule,
     ],
-  declarations: [WebUsersBetsComponent],
-  exports: [WebUsersBetsComponent],
+  declarations: [WebUsersBetComponent],
+  exports: [WebUsersBetComponent],
   providers: [DatePipe]
 })
-export class WebUsersBetsModule {
+export class WebUsersBetModule {
 }

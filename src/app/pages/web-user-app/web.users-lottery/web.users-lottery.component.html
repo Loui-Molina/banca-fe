@@ -1,6 +1,14 @@
+<app-page-loader-bouncing  [loading]="loading"></app-page-loader-bouncing>
 <div class="header">
-  <i class="goback" (click)="goBack()" nz-icon nzType="left"></i>
-  <h2 class="title">{{lottery.name}}</h2>
+  <div class="container-lottery">
+    <i class="goback" (click)="goBack()" nz-icon nzType="left"></i>
+    <h2 class="title">{{lottery?.name}}</h2>
+    <countdown style="display: none" #cd (event)="onChangeCounter($event, lottery)" *ngIf="lottery.leftTime"
+               [config]="{leftTime:lottery.leftTime}"></countdown>
+  </div>
+  <span>
+    TOTAL: ${{getSumBets(plays)}}
+  </span>
 </div>
 <div style="padding: 10px; height: calc(100% - 200px)">
   <div class="containers-input">

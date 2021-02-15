@@ -125,6 +125,12 @@ const routes: Routes = [
         // tslint:disable-next-line:max-line-length
         loadChildren: () => import('./pages/web-user-app/web.users-transactions/web.users-transactions.module').then(m => m.WebUsersTransactionsModule)
       },
+      {
+        path: 'bet/:id',
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Webuser]},
+        loadChildren: () => import('./pages/web-user-app/web.users-bet/web.users-bet.module').then(m => m.WebUsersBetModule)
+      },
     ],
   },
   {

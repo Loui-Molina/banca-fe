@@ -24,3 +24,44 @@
     cursor: pointer;
   }
 }
+
+.bet{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #286098;
+  margin: 10px 0;
+  padding: 10px;
+  .id{
+    font-size: 12px;
+    margin: 0;
+  }
+  .date{
+    margin: 0;
+    font-size: 11px;
+  }
+  .icon{
+    font-size: 25px;
+    &.up{
+      color: #06d206;
+    }
+    &.down{
+      color: red;
+    }
+  }
+
+  .icon-container{
+    display: flex;
+    .win{
+      margin: 0;
+      padding-right: 10px;
+      background-color: yellow;
+      border-radius: 5px;
+    }
+    .balance{
+      margin: 0;
+      padding-right: 10px;
+    }
+  }
+}

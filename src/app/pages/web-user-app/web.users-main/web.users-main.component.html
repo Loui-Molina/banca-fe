@@ -1,3 +1,4 @@
+<app-page-loader-bouncing  [loading]="loading"></app-page-loader-bouncing>
 <div style="padding: 10px">
   <div class="buttons">
     <div class="bets" (click)="gotoBets()">
@@ -10,15 +11,18 @@
   </div>
 
   <h2 class="title-divider">Loterias</h2>
-  <div class="lottery" (click)="!lottery.disabled && goToLottery(lottery)" *ngFor="let lottery of lotteries"
-       [class.disabled]="lottery.disabled">
+  <p *ngIf="lotteries.length === 0 && !loading">No hay loterias disponibles</p>
+  <div class="lottery" (click)="(lottery.status && lottery.leftTime > 0) && goToLottery(lottery)" *ngFor="let lottery of lotteries"
+       [class.disabled]="!lottery.status || !lottery.leftTime">
     <div class="container-logo">
       <div class="logo">{{lottery.nickname}}</div>
     </div>
     <div class="description">
       <h2 class="name">{{lottery.name}}</h2>
-      <h3 class="time">22:00hs</h3>
-      <h3 class="time" *ngIf="lottery.disabled">Cerrado</h3>
+      <h3 class="time">{{lottery.playTime}}</h3>
+      <countdown #cd (event)="onChangeCounter($event, lottery)" *ngIf="lottery.leftTime"
+                 [config]="{leftTime:lottery.leftTime}"></countdown>
+      <h3 class="time" *ngIf="!lottery.status || !lottery.leftTime">Cerrado</h3>
     </div>
   </div>
 </div>

@@ -1,33 +1,42 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PlayInterface} from '../../bettingPanel/bettingPanel.component';
-import {BankingLotteryDto, Play, PlayNumbers} from '../../../../../local-packages/banca-api';
+import {
+  BankingLotteryDto, BettingPanelService, CreateBetDto,
+  Play,
+  PlayDto,
+  PlayNumbers,
+  WebUserLotteriesService,
+  WebUserLotteryDto
+} from '../../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {getCombinations, reverseString, showParsedNumbers, uuidv4} from '../../../../utils/utilFunctions';
+import {showParsedNumbers, uuidv4} from '../../../../utils/utilFunctions';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-web.users-lottery',
   templateUrl: './web.users-lottery.component.html',
   styleUrls: ['./web.users-lottery.component.scss']
 })
-export class WebUsersLotteryComponent implements OnInit {
+export class WebUsersLotteryComponent implements OnInit, OnDestroy {
   @ViewChild('inputNumber', {static: false}) inputNumber: any;
   @ViewChild('inputAmount', {static: false}) inputAmount: any;
   lotteryId;
-  lottery: BankingLotteryDto = {
-    color: 'red', day: ['mon'], leftTime: 50, name: 'ASD', nickname: 'fdfd', playTime: '05:00', results: [], status: true
-  };
+  interval;
+  lottery: WebUserLotteryDto;
   plays: PlayInterface[] = [];
   limit = 100;
-  superPale = false;
+  loading = true;
   number: number;
   amount: number;
   loadingSearchLimit: boolean;
   constructor(private route: ActivatedRoute,
               private translateService: TranslateService,
               private router: Router,
+              private bettingPanelService: BettingPanelService,
+              private webUserLotteriesService: WebUserLotteriesService,
               private modalService: NzModalService,
               private messageService: NzMessageService) {
     this.route.params.subscribe(params => {
@@ -36,6 +45,47 @@ export class WebUsersLotteryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.reloadLotterys();
+    this.interval = setInterval(() => {
+      this.reloadLotterys();
+    }, 30000);
+  }
+
+  onChangeCounter($event, lottery: BankingLotteryDto): void {
+    if ($event.status === 3) {
+      this.goBack();
+      // this.messageService.create('warning', `La loteria ${lottery.name} ya no esta disponible`, {nzDuration: 3000});
+    }
+  }
+
+  getSumBets(bets: PlayInterface[] | PlayDto[]): number {
+    let sum = 0;
+    // @ts-ignore
+    bets.map(item => {
+      sum += item.amount;
+    });
+    return sum;
+  }
+
+
+  private reloadLotterys(): void {
+    this.webUserLotteriesService.webUserLotteryControllerGet(this.lotteryId).subscribe(data => {
+      this.loading = false;
+      this.lottery = data;
+      if (!data.status || !data.leftTime) {
+        this.goBack();
+      }
+    }, error => {
+      this.loading = false;
+      throw new HttpErrorResponse(error);
+    });
+  }
+
+
+  ngOnDestroy(): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   }
 
   goBack(): void {
@@ -79,7 +129,7 @@ export class WebUsersLotteryComponent implements OnInit {
     if (!amount) {
       return;
     }
-    let playsToCreate: PlayInterface[] = this.getPlaysToCreate(this.lottery, amount);
+    const playsToCreate: PlayInterface[] = this.getPlaysToCreate(this.lottery, amount);
 
     // if (this.superPale && this.selectedLotterys.length !== 2) {
     //   this.messageService.create('error', 'Debe seleccionar 2 loterias');
@@ -87,12 +137,12 @@ export class WebUsersLotteryComponent implements OnInit {
     // }
 
     // tslint:disable-next-line:no-shadowed-variable
-    if (this.superPale) {
-      playsToCreate = playsToCreate.filter(play => play.playType === 'pale');
-      for (const play of playsToCreate) {
-        play.playType = Play.PlayTypeEnum.SuperPale;
-      }
-    }
+    // if (this.superPale) {
+    //   playsToCreate = playsToCreate.filter(play => play.playType === 'pale');
+    //   for (const play of playsToCreate) {
+    //     play.playType = Play.PlayTypeEnum.SuperPale;
+    //   }
+    // }
     if (playsToCreate.length === 0) {
       this.messageService.create('error', 'Error de formato');
       return;
@@ -186,7 +236,25 @@ export class WebUsersLotteryComponent implements OnInit {
   }
 
   onSubmitPayTicket(): void{
-    this.router.navigate(['app/bets']);
+    this.loading = true;
+    const body: CreateBetDto = {
+      plays: []
+    };
+    this.plays.map((item) => {
+      body.plays.push({
+        amount: item.amount,
+        lotteryId: item.lotteryId,
+        playType: item.playType,
+        playNumbers: item.playNumbers,
+      });
+    });
+    this.bettingPanelService.bettingPanelControllerCreateForWebUser(body).subscribe(data => {
+      this.loading = false;
+      this.router.navigate(['app/bets']);
+    }, error => {
+      this.loading = false;
+      throw new HttpErrorResponse(error);
+    });
   }
 
   private ts(key: string, params?): string {

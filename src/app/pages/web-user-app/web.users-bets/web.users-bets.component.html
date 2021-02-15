@@ -1,7 +1,35 @@
+<app-page-loader-bouncing  [loading]="loading"></app-page-loader-bouncing>
 <div class="header">
   <i class="goback" (click)="goBack()" nz-icon nzType="left"></i>
   <h2 class="title">APUESTAS</h2>
 </div>
-<div style="padding: 10px; height: calc(100% - 200px)">
-  BETS
+<div style="padding: 10px; height: calc(100% - 120px); overflow-y: auto">
+  <p *ngIf="bets.length === 0 && !loading" style="text-align: center">No hay apuestas</p>
+  <div class="bet" *ngFor="let bet of bets" (click)="gotoBet(bet)">
+    <div>
+      <p class="id">#{{bet._id}}</p>
+      <p class="date">{{bet.date| date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+    </div>
+    <div class="icon-container">
+      <p class="win" *ngIf="bet.betStatus === betStatusEnum.Winner">${{bet.amountWin}}</p>
+      <p class="balance">
+        <nz-tag *ngIf="[betStatusEnum.Winner, betStatusEnum.Claimed].includes(bet.betStatus)" [nzColor]="'green'" style="padding: 0 2px 0 2px;">
+          GANADOR
+        </nz-tag>
+        <nz-tag *ngIf="bet.betStatus === betStatusEnum.Pending" [nzColor]="'blue'" style="padding: 0 2px 0 2px;">
+          PENDIENTE
+        </nz-tag>
+        <nz-tag *ngIf="bet.betStatus === betStatusEnum.Cancelled" [nzColor]="'brown'"
+                style="padding: 0 2px 0 2px;">
+          CANCELADO
+        </nz-tag>
+        <nz-tag *ngIf="bet.betStatus === betStatusEnum.Loser" [nzColor]="'red'" style="padding: 0 2px 0 2px;">
+          PERDEDOR
+        </nz-tag>
+        <nz-tag *ngIf="bet.betStatus === betStatusEnum.Expired" [nzColor]="'red'" style="padding: 0 2px 0 2px;">
+          EXPIRADO
+        </nz-tag>
+      </p>
+    </div>
+  </div>
 </div>

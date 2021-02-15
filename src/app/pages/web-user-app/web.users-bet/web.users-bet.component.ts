@@ -1,21 +1,22 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PlayInterface} from '../../bettingPanel/bettingPanel.component';
-import {BankingLotteryDto, BetDto, BettingPanelService, Play, PlayNumbers} from '../../../../../local-packages/banca-api';
+import {BetDto, BettingPanelService, PlayDto, PlayNumbers} from '../../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {getCombinations, reverseString, showParsedNumbers, uuidv4} from '../../../../utils/utilFunctions';
+import {showParsedNumbers} from '../../../../utils/utilFunctions';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-web.users-bets',
-  templateUrl: './web.users-bets.component.html',
-  styleUrls: ['./web.users-bets.component.scss']
+  templateUrl: './web.users-bet.component.html',
+  styleUrls: ['./web.users-bet.component.scss']
 })
-export class WebUsersBetsComponent implements OnInit {
+export class WebUsersBetComponent implements OnInit {
   loading = true;
-  bets: BetDto[] = [];
+  bet: BetDto;
+  betId: string;
   betStatusEnum = BetDto.BetStatusEnum;
   constructor(private route: ActivatedRoute,
               private bettingPanelService: BettingPanelService,
@@ -23,11 +24,14 @@ export class WebUsersBetsComponent implements OnInit {
               private router: Router,
               private modalService: NzModalService,
               private messageService: NzMessageService) {
+    this.route.params.subscribe(params => {
+      this.betId = params.id;
+    });
   }
 
   ngOnInit(): void {
-    this.bettingPanelService.bettingPanelControllerGetAll().subscribe(data => {
-      this.bets = data;
+    this.bettingPanelService.bettingPanelControllerGet(this.betId).subscribe(data => {
+      this.bet = data;
       this.loading = false;
     }, error => {
       this.loading = false;
@@ -35,12 +39,21 @@ export class WebUsersBetsComponent implements OnInit {
     });
   }
 
-  goBack(): void {
-    this.router.navigate(['app/main']);
+  showParsedNumbers = (playNumbers: PlayNumbers) => {
+    return showParsedNumbers(playNumbers);
   }
 
-  gotoBet(bet: BetDto): void {
-    this.router.navigate(['app/bet/' + bet._id.toString()]);
+  getSumBets(bets: PlayInterface[] | PlayDto[]): number {
+    let sum = 0;
+    // @ts-ignore
+    bets.map(item => {
+      sum += item.amount;
+    });
+    return sum;
+  }
+
+  goBack(): void {
+    this.router.navigate(['app/bets']);
   }
 
   private ts(key: string, params?): string {
