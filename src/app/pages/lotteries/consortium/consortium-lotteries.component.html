@@ -73,8 +73,7 @@
       </div>
 
       <!-- BLOCKING --------------------------------------------------------------------- -->
-      <nz-divider [nzText]="'Bloqueos'" class="title" nzOrientation="left"></nz-divider>
-      <!-- TODO TRANSLATE -->
+      <nz-divider [nzText]="'LOTTERIES.CREATE.BLOCKINGS'" class="title" nzOrientation="left"></nz-divider>
       <div id="blocking">
         <nz-form-item *ngFor="let blocking of blockedNumbers" style="padding: 5px 0">
           <nz-input-group>
@@ -106,7 +105,7 @@
         </nz-form-item>
         <div nz-row style="padding-top: 10px">
           <div nz-col [nzOffset]="9" nzXs="6">
-            <button nz-button nzType="primary" (click)="addBlocking($event)">{{'Agregar'|translate}}
+            <button nz-button nzType="primary" (click)="addBlocking($event)">{{'UTILS.ADD'|translate}}
               <i nz-icon nzType="plus"
                  nzTheme="outline"></i>
             </button>
