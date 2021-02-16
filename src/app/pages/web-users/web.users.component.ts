@@ -139,7 +139,7 @@ export class WebUsersComponent {
   getValidators = (mode: string) => {
     return {
       status: [Validators.required],
-      selectedBanking: [Validators.required],
+      selectedBanking: [this.userRole.Admin, this.userRole.Consortium].includes(this.user?.role) ? [Validators.required] : [],
       ownerName: [Validators.required],
       username: [Validators.required],
       password: (mode === 'C') ? [Validators.required,
