@@ -57,10 +57,10 @@
               <input #inputAmount (keyup.enter)="onKeyEnter()" [(ngModel)]="amount" [type]="'number'"
                      class="right-input"
                      nz-input placeholder="MONTO"/>
-              <span (click)="onCheckSuperPale()" [class.selected]="this.superPale" class="custom-button super-pale"
+              <!--<span (click)="onCheckSuperPale()" [class.selected]="this.superPale" class="custom-button super-pale"
                     nz-tooltip="SUPERPALE">
                 S
-              </span>
+              </span>-->
               <span (click)="onKeyEnter()" [class.disabled]="disabledBet()" class="custom-button play-enter">
                 <i nz-icon nzTheme="outline" [nzType]="loadingSearchLimit ? 'loading' : 'caret-right'"></i>
               </span>

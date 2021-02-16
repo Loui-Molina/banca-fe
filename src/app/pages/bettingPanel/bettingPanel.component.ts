@@ -79,7 +79,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     {title: 'DIRECTO', types: [Play.PlayTypeEnum.Direct]},
     {title: 'PALE', types: [Play.PlayTypeEnum.Pale]},
     {title: 'TRIPLETA', types: [Play.PlayTypeEnum.Tripleta]},
-    {title: 'SUPERPALE', types: [Play.PlayTypeEnum.SuperPale]}
+    // {title: 'SUPERPALE', types: [Play.PlayTypeEnum.SuperPale]}
   ];
   availablePlays = [
     {title: 'First', key: PrizeLimitPlayTypeEnum.First},
