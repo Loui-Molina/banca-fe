@@ -4,7 +4,7 @@
   <h2 class="title">APUESTAS</h2>
 </div>
 <div style="padding: 10px; height: calc(100% - 120px); overflow-y: auto">
-  <p *ngIf="bets.length === 0 && !loading" style="text-align: center">No hay apuestas</p>
+  <p *ngIf="bets.length === 0 && !loading" style="text-align: center;color: #ddd">No hay apuestas</p>
   <div class="bet" *ngFor="let bet of bets" (click)="gotoBet(bet)">
     <div>
       <p class="id">#{{bet._id}}</p>

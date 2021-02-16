@@ -9,7 +9,7 @@
     <thead>
     <tr>
       <th *ngFor="let column of columns" [nzWidth]="column.width">
-        <span [nz-tooltip]="column.tooltip">{{column.title}}</span>
+        <span [nz-tooltip]="column.tooltip|translate">{{column.title|translate}}</span>
       </th>
     </tr>
     </thead>
@@ -27,7 +27,7 @@
           {{column.prefix}}{{getColumnTotal(column.key)}}
         </ng-container>
         <ng-container *ngIf="column.titleFooter">
-          {{column.titleFooter}}
+          {{column.titleFooter|translate}}
         </ng-container>
       </td>
     </tr>

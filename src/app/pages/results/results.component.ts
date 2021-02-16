@@ -45,44 +45,44 @@ export class ResultsComponent implements OnInit {
     const aux = [];
     if (this.user?.role === this.userRole.Admin) {
       aux.push({
-        title: 'Usuario',
+        title: 'RESULTS.LIST.USER',
         key: 'creationUsername',
       });
     }
     this.columns = [
       ...aux,
       {
-        title: 'Loteria',
+        title: 'RESULTS.LIST.LOTTERY',
         key: 'lotteryName'
       },
       {
-        title: '1er',
+        title: 'RESULTS.LIST.FIRST',
         key: 'draw.first',
         valueFormatter: (data) => {
           return this.formatResult(data.draw.first);
         }
       },
       {
-        title: '2do',
+        title: 'RESULTS.LIST.SECOND',
         key: 'draw.second',
         valueFormatter: (data) => {
           return this.formatResult(data.draw.second);
         }
       },
       {
-        title: '3ro',
+        title: 'RESULTS.LIST.THIRD',
         key: 'draw.third',
         valueFormatter: (data) => {
           return this.formatResult(data.draw.third);
         }
       },
       {
-        title: 'Fecha',
+        title: 'RESULTS.LIST.DATE',
         key: 'date',
         valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy')
       },
       {
-        title: 'Fecha creacion',
+        title: 'RESULTS.LIST.CREATION_DATE',
         key: 'createdAt',
         valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm:ss')
       }

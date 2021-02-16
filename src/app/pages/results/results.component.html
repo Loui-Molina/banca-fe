@@ -8,7 +8,7 @@
            [form]="formABM"
            [getValidators]="getValidators"
            [parseData]="parseData"
-           [title]="'Resultados'"
+           [title]="'RESULTS.TITLE'"
            [viewTemplate]="viewTemplate">
   </app-abm>
 
@@ -18,7 +18,7 @@
 
       <div class="form-element">
         <label for="lottery">
-          {{'Loteria'|translate}}
+          {{'RESULTS.CREATE.LOTTERY'|translate}}
         </label>
         <br>
         <nz-select (ngModelChange)="onChangeLottery($event)" formControlName="lottery" id="lottery" style="width: 100%">
@@ -29,7 +29,7 @@
 
       <div class="form-element">
         <label for="first">
-          {{'Primero'|translate}}
+          {{'RESULTS.CREATE.FIRST'|translate}}
         </label>
         <nz-input-number
           [nzMax]="99"
@@ -42,7 +42,7 @@
 
       <div class="form-element">
         <label for="second">
-          {{'Segundo'|translate}}
+          {{'RESULTS.CREATE.SECOND'|translate}}
         </label>
         <nz-input-number
           [nzMax]="99"
@@ -54,7 +54,7 @@
 
       <div class="form-element">
         <label for="third">
-          {{'Tercero'|translate}}
+          {{'RESULTS.CREATE.THIRD'|translate}}
         </label>
         <nz-input-number
           [nzMax]="99"
@@ -66,7 +66,7 @@
 
       <div class="form-element">
         <label for="date">
-          {{'Fecha'|translate}}
+          {{'RESULTS.CREATE.DATE'|translate}}
         </label>
         <nz-date-picker formControlName="date" id="date"></nz-date-picker>
       </div>
@@ -77,19 +77,19 @@
     <ng-container *ngIf="visibleObject">
       <div class="description">
           <span>
-            {{'Loteria'|translate}}:
+            {{'RESULTS.VIEW.LOTTERY'|translate}}:
           </span>
         <b>{{visibleObject.lotteryName}}</b>
       </div>
       <div class="description">
           <span>
-                {{'Fecha'|translate}}
+                {{'RESULTS.VIEW.DATE'|translate}}
           </span>
         <b>{{visibleObject.date | date: 'dd/MM/yyyy'}}</b>
       </div>
       <div class="description">
           <span>
-                {{'Fecha creacion'|translate}}
+                {{'RESULTS.VIEW.CREATION_DATE'|translate}}
           </span>
         <b>{{visibleObject.createdAt | date: 'dd/MM/yyyy hh:mm:ss'}}</b>
       </div>

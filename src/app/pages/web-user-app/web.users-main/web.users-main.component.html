@@ -11,7 +11,7 @@
   </div>
 
   <h2 class="title-divider">Loterias</h2>
-  <p *ngIf="lotteries.length === 0 && !loading">No hay loterias disponibles</p>
+  <p *ngIf="lotteries.length === 0 && !loading" style="text-align: center;color: #ddd">No hay loterias disponibles</p>
   <div class="lottery" (click)="(lottery.status && lottery.leftTime > 0) && goToLottery(lottery)" *ngFor="let lottery of lotteries"
        [class.disabled]="!lottery.status || !lottery.leftTime">
     <div class="container-logo">

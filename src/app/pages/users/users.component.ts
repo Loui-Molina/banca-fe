@@ -15,9 +15,9 @@ import {ModalChangePasswordComponent} from '../../components/modals/modal-change
 export class UsersComponent implements OnInit {
 
   columns: Column[] = [
-    {key: 'name', title: 'SETTINGS.USERS.COLUMNS.NAME'},
-    {key: 'username', title: 'SETTINGS.USERS.COLUMNS.USERNAME', showSearch: true},
-    {key: 'role', title: 'Rol'}
+    {key: 'name', title: 'USERS.LIST.NAME'},
+    {key: 'username', title: 'USERS.LIST.USERNAME', showSearch: true},
+    {key: 'role', title: 'USERS.LIST.ROL'}
   ];
   formABM: FormGroup;
   roleEnum = User.RoleEnum;
@@ -68,7 +68,7 @@ export class UsersComponent implements OnInit {
 
   changePassword(userId): void {
     this.nzModalService.create({
-      nzTitle: 'Cambiar Contraseña',
+      nzTitle: this.ts('USERS.CREATE.CHANGE_PASSWORD'),
       nzContent: ModalChangePasswordComponent,
       nzMaskClosable: false,
       nzClosable: false,
@@ -77,5 +77,9 @@ export class UsersComponent implements OnInit {
       },
       nzFooter: null
     });
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

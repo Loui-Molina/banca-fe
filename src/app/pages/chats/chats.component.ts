@@ -149,7 +149,7 @@ export class ChatsComponent implements OnInit, OnDestroy {
     };
     this.loading = true;
     this.messagesService.chatControllerCreate(body).subscribe(data => {
-      this.messageService.create('success', `Mensaje enviado correctamente`, {nzDuration: 3000});
+      this.messageService.create('success', this.ts('CHAT.SEND_SUCCESS'), {nzDuration: 3000});
       this.init();
       this.form.reset();
     }, error => {

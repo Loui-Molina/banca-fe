@@ -18,14 +18,14 @@ export class BankingTransactionsComponent implements OnInit {
 
   loading = false;
   columns = [
-    {title: 'Fecha', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
-    {title: 'Origen', key: 'originName'},
-    {title: 'Destino', key: 'destinationName'},
-    {title: 'Descripcion', key: 'description'},
-    {title: 'Monto', type: 'numeric', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Ultimo balance', type: 'numeric', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Balance actual', type: 'numeric', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
+    {title: 'TRANSACTIONS.LIST.DATE', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
+    {title: 'TRANSACTIONS.LIST.ORIGIN', key: 'originName'},
+    {title: 'TRANSACTIONS.LIST.DESTINATION', key: 'destinationName'},
+    {title: 'TRANSACTIONS.LIST.DESCRIPTION', key: 'description'},
+    {title: 'TRANSACTIONS.LIST.AMOUNT', type: 'numeric', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'TRANSACTIONS.LIST.LAST_BALANCE', type: 'numeric', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'TRANSACTIONS.LIST.ACTUAL_BALANCE', type: 'numeric', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'TRANSACTIONS.LIST.TYPE', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
   ];
   transactions: TransactionDto[] = [];
 
@@ -48,7 +48,16 @@ export class BankingTransactionsComponent implements OnInit {
   }
 
   valueFormatterTipo(data: Transaction, column): any {
-    return data[column.key];
+    switch (data.type){
+      case 'adjust':
+        return this.ts('TRANSACTIONS.LIST.ADJUST');
+      case 'credit':
+        return this.ts('TRANSACTIONS.LIST.CREDIT');
+      case 'debit':
+        return this.ts('TRANSACTIONS.LIST.DEBIT');
+      default:
+        return data[column.key];
+    }
   }
 
   ngOnInit(): void {

@@ -11,62 +11,62 @@
       <h1>{{establishmentName}}</h1>
     </div>
     <ul [nzInlineCollapsed]="isCollapsed" nz-menu nzMode="inline" nzTheme="dark">
-      <li nz-submenu nzIcon="home" nzOpen nzTitle="{{'HOME.TITLE' | translate}}">
+      <li nz-submenu nzIcon="home" nzOpen nzTitle="{{'SIDENAV.HOME.TITLE' | translate}}">
         <ul>
           <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker, userRole.Webuser].includes(user?.role)" nz-menu-item
               nzMatchRouter>
             <i nz-icon nzTheme="outline" nzType="dashboard"></i>
-            <a routerLink="/dashboard">{{'HOME.DASHBOARD.TITLE' | translate}}</a>
+            <a routerLink="/dashboard">{{'SIDENAV.HOME.DASHBOARD' | translate}}</a>
           </li>
           <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker].includes(user?.role)" nz-menu-item
               nzMatchRouter>
             <i nz-icon nzType="wallet"></i>
-            <a routerLink="/transactions">{{'HOME.TRANSACTIONS.TITLE' | translate}}</a>
+            <a routerLink="/transactions">{{'SIDENAV.HOME.TRANSACTIONS' | translate}}</a>
           </li>
           <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="apartment"></i>
-            <a routerLink="/consortiums">{{'Consorcios' | translate}}</a>
+            <a routerLink="/consortiums">{{'SIDENAV.HOME.CONSORTIUMS' | translate}}</a>
           </li>
           <li *ngIf="[userRole.Consortium, userRole.Banker].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="message"></i>
-            <a routerLink="/chat">{{'Chat' | translate}}</a>
+            <a routerLink="/chat">{{'SIDENAV.HOME.CHAT' | translate}}</a>
           </li>
           <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="shop"></i>
-            <a routerLink="/bankings">{{'HOME.BANKINGS.TITLE' | translate}}</a>
+            <a routerLink="/bankings">{{'SIDENAV.HOME.BANKINGS' | translate}}</a>
           </li>
           <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="trophy"></i>
-            <a routerLink="/lotteries">{{'HOME.LOTTERIES.TITLE' | translate}}</a>
+            <a routerLink="/lotteries">{{'SIDENAV.HOME.LOTTERIES' | translate}}</a>
           </li>
           <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="reconciliation"></i>
-            <a routerLink="/results">{{'Resultados' | translate}}</a>
+            <a routerLink="/results">{{'SIDENAV.HOME.RESULTS' | translate}}</a>
           </li>
           <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="team"></i>
-            <a routerLink="/web-users">{{'Usuarios web' | translate}}</a>
+            <a routerLink="/web-users">{{'SIDENAV.HOME.WEBUSERS' | translate}}</a>
           </li>
           <!--<li *ngIf="[userRole.Admin].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="reconciliation"></i>
-            <a routerLink="/subscriptions">{{'Subscripciones' | translate}}</a>
+            <a routerLink="/subscriptions">{{'SIDENAV.HOME.SUBSCRIPTIONS' | translate}}</a>
           </li>
           <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="question"></i>
-            <a routerLink="/help">{{'Help' | translate}}</a>
+            <a routerLink="/help">{{'SIDENAV.HOME.HELP' | translate}}</a>
           </li>-->
         </ul>
       </li>
-      <li nz-submenu nzIcon="form" nzOpen nzTitle="{{'SETTINGS.TITLE' | translate}}">
+      <li nz-submenu nzIcon="form" nzOpen nzTitle="{{'SIDENAV.SETTINGS.TITLE' | translate}}">
         <ul>
           <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="team"></i>
-            <a routerLink="/users">{{'SETTINGS.USERS.TITLE' | translate}}</a>
+            <a routerLink="/users">{{'SIDENAV.SETTINGS.USERS' | translate}}</a>
           </li>
 
           <li (click)="logout()" nz-menu-item>
             <i nz-icon nzType="logout"></i>
-            <a>{{'SETTINGS.LOGOUT.TITLE' | translate}}</a>
+            <a>{{'SIDENAV.SETTINGS.LOGOUT' | translate}}</a>
           </li>
         </ul>
       </li>
@@ -86,7 +86,7 @@
             <a routerLink="/bettingPanel">
               <button [nzSize]="'large'" nz-button nzType="primary">
                 <i nz-icon nzType="shop"></i>
-                Panel de apuestas
+                {{'TOPBAR.BETTING_PANEL'|translate}}
               </button>
             </a>
           </span>
@@ -103,7 +103,7 @@
               <ul nz-menu nzSelectable class="chat-container">
                 <li *ngIf="messages.length === 0" (click)="goToChat()"
                     nz-menu-item>
-                  <p style="margin: 0">No hay mensajes nuevos</p>
+                  <p style="margin: 0">{{'TOPBAR.MESSAGES.NO_NEW_MESSAGES'|translate}}</p>
                 </li>
                 <li class="message" *ngFor="let message of getTopMessages()" (click)="goToChat()"
                     nz-menu-item>
@@ -111,7 +111,7 @@
                   <p class="origin">{{message.originName}}</p>
                 </li>
                 <li *ngIf="messages.length > 5" (click)="goToChat()" nz-menu-item>
-                  <p style="text-align: center; margin: 0">{{messages.length - getTopMessages().length}} mas</p>
+                  <p style="text-align: center; margin: 0">{{messages.length - getTopMessages().length}} {{'TOPBAR.MESSAGES.MORE'|translate}}</p>
                 </li>
               </ul>
             </nz-dropdown-menu>
@@ -123,11 +123,11 @@
             <ul nz-menu nzSelectable>
               <li (click)="selectLanguage('en')" [class.ant-dropdown-menu-item-selected]="'en' === langSelected"
                   nz-menu-item>
-                {{'TRANSLATION.ENGLISH' | translate}}
+                {{'TOPBAR.TRANSLATION.ENGLISH' | translate}}
               </li>
               <li (click)="selectLanguage('es')" [class.ant-dropdown-menu-item-selected]="'es' === langSelected"
                   nz-menu-item>
-                {{'TRANSLATION.SPANISH' | translate}}
+                {{'TOPBAR.TRANSLATION.SPANISH' | translate}}
               </li>
             </ul>
           </nz-dropdown-menu>

@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Consortium, ConsortiumDto, ConsortiumsService, CreateConsortiumDto, User, UsersService} from 'local-packages/banca-api';
 import {ModalChangePasswordComponent} from '../../../components/modals/modal-change-password/modal-change-password.component';
 import {NzModalService} from 'ng-zorro-antd/modal';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-consortiums',
@@ -15,27 +16,27 @@ export class ConsortiumsComponent implements OnInit {
 
   columns = [
     {
-      title: 'Consorcio',
+      title: 'CONSORTIUMS.LIST.CONSORTIUM',
       key: 'name'
     },
     {
-      title: 'Usuario',
+      title: 'CONSORTIUMS.LIST.USER',
       key: 'ownerUsername',
     },
     {
-      title: 'Inicio Operacion',
+      title: 'CONSORTIUMS.LIST.START_OF_OPERATION',
       key: 'startOfOperation',
       valueFormatter: (data) => this.datePipe.transform(data.startOfOperation, 'dd/MM/yyyy')
     },
     {
-      title: 'Estado',
+      title: 'CONSORTIUMS.LIST.STATUS',
       key: 'status',
-      valueFormatter: (data) => (data.status) ? 'Habilitado' : 'Inhabilitada'
+      valueFormatter: (data) => (data.status) ? this.ts('CONSORTIUMS.LIST.ENABLED') : this.ts('CONSORTIUMS.LIST.DISABLED')
     }
   ];
   columnsBanking = [
     {
-      title: 'Nombre',
+      title: 'CONSORTIUMS.VIEW.LIST.NAME',
       key: 'name',
     }
   ];
@@ -54,6 +55,7 @@ export class ConsortiumsComponent implements OnInit {
               private usersService: UsersService,
               private nzModalService: NzModalService,
               private consortiumsService: ConsortiumsService,
+              private translateService: TranslateService,
               private formBuilder: FormBuilder) {
     this.formABM = this.formBuilder.group(this.defaultForm);
   }
@@ -97,7 +99,7 @@ export class ConsortiumsComponent implements OnInit {
 
   changePassword(userId): void {
     this.nzModalService.create({
-      nzTitle: 'Cambiar Contraseña',
+      nzTitle: this.ts('CONSORTIUMS.CREATE.CHANGE_PASSWORD'),
       nzContent: ModalChangePasswordComponent,
       nzMaskClosable: false,
       nzClosable: false,
@@ -106,5 +108,9 @@ export class ConsortiumsComponent implements OnInit {
       },
       nzFooter: null
     });
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

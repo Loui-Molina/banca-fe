@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {TranslateService} from '@ngx-translate/core';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private router: Router,
               private userService: UserService,
+              private translateService: TranslateService,
               private messageService: NzMessageService) {
     if (this.userService.isLogged()) {
       this.router.navigate(['dashboard']);
@@ -44,9 +46,9 @@ export class LoginComponent implements OnInit {
       }).catch(err => {
         this.loading = false;
         if (err.status === 0) {
-          this.messageService.create('error', 'Sin coneccion');
+          this.messageService.create('error', this.ts('LOGIN.ERROR_WITHOUT_CONEXION'));
         } else {
-          this.messageService.create('error', 'Usuario o contraseña incorrectos');
+          this.messageService.create('error', this.ts('LOGIN.ERROR_USERNAME_PASSWORD'));
 
         }
       });
@@ -66,5 +68,9 @@ export class LoginComponent implements OnInit {
     }
 */
     return this.router.navigate(['']);
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

@@ -1,70 +1,440 @@
 {
-  "ERROR": {
-    "TITLE": "Error",
-    "SYSTEM_ERROR": "Error de sistema",
-    "DIMENSION_ERROR": "Error de dimension",
-    "NOT_AUTHORIZED": "No autorizado",
-    "ERROR_UNRECOGNIZED": "Error desconocido"
-  },
   "UTILS": {
-    "LOADING": "Cargando...",
-    "NEW": "Nuevo",
-    "EDIT": "Editar",
-    "DETAIL": "Detalle",
-    "SAVED": "Guardado",
-    "DELETED": "Eliminado",
-    "CANCEL": "Cancelar",
-    "CONFIRM": "Confirmar",
-    "SAVE": "Guardar",
-    "DELETE": "Eliminar",
     "ARE_YOU_SURE": "Estas seguro?",
+    "CANCEL": "Cancelar",
+    "ACCEPT": "Aceptar",
+    "CONFIRM": "Confirmar",
+    "QUANTITY": "Cantidad",
+    "CLEAN": "Limpiar",
+    "NEW": "Nuevo",
+    "SAVE": "Guardar",
     "ACTIONS": "Acciones",
-    "AMOUNT": "Cantidad"
+    "SEARCH": "Buscar",
+    "DETAIL": "Detalle",
+    "EDIT": "Editar",
+    "DELETE": "Eliminar",
+    "NO_RESULTS": "Sin resultados",
+    "NEW_PASSWORD": "Nueva contraseña",
+    "CONFIRM_PASSWORD": "Confirmar contraseña",
+    "PASSWORD_SUCCESS": "Contraseña cambiada exitosamente",
+    "TRANSACTION_SUCCESS": "Tranferencia realizada exitosamente",
+    "DEPOSIT_BALANCE": "Depositar balance",
+    "WITHDRAW_BALANCE": "Retirar balance",
+    "DEPOSIT": "Depositar",
+    "WITHDRAW": "Retirar",
+    "AMOUNT": "Monto",
+    "PAGE_NOT_FOUND": "Pagina no encontrada"
   },
-  "HOME": {
-    "TITLE": "Home",
-    "DASHBOARD": {
-      "TITLE": "Dashboard",
-      "DAILY_STATS": "Estadisticas de las ventas del dia",
-      "WEEKLY_STATS": "Estadistica detallada de la semana en curso",
-      "BALANCE": "Balance",
-      "INGRESS": "Ventas",
-      "EGRESS": "Perdidas",
-      "TICKETS": "Tickets vendidos"
+  "LOGIN": {
+    "TITLE": "Ingresar",
+    "USERNAME": "Usuario",
+    "PASSWORD": "Contraseña",
+    "ERROR_USERNAME": "Please input your username!",
+    "ERROR_PASSWORD": "Please input your password!",
+    "ERROR_WITHOUT_CONEXION": "Sin coneccion",
+    "ERROR_USERNAME_PASSWORD": "Usuario o contraseña incorrectos"
+  },
+  "SIDENAV": {
+    "HOME": {
+      "TITLE": "Home",
+      "DASHBOARD": "Dashboard",
+      "TRANSACTIONS": "Transacciones",
+      "CONSORTIUMS": "Consorcios",
+      "CHAT": "Chat",
+      "BANKINGS": "Bancas",
+      "LOTTERIES": "Loterias",
+      "RESULTS": "Resultados",
+      "WEBUSERS": "Usuarios web",
+      "SUBSCRIPTIONS": "Subscripciones",
+      "HELP": "Ayuda"
     },
-    "TRANSACTIONS": {
-      "TITLE": "Transacciones"
-    },
-    "BANKINGS": {
-      "TITLE": "Bancas",
-      "BANKING": {
-        "NAME": "Nombre",
-        "PHONE": "Telefono",
-        "EMAIL": "Email",
-        "STATUS": "Estatus",
-        "LANGUAGE": "Lenguaje"
-      }
-    },
-    "LOTTERIES": {
-      "TITLE": "Loterias"
+    "SETTINGS": {
+      "TITLE": "Configuracion",
+      "USERS": "Usuarios",
+      "LOGOUT": "Salir"
     }
   },
-  "SETTINGS": {
-    "TITLE": "Configuracion",
-    "USERS": {
-      "TITLE": "Usuarios",
-      "COLUMNS": {
-        "NAME": "Nombre",
-        "USERNAME": "Usuario",
-        "PASSWORD": "Contraseña"
-      }
+  "TOPBAR": {
+    "TRANSLATION": {
+      "ENGLISH": "Ingles",
+      "SPANISH": "Español"
     },
-    "LOGOUT": {
-      "TITLE": "Salir"
+    "BETTING_PANEL": "Panel de apuestas",
+    "MESSAGES": {
+      "NO_NEW_MESSAGES": "No hay mensajes nuevos",
+      "MORE": "Mas"
     }
   },
-  "TRANSLATION": {
-    "ENGLISH": "Ingles",
-    "SPANISH": "Español"
+  "DASHBOARD": {
+    "DAILY_STATS": {
+      "TITLE": "Estadisticas del hoy",
+      "TICKETS": "Tickets",
+      "PRIZES": "Premios",
+      "PROFITS": "Ventas",
+      "BALANCE": "Balance"
+    },
+    "ORGANIZATION_DIAGRAM": {
+      "TITLE":  "Diagrama de la organizacion",
+      "CONSORTIUMS":  "Consorcios",
+      "BANKINGS":  "Bancas",
+      "WEBUSERS":  "Usuarios web"
+    },
+    "PRIZES_VS_PROFITS": {
+      "TITLE": "Ventas vs Premios",
+      "PRIZES": "Premios",
+      "PROFITS": "Ventas"
+    },
+    "TOP_10_NUMBERS": "Top 10 numeros mas jugados",
+    "BALANCE_BY_DAY": "Balance por dia",
+    "BALANCE_BY_CONSORTIUM": "Balance por consorcio",
+    "BALANCE_BY_BANKING": "Balance por banca",
+    "X_LABEL_CONSORTIUM": "Consorcio",
+    "X_LABEL_BANKING": "Banca",
+    "Y_LABEL_BALANCE": "Balance",
+    "CONSORTIUM_SUMMARY": {
+      "TITLE": "Resumen de consorcios",
+      "LIST": {
+        "TOOLTIP_WINNER": "Winner",
+        "TOOLTIP_LOSER": "Loser",
+        "TOOLTIP_PENDING":  "Pending",
+        "TOOLTIP_CLAIMED": "Claimed",
+        "TOOLTIP_EXPIRED":  "Expired",
+        "TOOLTIP_CANCELLED": "Cancelled",
+        "TOOLTIP_TOTAL":  "Total",
+        "TOOLTIP_PROFITS": "Profits",
+        "TOOLTIP_PRIZES":  "Prizes",
+        "TOOLTIP_PENDING_PRIZES": "Pending prizes",
+        "TOOLTIP_BALANCE":  "Balance",
+        "CONSORTIUM": "Consorcio",
+        "WINNER": "W",
+        "LOSER": "L",
+        "PENDING":  "P",
+        "CLAIMED": "C",
+        "EXPIRED":  "E",
+        "CANCELLED": "C",
+        "TOTAL":  "T",
+        "PROFITS": "Profits",
+        "PRIZES":  "Prizes",
+        "PENDING_PRIZES": "P. prizes",
+        "BALANCE":  "Balance",
+        "FOOTER_TOTAL": "Total"
+      }
+    },
+    "BANKING_SUMMARY": {
+      "TITLE": "Resumen de bancas",
+      "LIST": {
+        "TOOLTIP_WINNER": "Winner",
+        "TOOLTIP_LOSER": "Loser",
+        "TOOLTIP_PENDING":  "Pending",
+        "TOOLTIP_CLAIMED": "Claimed",
+        "TOOLTIP_EXPIRED":  "Expired",
+        "TOOLTIP_CANCELLED": "Cancelled",
+        "TOOLTIP_TOTAL":  "Total",
+        "TOOLTIP_PROFITS": "Profits",
+        "TOOLTIP_PRIZES":  "Prizes",
+        "TOOLTIP_PENDING_PRIZES": "Pending prizes",
+        "TOOLTIP_BALANCE":  "Balance",
+        "BANKING": "Banca",
+        "WINNER": "W",
+        "LOSER": "L",
+        "PENDING":  "P",
+        "CLAIMED": "C",
+        "EXPIRED":  "E",
+        "CANCELLED": "C",
+        "TOTAL":  "T",
+        "PROFITS": "Profits",
+        "PRIZES":  "Prizes",
+        "PENDING_PRIZES": "P. prizes",
+        "BALANCE":  "Balance",
+        "FOOTER_TOTAL": "Total"
+      }
+    },
+    "WEBUSERS_SUMMARY": {
+      "TITLE": "Resumen de usuarios web",
+      "LIST": {
+        "TOOLTIP_WINNER": "Winner",
+        "TOOLTIP_LOSER": "Loser",
+        "TOOLTIP_PENDING":  "Pending",
+        "TOOLTIP_TOTAL":  "Total",
+        "TOOLTIP_PROFITS": "Profits",
+        "TOOLTIP_PRIZES":  "Prizes",
+        "TOOLTIP_PENDING_PRIZES": "Pending prizes",
+        "TOOLTIP_BALANCE":  "Balance",
+        "CONSORTIUM": "Consorcio",
+        "BANKING": "Banca",
+        "WEBUSER": "Usuario web",
+        "WINNER": "W",
+        "LOSER": "L",
+        "PENDING":  "P",
+        "TOTAL":  "T",
+        "PROFITS": "Profits",
+        "PRIZES":  "Prizes",
+        "PENDING_PRIZES": "P. prizes",
+        "BALANCE":  "Balance",
+        "FOOTER_TOTAL": "Total"
+      }
+    }
+  },
+  "TRANSACTIONS": {
+    "TITLE": "Ultimas transacciones",
+    "LIST": {
+      "DATE": "Fecha",
+      "ORIGIN": "Origen",
+      "DESTINATION": "Destino",
+      "DESCRIPTION": "Descripcion",
+      "AMOUNT": "Monto",
+      "LAST_BALANCE": "Ultimo balance",
+      "ACTUAL_BALANCE": "Actual balance",
+      "TYPE": "Tipo",
+      "ADJUST": "Ajuste",
+      "CREDIT":  "Credito",
+      "DEBIT": "Debito"
+    },
+    "CREATE": {
+      "TITLE": "Crear transaccion",
+      "ORIGIN": "Origen",
+      "DESTINATION": "Destino",
+      "CONSORTIUM": "Consorcio",
+      "BANKING": "Banca",
+      "SELECT_CONSORTIUM": "Seleccione un consorcio",
+      "SELECT_BANKING": "Seleccione una banca",
+      "SELECT_ORIGIN": "Seleccione un origen",
+      "SELECT_DESTINATION": "Seleccione un destino",
+      "DESCRIPCION": "Descripcion",
+      "AMOUNT": "Monto",
+      "ACCEPT": "Aceptar",
+      "CONFIRM_TRANSACTION": "Confirmar transferencia",
+      "TRANSACTION_SUCCESS": "Transferencia realizada con exito"
+    }
+  },
+  "CHAT": {
+    "SELECT_BANKING": "Seleccione una banca",
+    "MESSAGE": "Mensaje",
+    "WRITE_HERE": "Escribe aqui",
+    "SEND": "Enviar",
+    "SEND_SUCCESS": "Mensaje enviado correctamente"
+  },
+  "CONSORTIUMS": {
+    "TITLE": "Consorcios",
+    "LIST": {
+      "CONSORTIUM": "Consorcio",
+      "USER": "Usuario",
+      "START_OF_OPERATION": "Inicio de operacion",
+      "STATUS": "Estado",
+      "ENABLED": "Habilitado",
+      "DISABLED": "Deshabilitado"
+    },
+    "CREATE": {
+      "CONSORTIUM_DATA": "Datos del consorcio",
+      "USER_DATA": "Datos del usuario",
+      "NAME": "Nombre",
+      "STATUS": "Estado",
+      "OWNER_NAME": "Nombre del dueño",
+      "USERNAME": "Usuario",
+      "PASSWORD": "Contraseña",
+      "CHANGE_PASSWORD": "Cambiar contraseña"
+    },
+    "VIEW": {
+      "CONSORTIUM": "Consorcio",
+      "NAME": "Nombre",
+      "USERNAME": "Usuario",
+      "STATUS": "Estado",
+      "ENABLED": "Habilitado",
+      "DISABLED": "Deshabilitado",
+      "BANKINGS": "Bancas",
+      "LIST": {
+        "NAME": "Nombre"
+      }
+    }
+  },
+  "BANKINGS": {
+    "TITLE": "Bancas",
+    "LIST": {
+      "NAME": "Nombre",
+      "USER": "Usuario",
+      "CREATION_DATE": "Usuario",
+      "START_OF_OPERATION": "Inicio de operacion",
+      "STATUS": "Estado",
+      "ENABLED": "Habilitado",
+      "DISABLED": "Deshabilitado"
+    },
+    "CREATE": {
+      "BANKING_DATA": "Datos de la banca",
+      "TICKET_DATA": "Datos de la ticket",
+      "USER_DATA": "Datos del usuario",
+      "NAME": "Nombre",
+      "STATUS": "Estado",
+      "SHOW_PERCENTAGE": "Mostrar porcentage",
+      "CONSORTIUM": "Consorcio",
+      "CANCELLATION_TIME": "Tiempo de cancelacion (minutos)",
+      "HEADER": "Encabezado",
+      "FOOTER": "Pie",
+      "OWNER_NAME": "Nombre del dueño",
+      "USERNAME": "Usuario",
+      "PASSWORD": "Password",
+      "CHANGE_PASSWORD": "Cambiar contraseña"
+    },
+    "VIEW": {
+      "BANKING_DATA": "Datos de la banca",
+      "TICKET_DATA": "Datos de la ticket",
+      "USER_DATA": "Datos del usuario",
+      "NAME": "Nombre",
+      "STATUS": "Estado",
+      "ENABLED": "Habilitado",
+      "DISABLED": "Deshabilitado",
+      "SHOW_PERCENTAGE": "Mostrar porcentaje",
+      "PERCENTAGE": "Porcentaje",
+      "CONSORTIUM": "Consorcio",
+      "HEADER": "Encabezado",
+      "FOOTER": "Pie",
+      "OWNER_NAME": "Nombre del dueño",
+      "USERNAME": "Usuario"
+    }
+  },
+  "LOTTERIES": {
+    "TITLE": "Loterias",
+    "LIST": {
+      "NAME": "Nombre",
+      "ALIAS": "Alias",
+      "PLAY_TIME": "Hora de juego",
+      "OPEN_TIME": "Apertura",
+      "CLOSE_TIME": "Cierre",
+      "STATUS": "Estado",
+      "ENABLED": "Habilitado",
+      "DISABLED": "Deshabilitado"
+    },
+    "CREATE": {
+      "NAME": "Nombre",
+      "ALIAS": "Alias",
+      "COLOR": "Color",
+      "PLAY_TIME": "Hora de juego",
+      "OPEN_TIME": "Apertura",
+      "CLOSE_TIME": "Cierre",
+      "DAYS": "Dias",
+      "SELECT_DAYS": "Seleccione los dias",
+      "STATUS": "Estado",
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mie",
+      "thu": "Jue",
+      "fri": "Vie",
+      "sat": "Sab",
+      "sun": "Dom",
+      "BANKINGS": "Bancas",
+      "LOTTERY": "Loteria",
+      "PRIZES": "Premios",
+      "First": "Primera",
+      "Second": "Segunda",
+      "Third": "Tercera",
+      "Double": "Dobles",
+      "Pale": "Pale",
+      "PaleTwoThree": "Pale 2-3",
+      "Triplet": "Tripleta",
+      "TwoNumbers": "2 numeros",
+      "SuperPale": "Superpale",
+      "LIMITS": "Limites",
+      "Direct": "Directo"
+
+    },
+    "VIEW": {
+      "LOTTERY_DATA": "Datos de la loteria",
+      "NAME": "Nombre",
+      "ALIAS": "Alias",
+      "COLOR": "Color",
+      "PLAY_TIME": "Hora de juego",
+      "OPEN_TIME": "Apertura",
+      "CLOSE_TIME": "Cierre",
+      "STATUS": "Estado",
+      "ENABLED": "Habilitado",
+      "DISABLED": "Deshabilitado",
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mie",
+      "thu": "Jue",
+      "fri": "Vie",
+      "sat": "Sab",
+      "sun": "Dom",
+      "TO": "hasta"
+    }
+  },
+  "RESULTS": {
+    "TITLE": "Resultados",
+    "LIST": {
+      "USER": "Usuario",
+      "LOTTERY": "Loteria",
+      "FIRST": "1er",
+      "SECOND": "2do",
+      "THIRD": "3ro",
+      "DATE": "Fecha",
+      "CREATION_DATE": "Fecha de creacion"
+    },
+    "CREATE": {
+      "LOTTERY": "Loteria",
+      "FIRST": "Primero",
+      "SECOND": "Segundo",
+      "THIRD": "Tercero",
+      "DATE": "Fecha"
+    },
+    "VIEW": {
+      "LOTTERY": "Loteria",
+      "FIRST": "Primero",
+      "SECOND": "Segundo",
+      "THIRD": "Tercero",
+      "DATE": "Fecha",
+      "CREATION_DATE": "Fecha de creacion"
+    }
+  },
+  "WEBUSERS": {
+    "TITLE": "Usuarios web",
+    "LIST": {
+      "NAME": "Nombre",
+      "USER": "Usuario",
+      "CREATION_DATE": "Fecha de creacion",
+      "START_OF_OPERATION": "Inicio de operacion",
+      "STATUS": "Estado",
+      "ENABLED": "Habilitado",
+      "DISABLED": "Deshabilitado"
+    },
+    "CREATE": {
+      "WEBUSER_DATA": "Datos del usuario web",
+      "BANKING": "Banca",
+      "NAME": "Nombre",
+      "USER": "Usuario",
+      "PASSWORD": "Contraseña",
+      "STATUS": "Estado",
+      "CHANGE_PASSWORD": "Cambiar contraseña",
+      "DEPOSIT_WITHDRAW_BALANCE": "Depositar/Retirar balance"
+    },
+    "VIEW": {
+      "WEBUSER_DATA": "Datos del usuario web",
+      "BANKING": "Banca",
+      "OWNER": "Dueño",
+      "NAME": "Nombre",
+      "USER": "Usuario",
+      "STATUS": "Estado",
+      "ENABLED": "Habilidato",
+      "DISABLED": "Deshabilitado"
+    }
+  },
+  "USERS": {
+    "TITLE": "Usuarios",
+    "LIST": {
+      "NAME": "Nombre",
+      "USERNAME": "Usuario",
+      "PASSWORD": "Password",
+      "ROL": "Rol"
+    },
+    "CREATE": {
+      "NAME": "Nombre",
+      "USERNAME": "Usuario",
+      "PASSWORD": "Password",
+      "ROL": "Rol",
+      "CHANGE_PASSWORD": "Cambiar contraseña"
+    },
+    "VIEW": {
+      "NAME": "Nombre",
+      "USERNAME": "Usuario",
+      "ROL": "Rol"
+    }
   }
 }

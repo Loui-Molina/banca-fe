@@ -19,7 +19,6 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 import {TranslateService} from '@ngx-translate/core';
 import OriginObjectEnum = Transaction.OriginObjectEnum;
 import DestinationObjectEnum = Transaction.DestinationObjectEnum;
-import TypeEnum = TransactionDto.TypeEnum;
 
 @Component({
   selector: 'app-admin-transactions',
@@ -32,21 +31,20 @@ export class AdminTransactionsComponent implements OnInit {
   formTransaction: FormGroup;
   drawerTransaction = false;
   columns = [
-    {title: 'Fecha', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
-    {title: 'Origen', key: 'originName'},
-    {title: 'Destino', key: 'destinationName'},
-    {title: 'Descripcion', key: 'description'},
-    {title: 'Monto', type: 'numeric', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Ultimo balance', type: 'numeric', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Balance actual', type: 'numeric', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'Tipo', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
+    {title: 'TRANSACTIONS.LIST.DATE', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
+    {title: 'TRANSACTIONS.LIST.ORIGIN', key: 'originName'},
+    {title: 'TRANSACTIONS.LIST.DESTINATION', key: 'destinationName'},
+    {title: 'TRANSACTIONS.LIST.DESCRIPTION', key: 'description'},
+    {title: 'TRANSACTIONS.LIST.AMOUNT', type: 'numeric', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'TRANSACTIONS.LIST.LAST_BALANCE', type: 'numeric', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'TRANSACTIONS.LIST.ACTUAL_BALANCE', type: 'numeric', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
+    {title: 'TRANSACTIONS.LIST.TYPE', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
   ];
   transactions: TransactionDto[] = [];
   consortiums: ConsortiumDto[] = [];
   bankings: BankingDto[] = [];
   originObjectEnum = OriginObjectEnum;
   destinationObjectEnum = DestinationObjectEnum;
-  transactionEnum = TypeEnum;
 
   constructor(private datePipe: DatePipe,
               private userService: UserService,
@@ -91,7 +89,7 @@ export class AdminTransactionsComponent implements OnInit {
       return;
     }
     this.modalService.success({
-      nzTitle: 'Confirmar transferencia',
+      nzTitle: this.ts('TRANSACTIONS.CREATE.CONFIRM_TRANSACTION'),
       nzContent: this.ts('UTILS.ARE_YOU_SURE'),
       nzOnOk: () => this.onClickAcceptSubmit(),
       nzOkText: this.ts('UTILS.CONFIRM'),
@@ -117,7 +115,7 @@ export class AdminTransactionsComponent implements OnInit {
     } as CreateTransactionDto;
     this.transactionsService.transactionControllerCreateTransactionAdmin(transaction).subscribe(value => {
       this.loading = false;
-      this.messageService.create('success', 'Transaccion realizada correctamente');
+      this.messageService.create('success', this.ts('TRANSACTIONS.CREATE.TRANSACTION_SUCCESS'));
       this.closeDrawer('drawerTransaction');
       this.init();
     }, error => {
@@ -173,7 +171,16 @@ export class AdminTransactionsComponent implements OnInit {
 
 
   valueFormatterTipo(data: Transaction, column): any {
-    return data[column.key];
+    switch (data.type){
+      case 'adjust':
+        return this.ts('TRANSACTIONS.LIST.ADJUST');
+      case 'credit':
+        return this.ts('TRANSACTIONS.LIST.CREDIT');
+      case 'debit':
+        return this.ts('TRANSACTIONS.LIST.DEBIT');
+      default:
+        return data[column.key];
+    }
   }
 
   ngOnInit(): void {

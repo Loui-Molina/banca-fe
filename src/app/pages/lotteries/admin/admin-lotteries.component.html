@@ -11,7 +11,7 @@
            [getValidators]="getValidators"
            [parseData]="parseData"
            [setValueForm]="setValueForm"
-           [title]="'Loterias'"
+           [title]="'LOTTERIES.TITLE'"
            [viewTemplate]="viewTemplate">
   </app-abm>
 
@@ -21,7 +21,7 @@
 
       <div class="form-element">
         <label for="name">
-          {{'Nombre'|translate}}
+          {{'LOTTERIES.CREATE.NAME'|translate}}
         </label>
         <input formControlName="name" id="name" nz-input type="text">
       </div>
@@ -29,31 +29,31 @@
 
       <div class="form-element">
         <label for="nickname">
-          {{'Apodo'|translate}}
+          {{'LOTTERIES.CREATE.ALIAS'|translate}}
         </label>
         <input formControlName="nickname" id="nickname" nz-input type="text">
       </div>
 
       <div class="form-element">
         <label for="color">
-          {{'Color'|translate}}
+          {{'LOTTERIES.CREATE.COLOR'|translate}}
         </label>
         <input formControlName="color" id="color" nz-input type="color">
       </div>
 
       <div class="form-element">
         <label for="playTime">
-          {{'Hora de juego'|translate}}
+          {{'LOTTERIES.CREATE.PLAY_TIME'|translate}}
         </label>
 
         <nz-time-picker [nzMinuteStep]="5" formControlName="playTime" id="playTime" nzFormat="HH:mm"
-                        nzPlaceHolder="Hora de juego" (ngModelChange)="resetOpenAndCloseTime()"></nz-time-picker>
+                        [nzPlaceHolder]="'LOTTERIES.CREATE.PLAY_TIME'|translate" (ngModelChange)="resetOpenAndCloseTime()"></nz-time-picker>
       </div>
 
       <div nz-row nzGutter="8">
         <div class="form-element" nz-col nzXs="12">
           <label for="openTime">
-            {{'Apertura'|translate}}
+            {{'LOTTERIES.CREATE.OPEN_TIME'|translate}}
           </label>
           <nz-time-picker [nzDisabledHours]="getOpeningDisabledHours"
                           [nzDisabledMinutes]="getOpeningDisabledMinutes"
@@ -64,13 +64,13 @@
                           formControlName="openTime"
                           id="openTime"
                           nzFormat="HH:mm"
-                          [nzClearText]="'clear'"
-                          nzPlaceHolder="Hora de apertura">
+                          [nzClearText]="'UTILS.CLEAN'"
+                          [nzPlaceHolder]="'LOTTERIES.CREATE.OPEN_TIME'|translate">
           </nz-time-picker>
         </div>
         <div class="form-element" nz-col nzXs="12">
           <label for="closeTime">
-            {{'Cierre'|translate}}
+            {{'LOTTERIES.CREATE.CLOSE_TIME'|translate}}
           </label>
           <nz-time-picker [nzDisabledHours]="getClosingDisabledHours"
                           [nzDisabledMinutes]="getClosingDisabledMinutes"
@@ -81,31 +81,32 @@
                           formControlName="closeTime"
                           id="closeTime"
                           nzFormat="HH:mm"
-                          nzPlaceHolder="Hora de cierre">
+                          [nzClearText]="'UTILS.CLEAN'"
+                          [nzPlaceHolder]="'LOTTERIES.CREATE.CLOSE_TIME'|translate">
           </nz-time-picker>
         </div>
       </div>
 
       <div class="form-element" >
         <label for="day">
-          {{'dias'|translate}}
+          {{'LOTTERIES.CREATE.DAYS'|translate}}
         </label>
         <nz-select class="day-selector" formControlName="day" id="day" nzMaxTagCount="7"
                    nzMode="tags"
-                   nzPlaceHolder="Seleccione los dias de apertura">
-          <nz-option [nzLabel]="days.Mon" [nzValue]="days.Mon"></nz-option>
-          <nz-option [nzLabel]="days.Tue" [nzValue]="days.Tue"></nz-option>
-          <nz-option [nzLabel]="days.Wed" [nzValue]="days.Wed"></nz-option>
-          <nz-option [nzLabel]="days.Thu" [nzValue]="days.Thu"></nz-option>
-          <nz-option [nzLabel]="days.Fri" [nzValue]="days.Fri"></nz-option>
-          <nz-option [nzLabel]="days.Sat" [nzValue]="days.Sat"></nz-option>
-          <nz-option [nzLabel]="days.Sun" [nzValue]="days.Sun"></nz-option>
+                   [nzPlaceHolder]="'LOTTERIES.CREATE.SELECT_DAYS'|translate">
+          <nz-option [nzLabel]="('LOTTERIES.CREATE.'+days.Mon)|translate" [nzValue]="days.Mon"></nz-option>
+          <nz-option [nzLabel]="('LOTTERIES.CREATE.'+days.Tue)|translate" [nzValue]="days.Tue"></nz-option>
+          <nz-option [nzLabel]="('LOTTERIES.CREATE.'+days.Wed)|translate" [nzValue]="days.Wed"></nz-option>
+          <nz-option [nzLabel]="('LOTTERIES.CREATE.'+days.Thu)|translate" [nzValue]="days.Thu"></nz-option>
+          <nz-option [nzLabel]="('LOTTERIES.CREATE.'+days.Fri)|translate" [nzValue]="days.Fri"></nz-option>
+          <nz-option [nzLabel]="('LOTTERIES.CREATE.'+days.Sat)|translate" [nzValue]="days.Sat"></nz-option>
+          <nz-option [nzLabel]="('LOTTERIES.CREATE.'+days.Sun)|translate" [nzValue]="days.Sun"></nz-option>
         </nz-select>
       </div>
 
       <div class="form-element">
         <label for="status">
-          {{'status'|translate}}
+          {{'LOTTERIES.CREATE.STATUS'|translate}}
         </label>
         <nz-switch formControlName="status" id="status" style="padding-left: 10px"></nz-switch>
       </div>
@@ -116,73 +117,72 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <nz-descriptions [nzTitle]="'Loteria'| translate">
-        <nz-descriptions-item [nzTitle]="'Nombre'|translate">
+      <nz-descriptions [nzTitle]="'LOTTERIES.VIEW.LOTTERY_DATA'| translate">
+        <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.NAME'|translate">
           {{visibleObject.name}}
         </nz-descriptions-item>
-        <nz-descriptions-item [nzTitle]="'Alias'|translate">
+        <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.ALIAS'|translate">
           {{visibleObject.nickname}}
         </nz-descriptions-item>
-        <nz-descriptions-item [nzTitle]="'Horario de juego'|translate">
+        <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.PLAY_TIME'|translate">
           {{visibleObject.playTime}}
         </nz-descriptions-item>
-        <nz-descriptions-item [nzTitle]="'Horario apertura'|translate">
+        <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.OPEN_TIME'|translate">
           {{visibleObject.openTime}}
         </nz-descriptions-item>
-        <nz-descriptions-item [nzTitle]="'Horario cierre'|translate">
+        <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.CLOSE_TIME'|translate">
           {{visibleObject.closeTime}}
         </nz-descriptions-item>
-        <nz-descriptions-item [nzTitle]="'Estado'|translate">
-          {{visibleObject.status ? 'Habilitada' : 'Inhabilitada'}}
+        <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.STATUS'|translate">
+          {{visibleObject.status ? ('LOTTERIES.VIEW.ENABLED'|translate) : ('LOTTERIES.VIEW.DISABLED'|translate)}}
         </nz-descriptions-item>
-        <nz-descriptions-item [nzTitle]="'Color'|translate">
+        <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.COLOR'|translate">
           <nz-tag [nzColor]="visibleObject.color">{{visibleObject.color}}</nz-tag>
-          <!--          <div [ngStyle]="{backgroundColor:visibleObject.color}" class="box"></div>-->
         </nz-descriptions-item>
       </nz-descriptions>
 
       <div class="schedule">
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Mon)" class="schedule-day">
-          <span class="title">{{days.Mon}}</span>
+          <span class="title">{{('LOTTERIES.VIEW.'+days.Mon)|translate}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Mon)">{{visibleObject.openTime}}
-            <br>To<br>{{visibleObject.closeTime}}</p>
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Tue)" class="schedule-day">
-          <span class="title">{{days.Tue}}</span>
+          <span class="title">{{('LOTTERIES.VIEW.'+days.Tue)|translate}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Tue)">{{visibleObject.openTime}}
-            <br>To<br>{{visibleObject.closeTime}}</p>
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Wed)" class="schedule-day">
-          <span class="title">{{days.Wed}}</span>
+          <span class="title">{{('LOTTERIES.VIEW.'+days.Wed)|translate}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Wed)">{{visibleObject.openTime}}
-            <br>To<br>{{visibleObject.closeTime}}</p>
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Thu)" class="schedule-day">
-          <span class="title">{{days.Thu}}</span>
+          <span class="title">{{('LOTTERIES.VIEW.'+days.Thu)|translate}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Thu)">{{visibleObject.openTime}}
-            <br>To<br>{{visibleObject.closeTime}}</p>
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Fri)" class="schedule-day">
-          <span class="title">{{days.Fri}}</span>
+          <span class="title">{{('LOTTERIES.VIEW.'+days.Fri)|translate}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Fri)">{{visibleObject.openTime}}
-            <br>To<br>{{visibleObject.closeTime}}</p>
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sat)" class="schedule-day">
-          <span class="title">{{days.Sat}}</span>
+          <span class="title">{{('LOTTERIES.VIEW.'+days.Sat)|translate}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sat)">{{visibleObject.openTime}}
-            <br>To<br>{{visibleObject.closeTime}}</p>
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sun)" class="schedule-day">
-          <span class="title">{{days.Sun}}</span>
+          <span class="title">{{('LOTTERIES.VIEW.'+days.Sun)|translate}}</span>
           <br>
           <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sun)">{{visibleObject.openTime}}
-            <br>To<br>{{visibleObject.closeTime}}</p>
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
         </div>
       </div>
     </ng-container>

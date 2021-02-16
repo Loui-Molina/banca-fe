@@ -3,20 +3,21 @@ import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
-  Banking,
-  BankingDto,
   BankingService,
-  ConsortiumsService,
-  CreateBankingDto, CreateWebUserDto,
+  CreateWebUserDto,
   SignUpCredentialsDto,
-  UpdateBankingDto, UpdateWebUserDto,
-  User, WebUser, WebUserDto, WebusersService
+  UpdateWebUserDto,
+  User,
+  WebUser,
+  WebUserDto,
+  WebusersService
 } from 'local-packages/banca-api';
 import {HttpErrorResponse} from '@angular/common/http';
 import {UserInterface, UserService} from '../../services/user.service';
 import {ModalChangePasswordComponent} from '../../components/modals/modal-change-password/modal-change-password.component';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {ModalAddTransactionComponent} from '../../components/modals/modal-add-transaction/modal-add-transaction.component';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-web-users',
@@ -27,27 +28,27 @@ export class WebUsersComponent {
 
   columns = [
     {
-      title: 'Nombre',
+      title: 'WEBUSERS.LIST.NAME',
       key: 'ownerName'
     },
     {
-      title: 'Usuario',
+      title: 'WEBUSERS.LIST.USER',
       key: 'ownerUsername',
     },
     {
-      title: 'Creacion',
+      title: 'WEBUSERS.LIST.CREATION_DATE',
       key: 'creationDate',
       valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm:ss')
     },
     {
-      title: 'Inicio de operacion',
+      title: 'WEBUSERS.LIST.START_OF_OPERATION',
       key: 'startOfOperation',
       valueFormatter: (data) => this.datePipe.transform(data.startOfOperation, 'dd/MM/yyyy')
     },
     {
-      title: 'Estado',
+      title: 'WEBUSERS.LIST.STATUS',
       key: 'status',
-      valueFormatter: (data) => (data.status) ? 'Habilitada' : 'Inhabilitada'
+      valueFormatter: (data) => (data.status) ? this.ts('WEBUSERS.LIST.ENABLED') : this.ts('WEBUSERS.LIST.DISABLED')
     }
   ];
   defaultForm = {
@@ -66,6 +67,7 @@ export class WebUsersComponent {
   constructor(private datePipe: DatePipe,
               private formBuilder: FormBuilder,
               private webusersService: WebusersService,
+              private translateService: TranslateService,
               private userService: UserService,
               private nzModalService: NzModalService,
               private bankingService: BankingService) {
@@ -153,7 +155,7 @@ export class WebUsersComponent {
 
   changePassword(userId): void {
     this.nzModalService.create({
-      nzTitle: 'Cambiar Contraseña',
+      nzTitle: this.ts('WEBUSERS.CREATE.CHANGE_PASSWORD'),
       nzContent: ModalChangePasswordComponent,
       nzMaskClosable: false,
       nzClosable: false,
@@ -166,7 +168,7 @@ export class WebUsersComponent {
 
   editBalance(bankingId, webUserId): void {
     this.nzModalService.create({
-      nzTitle: 'Depositar/Retirar balance',
+      nzTitle: this.ts('WEBUSERS.CREATE.DEPOSIT_WITHDRAW_BALANCE'),
       nzContent: ModalAddTransactionComponent,
       nzMaskClosable: false,
       nzClosable: false,
@@ -176,5 +178,9 @@ export class WebUsersComponent {
       },
       nzFooter: null
     });
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

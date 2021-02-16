@@ -1,51 +1,53 @@
 <div class="inner-content mb-20">
-  <app-title-divider title="{{'HOME.DASHBOARD.DAILY_STATS' |translate}}"></app-title-divider>
+  <app-title-divider title="{{'DASHBOARD.DAILY_STATS.TITLE' |translate}}"></app-title-divider>
   <div [nzGutter]="8" class="fit-height" nz-row>
     <div class="mb-20" nz-col nzMd="24" nzXl="6" nzXs="24">
       <app-widget [icon]="'stock'"
                   [prefix]="false"
-                  [title]="'HOME.DASHBOARD.TICKETS'| translate | uppercase"
+                  [title]="'DASHBOARD.DAILY_STATS.TICKETS'| translate | uppercase"
                   [value]="ticketsSold"></app-widget>
     </div>
     <div class="mb-20" nz-col nzMd="24" nzXl="6" nzXs="24">
       <app-widget [backgroundColor]="'orange'"
                   [icon]="'rise'"
-                  [title]="'HOME.DASHBOARD.INGRESS'| translate | uppercase"
+                  [title]="'DASHBOARD.DAILY_STATS.PROFITS'| translate | uppercase"
                   [value]="profits"></app-widget>
     </div>
     <div class="mb-20" nz-col nzMd="24" nzXl="6" nzXs="24">
       <app-widget [backgroundColor]="'grey'"
                   [icon]="'fall'"
-                  [title]="'HOME.DASHBOARD.EGRESS'| translate | uppercase"
+                  [title]="'DASHBOARD.DAILY_STATS.PRIZES'| translate | uppercase"
                   [value]="prizes"></app-widget>
     </div>
     <div class="mb-20" nz-col nzMd="24" nzXl="6" nzXs="24">
       <app-widget [backgroundColor]="'green'"
                   [icon]="'fund'"
-                  [title]="'HOME.DASHBOARD.BALANCE' | translate | uppercase"
+                  [title]="'DASHBOARD.DAILY_STATS.BALANCE' | translate | uppercase"
                   [value]="balance"></app-widget>
     </div>
   </div>
 </div>
 <div class="inner-content fit-height mb-20">
-  <app-title-divider title="{{'Resumen Bancas' |translate}}"></app-title-divider>
+  <app-title-divider title="{{'DASHBOARD.BANKING_SUMMARY.TITLE' |translate}}"></app-title-divider>
   <app-shared-bankings-table></app-shared-bankings-table>
 </div>
 <div class="inner-content fit-height mb-20">
-  <app-title-divider title="{{'Resumen Usuarios web' |translate}}"></app-title-divider>
+  <app-title-divider [title]="'DASHBOARD.WEBUSERS_SUMMARY.TITLE' |translate"></app-title-divider>
   <app-shared-webusers-table></app-shared-webusers-table>
 </div>
 <div [nzGutter]="8" nz-row>
   <div nz-col nzXl="12" nzXs="24">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider
-        title="{{'Balance por banca' | translate}}"></app-title-divider>
-      <app-bar-chart [results]="barChartDataBankings" xAxisLabel="Bancas" yAxisLabel="Balance"></app-bar-chart>
+        [title]="'DASHBOARD.BALANCE_BY_BANKING' | translate"></app-title-divider>
+      <app-bar-chart [results]="barChartDataBankings"
+                     [xAxisLabel]="'DASHBOARD.X_LABEL_BANKING'|translate"
+                     [yAxisLabel]="'DASHBOARD.Y_LABEL_BALANCE'|translate"></app-bar-chart>
     </div>
   </div>
   <div nz-col nzXl="12" nzXs="24">
     <div class="inner-content mb-20" style="min-height: 460px;">
-      <app-title-divider title="Ventas vs Perdidas"></app-title-divider>
+      <app-title-divider [title]="'DASHBOARD.PRIZES_VS_PROFITS.TITLE'|translate"></app-title-divider>
       <ng-container *ngIf="hideDashboard">
         <div style="text-align: center">
           <img src="assets/imgs/nodata.png" style="width: 50%;padding-top: 10%; object-fit: cover" alt="No data"/>
@@ -61,16 +63,18 @@
   <div nz-col nzXl="24" nzXs="24">
     <div class="inner-content mb-20" style="min-height: 460px;">
       <app-title-divider
-        title="{{'Balance por banca' | translate}}"></app-title-divider>
-      <app-line-chart [results]="lineChartDataBankings" [xAxisTickFormatting]="dateTickFormatting" xAxisLabel="Bancas" yAxisLabel="Balance"></app-line-chart>
+        title="{{'DASHBOARD.BALANCE_BY_BANKING' | translate}}"></app-title-divider>
+      <app-line-chart [results]="lineChartDataBankings" [xAxisTickFormatting]="dateTickFormatting"
+                      [xAxisLabel]="'DASHBOARD.X_LABEL_BANKING'|translate"
+                      [yAxisLabel]="'DASHBOARD.Y_LABEL_BALANCE'|translate"></app-line-chart>
     </div>
   </div>
 </div>
 <div nz-col nzXs="24" style="padding-bottom: 10px;">
   <div class="inner-content mb-20">
-    <app-title-divider title="TOP 10 numeros mas jugados durante el dia"></app-title-divider>
+    <app-title-divider [title]="'DASHBOARD.TOP_10_NUMBERS'|translate"></app-title-divider>
     <div class="balls-container">
-      <p *ngIf="numbersPlayed.length === 0">{{'Todavia no se hicieron apuestas' | translate}}</p>
+      <p *ngIf="numbersPlayed.length === 0">{{'UTILS.NO_RESULTS' | translate}}</p>
       <app-ball *ngFor="let item of numbersPlayed" [background]="item.amount > 50 ? 'red' : 'grey'" [description]="item.amount" [title]="formatResult(item.number)"></app-ball>
     </div>
   </div>

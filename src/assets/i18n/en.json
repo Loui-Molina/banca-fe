@@ -1,9 +1,6 @@
 {
-  "ERROR": {
-    "TITLE": "Error",
-    "SYSTEM_ERROR": "System error",
-    "DIMENSION_ERROR": "Dimension error",
-    "NOT_AUTHORIZED": "Not authorised",
-    "ERROR_UNRECOGNIZED": "Unknown error"
+  "TRANSLATION": {
+    "ENGLISH": "English",
+    "SPANISH": "Spanish"
   }
 }

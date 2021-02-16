@@ -17,6 +17,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {UserInterface, UserService} from '../../services/user.service';
 import {ModalChangePasswordComponent} from '../../components/modals/modal-change-password/modal-change-password.component';
 import {NzModalService} from 'ng-zorro-antd/modal';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bankings',
@@ -27,27 +28,27 @@ export class BankingsComponent {
 
   columns = [
     {
-      title: 'Banca',
+      title: 'BANKINGS.LIST.NAME',
       key: 'name'
     },
     {
-      title: 'Usuario',
+      title: 'BANKINGS.LIST.USER',
       key: 'ownerUsername',
     },
     {
-      title: 'Creacion',
+      title: 'BANKINGS.LIST.CREATION_DATE',
       key: 'creationDate',
       valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm:ss')
     },
     {
-      title: 'Inicio de operacion',
+      title: 'BANKINGS.LIST.START_OF_OPERATION',
       key: 'startOfOperation',
       valueFormatter: (data) => this.datePipe.transform(data.startOfOperation, 'dd/MM/yyyy')
     },
     {
-      title: 'Estado',
+      title: 'BANKINGS.LIST.STATUS',
       key: 'status',
-      valueFormatter: (data) => (data.status) ? 'Habilitada' : 'Inhabilitada'
+      valueFormatter: (data) => (data.status) ? this.ts('BANKINGS.LIST.ENABLED') : this.ts('BANKINGS.LIST.DISABLED')
     }
   ];
   defaultForm = {
@@ -72,6 +73,7 @@ export class BankingsComponent {
   constructor(private datePipe: DatePipe,
               private formBuilder: FormBuilder,
               private bankingService: BankingService,
+              private translateService: TranslateService,
               private userService: UserService,
               private nzModalService: NzModalService,
               private consortiumsService: ConsortiumsService) {
@@ -188,7 +190,7 @@ export class BankingsComponent {
 
   changePassword(userId): void {
     this.nzModalService.create({
-      nzTitle: 'Cambiar Contraseña',
+      nzTitle: this.ts('BANKINGS.CREATE.CHANGE_PASSWORD'),
       nzContent: ModalChangePasswordComponent,
       nzMaskClosable: false,
       nzClosable: false,
@@ -197,5 +199,9 @@ export class BankingsComponent {
       },
       nzFooter: null
     });
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

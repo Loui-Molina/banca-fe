@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {DashboardBankingDto, DashboardConsortiumDto, DashboardService} from 'local-packages/banca-api';
+import {DashboardConsortiumDto, DashboardService} from 'local-packages/banca-api';
 
 @Component({
   selector: 'app-admin-consortiums-table',
@@ -9,18 +9,93 @@ import {DashboardBankingDto, DashboardConsortiumDto, DashboardService} from 'loc
 })
 export class AdminConsortiumsTableComponent implements OnInit {
   columns: ColumnItem[] = [
-    {title: 'Consorcio', key: 'name', sum: false, titleFooter: 'Total', width: '100px'},
-    {title: 'W', tooltip: 'Winner', key: 'winner', sum: true, type: 'numeric'},
-    {title: 'L', tooltip: 'Loser', key: 'loser', sum: true, type: 'numeric'},
-    {title: 'P', tooltip: 'Pending', key: 'pending', sum: true, type: 'numeric'},
-    {title: 'C', tooltip: 'Claimed', key: 'claimed', sum: true, type: 'numeric'},
-    {title: 'E', tooltip: 'Expired', key: 'expired', sum: true, type: 'numeric'},
-    {title: 'Ca', tooltip: 'Cancelled', key: 'cancelled', sum: true, type: 'numeric'},
-    {title: 'T', tooltip: 'Total', key: 'total', sum: true, type: 'numeric'},
-    {title: 'Profits', tooltip: 'Profits', key: 'profits', sum: true, prefix: '$', type: 'numeric'},
-    {title: 'Prizes', tooltip: 'Prizes', key: 'prizes', sum: true, prefix: '$', type: 'numeric'},
-    {title: 'P. Prizes', tooltip: 'Pending prizes', key: 'pendingPrizes', sum: true, prefix: '$', type: 'numeric'},
-    {title: 'Balance', tooltip: 'Balance', key: 'balance', sum: true, prefix: '$', type: 'numeric'},
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.CONSORTIUM', key: 'name',
+      sum: false,
+      titleFooter: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.FOOTER_TOTAL',
+      width: '100px'
+    },
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.WINNER',
+      tooltip: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOOLTIP_WINNER',
+      key: 'winner',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.LOSER',
+      tooltip: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOOLTIP_LOSER',
+      key: 'loser',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.PENDING',
+      tooltip: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOOLTIP_PENDING',
+      key: 'pending',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.CLAIMED',
+      tooltip: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOOLTIP_CLAIMED',
+      key: 'claimed',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.EXPIRED',
+      tooltip: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOOLTIP_EXPIRED',
+      key: 'expired',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.CANCELLED',
+      tooltip: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOOLTIP_CANCELLED',
+      key: 'cancelled',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOTAL',
+      tooltip: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOOLTIP_TOTAL',
+      key: 'total',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.PROFITS',
+      tooltip: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOOLTIP_PROFITS',
+      key: 'profits',
+      sum: true,
+      prefix: '$',
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.PRIZES',
+      tooltip: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOOLTIP_PRIZES',
+      key: 'prizes',
+      sum: true,
+      prefix: '$',
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.PENDING_PRIZES',
+      tooltip: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOOLTIP_PENDING_PRIZES',
+      key: 'pendingPrizes',
+      sum: true,
+      prefix: '$',
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.BALANCE',
+      tooltip: 'DASHBOARD.CONSORTIUM_SUMMARY.LIST.TOOLTIP_BALANCE',
+      key: 'balance',
+      sum: true,
+      prefix: '$',
+      type: 'numeric'
+    },
   ];
   consortiums: DashboardConsortiumDto[] = [];
 

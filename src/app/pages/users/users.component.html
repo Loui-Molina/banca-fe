@@ -8,7 +8,7 @@
          [form]="formABM"
          [getValidators]="getValidators"
          [setValueForm]="setValueForm"
-         [title]="'SETTINGS.USERS.TITLE'"
+         [title]="'USERS.TITLE'"
          [viewTemplate]="viewTemplate">
 </app-abm>
 
@@ -18,41 +18,41 @@
 
     <div>
       <label for="name">
-        {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}
+        {{'USERS.CREATE.NAME'|translate}}
       </label>
       <input formControlName="name" id="name" nz-input type="text">
     </div>
 
     <div>
       <label for="username">
-        {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
+        {{'USERS.CREATE.USERNAME'|translate}}
       </label>
       <input [minLength]="4" formControlName="username" id="username" nz-input type="text">
     </div>
 
     <ng-container *ngIf="mode === 'C'">
       <label for="password">
-        {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
+        {{'USERS.CREATE.PASSWORD'|translate}}
       </label>
       <input [maxLength]="35" [minLength]="8" formControlName="password" id="password" nz-input type="text">
     </ng-container>
 
     <div>
       <label for="role">
-        {{'Rol'|translate}}
+        {{'USERS.CREATE.ROL'|translate}}
       </label>
       <nz-select formControlName="role" id="role" style="width: 100%;">
         <nz-option [nzLabel]="roleEnum.Admin" [nzValue]="roleEnum.Admin"></nz-option>
         <nz-option [nzLabel]="roleEnum.Consortium" [nzValue]="roleEnum.Consortium"></nz-option>
         <nz-option [nzLabel]="roleEnum.Banker" [nzValue]="roleEnum.Banker"></nz-option>
         <nz-option [nzLabel]="roleEnum.Carrier" [nzValue]="roleEnum.Carrier"></nz-option>
-        <nz-option [nzLabel]="roleEnum.Punter" [nzValue]="roleEnum.Punter"></nz-option>
+        <nz-option [nzLabel]="roleEnum.Webuser" [nzValue]="roleEnum.Webuser"></nz-option>
         <nz-option [nzLabel]="roleEnum.Supervisor" [nzValue]="roleEnum.Supervisor"></nz-option>
       </nz-select>
     </div>
 
     <ng-container *ngIf="mode === 'U'">
-      <p class="button-link" (click)="changePassword(visibleObject._id)">Cambiar Contraseña</p>
+      <p class="button-link" (click)="changePassword(visibleObject._id)">{{'USERS.CREATE.CHANGE_PASSWORD'|translate}}</p>
     </ng-container>
   </form>
 </ng-template>
@@ -62,21 +62,21 @@
   <ng-container *ngIf="visibleObject">
     <div class="description">
       <span>
-        {{'SETTINGS.USERS.COLUMNS.NAME'|translate}}:
+        {{'USERS.VIEW.NAME'|translate}}:
       </span>
       <b>{{visibleObject.name}}</b>
     </div>
 
     <div class="description">
       <span>
-        {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}:
+        {{'USERS.VIEW.USERNAME'|translate}}:
       </span>
       <b>{{visibleObject.username}}</b>
     </div>
 
     <div class="description">
       <span>
-        {{'Rol'|translate}}:
+        {{'USERS.VIEW.ROL'|translate}}:
       </span>
       <b>{{visibleObject.role}}</b>
     </div>

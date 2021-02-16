@@ -1,31 +1,24 @@
 <div class="row-style" nz-row>
   <div class="col-style" nz-col nzSpan="24">
-
-    <nz-card class="card-style" nzTitle="Login">
-
+    <nz-card class="card-style" [nzTitle]="'LOGIN.TITLE'|translate">
       <form (ngSubmit)="submitForm()" [formGroup]="validateForm" class="login-form" nz-form>
         <nz-form-item>
-          <nz-form-control nzErrorTip="Please input your username!">
+          <nz-form-control [nzErrorTip]="'LOGIN.ERROR_USERNAME'|translate">
             <nz-input-group nzPrefixIcon="user">
-              <input formControlName="username" nz-input placeholder="Username" type="text"/>
+              <input formControlName="username" nz-input [placeholder]="'LOGIN.USERNAME'|translate" type="text"/>
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-control nzErrorTip="Please input your Password!">
+          <nz-form-control [nzErrorTip]="'LOGIN.ERROR_PASSWORD'|translate">
             <nz-input-group nzPrefixIcon="lock">
-              <input formControlName="password" nz-input placeholder="Password" type="password"/>
+              <input formControlName="password" nz-input [placeholder]="'LOGIN.PASSWORD'|translate" type="password"/>
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
-        <div class="login-form-margin" nz-row>
-          <div [nzSpan]="12" nz-col>
-            <label formControlName="remember" nz-checkbox>
-              <span>Remember me</span>
-            </label>
-          </div>
-        </div>
-        <button [nzLoading]="loading" [nzType]="'primary'" class="login-form-button login-form-margin" nz-button>Log in</button>
+        <button [nzLoading]="loading" [nzType]="'primary'" class="login-form-button login-form-margin" nz-button>
+          {{'UTILS.ACCEPT'|translate}}
+        </button>
       </form>
     </nz-card>
   </div>

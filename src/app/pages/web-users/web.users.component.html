@@ -10,17 +10,17 @@
            [getValidators]="getValidators"
            [parseData]="parseData"
            [setValueForm]="setValueForm"
-           [title]="'Usuarios web'"
+           [title]="'WEBUSERS.TITLE'"
            [viewTemplate]="viewTemplate">
   </app-abm>
 
   <ng-template #formTemplate let-mode let-visibleObject="visibleObject">
     <form [formGroup]="formABM">
-      <nz-divider [nzText]="'Datos del usuario web'" class="title" nzOrientation="left" style="margin-top: 0"></nz-divider>
+      <nz-divider [nzText]="'WEBUSERS.CREATE.WEBUSER_DATA'|translate" class="title" nzOrientation="left" style="margin-top: 0"></nz-divider>
 
       <div *ngIf="[this.userRole.Admin, this.userRole.Consortium].includes(this.user?.role)" class="form-element">
         <label for="selectedBanking">
-          {{'Banca'|translate}}
+          {{'WEBUSERS.CREATE.BANKING'|translate}}
         </label>
         <nz-select formControlName="selectedBanking" id="selectedBanking">
           <nz-option *ngFor="let option of bankings" [nzLabel]="option.name" [nzValue]="option._id"></nz-option>
@@ -29,36 +29,37 @@
 
       <div>
         <label for="ownerName">
-          {{'Nombre'|translate}}
+          {{'WEBUSERS.CREATE.NAME'|translate}}
         </label>
         <input formControlName="ownerName" id="ownerName" nz-input type="text">
       </div>
 
       <div>
         <label for="username">
-          {{'SETTINGS.USERS.COLUMNS.USERNAME'|translate}}
+          {{'WEBUSERS.CREATE.USER'|translate}}
         </label>
         <input [minLength]="4" formControlName="username" id="username" nz-input type="text">
       </div>
 
       <ng-container *ngIf="mode === 'C'">
         <label for="password">
-          {{'SETTINGS.USERS.COLUMNS.PASSWORD'|translate}}
+          {{'WEBUSERS.CREATE.PASSWORD'|translate}}
         </label>
         <input [maxLength]="35" [minLength]="8" formControlName="password" id="password" nz-input type="text">
       </ng-container>
 
       <ng-container *ngIf="mode === 'U'">
-        <p class="button-link" (click)="changePassword(visibleObject.ownerUserId)">Cambiar Contraseña</p>
+        <p class="button-link" (click)="changePassword(visibleObject.ownerUserId)">{{'WEBUSERS.CREATE.CHANGE_PASSWORD'|translate}}</p>
       </ng-container>
 
       <ng-container *ngIf="mode === 'U' && this.userRole.Banker === this.user?.role">
-        <p class="button-link" (click)="editBalance(visibleObject.bankingId, visibleObject._id)">Depositar/Retirar balance</p>
+        <p class="button-link"
+           (click)="editBalance(visibleObject.bankingId, visibleObject._id)">{{'WEBUSERS.CREATE.DEPOSIT_WITHDRAW_BALANCE'|translate}}</p>
       </ng-container>
 
       <div class="form-element">
         <label for="status">
-          {{'Estado'|translate}}
+          {{'WEBUSERS.CREATE.STATUS'|translate}}
         </label>
         <nz-switch formControlName="status" id="status" style="padding-left: 10px"></nz-switch>
       </div>
@@ -68,19 +69,19 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-      <nz-descriptions [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }" [nzTitle]="'Usuario web'|translate">
-        <nz-descriptions-item [nzTitle]="'HOME.BANKINGS.BANKING.STATUS'|translate">
-          {{visibleObject.status}}
+      <nz-descriptions [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }" [nzTitle]="'WEBUSERS.VIEW.WEBUSER_DATA'|translate">
+        <nz-descriptions-item [nzTitle]="'WEBUSERS.VIEW.STATUS'|translate">
+          {{visibleObject.status ? ('WEBUSERS.VIEW.ENABLED'|translate) : ('WEBUSERS.VIEW.DISABLED'|translate)}}
         </nz-descriptions-item>
-        <nz-descriptions-item [nzTitle]="'Banca'| translate">
+        <nz-descriptions-item [nzTitle]="'WEBUSERS.VIEW.BANKING'| translate">
           {{visibleObject.bankingId && getBankingName(visibleObject.bankingId)}}
         </nz-descriptions-item>
       </nz-descriptions>
-      <nz-descriptions [nzTitle]="'dueño'|translate">
-        <nz-descriptions-item [nzTitle]="'ownerName'| translate">
+      <nz-descriptions [nzTitle]="'WEBUSERS.VIEW.OWNER'|translate">
+        <nz-descriptions-item [nzTitle]="'WEBUSERS.VIEW.NAME'| translate">
           {{visibleObject.ownerName}}
         </nz-descriptions-item>
-        <nz-descriptions-item [nzTitle]="'username'| translate">
+        <nz-descriptions-item [nzTitle]="'WEBUSERS.VIEW.USER'| translate">
           {{visibleObject.ownerUsername}}
         </nz-descriptions-item>
       </nz-descriptions>

@@ -5,6 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import OriginObjectEnum = Transaction.OriginObjectEnum;
 import TypeEnum = Transaction.TypeEnum;
+import {TranslateService} from '@ngx-translate/core';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class ModalAddTransactionComponent implements OnInit {
 
   constructor(private modal: NzModalRef,
               private transactionsService: TransactionsService,
+              private translateService: TranslateService,
               private messageService: NzMessageService) { }
 
   ngOnInit(): void {
@@ -45,11 +47,11 @@ export class ModalAddTransactionComponent implements OnInit {
       originObject: this.typeSelected === this.type.Credit ? OriginObjectEnum.Webuser : OriginObjectEnum.Banking,
       destinationId: this.typeSelected === this.type.Credit ? this.bankingId : this.webUserId,
       destinationObject: this.typeSelected === this.type.Credit ? OriginObjectEnum.Banking : OriginObjectEnum.Webuser,
-      description: this.typeSelected === this.type.Credit ? 'Add balance to a user' : 'Remove balance to a user',
+      description: this.typeSelected === this.type.Credit ? this.ts('UTILS.DEPOSIT_BALANCE') : this.ts('UTILS.WITHDRAW_BALANCE'),
     };
     this.transactionsService.transactionControllerCreateTransactionBanking(body).subscribe(value => {
       this.loading = false;
-      this.messageService.create('success', 'Transaccion realizada correctamente');
+      this.messageService.create('success', this.ts('UTILS.TRANSACTION_SUCCESS'));
       this.destroyModal();
     }, error => {
       this.loading = false;
@@ -59,5 +61,9 @@ export class ModalAddTransactionComponent implements OnInit {
 
   destroyModal(): void {
     this.modal.destroy();
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

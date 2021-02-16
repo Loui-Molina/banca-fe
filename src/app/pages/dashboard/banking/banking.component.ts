@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {DashboardService, PlayedNumbersDto} from 'local-packages/banca-api';
 import {DatePipe} from '@angular/common';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard-banking',
@@ -19,7 +20,7 @@ export class BankingComponent implements OnInit {
   barChartDataBalanceBankings = [];
   numbersPlayed: PlayedNumbersDto[] = [];
 
-  constructor(private dashboardService: DashboardService, private datePipe: DatePipe) {
+  constructor(private dashboardService: DashboardService, private translateService: TranslateService, private datePipe: DatePipe) {
   }
 
   dateTickFormatting = (val: string) => {
@@ -38,11 +39,11 @@ export class BankingComponent implements OnInit {
       this.balance = res.balance;
       this.pieChartData = [
         {
-          name: 'Ventas',
+          name: this.ts('DASHBOARD.PRIZES_VS_PROFITS.PROFITS'),
           value: res.profits
         },
         {
-          name: 'Perdidas',
+          name: this.ts('DASHBOARD.PRIZES_VS_PROFITS.PRIZES'),
           value: res.prizes
         }
       ];
@@ -67,5 +68,9 @@ export class BankingComponent implements OnInit {
     }, error => {
       throw new HttpErrorResponse(error);
     });
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

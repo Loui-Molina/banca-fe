@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {DashboardGraphBankingDto, DashboardService, PlayedNumbersDto} from 'local-packages/banca-api';
 import {DatePipe} from '@angular/common';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard-consortium',
@@ -21,7 +22,7 @@ export class ConsortiumComponent implements OnInit {
   numbersPlayed: PlayedNumbersDto[] = [];
   hideDashboard = true;
 
-  constructor(private dashboardService: DashboardService, private datePipe: DatePipe) {
+  constructor(private dashboardService: DashboardService, private translateService: TranslateService, private datePipe: DatePipe) {
   }
 
   formatResult(value: number): string {
@@ -41,11 +42,11 @@ export class ConsortiumComponent implements OnInit {
       this.balance = res.balance;
       this.pieChartData = [
         {
-          name: 'Ventas',
+          name: this.ts('DASHBOARD.PRIZES_VS_PROFITS.PROFITS'),
           value: res.profits
         },
         {
-          name: 'Perdidas',
+          name: this.ts('DASHBOARD.PRIZES_VS_PROFITS.PRIZES'),
           value: res.prizes
         }
       ];
@@ -71,5 +72,9 @@ export class ConsortiumComponent implements OnInit {
 
   dateTickFormatting = (val: string) => {
     return this.datePipe.transform(new Date(val), 'dd-MM-yy');
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

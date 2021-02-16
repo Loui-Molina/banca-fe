@@ -8,7 +8,7 @@
     </nz-page-header-extra>
     <nz-page-header-content>
       <nz-descriptions [nzBordered]="false" nzSize="small">
-        <nz-descriptions-item [nzSpan]="3" nzTitle="{{'UTILS.AMOUNT' | translate}}">
+        <nz-descriptions-item [nzSpan]="3" nzTitle="{{'UTILS.QUANTITY' | translate}}">
           {{dataDisplayed.length}}
         </nz-descriptions-item>
       </nz-descriptions>
@@ -30,11 +30,11 @@
           <nz-dropdown-menu #filterMenu="nzDropdownMenu">
             <div class="ant-table-filter-dropdown">
               <div class="search-box">
-                <input [(ngModel)]="filterValue[column.key]" nz-input placeholder="Search name" type="text"/>
+                <input [(ngModel)]="filterValue[column.key]" nz-input [placeholder]="'UTILS.SEARCH'|translate" type="text"/>
                 <button (click)="search(column.key)" class="search-button" nz-button nzSize="small" nzType="primary">
-                  Buscar
+                  {{'UTILS.SEARCH'|translate}}
                 </button>
-                <button (click)="reset(column.key)" nz-button nzSize="small">Limpiar</button>
+                <button (click)="reset(column.key)" nz-button nzSize="small">{{'UTILS.CLEAN'|translate}}</button>
               </div>
             </div>
           </nz-dropdown-menu>

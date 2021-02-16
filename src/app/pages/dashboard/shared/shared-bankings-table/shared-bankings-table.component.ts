@@ -9,18 +9,94 @@ import {DashboardBankingDto, DashboardConsortiumDto, DashboardService} from 'loc
 })
 export class SharedBankingsTableComponent implements OnInit {
   columns: ColumnItem[] = [
-    {title: 'Banca', key: 'name', sum: false, titleFooter: 'Total', width: '100px'},
-    {title: 'W', tooltip: 'Winner', key: 'winner', sum: true, type: 'numeric'},
-    {title: 'L', tooltip: 'Loser', key: 'loser', sum: true, type: 'numeric'},
-    {title: 'P', tooltip: 'Pending', key: 'pending', sum: true, type: 'numeric'},
-    {title: 'C', tooltip: 'Claimed', key: 'claimed', sum: true, type: 'numeric'},
-    {title: 'E', tooltip: 'Expired', key: 'expired', sum: true, type: 'numeric'},
-    {title: 'Ca', tooltip: 'Cancelled', key: 'cancelled', sum: true, type: 'numeric'},
-    {title: 'T', tooltip: 'Total', key: 'total', sum: true, type: 'numeric'},
-    {title: 'Profits', tooltip: 'Profits', key: 'profits', sum: true, prefix: '$', type: 'numeric'},
-    {title: 'Prizes', tooltip: 'Prizes', key: 'prizes', sum: true, prefix: '$', type: 'numeric'},
-    {title: 'P. Prizes', tooltip: 'Pending prizes', key: 'pendingPrizes', sum: true, prefix: '$', type: 'numeric'},
-    {title: 'Balance', tooltip: 'Balance', key: 'balance', sum: true, prefix: '$', type: 'numeric'},
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.BANKING',
+      key: 'name',
+      sum: false,
+      titleFooter: 'DASHBOARD.BANKING_SUMMARY.LIST.FOOTER_TOTAL',
+      width: '100px'
+    },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.WINNER',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_WINNER',
+      key: 'winner',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.LOSER',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_LOSER',
+      key: 'loser',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.PENDING',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_PENDING',
+      key: 'pending',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.CLAIMED',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_CLAIMED',
+      key: 'claimed',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.EXPIRED',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_EXPIRED',
+      key: 'expired',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.CANCELLED',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_CANCELLED',
+      key: 'cancelled',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.TOTAL',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_TOTAL',
+      key: 'total',
+      sum: true,
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.PROFITS',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_PROFITS',
+      key: 'profits',
+      sum: true,
+      prefix: '$',
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.PRIZES',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_PRIZES',
+      key: 'prizes',
+      sum: true,
+      prefix: '$',
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.PENDING_PRIZES',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_PENDING_PRIZES',
+      key: 'pendingPrizes',
+      sum: true,
+      prefix: '$',
+      type: 'numeric'
+    },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.BALANCE',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_BALANCE',
+      key: 'balance',
+      sum: true,
+      prefix: '$',
+      type: 'numeric'
+    },
   ];
   bankings: DashboardBankingDto[] = [];
 

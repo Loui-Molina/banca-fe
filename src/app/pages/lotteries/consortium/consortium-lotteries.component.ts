@@ -26,29 +26,29 @@ export class ConsortiumLotteriesComponent implements OnInit {
 
   columns = [
     {
-      title: 'Nombre',
+      title: 'LOTTERIES.LIST.NAME',
       key: 'name'
     },
     {
-      title: 'Alias',
+      title: 'LOTTERIES.LIST.ALIAS',
       key: 'nickname'
     },
     {
-      title: 'Hora de juego',
+      title: 'LOTTERIES.LIST.PLAY_TIME',
       key: 'playTime'
     },
     {
-      title: 'Apertura',
+      title: 'LOTTERIES.LIST.OPEN_TIME',
       key: 'openTime'
     },
     {
-      title: 'Cierre',
+      title: 'LOTTERIES.LIST.CLOSE_TIME',
       key: 'closeTime'
     },
     {
-      title: 'Estado',
+      title: 'LOTTERIES.LIST.STATUS',
       key: 'status',
-      valueFormatter: (data) => (data.status) ? 'Habilitada' : 'Inhabilitada'
+      valueFormatter: (data) => (data.status) ? this.ts('LOTTERIES.LIST.ENABLED') : this.ts('LOTTERIES.LIST.DISABLED')
     }];
   fetcher: Observable<ConsortiumLotteryDto[]> = this.lotteriesService.consortiumLotteryControllerGetAll();
   lotteries: ConsortiumLotteryDto[] = [];
@@ -103,7 +103,7 @@ export class ConsortiumLotteriesComponent implements OnInit {
   availableBettingPlays = [
     {title: 'Direct', key: 'betting.' + BettingLimitPlayTypeEnum.Direct},
     {title: 'Pale', key: 'betting.' + BettingLimitPlayTypeEnum.Pale},
-    {title: 'Tripleta', key: 'betting.' + BettingLimitPlayTypeEnum.Tripleta}
+    {title: 'Triplet', key: 'betting.' + BettingLimitPlayTypeEnum.Tripleta}
   ];
 
   constructor(
@@ -214,5 +214,9 @@ export class ConsortiumLotteriesComponent implements OnInit {
       betAmount: valueForm[playType],
       status: valueForm['status.' + playType]
     };
+  }
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

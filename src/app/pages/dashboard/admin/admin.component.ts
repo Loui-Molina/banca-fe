@@ -9,6 +9,7 @@ import {
   DashboardService
 } from 'local-packages/banca-api';
 import {HttpErrorResponse} from '@angular/common/http';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -28,12 +29,14 @@ export class AdminComponent implements OnInit {
   barChartDataConsortiums: DashboardGraphConsortiumDto[] = [];
   barChartDataBankings: DashboardGraphBankingDto[] = [];
 
-  constructor(private dashboardService: DashboardService) {
+  constructor(private dashboardService: DashboardService, private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
     this.dashboardService.dashboardControllerGetDashboardDiagram().subscribe(res => {
-      this.clusters = res.clusters;
+      this.clusters = res.clusters.map(item => {
+        return {...item, label: this.ts(item.label)};
+      });
       this.links = res.links;
       this.nodes = res.nodes;
       if (this.links.length > 0 || this.nodes.length > 0) {
@@ -62,5 +65,8 @@ export class AdminComponent implements OnInit {
     }, error => {
       throw new HttpErrorResponse(error);
     });
+  }
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
   }
 }

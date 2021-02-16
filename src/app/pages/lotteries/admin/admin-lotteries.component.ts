@@ -20,29 +20,29 @@ export class AdminLotteriesComponent implements OnInit {
 
   columns = [
     {
-      title: 'Nombre',
+      title: 'LOTTERIES.LIST.NAME',
       key: 'name'
     },
     {
-      title: 'Alias',
+      title: 'LOTTERIES.LIST.ALIAS',
       key: 'nickname'
     },
     {
-      title: 'Hora de juego',
+      title: 'LOTTERIES.LIST.PLAY_TIME',
       key: 'playTime'
     },
     {
-      title: 'Apertura',
+      title: 'LOTTERIES.LIST.OPEN_TIME',
       key: 'openTime'
     },
     {
-      title: 'Cierre',
+      title: 'LOTTERIES.LIST.CLOSE_TIME',
       key: 'closeTime'
     },
     {
-      title: 'Estado',
+      title: 'LOTTERIES.LIST.STATUS',
       key: 'status',
-      valueFormatter: (data) => (data.status) ? 'Habilitada' : 'Inhabilitada'
+      valueFormatter: (data) => (data.status) ? this.ts('LOTTERIES.LIST.ENABLED') : this.ts('LOTTERIES.LIST.DISABLED')
     }];
   fetcher: Observable<AdminLotteryResDto[]> = this.lotteriesService.adminLotteryControllerGetAll();
   formABM: FormGroup;
@@ -202,15 +202,14 @@ export class AdminLotteriesComponent implements OnInit {
     return !(this.formABM.value.playTime && this.formABM.value.openTime);
   };
 
-  private ts(key: string, params?): string {
-    return this.translateService.instant(key, params);
-  }
-
   resetOpenAndCloseTime = (): void => {
-    console.log(this.formABM);
     if (this.formABM.controls.playTime.touched) {
       this.formABM.controls.openTime.setValue(null);
       this.formABM.controls.closeTime.setValue(null);
     }
   };
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
+  }
 }
