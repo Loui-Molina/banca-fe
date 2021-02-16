@@ -27,20 +27,36 @@ export function getCombinations(chars: string[], length: number = null, separato
   return result;
 }
 
-
 export function printTicket(bet: BetDto, banking: Banking): void {
   const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
   let toWrite = '<html>\n' +
     '<head>\n' +
     '  <title>TICKET #' + bet._id.toString() + '</title>\n' +
+    '  <style type="text/css" media="print">\n' +
+    '    @media print {\n' +
+    '      html, body {\n' +
+    '        width: 80mm;\n' +
+    '        position:absolute;\n' +
+    '      }\n' +
+    '      @page\n' +
+    '      {\n' +
+    '        \n' +
+    '        margin: 6mm;\n' +
+    '      }\n' +
+    '      html, body\n' +
+    '      {\n' +
+    '        \n' +
+    '        width: 99%;\n' +
+    '      }\n' +
+    '    }\n' +
+    '  </style>\n' +
     '</head>' +
-    '<body style="font-family: monospace">\n' +
+    '<body style="font-family: monospace; margin: 0; width:100%">\n' +
     '<div class="page">\n' +
     '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;">' + banking.header + '</h3>\n' +
     '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;">TICKET #' + bet._id.toString() + '</h3>\n' +
     '  <h4 style="text-align: center; border-bottom: 1px dashed #000; margin: 0">SN:' + bet.sn + '</h4>\n' +
     '  <p>Fecha: ' + bet.date.toString() + '</p>\n' +
-    '  <p>Banca: </p>\n' + // TODO pasar banca
     '  <h4 style="text-align: center; border-bottom: 1px dashed #000; border-top: 1px dashed #000;margin: 0">JUGADAS</h4>\n' +
     '  <table style="width: 100%">\n' +
     '    <tr>\n' +
@@ -66,48 +82,6 @@ export function printTicket(bet: BetDto, banking: Banking): void {
     '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;border-bottom: 1px dashed #000; ">' + banking.footer + '</h3>\n' +
     '</div>\n' +
     '</body>\n' +
-    '<style>\n' +
-    '  body {\n' +
-    '    margin: 0;\n' +
-    '    padding: 0;\n' +
-    '    background-color: #FAFAFA;\n' +
-    '    font: 12pt "Tahoma";\n' +
-    '  }\n' +
-    '\n' +
-    '  * {\n' +
-    '    box-sizing: border-box;\n' +
-    '    -moz-box-sizing: border-box;\n' +
-    '  }\n' +
-    '\n' +
-    '  .page {\n' +
-    '    width: 21cm;\n' +
-    '    min-height: 29.7cm;\n' +
-    '    padding: 2cm;\n' +
-    '    margin: 1cm auto;\n' +
-    '    border: 1px #D3D3D3 solid;\n' +
-    '    border-radius: 5px;\n' +
-    '    background: white;\n' +
-    '    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);\n' +
-    '  }\n' +
-    '\n' +
-    '  @page {\n' +
-    '    size: A4;\n' +
-    '    margin: 0;\n' +
-    '  }\n' +
-    '\n' +
-    '  @media print {\n' +
-    '    .page {\n' +
-    '      margin: 0;\n' +
-    '      border: initial;\n' +
-    '      border-radius: initial;\n' +
-    '      width: initial;\n' +
-    '      min-height: initial;\n' +
-    '      box-shadow: initial;\n' +
-    '      background: initial;\n' +
-    '      page-break-after: always;\n' +
-    '    }\n' +
-    '  }\n' +
-    '</style>\n' +
     '</html>';
   WindowPrt.document.write(toWrite);
   WindowPrt.document.close();
