@@ -22,6 +22,7 @@ import {NzDividerModule} from 'ng-zorro-antd/divider';
 import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
 import {NzTagModule} from 'ng-zorro-antd/tag';
+import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import {NzTagModule} from 'ng-zorro-antd/tag';
     NzDividerModule,
     NzTableModule,
     NzDescriptionsModule,
-    NzTagModule
+    NzTagModule,
+    NzDatePickerModule
   ],
   providers: [FormBuilder, DatePipe],
   declarations: [LotteriesComponent, AdminLotteriesComponent, ConsortiumLotteriesComponent],

@@ -12,7 +12,6 @@
            [viewTemplate]="viewTemplate">
   </app-abm>
 
-
   <ng-template #formTemplate let-mode let-visibleObject="visibleObject">
     <form [formGroup]="formABM">
 
@@ -27,12 +26,13 @@
         </nz-select>
       </div>
 
-
+      <!-- PRICES --------------------------------------------------------------------- -->
       <nz-divider [nzText]="'LOTTERIES.CREATE.PRIZES'|translate" class="title" nzOrientation="left"></nz-divider>
 
       <div id="prizes" nz-row nzGutter="8">
         <div *ngFor="let play of availablePlays" class="form-element" nz-col nzXs="12">
           <nz-input-group [id]="play.key" class="add-on-input" nzAddOnBefore="{{'LOTTERIES.CREATE.'+play.title|translate}}">
+
             <div nz-row>
               <div class="container-switch" nz-col nzSpan="8">
                 <nz-switch [formControlName]="'status.'+play.key" nzSize="small"></nz-switch>
@@ -49,8 +49,8 @@
         </div>
       </div>
 
+      <!-- LIMITS --------------------------------------------------------------------- -->
       <nz-divider [nzText]="'LOTTERIES.CREATE.LIMITS'|translate" class="title" nzOrientation="left"></nz-divider>
-
 
       <div id="bettings" nz-row nzGutter="8">
         <div *ngFor="let play of availableBettingPlays" class="form-element" nz-col nzXs="24">
@@ -64,12 +64,54 @@
                   [formControlName]="play.key"
                   [nzDisabled]="!formABM.value || !formABM.value['status.'+play.key]"
                   [nzMin]="0"
-                  style="width:100%"></nz-input-number>
+                  style="width:100%">
+                </nz-input-number>
               </div>
             </div>
           </nz-input-group>
         </div>
+      </div>
 
+      <!-- BLOCKING --------------------------------------------------------------------- -->
+      <nz-divider [nzText]="'Bloqueos'" class="title" nzOrientation="left"></nz-divider>
+      <!-- TODO TRANSLATE -->
+      <div id="blocking">
+        <nz-form-item *ngFor="let blocking of blockedNumbers" style="padding: 5px 0">
+          <nz-input-group>
+            <div nz-row>
+              <div nz-col nzXs="13">
+                <nz-input-number [nzMin]="0"
+                                 [nzMax]="999999"
+                                 [nzStep]="1"
+                                 [nzPrecision]="0"
+                                 [nzPrecisionMode]="'cut'"
+                                 [(ngModel)]="blocking.numbers"
+                                 [ngModelOptions]="{standalone: true}"
+                                 style="width:100%">
+                </nz-input-number>
+              </div>
+              <div nz-col nzXs="9">
+                <nz-range-picker [nzRanges]="ranges"
+                                 [id]="blocking.id"
+                                 [nzDisabledDate]="blockedDisabledDates"
+                                 [(ngModel)]="blocking.dates"
+                                 [ngModelOptions]="{standalone: true}"></nz-range-picker>
+              </div>
+              <button nz-col nzXs="2" nz-button (click)="removeBlocking(blocking, $event)">
+                <i nz-icon nzType="minus"
+                   nzTheme="outline"></i>
+              </button>
+            </div>
+          </nz-input-group>
+        </nz-form-item>
+        <div nz-row style="padding-top: 10px">
+          <div nz-col [nzOffset]="9" nzXs="6">
+            <button nz-button nzType="primary" (click)="addBlocking($event)">{{'Agregar'|translate}}
+              <i nz-icon nzType="plus"
+                 nzTheme="outline"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </form>
   </ng-template>

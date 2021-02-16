@@ -20,18 +20,16 @@ $borderRadius: 5px;
 $boxShadow: 0px 1px 4px 0px #00000090;
 
 
-
-
-
 // Content
 .inner-content {
   padding: 24px;
   background: #fff;
 }
 
-.fit-height{
+.fit-height {
   height: fit-content;
 }
+
 // Margins
 .mb-20 {
   margin-bottom: 20px;
@@ -41,6 +39,9 @@ $boxShadow: 0px 1px 4px 0px #00000090;
   padding: 5px 0;
 }
 
+.ant-divider .ant-divider-horizontal .ant-divider-with-text .ant-divider-with-text-center {
+  padding-top: 0 !important;
+}
 
 .button-link{
   color: #064882;

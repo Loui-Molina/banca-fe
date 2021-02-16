@@ -118,7 +118,6 @@
 
   <ng-template #viewTemplate let-visibleObject>
     <ng-container *ngIf="visibleObject">
-
       <nz-divider [nzText]="'BANKINGS.VIEW.BANKING_DATA'|translate" class="title" nzOrientation="left"></nz-divider>
       <nz-descriptions>
         <nz-descriptions-item [nzTitle]="'BANKINGS.VIEW.NAME'|translate">
@@ -135,6 +134,9 @@
         </nz-descriptions-item>
         <nz-descriptions-item [nzTitle]="'BANKINGS.VIEW.PERCENTAGE'| translate">
           {{visibleObject.earningPercentage}}%
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'tiempo cancelacion'| translate">
+          {{visibleObject.cancellationTime}}
         </nz-descriptions-item>
       </nz-descriptions>
 

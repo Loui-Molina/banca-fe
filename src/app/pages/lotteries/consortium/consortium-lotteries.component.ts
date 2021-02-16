@@ -14,8 +14,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {HttpErrorResponse} from '@angular/common/http';
+import endOfMonth from 'date-fns/endOfMonth';
 import PrizeLimitPlayTypeEnum = PrizeLimitDto.PlayTypeEnum;
 import BettingLimitPlayTypeEnum = BettingLimitDto.PlayTypeEnum;
+
 
 @Component({
   selector: 'app-lotteries-consortium',
@@ -23,6 +25,18 @@ import BettingLimitPlayTypeEnum = BettingLimitDto.PlayTypeEnum;
   styleUrls: ['./consortium-lotteries.component.scss']
 })
 export class ConsortiumLotteriesComponent implements OnInit {
+
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private translateService: TranslateService,
+    private messageService: NzMessageService,
+    private modal: NzModalService,
+    private lotteriesService: ConsortiumLotteriesService,
+    private bankingService: BankingService,
+  ) {
+    this.formABM = this.formBuilder.group(this.defaultForm);
+  }
 
   columns = [
     {
@@ -50,13 +64,21 @@ export class ConsortiumLotteriesComponent implements OnInit {
       key: 'status',
       valueFormatter: (data) => (data.status) ? this.ts('LOTTERIES.LIST.ENABLED') : this.ts('LOTTERIES.LIST.DISABLED')
     }];
+
   fetcher: Observable<ConsortiumLotteryDto[]> = this.lotteriesService.consortiumLotteryControllerGetAll();
+
   lotteries: ConsortiumLotteryDto[] = [];
+
   loading = false;
+
   bankings: BankingDto[] = [];
+
   days = ConsortiumLotteryDto.DayEnum;
+
   bankingsSelected: BankingDto[] = [];
+
   formABM: FormGroup;
+
   defaultForm = {
     bankings: null,
     [PrizeLimitPlayTypeEnum.First]: null,
@@ -88,7 +110,15 @@ export class ConsortiumLotteriesComponent implements OnInit {
     ['status.betting.' + BettingLimitPlayTypeEnum.Direct]: null,
     ['status.betting.' + BettingLimitPlayTypeEnum.Pale]: null,
     ['status.betting.' + BettingLimitPlayTypeEnum.Tripleta]: null,
+
+    blockedNumbers: [{
+      id: null,
+      controlInstance: null,
+      number: null,
+      dates: null
+    }]
   };
+
   availablePlays = [
     {title: 'First', key: PrizeLimitPlayTypeEnum.First},
     {title: 'Second', key: PrizeLimitPlayTypeEnum.Second},
@@ -100,22 +130,14 @@ export class ConsortiumLotteriesComponent implements OnInit {
     {title: 'TwoNumbers', key: PrizeLimitPlayTypeEnum.TwoNumbers},
     {title: 'SuperPale', key: PrizeLimitPlayTypeEnum.SuperPale}
   ];
+
   availableBettingPlays = [
     {title: 'Direct', key: 'betting.' + BettingLimitPlayTypeEnum.Direct},
     {title: 'Pale', key: 'betting.' + BettingLimitPlayTypeEnum.Pale},
     {title: 'Triplet', key: 'betting.' + BettingLimitPlayTypeEnum.Tripleta}
   ];
+  ranges: any = {[this.translateService.instant('Fin de mes')]: [new Date(), endOfMonth(new Date())]};
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private translateService: TranslateService,
-    private messageService: NzMessageService,
-    private modal: NzModalService,
-    private lotteriesService: ConsortiumLotteriesService,
-    private bankingService: BankingService,
-  ) {
-    this.formABM = this.formBuilder.group(this.defaultForm);
-  }
 
   fetcherUpdate: (item) => Observable<ConsortiumUpdateLotteryDto> = (item) => this.lotteriesService.consortiumLotteryControllerUpdate(item);
 
@@ -142,7 +164,8 @@ export class ConsortiumLotteriesComponent implements OnInit {
     const prizeLimits = visibleObject.prizeLimits;
     const bettingLimits = visibleObject.bettingLimits;
     const form = {
-      bankings: visibleObject.bankings ? visibleObject.bankings : []
+      bankings: visibleObject.bankings ? visibleObject.bankings : [],
+      blockedNumbers: visibleObject.blockedNumbers ? visibleObject.blockedNumbers : []
     };
 
 
@@ -169,7 +192,7 @@ export class ConsortiumLotteriesComponent implements OnInit {
     const prizeLimits: PrizeLimitDto[] = [];
     const bettingLimits: BettingLimitDto[] = [];
 
-    // tslint:disable-next-line:forin prefer-for-of
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.availablePlays.length; i++) {
       const playTipe = this.availablePlays[i];
       const prizeLimit = this.createPrizeLimit(valueForm, playTipe.key);
@@ -177,7 +200,7 @@ export class ConsortiumLotteriesComponent implements OnInit {
         prizeLimits.push(prizeLimit);
       }
     }
-    // tslint:disable-next-line:forin prefer-for-of
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.availableBettingPlays.length; i++) {
       const playType = this.availableBettingPlays[i];
       const bettingLimit = this.createBettingLimit(valueForm, playType.key);
@@ -189,7 +212,8 @@ export class ConsortiumLotteriesComponent implements OnInit {
       _id: visibleObject._id,
       bankings: valueForm.bankings,
       prizeLimits,
-      bettingLimits
+      bettingLimits,
+      blockedNumbers: valueForm.blockedNumbers
     };
   };
 
@@ -216,7 +240,52 @@ export class ConsortiumLotteriesComponent implements OnInit {
     };
   }
 
-  private ts(key: string, params?): string {
-    return this.translateService.instant(key, params);
+  addBlocking(e?: MouseEvent): void {
+    console.log(this.formABM);
+    if (e) {
+      e.preventDefault();
+    }
+    const id = this.blockedNumbers.length > 0 ? this.blockedNumbers[this.blockedNumbers.length - 1].id + 1 : 0;
+
+    const control: BlockedNumberI = {
+      dates: [],
+      numbers: null,
+      id,
+      controlInstance: `blocking${id}`
+    };
+    this.blockedNumbers.push(control);
+  }
+
+  removeBlocking(i: BlockedNumberI, e: MouseEvent): void {
+    if (this.blockedNumbers.length > 1) {
+      const index = this.blockedNumbers.indexOf(i);
+      this.blockedNumbers.splice(index, 1);
+      console.log(this.blockedNumbers);
+      this.formABM.removeControl(i.controlInstance);
+    }
+  }
+
+  blockedDisabledDates = (date: Date) => {
+    const today: Date = new Date();
+    today.setHours(0, 0, 0, 0);
+    date.setHours(0, 0, 0, 0);
+    return date < today;
+
+  };
+
+  get blockedNumbers(): BlockedNumberI[] {
+    return this.formABM?.controls?.blockedNumbers?.value;
+  }
+
+  private ts(key): string {
+    return this.translateService.instant(key);
   }
 }
+
+export interface BlockedNumberI {
+  id: number;
+  controlInstance: string;
+  numbers: [];
+  dates: [];
+}
+

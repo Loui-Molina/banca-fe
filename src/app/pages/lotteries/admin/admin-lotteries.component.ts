@@ -203,7 +203,7 @@ export class AdminLotteriesComponent implements OnInit {
   };
 
   resetOpenAndCloseTime = (): void => {
-    if (this.formABM.controls.playTime.touched) {
+    if (this.formABM.touched) {
       this.formABM.controls.openTime.setValue(null);
       this.formABM.controls.closeTime.setValue(null);
     }
