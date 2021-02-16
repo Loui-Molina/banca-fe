@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { BettingLimitUpdateLotteryDto } from './bettingLimitUpdateLotteryDto';
+import { BlockedNumberDto } from './blockedNumberDto';
 import { PrizeLimitUpdateLotteryDto } from './prizeLimitUpdateLotteryDto';
 
 
@@ -18,5 +19,6 @@ export interface ConsortiumUpdateLotteryDto {
     bankings?: Array<string>;
     bettingLimits?: Array<BettingLimitUpdateLotteryDto>;
     prizeLimits?: Array<PrizeLimitUpdateLotteryDto>;
+    blockedNumbers?: Array<BlockedNumberDto>;
 }
 

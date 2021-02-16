@@ -76,14 +76,14 @@
                   CIERRE
                 </div>
                 <div class="col-style center-column" nz-col nzSpan="2">
-                  <i *ngIf="reloadingLotterys" nz-icon nzTheme="outline" nzType="loading"></i>
+                  <i *ngIf="reloadingLotteries" nz-icon nzTheme="outline" nzType="loading"></i>
                 </div>
               </div>
             </div>
             <div class="lottery-panel-body">
               <div
-                (click)="(lottery.status && lottery.leftTime > 0) && onChangeLottery(lottery, !this.selectedLotterys.includes(lottery._id.toString()))"
-                *ngFor="let lottery of lotterys"
+                (click)="(lottery.status && lottery.leftTime > 0) && onChangeLottery(lottery, !this.selectedLotteries.includes(lottery._id.toString()))"
+                *ngFor="let lottery of lotteries"
                 [class.closed]="!lottery.status || !lottery.leftTime"
                 [style]="{backgroundColor: lottery.color}" class="lottery">
                 <div class="row-style panel-container" nz-row>
@@ -99,7 +99,7 @@
                   </div>
                   <div class="col-style center-column last-column" nz-col nzSpan="2">
                     <label (nzCheckedChange)="onChangeLottery(lottery, $event)"
-                           [nzChecked]="this.selectedLotterys.includes(lottery._id.toString())"
+                           [nzChecked]="this.selectedLotteries.includes(lottery._id.toString())"
                            [nzDisabled]="!lottery.status || !lottery.leftTime"
                            nz-checkbox></label>
                   </div>

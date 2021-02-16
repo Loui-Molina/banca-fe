@@ -241,12 +241,10 @@ export class ConsortiumLotteriesComponent implements OnInit {
   }
 
   addBlocking(e?: MouseEvent): void {
-    console.log(this.formABM);
     if (e) {
       e.preventDefault();
     }
     const id = this.blockedNumbers.length > 0 ? this.blockedNumbers[this.blockedNumbers.length - 1].id + 1 : 0;
-
     const control: BlockedNumberI = {
       dates: [],
       numbers: null,
@@ -260,7 +258,6 @@ export class ConsortiumLotteriesComponent implements OnInit {
     if (this.blockedNumbers.length > 1) {
       const index = this.blockedNumbers.indexOf(i);
       this.blockedNumbers.splice(index, 1);
-      console.log(this.blockedNumbers);
       this.formABM.removeControl(i.controlInstance);
     }
   }

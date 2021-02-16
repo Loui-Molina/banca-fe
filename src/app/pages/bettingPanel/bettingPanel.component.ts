@@ -12,7 +12,9 @@ import {
   BettingLimitDto,
   BettingPanelService,
   CreateBetDto,
-  LimitVerifyDto, MessageDto, MessagesService,
+  LimitVerifyDto,
+  MessageDto,
+  MessagesService,
   Play,
   PlayDto,
   PlayNumbers,
@@ -53,6 +55,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.now = new Date();
     }, 1000);
   }
+
   @ViewChild('drawerBets') drawerBets: DrawerBetsComponent;
   @ViewChild('drawerBet') drawerBet: DrawerBetComponent;
   @ViewChild('drawerHelp') drawerHelp: DrawerHelpComponent;
@@ -94,14 +97,14 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     {title: 'Pale', key: 'betting.' + BettingLimitPlayTypeEnum.Pale},
     {title: 'Tripleta', key: 'betting.' + BettingLimitPlayTypeEnum.Tripleta}
   ];
-  lotterys: BankingLotteryDto[] = [];
+  lotteries: BankingLotteryDto[] = [];
   banking: Banking;
-  selectedLotterys: string[] = [];
+  selectedLotteries: string[] = [];
   loading = false;
   superPale = false;
   reloadingResults = false;
   reloadingResumeSells = false;
-  reloadingLotterys = false;
+  reloadingLotteries = false;
   limit: number;
   loadingSearchLimit = false;
   lastResults: ResultDto[] = [];
@@ -112,7 +115,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   interval;
   interval2;
 
-  a:number;
+  a: number;
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
@@ -125,7 +128,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.drawerResumeSells,
       this.drawerLotteryLimits,
     ];
-    for (const drawer of drawers){
+    for (const drawer of drawers) {
       if (drawer.isVisible && drawer.isVisible()) {
         return;
       }
@@ -174,9 +177,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   onChangeCounter($event, lottery: BankingLotteryDto): void {
     if ($event.status === 3) {
       // Se fitra si estaba seleccionada o seleccionada en una apuesta
-      this.selectedLotterys = this.selectedLotterys.filter(id => id !== lottery._id.toString());
+      this.selectedLotteries = this.selectedLotteries.filter(id => id !== lottery._id.toString());
       this.plays = this.plays.filter(bet => bet.lotteryId.toString() !== lottery._id.toString());
-      for (const lotteryItem of this.lotterys) {
+      for (const lotteryItem of this.lotteries) {
         if (lotteryItem._id.toString() === lottery._id.toString()) {
           lotteryItem.status = false;
           lotteryItem.leftTime = 0;
@@ -192,17 +195,17 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       input.value = this.lastInput;
     }
     this.lastInput = input.value;
-  }
+  };
 
   switchLotterys(type: string): void {
     if (type === 'A') {
       // SWITCH LOTTERYS
       const aux = [];
       // tslint:disable-next-line:prefer-for-of prefer-const
-      const openLotterys = this.lotterys.filter(lottery => (lottery.status && lottery.leftTime > 0));
+      const openLotterys = this.lotteries.filter(lottery => (lottery.status && lottery.leftTime > 0));
       for (let i = 0; i < openLotterys.length; i++) {
         const lottery = openLotterys[i];
-        if (this.selectedLotterys.includes(lottery._id.toString())) {
+        if (this.selectedLotteries.includes(lottery._id.toString())) {
           this.onChangeLottery(lottery, false);
           if (i < (openLotterys.length - 1)) {
             if (!aux.includes(openLotterys[i + 1]._id.toString())) {
@@ -215,23 +218,23 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
           }
         }
       }
-      this.selectedLotterys = aux;
-      if (this.selectedLotterys.length <= 0) {
+      this.selectedLotteries = aux;
+      if (this.selectedLotteries.length <= 0) {
         if (openLotterys.length > 0) {
-          this.selectedLotterys = [openLotterys[0]._id.toString()];
+          this.selectedLotteries = [openLotterys[0]._id.toString()];
         }
       }
     } else if (type === 'B') {
       // SWITCH LOTTERYS
-      this.lotterys.map(lottery => {
+      this.lotteries.map(lottery => {
         if (lottery.status && lottery.leftTime > 0) {
-          this.onChangeLottery(lottery, !this.selectedLotterys.includes(lottery._id.toString()));
+          this.onChangeLottery(lottery, !this.selectedLotteries.includes(lottery._id.toString()));
         }
       });
     }
   }
 
-  reloadMessages(): void{
+  reloadMessages(): void {
     this.messagesService.chatControllerGetAllUnreadMessages().subscribe(data => {
       this.messages = data;
     }, error => {
@@ -248,7 +251,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }, 15000);
     this.initDataSync().subscribe(responseList => {
       this.lastResults = responseList[0];
-      this.lotterys = responseList[1];
+      this.lotteries = responseList[1];
       this.banking = responseList[2];
       this.startReloadResults();
       this.loading = false;
@@ -272,11 +275,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.createBet();
       this.resetBet();
     }
-  }
+  };
 
   onCheckSuperPale = () => {
     this.superPale = !this.superPale;
-  }
+  };
 
   onSubmitBet = () => {
     if (this.plays.length <= 0) {
@@ -285,7 +288,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.modalOpened = true;
     this.modalConfirm = true;
     this.generatedBet = null;
-  }
+  };
 
   closeModalConfirm(): void {
     this.modalOpened = false;
@@ -314,22 +317,22 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.loadingSubmit = false;
       throw new HttpErrorResponse(error);
     });
-  }
+  };
 
   cleanAll = () => {
     this.number = null;
     this.amount = null;
     this.limit = null;
     this.plays = [];
-    this.selectedLotterys = [];
-  }
+    this.selectedLotteries = [];
+  };
 
 
   onKeyEnterNumber = () => {
     if (this.number != null && this.number.length > 0) {
       this.inputAmount.nativeElement.focus();
     }
-  }
+  };
 
   searchLimit = () => {
     this.loadingSearchLimit = true;
@@ -340,15 +343,15 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       if (this.a !== key) {
         return;
       }
-      if (this.number === null || this.number === undefined || this.selectedLotterys.length === 0) {
+      if (this.number === null || this.number === undefined || this.selectedLotteries.length === 0) {
         this.loadingSearchLimit = false;
         return null;
       }
       this.loadingSearchLimit = true;
       let playsToCreate: PlayInterface[] = [];
       // tslint:disable-next-line:no-shadowed-variable
-      for (const lottery of this.lotterys) {
-        if (this.selectedLotterys.includes(lottery._id.toString())) {
+      for (const lottery of this.lotteries) {
+        if (this.selectedLotteries.includes(lottery._id.toString())) {
           playsToCreate = playsToCreate.concat(this.getPlaysToCreate(lottery, 0));
         }
       }
@@ -358,7 +361,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
         return null;
       }
       for (const play of playsToCreate) {
-        const lottery = this.lotterys.filter(lot => play.lotteryId.toString() === lot._id.toString()).pop();
+        const lottery = this.lotteries.filter(lot => play.lotteryId.toString() === lot._id.toString()).pop();
         reqs.push({
           playType: play.playType,
           playNumbers: play.playNumbers,
@@ -367,8 +370,8 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       }
       this.searchLimitSync(reqs).subscribe(responseArray => {
         let minor: number = null;
-        for (const res of responseArray){
-          if (res != null){
+        for (const res of responseArray) {
+          if (res != null) {
             if (minor === null || res < minor) {
               minor = res;
             }
@@ -385,11 +388,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       });
     }, 500);
 
-  }
+  };
 
   private searchLimitSync(reqs: LimitVerifyDto[]): Observable<any[]> {
     const array = [];
-    for (const req of reqs){
+    for (const req of reqs) {
       array.push(this.bettingPanelService.bettingPanelControllerVerifyLimit(req));
     }
     return forkJoin(array);
@@ -518,14 +521,14 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
     let playsToCreate: PlayInterface[] = [];
 
-    if (this.superPale && this.selectedLotterys.length !== 2) {
+    if (this.superPale && this.selectedLotteries.length !== 2) {
       this.messageService.create('error', 'Debe seleccionar 2 loterias');
       return;
     }
 
     // tslint:disable-next-line:no-shadowed-variable
-    for (const lottery of this.lotterys) {
-      if (this.selectedLotterys.includes(lottery._id.toString())) {
+    for (const lottery of this.lotteries) {
+      if (this.selectedLotteries.includes(lottery._id.toString())) {
         playsToCreate = playsToCreate.concat(this.getPlaysToCreate(lottery, amount));
       }
     }
@@ -574,20 +577,38 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   openDrawer = (drawer, params: {}) => {
     drawer.open(params);
-  }
+  };
 
   closeDrawer = (drawer) => {
     drawer.close();
-  }
+  };
 
   disabledBet(): boolean {
-    if (!this.number || !this.amount || this.amount === 0 || this.selectedLotterys.length === 0 || this.loadingSearchLimit) {
+    if (!this.number || !this.amount || this.amount === 0 || this.selectedLotteries.length === 0 || this.loadingSearchLimit) {
       return true;
     }
     const amount = parseFloat(String(this.amount));
     if (this.limit != null && amount > this.limit) {
       return true;
     }
+
+    const lotteries = this.lotteries.filter(lottery => this.selectedLotteries.includes(lottery._id.toString()));
+    for (const lottery of lotteries) {
+      for (const blocking of lottery.blockedNumbers) {
+        const blockingInit = blocking.dates[0];
+        const blockingEnd = blocking.dates[1];
+        const numbers = blocking.numbers;
+        const initialDate = new Date(blockingInit).setHours(0, 0, 0, 0);
+        const endDate = new Date(blockingEnd).setHours(0, 0, 0, 0);
+        const now = new Date().setHours(0, 0, 0, 0);
+        if (initialDate <= now && now <= endDate) {
+          if (this.number === numbers[0].toString()) {
+            return true;
+          }
+        }
+      }
+    }
+
     return false;
   }
 
@@ -597,12 +618,12 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   onChangeLottery(lottery: BankingLotteryDto, $event): void {
     if ($event) {
-      if (!this.selectedLotterys.includes(lottery._id.toString())) {
-        this.selectedLotterys.push(lottery._id.toString());
+      if (!this.selectedLotteries.includes(lottery._id.toString())) {
+        this.selectedLotteries.push(lottery._id.toString());
       }
     } else {
-      if (this.selectedLotterys.includes(lottery._id.toString())) {
-        this.selectedLotterys = this.selectedLotterys.filter(id => id !== lottery._id.toString());
+      if (this.selectedLotteries.includes(lottery._id.toString())) {
+        this.selectedLotteries = this.selectedLotteries.filter(id => id !== lottery._id.toString());
       }
     }
     this.searchLimit();
@@ -614,7 +635,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   openTicket = (bet: BetDto) => {
     this.openDrawer(this.drawerBet, {bet});
-  }
+  };
 
   getSendWhatsApp = (bet: BetDto) => {
     // TODO Ver si tiene user y ponerle el numero como &phone=+5493543573840
@@ -637,11 +658,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       text += '\n' + this.banking.footer;
       return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
     }
-  }
+  };
 
   showParsedNumbers = (playNumbers: PlayNumbers) => {
     return showParsedNumbers(playNumbers);
-  }
+  };
 
   cloneTicket = (ticket: BetDto) => {
     this.modalOpened = true;
@@ -655,7 +676,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       nzOkText: this.ts('UTILS.CONFIRM'),
       nzCancelText: this.ts('UTILS.CANCEL')
     });
-  }
+  };
 
   cloneTicketSubmit = (ticket: BetDto) => {
     this.modalOpened = false;
@@ -671,7 +692,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.searchSync(ticket.plays).subscribe(value => {
       let i = 0;
       for (const play of ticket.plays) {
-        const lottery = this.lotterys.find((lot) => lot._id.toString() === play.lotteryId.toString());
+        const lottery = this.lotteries.find((lot) => lot._id.toString() === play.lotteryId.toString());
         if (lottery && lottery.status && play.amount <= value[i]) {
           plays.push({
             lotteryNickName: lottery.nickname,
@@ -691,11 +712,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     });
 
     this.plays = plays;
-  }
+  };
 
   private searchSync(plays: PlayDto[]): Observable<any[]> {
     const arrayService = [];
-    for (const item of plays){
+    for (const item of plays) {
       const reqs: LimitVerifyDto[] = [
         {playType: item.playType, lotteryId: item.lotteryId.toString(), playNumbers: item.playNumbers}
       ];
@@ -705,10 +726,10 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   printTicket = (ticket: BetDto) => {
-    if (this.canSeeSn(ticket)){
+    if (this.canSeeSn(ticket)) {
       printTicket(ticket, this.banking);
     }
-  }
+  };
 
   canCancelTicket = (ticket: BetDto): boolean => {
     // @ts-ignore
@@ -719,10 +740,10 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       return true;
     }
     return (diffMins > -(cancellationTime));
-  }
+  };
 
   canSeeSn(bet: BetDto): boolean {
-    if (this.betStatusEnum.Pending !== bet.betStatus){
+    if (this.betStatusEnum.Pending !== bet.betStatus) {
       return false;
     }
     // @ts-ignore
@@ -733,7 +754,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   getPanelSize = (size) => {
     return Math.floor(size);
-  }
+  };
 
   getSumBets(bets: PlayInterface[] | PlayDto[]): number {
     let sum = 0;
@@ -774,12 +795,12 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   private reloadLotterys(): void {
-    this.reloadingLotterys = true;
+    this.reloadingLotteries = true;
     this.bankingLotteriesService.bankingLotteryControllerGetAll().subscribe(data => {
-      this.lotterys = data;
-      this.reloadingLotterys = false;
+      this.lotteries = data;
+      this.reloadingLotteries = false;
     }, error => {
-      this.reloadingLotterys = false;
+      this.reloadingLotteries = false;
       throw new HttpErrorResponse(error);
     });
   }

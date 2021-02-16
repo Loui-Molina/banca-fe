@@ -27,6 +27,7 @@ export interface ConsortiumLotteryDto {
     openTime?: string;
     closeTime?: string;
     day: Array<ConsortiumLotteryDto.DayEnum>;
+    blockedNumbers: Array<number>;
 }
 export namespace ConsortiumLotteryDto {
     export type DayEnum = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
