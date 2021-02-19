@@ -190,7 +190,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   regexPlay = (input) => {
-    const match = input.value.match(/^(([0-9]+)?)+(\.|([Ss]+(([0-9]+)?)))?$/g);
+    const match = input.value.match(/^([0-9]{0,2})([Ss][0-9]{0,2}|[0-9]{0,4})?$/g);
     if (!match) {
       input.value = this.lastInput;
     }
@@ -404,7 +404,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     const numbers = this.number.toUpperCase();
     if (numbers.indexOf('.') !== -1) {
       // Contiene '.' Ex: 22235. 2323.
-      const result = numbers.split('.')[0].match(/.{1,2}/g);
+      const result = numbers.split('.')[0].match(/[0-9]{1,2}/g);
       if (result[result.length - 1].length === 1) {
         // Fixes last number
         result[result.length - 1] = formatResult(parseInt(result[result.length - 1], 0));
@@ -475,7 +475,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       }
     } else {
       // Solo numeros
-      const result = numbers.match(/.{1,2}/g);
+      const result = numbers.match(/[0-9]{1,2}/g);
       if (result && result.length <= 3) {
         if (result[result.length - 1].length === 1) {
           // Fixes last number
@@ -756,7 +756,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     return Math.floor(size);
   };
 
-  getSumBets(bets: PlayInterface[] | PlayDto[]): number {
+    getSumBets(bets: PlayInterface[] | PlayDto[]): number {
     let sum = 0;
     // @ts-ignore
     bets.map(item => {
