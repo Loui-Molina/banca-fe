@@ -439,5 +439,18 @@
       "USERNAME": "Usuario",
       "ROL": "Rol"
     }
+  },
+  "BETTING_PANEL": {
+    "TOPBAR": {
+      "SEARCH_TICKET": "Buscar ticket",
+      "CASH_DESK_CLOSING": "Cierre de caja",
+      "PAY_TICKET": "Pagar ticket",
+      "LOTTERY_LIMITS": "Limites de loterias",
+      "HELP": "Ayuda",
+      "CHAT": "Chat",
+      "CLEAN": "Limpiar",
+      "CONFIRM": "Confirmar",
+      "TOTAL": "Total"
+    }
   }
 }

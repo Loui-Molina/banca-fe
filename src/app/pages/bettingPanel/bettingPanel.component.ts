@@ -79,7 +79,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     {title: 'DIRECTO', types: [Play.PlayTypeEnum.Direct]},
     {title: 'PALE', types: [Play.PlayTypeEnum.Pale]},
     {title: 'TRIPLETA', types: [Play.PlayTypeEnum.Tripleta]},
-    // {title: 'SUPERPALE', types: [Play.PlayTypeEnum.SuperPale]}
+    {title: 'SUPERPALE', types: [Play.PlayTypeEnum.SuperPale]}
   ];
   availablePlays = [
     {title: 'First', key: PrizeLimitPlayTypeEnum.First},
@@ -305,6 +305,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       body.plays.push({
         amount: item.amount,
         lotteryId: item.lotteryId,
+        lotteryIdSuperpale: item.lotteryIdSuperpale,
         playType: item.playType,
         playNumbers: item.playNumbers,
       });
@@ -393,7 +394,8 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   private searchLimitSync(reqs: LimitVerifyDto[]): Observable<any[]> {
     const array = [];
     for (const req of reqs) {
-      array.push(this.bettingPanelService.bettingPanelControllerVerifyLimit(req));
+      const result = this.bettingPanelService.bettingPanelControllerVerifyLimit(req);
+      array.push(result);
     }
     return forkJoin(array);
   }
@@ -534,9 +536,11 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
     if (this.superPale) {
       playsToCreate = playsToCreate.filter(play => play.playType === 'pale');
-      for (const play of playsToCreate) {
-        play.playType = Play.PlayTypeEnum.SuperPale;
-      }
+      const play = playsToCreate[0];
+      play.playType = Play.PlayTypeEnum.SuperPale;
+      play.lotteryIdSuperpale = playsToCreate[1].lotteryId;
+      play.lotteryNickName +=  '-' + playsToCreate[1].lotteryNickName;
+      playsToCreate = [play];
     }
     if (playsToCreate.length === 0) {
       this.messageService.create('error', 'Error de formato');
@@ -593,21 +597,21 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
 
     const lotteries = this.lotteries.filter(lottery => this.selectedLotteries.includes(lottery._id.toString()));
-    for (const lottery of lotteries) {
-      for (const blocking of lottery.blockedNumbers) {
-        const blockingInit = blocking.dates[0];
-        const blockingEnd = blocking.dates[1];
-        const numbers = blocking.numbers;
-        const initialDate = new Date(blockingInit).setHours(0, 0, 0, 0);
-        const endDate = new Date(blockingEnd).setHours(0, 0, 0, 0);
-        const now = new Date().setHours(0, 0, 0, 0);
-        if (initialDate <= now && now <= endDate) {
-          if (this.number === numbers[0].toString()) {
-            return true;
-          }
-        }
-      }
-    }
+    // for (const lottery of lotteries) {
+    //   for (const blocking of lottery.blockedNumbers) {
+    //     const blockingInit = blocking.dates[0];
+    //     const blockingEnd = blocking.dates[1];
+    //     const numbers = blocking.numbers;
+    //     const initialDate = new Date(blockingInit).setHours(0, 0, 0, 0);
+    //     const endDate = new Date(blockingEnd).setHours(0, 0, 0, 0);
+    //     const now = new Date().setHours(0, 0, 0, 0);
+    //     if (initialDate <= now && now <= endDate) {
+    //       if (this.number === numbers[0].toString()) {
+    //         return true;
+    //       }
+    //     }
+    //   }
+    // }
 
     return false;
   }
@@ -693,12 +697,25 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       let i = 0;
       for (const play of ticket.plays) {
         const lottery = this.lotteries.find((lot) => lot._id.toString() === play.lotteryId.toString());
-        if (lottery && lottery.status && play.amount <= value[i]) {
+        let lottery2;
+        if (play.playType === 'superPale' && play.lotteryIdSuperpale) {
+          lottery2 = this.lotteries.find((lot) => lot._id.toString() === play.lotteryIdSuperpale.toString());
+        }
+        let x = value[i];
+        if (x.length > 0) {
+          x = x[0];
+        }
+        if (lottery && lottery.status && (x === null || play.amount <= x)) {
+          let lotteryNickName = lottery.nickname;
+          if (play.playType === 'superPale' && lottery2) {
+            lotteryNickName += ' - ' + lottery2.nickname;
+          }
           plays.push({
-            lotteryNickName: lottery.nickname,
+            lotteryNickName,
             uuid: uuidv4(),
             playNumbers: play.playNumbers,
             lotteryId: play.lotteryId,
+            lotteryIdSuperpale: play.lotteryIdSuperpale,
             playType: play.playType,
             amount: play.amount
           });
@@ -728,6 +745,22 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   printTicket = (ticket: BetDto) => {
     if (this.canSeeSn(ticket)) {
       printTicket(ticket, this.banking);
+    }
+  };
+
+  shareTicket = () => {
+    const navigator = window.navigator as any;
+    if (navigator.share) {
+      navigator
+        .share({
+          title: 'Google',
+          text: 'Save',
+          url: 'https://google.com'
+        })
+        .then(() => console.log('Successful share'))
+        .catch(error => console.log('Error sharing', error));
+    } else {
+      alert('share not supported');
     }
   };
 
@@ -815,6 +848,7 @@ export interface PlayInterface {
   uuid: string;
   playType: Play.PlayTypeEnum;
   lotteryId: object;
+  lotteryIdSuperpale?: object;
   lotteryNickName: string;
   amount: number;
   playNumbers: PlayNumbers;

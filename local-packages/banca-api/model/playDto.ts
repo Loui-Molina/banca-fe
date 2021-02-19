@@ -17,6 +17,7 @@ export interface PlayDto {
     amount: number;
     playNumbers: PlayNumbersDto;
     lotteryId: object;
+    lotteryIdSuperpale?: object;
     lotteryName: string;
 }
 export namespace PlayDto {

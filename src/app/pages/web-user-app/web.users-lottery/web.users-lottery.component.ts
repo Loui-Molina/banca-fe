@@ -244,7 +244,7 @@ export class WebUsersLotteryComponent implements OnInit, OnDestroy {
     this.inputNumber.focus();
   }
 
-  getPlaysToCreate(lottery: BankingLotteryDto, amount: number): PlayInterface[] {
+  getPlaysToCreate(lottery: WebUserLotteryDto, amount: number): PlayInterface[] {
     const playsToCreate: PlayInterface[] = [];
     let type: Play.PlayTypeEnum = null;
     const numbers = this.number.toString();
