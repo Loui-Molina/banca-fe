@@ -54,9 +54,8 @@
                      autofocus class="left-input" nz-input (input)="regexPlay(inputNumber)" placeholder="JUGADA"/>
               <input #inputLimit [disabled]="true" [type]="'number'" [value]="limit" class="right-input"
                      nz-input placeholder="LIMITE" readonly/>
-              <input #inputAmount (keyup.enter)="onKeyEnter()" [(ngModel)]="amount" [type]="'number'"
-                     class="right-input"
-                     nz-input placeholder="MONTO"/>
+              <nz-input-number #inputAmount (keyup.enter)="onKeyEnter()" [(ngModel)]="amount"
+                     class="right-input"[nzMin]="0" [name]="'Monto'|translate" [nzPlaceHolder]="'MONTO'| translate"></nz-input-number>
               <span (click)="onCheckSuperPale()" [class.selected]="this.superPale" class="custom-button super-pale"
                     nz-tooltip="SUPERPALE">
                 S
@@ -129,7 +128,7 @@
                   </div>
                   <div *ngIf="result.draw" class="col-style center-column" nz-col nzSpan="8"
                        style="justify-content: flex-end">
-                    <app-ball *ngIf="result.draw.first" [background]="'red'" [size]="'tiny'"
+                    <app-ball *ngIf="result.draw.first || result.draw.first === 0" [background]="'red'" [size]="'tiny'"
                               [title]="this.formatResult(result.draw.first)" style="margin-left: 5px"></app-ball>
                     <app-ball *ngIf="result.draw.second" [background]="'red'" [size]="'tiny'"
                               [title]="this.formatResult(result.draw.second)" style="margin-left: 5px"></app-ball>
