@@ -21,7 +21,7 @@
         <nz-divider [nzText]="'Precios'" class="title" nzOrientation="left"></nz-divider>
 
         <div id="prizes" nz-row nzGutter="8">
-          <div *ngFor="let play of availablePlays" class="form-element" nz-col nzXs="12">
+          <div *ngFor="let play of availablePlays" class="form-element" nz-col nzXs="24">
             <nz-input-group [id]="play.key" class="add-on-input" nzAddOnBefore="{{play.title|translate}}">
               <div nz-row>
                 <div nz-col nzSpan="24">
@@ -39,7 +39,7 @@
 
 
         <div id="bettings" nz-row nzGutter="8">
-          <div *ngFor="let play of availableBettingPlays" class="form-element" nz-col nzXs="12">
+          <div *ngFor="let play of availableBettingPlays" class="form-element" nz-col nzXs="24">
             <nz-input-group [id]="play.key" class="add-on-input" nzAddOnBefore="{{play.title|translate}}">
               <div nz-row>
                 <div nz-col nzSpan="24">

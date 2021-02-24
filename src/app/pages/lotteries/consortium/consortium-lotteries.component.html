@@ -30,7 +30,7 @@
       <nz-divider [nzText]="'LOTTERIES.CREATE.PRIZES'|translate" class="title" nzOrientation="left"></nz-divider>
 
       <div id="prizes" nz-row nzGutter="8">
-        <div *ngFor="let play of availablePlays" class="form-element" nz-col nzXs="12">
+        <div *ngFor="let play of availablePlays" class="form-element" nz-col nzXs="24">
           <nz-input-group [id]="play.key" class="add-on-input" nzAddOnBefore="{{'LOTTERIES.CREATE.'+play.title|translate}}">
 
             <div nz-row>
