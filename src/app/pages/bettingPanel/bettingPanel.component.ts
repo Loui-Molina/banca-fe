@@ -653,7 +653,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       text += 'Tus jugadas son:\n';
       let sum = 0;
       for (const play of bet.plays) {
-        text += `Loteria: ${play.lotteryName} - JUGADA: *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount} - TIPO: ${play.playType}\n`;
+        text += `${play.lotteryName} - *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount} - TIPO: ${play.playType}\n`; //TODO traducir el tipo de jugada
         sum += play.amount;
       }
       text += `Total: $${sum}\n`;
