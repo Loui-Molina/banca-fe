@@ -15,6 +15,7 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {HttpErrorResponse} from '@angular/common/http';
 import endOfMonth from 'date-fns/endOfMonth';
+import {DatePipe} from '@angular/common';
 import PrizeLimitPlayTypeEnum = PrizeLimitDto.PlayTypeEnum;
 import BettingLimitPlayTypeEnum = BettingLimitDto.PlayTypeEnum;
 
@@ -34,6 +35,7 @@ export class ConsortiumLotteriesComponent implements OnInit {
     private modal: NzModalService,
     private lotteriesService: ConsortiumLotteriesService,
     private bankingService: BankingService,
+    private datePipe: DatePipe,
   ) {
     this.formABM = this.formBuilder.group(this.defaultForm);
   }
@@ -49,15 +51,21 @@ export class ConsortiumLotteriesComponent implements OnInit {
     },
     {
       title: 'LOTTERIES.LIST.PLAY_TIME',
-      key: 'playTime'
+      key: 'playTime',
+      valueFormatter: (data) => this.datePipe.transform(data.playTime, 'HH:mm')
+
     },
     {
       title: 'LOTTERIES.LIST.OPEN_TIME',
-      key: 'openTime'
+      key: 'openTime',
+      valueFormatter: (data) => this.datePipe.transform(data.openTime, 'HH:mm')
+
     },
     {
       title: 'LOTTERIES.LIST.CLOSE_TIME',
-      key: 'closeTime'
+      key: 'closeTime',
+      valueFormatter: (data) => this.datePipe.transform(data.closeTime, 'HH:mm')
+
     },
     {
       title: 'LOTTERIES.LIST.STATUS',

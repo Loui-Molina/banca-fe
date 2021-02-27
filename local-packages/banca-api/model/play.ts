@@ -18,6 +18,7 @@ export interface Play {
     playNumbers: PlayNumbers;
     lotteryId: object;
     lotteryIdSuperpale?: object;
+    winSuperPalePending?: number;
 }
 export namespace Play {
     export type PlayTypeEnum = 'direct' | 'pale' | 'tripleta' | 'superPale' | 'cash3straight' | 'cash3Box' | 'play4Straight' | 'play4Box' | 'pick5Straigh' | 'pick5Box' | 'singulation' | 'bolita';

@@ -29,15 +29,18 @@ export class AdminLotteriesComponent implements OnInit {
     },
     {
       title: 'LOTTERIES.LIST.PLAY_TIME',
-      key: 'playTime'
+      key: 'playTime',
+      valueFormatter: (data) => this.datePipe.transform(data.playTime, 'HH:mm')
     },
     {
       title: 'LOTTERIES.LIST.OPEN_TIME',
-      key: 'openTime'
+      key: 'openTime',
+      valueFormatter: (data) => this.datePipe.transform(data.openTime, 'HH:mm')
     },
     {
       title: 'LOTTERIES.LIST.CLOSE_TIME',
-      key: 'closeTime'
+      key: 'closeTime',
+      valueFormatter: (data) => this.datePipe.transform(data.closeTime, 'HH:mm')
     },
     {
       title: 'LOTTERIES.LIST.STATUS',
@@ -83,16 +86,27 @@ export class AdminLotteriesComponent implements OnInit {
   fetcherUpdate: (item) => Observable<AdminLotteryResDto> = (item) => this.lotteriesService.adminLotteryControllerUpdate(item);
   fetcherDelete: (item) => Observable<any> = (item) => this.lotteriesService.adminLotteryControllerDelete(item._id);
   parseData = (mode: string, valueForm): AdminLotteryResDto => {
+    const {day, status, nickname, color, openTime, closeTime, name, playTime} = valueForm;
+    if (openTime.getYear() !== 1970) {
+      openTime.setFullYear(1970, 0, 1);
+    }
+    if (closeTime.getYear() !== 1970) {
+      closeTime.setFullYear(1970, 0, 1);
+    }
+    if (playTime.getYear() !== 1970) {
+      playTime.setFullYear(1970, 0, 1);
+    }
+
     return {
-      name: valueForm.name,
-      nickname: valueForm.nickname,
-      color: valueForm.color,
-      status: valueForm.status,
-      playTime: this.datePipe.transform(new Date(valueForm.playTime), 'HH:mm'),
+      name,
+      nickname,
+      color,
+      status,
+      playTime,
       results: [],
-      day: valueForm.day,
-      openTime: this.datePipe.transform(new Date(valueForm.openTime), 'HH:mm'),
-      closeTime: this.datePipe.transform(new Date(valueForm.closeTime), 'HH:mm')
+      day,
+      openTime,
+      closeTime
     };
   };
   getValidators = (mode: string) => {
@@ -109,12 +123,12 @@ export class AdminLotteriesComponent implements OnInit {
   };
   setValueForm = (mode: string, defaultForm, item) => {
     return {
-      closeTime: (item.closeTime) ? new Date(`1900-01-01T${item.closeTime}:00`) : null,
-      openTime: (item.closeTime) ? new Date(`1900-01-01T${item.openTime}:00`) : null,
+      closeTime: item?.closeTime,
+      openTime: item?.openTime,
       day: item.day,
       name: item.name,
       nickname: item.nickname,
-      playTime: (item.playTime) ? new Date(`1900-01-01T${item.playTime}:00`) : null,
+      playTime: item?.playTime,
       color: item.color,
       status: item.status
     };
