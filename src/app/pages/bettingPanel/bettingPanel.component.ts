@@ -63,8 +63,8 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   @ViewChild('drawerPayBet') drawerPayBet: DrawerPayBetComponent;
   @ViewChild('drawerResumeSells') drawerResumeSells: DrawerResumeSellsComponent;
   @ViewChild('drawerLotteryLimits') drawerLotteryLimits: DrawerLotteriesComponent;
-  @ViewChild('inputNumber', {static: false}) inputNumber: ElementRef;
-  @ViewChild('inputAmount', {static: false}) inputAmount: ElementRef;
+  @ViewChild('inputNumber', {static: false}) inputNumber: any;
+  @ViewChild('inputAmount', {static: false}) inputAmount: any;
   now = new Date();
   number: string = null;
   amount: number = null;
@@ -271,6 +271,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   onKeyEnter = () => {
+    debugger
     if (!this.disabledBet()) {
       this.createBet();
       this.resetBet();
@@ -330,8 +331,10 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
 
   onKeyEnterNumber = () => {
+    debugger
+    console.log(this.inputAmount);
     if (this.number != null && this.number.length > 0) {
-      this.inputAmount.nativeElement.focus();
+      this.inputAmount.focus();
     }
   };
 
@@ -576,7 +579,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   resetBet(): void {
     this.number = null;
-    this.inputNumber.nativeElement.focus();
+    this.inputNumber.focus();
   }
 
   openDrawer = (drawer, params: {}) => {
@@ -751,6 +754,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   shareTicket = () => {
     const navigator = window.navigator as any;
     if (navigator.share) {
+      // TODO remove
       navigator
         .share({
           title: 'Google',
