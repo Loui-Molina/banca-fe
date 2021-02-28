@@ -56,7 +56,7 @@ export function printTicket(bet: BetDto, banking: Banking): void {
     '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;">' + banking.header + '</h3>\n' +
     '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;">TICKET #' + bet._id.toString() + '</h3>\n' +
     '  <h4 style="text-align: center; border-bottom: 1px dashed #000; margin: 0">SN:' + bet.sn + '</h4>\n' +
-    '  <p>Fecha: ' + bet.date.toString() + '</p>\n' +
+    '  <p>Fecha: ' + new Date(bet.date).toLocaleString() + '</p>\n' +
     '  <h4 style="text-align: center; border-bottom: 1px dashed #000; border-top: 1px dashed #000;margin: 0">JUGADAS</h4>\n' +
     '  <table style="width: 100%">\n' +
     '    <tr>\n' +
