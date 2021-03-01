@@ -25,7 +25,7 @@
           <nz-option *ngFor="let lottery of lotteries" [nzLabel]="lottery.name" [nzValue]="lottery._id"></nz-option>
         </nz-select>
       </div>
-      <p *ngIf="lotterySelected">Esta loteria se juega a las {{lotterySelected.playTime| date: 'HH:mm'}}</p>
+      <p *ngIf="lotterySelected">Esta loteria se juega a las {{lotterySelected.playTime| date:'HH:mm'}}</p>
 
       <div class="form-element">
         <label for="first">
