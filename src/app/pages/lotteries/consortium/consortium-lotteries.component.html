@@ -125,7 +125,7 @@
           {{visibleObject.nickname}}
         </nz-descriptions-item>
         <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.PLAY_TIME'|translate">
-          {{visibleObject.playTime}}
+          {{visibleObject.playTime| date: 'HH:mm'}}
         </nz-descriptions-item>
         <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.OPEN_TIME'|translate">
           {{visibleObject.openTime}}

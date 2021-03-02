@@ -111,7 +111,6 @@ export class JWTUserService implements UserService {
     const promise = await this.authService.authControllerSingIn({username, password} as SignInCredentialsDto)
       .toPromise()
       .catch(reason => {
-        console.log(reason);
         throw new HttpErrorResponse(reason);
       });
     if (promise && promise.accessToken) {

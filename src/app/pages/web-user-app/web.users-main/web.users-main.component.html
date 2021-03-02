@@ -15,12 +15,12 @@
   <div class="lottery" (click)="(lottery.status && lottery.leftTime > 0) && goToLottery(lottery)" *ngFor="let lottery of lotteries"
        [class.disabled]="!lottery.status || !lottery.leftTime">
     <div class="container-logo">
-      <div class="logo">{{lottery.nickname}}</div>
+      <div class="logo">{{lottery.nickname && lottery.nickname.charAt(0)}}</div>
     </div>
     <div class="description">
       <h2 class="name">{{lottery.name}}</h2>
       <h3 class="time"><countdown style="color:#ddd" #cd (event)="onChangeCounter($event, lottery)" *ngIf="lottery.leftTime"
-                                  [config]="{leftTime:lottery.leftTime}"></countdown> - {{lottery.playTime}} </h3>
+                                  [config]="{leftTime:lottery.leftTime}"></countdown><span *ngIf="lottery.leftTime"> - </span>{{lottery.playTime| date: 'HH:mm'}} </h3>
 
       <h3 class="time" *ngIf="!lottery.status || !lottery.leftTime">Cerrado</h3>
     </div>

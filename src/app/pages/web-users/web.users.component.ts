@@ -88,8 +88,6 @@ export class WebUsersComponent {
   fetcherDelete: (item) => Observable<WebUser> = (item) => this.webusersService.webUsersControllerDelete(item._id);
 
   setValueForm(mode, defaultForm, visibleObject): any {
-    console.log({visibleObject});
-
     if (mode === 'C') {
       return {
         status: true,

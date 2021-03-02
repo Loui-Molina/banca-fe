@@ -166,7 +166,6 @@ export class SlotMachineComponent implements OnInit {
     }, (this.ANIMATIONS) ? 100 : 100);
 
     //  const itemIndex = Math.floor((Math.random() * ((cards.length * 5) - cards.length)) + cards.length);
-    console.log('CARDS', cards);
     let pool = [];
     // tslint:disable-next-line:prefer-for-of
     let maxValue = 0;
@@ -182,7 +181,6 @@ export class SlotMachineComponent implements OnInit {
       pool = pool.concat(aux);
     }
     const valueSelected = pool[getRandomInt(0, pool.length)];
-    console.log('VALUE', valueSelected);
     let itemIndex = null;
     for (let i = 0; i < cards.length; i++) {
       if (cards[i].value === valueSelected) {
@@ -227,9 +225,6 @@ export class SlotMachineComponent implements OnInit {
       }
     }
     if (winner && scoreToWin > 0) {
-      console.log('XXXX', x);
-      console.log('scoreToWin', scoreToWin);
-      console.log('this.bet', this.bet);
       this.isAWinner(scoreToWin);
     } else {
       this.playAgain(2000);

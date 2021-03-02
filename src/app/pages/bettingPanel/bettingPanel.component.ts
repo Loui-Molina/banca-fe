@@ -271,7 +271,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   onKeyEnter = () => {
-    debugger
     if (!this.disabledBet()) {
       this.createBet();
       this.resetBet();
@@ -331,8 +330,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
 
   onKeyEnterNumber = () => {
-    debugger
-    console.log(this.inputAmount);
     if (this.number != null && this.number.length > 0) {
       this.inputAmount.focus();
     }

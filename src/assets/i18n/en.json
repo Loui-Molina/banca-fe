@@ -1,4 +1,7 @@
 {
+  "ERROR": {
+    "TITLE": "Error"
+  },
   "UTILS": {
     "ARE_YOU_SURE": "areYouSure",
     "CANCEL": "cancel",
