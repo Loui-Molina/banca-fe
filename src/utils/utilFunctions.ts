@@ -66,15 +66,20 @@ export function printTicket(bet: BetDto, banking: Banking): void {
     '      <th style="width: 33%">Tipo</th>\n' +
     '    </tr>\n';
   let total = 0;
-  bet.plays.map((play) => {
-    total += play.amount;
-    toWrite += '    <tr>\n' +
-      '      <td style="text-align: center">' + play.lotteryName + '</td>\n' +
-      '      <td style="text-align: center">' + showParsedNumbers(play.playNumbers) + '</td>\n' +
-      '      <td style="text-align: center">$' + play.amount + '</td>\n' +
-      '      <td style="text-align: center">' + play.playType + '</td>\n' +
-      '    </tr>\n';
-  });
+  bet.plays
+    .sort((a, b) =>
+      (a.lotteryName.toLowerCase() < b.lotteryName.toLowerCase()
+        ? -1 : (a.lotteryName.toLowerCase() > b.lotteryName.toLowerCase()
+          ? 1 : 0)))
+    .map((play) => {
+      total += play.amount;
+      toWrite += '    <tr>\n' +
+        '      <td style="text-align: center">' + play.lotteryName + '</td>\n' +
+        '      <td style="text-align: center">' + showParsedNumbers(play.playNumbers) + '</td>\n' +
+        '      <td style="text-align: center">$' + play.amount + '</td>\n' +
+        '      <td style="text-align: center">' + play.playType + '</td>\n' +
+        '    </tr>\n';
+    });
 
   toWrite += '  </table>\n' +
     '  <h3 style="text-align: center;margin: 0; border-top: 1px dashed #000;border-bottom: 1px dashed #000; ">TOTAL $' + total + '</h3>\n' +
