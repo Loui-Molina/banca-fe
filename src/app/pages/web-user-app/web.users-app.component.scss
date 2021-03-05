@@ -8,6 +8,12 @@
   overflow: hidden;
   position: relative;
 
+  .logo{
+    height: 40px;
+    object-fit: contain;
+    padding-right: 10px;
+  }
+
   .header{
     height: 70px;
     width: 100%;

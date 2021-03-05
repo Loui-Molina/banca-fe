@@ -3,7 +3,12 @@
   <app-page-loader-bouncing  [loading]="loading"></app-page-loader-bouncing>
   <div class="header">
     <div class="description">
-      <h3 class="title">{{establishmentName}}</h3>
+      <div style="display: flex; align-items: center;justify-content: flex-start">
+        <div style="height: 40px">
+          <img src="assets/imgs/logobanca.png" alt="Logo" class="logo">
+        </div>
+        <h3 class="title">{{establishmentName}}</h3>
+      </div>
       <div style="text-align: right;padding-right: 13px;">
         <div class="balance-amount">${{balance}}</div>
         <p class="balance">Mi balance</p>
