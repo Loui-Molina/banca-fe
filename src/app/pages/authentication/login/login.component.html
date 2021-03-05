@@ -1,5 +1,9 @@
-<div class="row-style" nz-row>
-  <div class="col-style" nz-col nzSpan="24">
+
+<div class="content-login">
+  <div style="height: 250px;align-items: flex-end;padding-bottom: 20px">
+    <img src="../../../../assets/imgs/logobanca2.png" alt="Logo" class="logo">
+  </div>
+  <div>
     <nz-card class="card-style" [nzTitle]="'LOGIN.TITLE'|translate">
       <form (ngSubmit)="submitForm()" [formGroup]="validateForm" class="login-form" nz-form>
         <nz-form-item>
