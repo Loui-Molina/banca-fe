@@ -44,7 +44,7 @@ export class BankingTransactionsComponent implements OnInit {
   }
 
   valueFormatterDate(data: Transaction, column): any {
-    return this.datePipe.transform(data[column.key], 'dd/MM/yyyy hh:mm:ss');
+    return this.datePipe.transform(data[column.key], 'dd/MM/yyyy hh:mm');
   }
 
   valueFormatterTipo(data: Transaction, column): any {

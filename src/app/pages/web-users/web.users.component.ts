@@ -38,7 +38,7 @@ export class WebUsersComponent {
     {
       title: 'WEBUSERS.LIST.CREATION_DATE',
       key: 'creationDate',
-      valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm:ss')
+      valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm')
     },
     {
       title: 'WEBUSERS.LIST.START_OF_OPERATION',

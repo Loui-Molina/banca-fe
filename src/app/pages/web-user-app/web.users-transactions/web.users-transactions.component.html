@@ -8,7 +8,7 @@
   <div class="transaction" *ngFor="let transaction of transactions" (click)="openTransaction(transaction)">
     <div>
       <p class="amount">${{transaction.amount}}</p>
-      <p class="date">{{transaction.createdAt| date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+      <p class="date">{{transaction.createdAt| date: 'dd/MM/yyyy HH:mm'}}</p>
     </div>
     <div class="icon-container">
       <p class="balance">Balance: {{transaction.actualBalance}}</p>
@@ -32,7 +32,7 @@
   </ng-template>
   <ng-template #modalContent>
     <ng-container *ngIf="selectedTransaction">
-      <p>Fecha: {{selectedTransaction.createdAt | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+      <p>Fecha: {{selectedTransaction.createdAt | date: 'dd/MM/yyyy HH:mm'}}</p>
       <p>Monto: ${{selectedTransaction.amount}}</p>
       <p>Balance: ${{selectedTransaction.actualBalance}}</p>
       <p>Descripcion: {{selectedTransaction.description}}</p>

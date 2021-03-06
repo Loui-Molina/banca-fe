@@ -84,7 +84,7 @@ export class ResultsComponent implements OnInit {
       {
         title: 'RESULTS.LIST.CREATION_DATE',
         key: 'createdAt',
-        valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm:ss')
+        valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm a')
       }
     ];
   }

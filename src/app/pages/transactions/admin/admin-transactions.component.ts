@@ -73,7 +73,7 @@ export class AdminTransactionsComponent implements OnInit {
   }
 
   valueFormatterDate(data: Transaction, column): any {
-    return this.datePipe.transform(data[column.key], 'dd/MM/yyyy hh:mm:ss');
+    return this.datePipe.transform(data[column.key], 'dd/MM/yyyy hh:mm');
   }
 
   openDrawer = (drawerName: string) => {

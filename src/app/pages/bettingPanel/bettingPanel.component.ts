@@ -330,7 +330,8 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
 
   onKeyEnterNumber = () => {
-    if (this.number != null && this.number.length > 0) {
+    if (this.inputAmount && this.number != null && this.number.length > 0) {
+      console.log(this.inputAmount);
       this.inputAmount.focus();
     }
   };
@@ -649,7 +650,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       text += 'Este es el detalle de tu ticket 🎟️:\n';
       text += '🆔:  *' + bet._id.toString() + '*\n';
       text += '🆔 SN:  *' + bet.sn + '*\n';
-      text += '📅: ' + this.datePipe.transform(bet.date, 'dd/MM/yyyy hh:mm:ss a') + '\n\n';
+      text += '📅: ' + this.datePipe.transform(bet.date, 'dd/MM/yyyy hh:mm a') + '\n\n';
       text += 'Tus jugadas son:\n';
       let sum = 0;
       for (const play of bet.plays) {

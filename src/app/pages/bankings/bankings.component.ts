@@ -38,7 +38,7 @@ export class BankingsComponent {
     {
       title: 'BANKINGS.LIST.CREATION_DATE',
       key: 'creationDate',
-      valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm:ss')
+      valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm')
     },
     {
       title: 'BANKINGS.LIST.START_OF_OPERATION',

@@ -17,7 +17,7 @@
         <div style="margin-top: 10px">
           <h2>ID: {{payTicketFounded._id.toString()}}</h2>
           <p>Fecha: {{payTicketFounded.date | date: 'dd/MM/yyyy'}}</p>
-          <p>Hora: {{payTicketFounded.date | date: 'HH:mm:ss'}}</p>
+          <p>Hora: {{payTicketFounded.date | date: 'HH:mm'}}</p>
           <h3>Monto ganador: ${{payTicketFounded.amountWin}}</h3>
         </div>
         <button (click)="payTicket()" [disabled]="!payTicketValue" nz-button>Pagar ticket</button>
