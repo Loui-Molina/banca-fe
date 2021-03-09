@@ -13,59 +13,6 @@ export interface UserInterface {
 }
 
 @Injectable({providedIn: 'root'})
-export class MockUserService implements UserService {
-
-  getLoggedUser(): UserInterface {
-    const user = localStorage.getItem('loggedUser');
-    return user ? JSON.parse(user) : undefined;
-  }
-
-  getApiToken(): string {
-    return localStorage.getItem('loggedUser');
-  }
-
-  getRefreshToken(): string {
-    return localStorage.getItem('loggedUser');
-  }
-
-  checkRoles(requiredRoles: User.RoleEnum[]): boolean {
-    const loggedUser: UserInterface = this.getLoggedUser();
-    return loggedUser ? requiredRoles.includes(loggedUser.role) : false;
-  }
-
-  isLogged(): boolean {
-    const loggedUser: UserInterface = this.getLoggedUser();
-    return !!loggedUser;
-  }
-
-  login(username: string, password: string): Promise<Subscription> {
-    return new Promise((resolve, reject) => {
-      const actualUser = environment.users.find(value => value.username === username && value.password === password);
-      if (actualUser) {
-        const exp = new Date().getTime() + 3000;
-        const userInterface: UserInterface = {
-          username: actualUser.username,
-          exp,
-          iat: exp + 300,
-          role: actualUser.role
-        };
-        localStorage.setItem('loggedUser', JSON.stringify(userInterface));
-        resolve();
-      } else {
-        reject('Invalid username or password');
-      }
-    });
-
-  }
-
-  logout(): void {
-    localStorage.clear();
-  }
-
-}
-
-
-@Injectable({providedIn: 'root'})
 export class JWTUserService implements UserService {
 
 
@@ -77,6 +24,7 @@ export class JWTUserService implements UserService {
     if (!accessToken) {
       return;
     }
+    /*TODO CHECK WHY THIS CODE IS COMMENTED*/
     // const user: UserInterface = jwtDecode(accessToken);
     return jwtDecode(accessToken);
     // const expiredAt = user && user.exp * 1000;

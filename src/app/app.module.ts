@@ -22,7 +22,7 @@ import {NzNotificationService} from 'ng-zorro-antd/notification';
 import {environment} from '../environments/environment';
 import {BASE_PATH as BASE_PATH_API} from 'local-packages/banca-api';
 import {NgxPermissionsModule} from 'ngx-permissions';
-import {JWTUserService, MockUserService, UserService} from './services/user.service';
+import {JWTUserService, UserService} from './services/user.service';
 import {httpInterceptorProviders} from './interceptors';
 import {NZ_CONFIG, NzConfig} from 'ng-zorro-antd/core/config';
 import {WebUsersAppModule} from './pages/web-user-app/web.users-app.module';
@@ -34,7 +34,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-const ngZorroConfig: NzConfig  = {
+const ngZorroConfig: NzConfig = {
   descriptions: {
     nzColumn: 1,
     nzBordered: true,
@@ -76,7 +76,7 @@ const ngZorroConfig: NzConfig  = {
     {provide: NZ_I18N, useValue: en_US},
     {provide: BASE_PATH_API, useValue: environment.urlApi},
     {provide: ErrorHandler, useClass: ErrorsHandler},
-    {provide: UserService, useClass: environment.jwtEnabled ? JWTUserService : MockUserService},
+    {provide: UserService, useClass: JWTUserService},
     {provide: NZ_CONFIG, useValue: ngZorroConfig},
     httpInterceptorProviders,
     NzNotificationService,
