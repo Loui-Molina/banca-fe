@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
-import {FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {AddResultDto, AdminLotteriesService, AdminLotteryResDto, Result, ResultDto, ResultsService, User} from 'local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
@@ -47,13 +47,15 @@ export class ResultsComponent implements OnInit {
       aux.push({
         title: 'RESULTS.LIST.USER',
         key: 'creationUsername',
+        showSearch: true
       });
     }
     this.columns = [
       ...aux,
       {
         title: 'RESULTS.LIST.LOTTERY',
-        key: 'lotteryName'
+        key: 'lotteryName',
+        showSearch: true
       },
       {
         title: 'RESULTS.LIST.FIRST',
@@ -79,12 +81,14 @@ export class ResultsComponent implements OnInit {
       {
         title: 'RESULTS.LIST.DATE',
         key: 'date',
-        valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy')
+        valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy'),
+        showSearch: true
       },
       {
         title: 'RESULTS.LIST.CREATION_DATE',
         key: 'createdAt',
-        valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm a')
+        valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm a'),
+        showSearch: true
       }
     ];
   }
@@ -107,9 +111,21 @@ export class ResultsComponent implements OnInit {
 
   getValidators = (mode: string) => {
     return {
-      first: [Validators.required, Validators.min(0), Validators.max(99)],
-      second: [Validators.required, Validators.min(0), Validators.max(99)],
-      third: [Validators.required, Validators.min(0), Validators.max(99)],
+      first: [
+        Validators.required,
+        Validators.min(0), Validators.max(99),
+        this.resultsValidator(this.formABM)
+      ],
+      second: [
+        Validators.required,
+        Validators.min(0), Validators.max(99),
+        this.resultsValidator(this.formABM)
+      ],
+      third: [
+        Validators.required,
+        Validators.min(0), Validators.max(99),
+        this.resultsValidator(this.formABM)
+      ],
       lottery: [Validators.required],
       date: [Validators.required]
     };
@@ -136,14 +152,15 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  // TODO LOUI implement
-  resultsValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-    const first = control.get('first');
-    const second = control.get('second');
-    const third = control.get('third');
-
-    return (first && second && third && (first.value === second.value || first.value === third.value || second.value === third.value)) ? {repeated: true} : null;
-  };
+  resultsValidator(form: FormGroup): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      const lista = [form.value.first, form.value.second, form.value.third];
+      if (!(lista.includes(control.value))) {
+        return null;
+      }
+      return {forbiddenName: {value: control.value}};
+    };
+  }
 
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
