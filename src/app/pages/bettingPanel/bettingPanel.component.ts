@@ -406,14 +406,14 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     let type: Play.PlayTypeEnum = null;
     const numbers = this.number.toUpperCase();
     if (numbers.indexOf('.') !== -1) {
-      // Contiene '.' Ex: 22235. 2323.
+      // Contiene '.' Ex: 22235. / 2323.
       const result = numbers.split('.')[0].match(/[0-9]{1,2}/g);
       if (result[result.length - 1].length === 1) {
         // Fixes last number
         result[result.length - 1] = formatResult(parseInt(result[result.length - 1], 0));
       }
       if (result.length === 1) {
-        // Solo un numero Ex: 23 32
+        // Solo un numero Ex: 23 / 32
         type = Play.PlayTypeEnum.Direct;
         playsToCreate.push({
           playNumbers: {first: parseInt(result[0], 0)},
