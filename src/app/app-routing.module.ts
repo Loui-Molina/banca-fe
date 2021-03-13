@@ -52,6 +52,12 @@ const routes: Routes = [
         loadChildren: () => import('./pages/chats/chats.module').then(m => m.ChatsModule)
       },
       {
+        path: 'tickets',
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Consortium]},
+        loadChildren: () => import('./pages/tickets/tickets.module').then(m => m.TicketsModule)
+      },
+      {
         path: 'bankings',
         canActivate: [RoleGuard, AuthGuard],
         data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},

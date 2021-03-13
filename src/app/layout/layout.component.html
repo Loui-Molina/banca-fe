@@ -31,6 +31,10 @@
             <i nz-icon nzType="message"></i>
             <a routerLink="/chat">{{'SIDENAV.HOME.CHAT' | translate}}</a>
           </li>
+          <li *ngIf="[userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="file-text"></i>
+            <a routerLink="/tickets">{{'SIDENAV.HOME.TICKETS' | translate}}</a>
+          </li>
           <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="shop"></i>
             <a routerLink="/bankings">{{'SIDENAV.HOME.BANKINGS' | translate}}</a>

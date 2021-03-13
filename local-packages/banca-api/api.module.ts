@@ -16,6 +16,7 @@ import { DashboardService } from './api/dashboard.service';
 import { DefaultService } from './api/default.service';
 import { MessagesService } from './api/messages.service';
 import { ResultsService } from './api/results.service';
+import { TicketsService } from './api/tickets.service';
 import { TransactionsService } from './api/transactions.service';
 import { UsersService } from './api/users.service';
 import { WebUserLotteriesService } from './api/webUserLotteries.service';

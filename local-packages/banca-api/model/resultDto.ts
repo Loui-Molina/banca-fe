@@ -13,10 +13,13 @@ import { Draw } from './draw';
 
 
 export interface ResultDto { 
-    date?: string;
-    draw?: Draw;
-    creationUserId?: object;
-    deletionDate?: string;
-    modificationUserId?: object;
+    _id: object;
+    lotteryId: object;
+    creationUserId: object;
+    lotteryName: string;
+    creationUsername: string;
+    date: string;
+    createdAt: string;
+    draw: Draw;
 }
 
