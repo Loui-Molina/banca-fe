@@ -59,24 +59,18 @@ export class ResultsComponent implements OnInit {
       },
       {
         title: 'RESULTS.LIST.FIRST',
-        key: 'draw.first',
-        valueFormatter: (data) => {
-          return this.formatResult(data.draw.first);
-        }
+        key: 'first',
+        component: 'ball',
       },
       {
         title: 'RESULTS.LIST.SECOND',
-        key: 'draw.second',
-        valueFormatter: (data) => {
-          return this.formatResult(data.draw.second);
-        }
+        key: 'second',
+        component: 'ball',
       },
       {
         title: 'RESULTS.LIST.THIRD',
-        key: 'draw.third',
-        valueFormatter: (data) => {
-          return this.formatResult(data.draw.third);
-        }
+        key: 'third',
+        component: 'ball',
       },
       {
         title: 'RESULTS.LIST.DATE',

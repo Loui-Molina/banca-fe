@@ -35,6 +35,7 @@ import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
 import { ModalChangePasswordComponent } from './modals/modal-change-password/modal-change-password.component';
 import {ModalAddTransactionComponent} from './modals/modal-add-transaction/modal-add-transaction.component';
 import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
+import { SearchComponent } from './abm/search/search.component';
 
 
 const components = [
@@ -81,8 +82,8 @@ const components = [
     FormsModule,
     NzInputNumberModule
   ],
-  declarations: [...components],
-  exports: [...components],
+  declarations: [...components, SearchComponent],
+    exports: [...components, SearchComponent],
   providers: [NzModalService, NzMessageService]
 })
 export class ComponentsModule {

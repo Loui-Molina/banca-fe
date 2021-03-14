@@ -12,7 +12,8 @@
       <thead>
       <tr>
         <th *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'"
-            class="table-th">{{column.title | translate}}</th>
+            class="table-th">{{column.title | translate}}
+        </th>
       </tr>
       </thead>
       <tbody>

@@ -22,22 +22,13 @@
           class="table-th">
         {{column.title | translate}}
         <ng-container *ngIf="column.showSearch">
-          <nz-filter-trigger [(nzVisible)]="visibleFilter[column.key]"
-                             [nzActive]="filterValue[column.key] && filterValue[column.key].length > 0"
-                             [nzDropdownMenu]="filterMenu">
-            <i nz-icon nzType="search"></i>
-          </nz-filter-trigger>
-          <nz-dropdown-menu #filterMenu="nzDropdownMenu">
-            <div class="ant-table-filter-dropdown">
-              <div class="search-box">
-                <input [(ngModel)]="filterValue[column.key]" nz-input [placeholder]="'UTILS.SEARCH'|translate" type="text"/>
-                <button (click)="search(column.key)" class="search-button" nz-button nzSize="small" nzType="primary">
-                  {{'UTILS.SEARCH'|translate}}
-                </button>
-                <button (click)="reset(column.key)" nz-button nzSize="small">{{'UTILS.CLEAN'|translate}}</button>
-              </div>
-            </div>
-          </nz-dropdown-menu>
+          <app-search
+            [visibleFilter]="visibleFilter"
+            [filterValue]="filterValue"
+            [search]="search"
+            [reset]="reset"
+            [column]="column"
+          ></app-search>
         </ng-container>
       </th>
       <th>{{'UTILS.ACTIONS' | translate}}</th>
@@ -46,7 +37,12 @@
     <tbody>
     <tr *ngFor="let item of basicTable.data">
       <td *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'" class="table-td">
-        {{ column.valueFormatter ? column.valueFormatter(item, column) : getValueKey(item, column.key) }}
+        <ng-container *ngIf="column.component">
+          <ng-container  *ngTemplateOutlet="components; context: { $implicit: column, data: item  }"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="!column.component">
+          {{ column.valueFormatter ? column.valueFormatter(item, column) : getValueKey(item, column.key) }}
+        </ng-container>
       </td>
       <td>
         <i (click)="extraButton.onClick && extraButton.onClick(item)" *ngFor="let extraButton of extraButtons" [nz-tooltip]="extraButton.tooltip | translate"

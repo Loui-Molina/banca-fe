@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, TemplateRef} from '@angular/core';
+import {Component, ComponentFactoryResolver, ContentChild, Input, OnInit, TemplateRef} from '@angular/core';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
@@ -30,6 +30,7 @@ export class AbmComponent implements OnInit {
   @Input() fetcherCreate: (item) => Observable<any>;
   @Input() fetcherUpdate: (item) => Observable<any>;
   @Input() fetcherDelete: (item) => Observable<Response>;
+  @ContentChild(TemplateRef, {static: false}) components: TemplateRef<any>;
   filterValue = {};
   visibleFilter = {};
   visibleForm = false;
@@ -43,6 +44,7 @@ export class AbmComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private modal: NzModalService,
+              private componentFactoryResolver: ComponentFactoryResolver,
               private translateService: TranslateService,
               private messageService: NzMessageService) {
   }
@@ -212,12 +214,12 @@ export class AbmComponent implements OnInit {
     this.visibleView = false;
   }
 
-  reset(key): void {
+  reset = (key) => {
     this.filterValue[key] = null;
     this.search(key);
   }
 
-  search(key): void {
+  search = (key) => {
     this.visibleFilter[key] = false;
     this.dataDisplayed = this.data.filter(item => {
       // tslint:disable-next-line:prefer-for-of
@@ -251,6 +253,7 @@ export interface Column {
   key?: string;
   title?: string;
   showSearch?: boolean;
+  component?: string;
   type?: 'numeric' | 'string';
   // tslint:disable-next-line:ban-types
   valueFormatter?: Function;

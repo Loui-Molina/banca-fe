@@ -1,0 +1,18 @@
+<nz-filter-trigger [(nzVisible)]="visibleFilter[column.key]"
+                   [nzActive]="filterValue[column.key] && filterValue[column.key].length > 0"
+                   [nzDropdownMenu]="filterMenu">
+  <i nz-icon nzType="search"></i>
+</nz-filter-trigger>
+<nz-dropdown-menu #filterMenu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input [(ngModel)]="filterValue[column.key]" nz-input [placeholder]="'UTILS.SEARCH'|translate" type="text"/>
+      <div class="actions">
+        <button (click)="search(column.key)" class="search-button" nz-button nzSize="small" nzType="primary">
+          {{'UTILS.SEARCH'|translate}}
+        </button>
+        <button (click)="reset(column.key)" nz-button nzSize="small">{{'UTILS.CLEAN'|translate}}</button>
+      </div>
+    </div>
+  </div>
+</nz-dropdown-menu>
