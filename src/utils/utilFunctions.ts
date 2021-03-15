@@ -101,7 +101,7 @@ export function showParsedNumbers(playNumbers: PlayNumbers): string {
   const plays: string[] = Object.keys(playNumbers);
   for (const [i, play] of plays.entries()) {
     if (playNumbers[play] || playNumbers[play] === 0) {
-      numbers += (i !== 0 ? '-' : '' + formatResult(playNumbers[play]));
+      numbers += (((i !== 0) ? ('-') : ('')) + formatResult(playNumbers[play]));
     }
   }
   return numbers;
