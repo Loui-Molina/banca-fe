@@ -228,28 +228,23 @@ export class AbmComponent implements OnInit {
   search = (key, searchType: string) => {
     this.visibleFilter[key] = false;
     this.dataDisplayed = this.data.filter(item => {
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < Object.keys(this.filterValue).length; i++) {
-        const subkey = Object.keys(this.filterValue)[i];
-        if (this.filterValue[subkey] !== null && this.filterValue[subkey] !== undefined) {
-          if (item[subkey]) {
-            if (!searchType || searchType === 'string') {
-              if (typeof item[subkey] === 'string' && item[subkey].indexOf(this.filterValue[subkey]) === -1) {
-                return false;
-              } else if (typeof item[subkey] === 'number' && item[subkey] !== (parseInt(this.filterValue[subkey], 0) || null)) {
-                return false;
-              } else {
-                return true;
-              }
-            } else if (searchType === 'date') {
-              return this.datesAreOnSameDay(new Date(item[subkey]), this.filterValue[subkey]);
-            }
-          } else if (item[subkey] === undefined) {
+      const valueFilter = this.filterValue[key];
+      switch (searchType) {
+        case 'select':
+          return item[key] === this.filterValue[key];
+        case 'date':
+          return this.datesAreOnSameDay(new Date(item[key]), this.filterValue[key]);
+        case 'string':
+        default:
+          if (typeof item[key] === 'string' && item[key].indexOf(valueFilter) === -1) {
             return false;
+          } else if (typeof item[key] === 'number' && item[key] !== (parseInt(valueFilter, 0) || null)) {
+            return false;
+          } else {
+            return true;
           }
-        }
       }
-      return true;
+      return false;
     });
   }
 
@@ -265,9 +260,15 @@ export interface Column {
   showSearch?: boolean;
   component?: string;
   type?: 'numeric' | 'string';
-  searchType?: 'date' | 'string';
+  searchType?: 'date' | 'string' | 'select';
+  searchOptions?: SearchOption[];
   // tslint:disable-next-line:ban-types
   valueFormatter?: Function;
+}
+
+export interface SearchOption {
+  label: string;
+  value: any;
 }
 
 export interface ExtraButton {

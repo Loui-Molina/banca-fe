@@ -32,7 +32,16 @@ export class TicketsComponent implements OnInit, OnDestroy {
     title: 'STATUS',
     key: 'betStatus',
     component: 'status',
-    showSearch: true
+    showSearch: true,
+    searchType: 'select',
+    searchOptions: [
+      {label: 'GANADOR', value: BetDto.BetStatusEnum.Winner},
+      {label: 'PENDIENTE', value: BetDto.BetStatusEnum.Pending},
+      {label: 'CANCELADO', value: BetDto.BetStatusEnum.Cancelled},
+      {label: 'PERDEDOR', value: BetDto.BetStatusEnum.Loser},
+      {label: 'RECLAMADO', value: BetDto.BetStatusEnum.Claimed},
+      {label: 'EXPIRADO', value: BetDto.BetStatusEnum.Expired}
+    ]
   }];
   betStatus = BetDto.BetStatusEnum;
   fetcher: Observable<TicketDto[]> = this.ticketsService.ticketsControllerGetAll();

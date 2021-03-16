@@ -1,7 +1,10 @@
 .search-box{
   padding: 10px;
-  input, nz-date-picker{
+  input, nz-date-picker, nz-select{
     margin-bottom: 5px;
+  }
+  nz-select{
+    width: 100%;
   }
 
   .actions{
