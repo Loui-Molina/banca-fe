@@ -307,6 +307,7 @@
       "OPEN_TIME": "openTime",
       "CLOSE_TIME": "closeTime",
       "STATUS": "status",
+      "COLOR": "color",
       "ENABLED": "enabled",
       "DISABLED": "disabled"
     },

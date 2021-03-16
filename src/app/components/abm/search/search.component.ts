@@ -19,4 +19,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isActive(): boolean {
+    return this.filterValue[this.column.key];
+  }
 }

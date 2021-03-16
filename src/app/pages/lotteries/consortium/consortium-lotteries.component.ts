@@ -71,7 +71,13 @@ export class ConsortiumLotteriesComponent implements OnInit {
       title: 'LOTTERIES.LIST.STATUS',
       key: 'status',
       valueFormatter: (data) => (data.status) ? this.ts('LOTTERIES.LIST.ENABLED') : this.ts('LOTTERIES.LIST.DISABLED')
-    }];
+    },
+    {
+      title: 'LOTTERIES.LIST.COLOR',
+      key: 'color',
+      component: 'color'
+    }
+    ];
 
   fetcher: Observable<ConsortiumLotteryDto[]> = this.lotteriesService.consortiumLotteryControllerGetAll();
 

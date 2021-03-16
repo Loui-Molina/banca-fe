@@ -7,6 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {UserInterface, UserService} from '../../services/user.service';
 import {Observable} from 'rxjs';
 import {showParsedNumbers} from 'src/utils/utilFunctions';
+import {Column} from '../../components/abm/abm.component';
 
 @Component({
   selector: 'app-tickets',
@@ -17,7 +18,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
   user: UserInterface;
   userRole = User.RoleEnum;
   loading = false;
-  columns = [{
+  columns: Column[] = [{
     title: 'BANCA',
     key: 'bankingName',
     showSearch: true
@@ -25,10 +26,12 @@ export class TicketsComponent implements OnInit, OnDestroy {
     title: 'FECHA',
     key: 'date',
     valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy hh:mm'),
-    showSearch: true
+    showSearch: true,
+    searchType: 'date'
   }, {
     title: 'STATUS',
     key: 'betStatus',
+    component: 'status',
     showSearch: true
   }];
   betStatus = BetDto.BetStatusEnum;

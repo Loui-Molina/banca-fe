@@ -1,8 +1,9 @@
 .search-box{
   padding: 10px;
-  input{
+  input, nz-date-picker{
     margin-bottom: 5px;
   }
+
   .actions{
     display: flex;
     justify-content: space-between;

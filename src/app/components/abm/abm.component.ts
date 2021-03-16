@@ -18,6 +18,7 @@ export class AbmComponent implements OnInit {
   @Input() viewTemplate: TemplateRef<any>;
   @Input() columns: Column[] = [];
   @Input() form: FormGroup;
+  @Input() customColumns: TemplateRef<any>;
   // tslint:disable-next-line:ban-types
   @Input() getValidators: Function;
   // tslint:disable-next-line:ban-types
@@ -30,7 +31,6 @@ export class AbmComponent implements OnInit {
   @Input() fetcherCreate: (item) => Observable<any>;
   @Input() fetcherUpdate: (item) => Observable<any>;
   @Input() fetcherDelete: (item) => Observable<Response>;
-  @ContentChild(TemplateRef, {static: false}) components: TemplateRef<any>;
   filterValue = {};
   visibleFilter = {};
   visibleForm = false;
@@ -214,12 +214,18 @@ export class AbmComponent implements OnInit {
     this.visibleView = false;
   }
 
-  reset = (key) => {
+  reset = (key, searchType: string) => {
     this.filterValue[key] = null;
-    this.search(key);
+    this.search(key, searchType);
   }
 
-  search = (key) => {
+  datesAreOnSameDay = (first: Date, second: Date): boolean => {
+    return first.getFullYear() === second.getFullYear() &&
+      first.getMonth() === second.getMonth() &&
+      first.getDate() === second.getDate();
+  }
+
+  search = (key, searchType: string) => {
     this.visibleFilter[key] = false;
     this.dataDisplayed = this.data.filter(item => {
       // tslint:disable-next-line:prefer-for-of
@@ -227,12 +233,16 @@ export class AbmComponent implements OnInit {
         const subkey = Object.keys(this.filterValue)[i];
         if (this.filterValue[subkey] !== null && this.filterValue[subkey] !== undefined) {
           if (item[subkey]) {
-            if (typeof item[subkey] === 'string' && item[subkey].indexOf(this.filterValue[subkey]) === -1) {
-              return false;
-            } else if (typeof item[subkey] === 'number' && item[subkey] !== (parseInt(this.filterValue[subkey], 0) || null)) {
-              return false;
-            } else {
-              return true;
+            if (!searchType || searchType === 'string') {
+              if (typeof item[subkey] === 'string' && item[subkey].indexOf(this.filterValue[subkey]) === -1) {
+                return false;
+              } else if (typeof item[subkey] === 'number' && item[subkey] !== (parseInt(this.filterValue[subkey], 0) || null)) {
+                return false;
+              } else {
+                return true;
+              }
+            } else if (searchType === 'date') {
+              return this.datesAreOnSameDay(new Date(item[subkey]), this.filterValue[subkey]);
             }
           } else if (item[subkey] === undefined) {
             return false;
@@ -255,6 +265,7 @@ export interface Column {
   showSearch?: boolean;
   component?: string;
   type?: 'numeric' | 'string';
+  searchType?: 'date' | 'string';
   // tslint:disable-next-line:ban-types
   valueFormatter?: Function;
 }

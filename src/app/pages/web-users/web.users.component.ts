@@ -29,11 +29,13 @@ export class WebUsersComponent {
   columns = [
     {
       title: 'WEBUSERS.LIST.NAME',
-      key: 'ownerName'
+      key: 'ownerName',
+      showSearch: true
     },
     {
       title: 'WEBUSERS.LIST.USER',
       key: 'ownerUsername',
+      showSearch: true
     },
     {
       title: 'WEBUSERS.LIST.CREATION_DATE',

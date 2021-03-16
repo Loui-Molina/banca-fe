@@ -307,6 +307,7 @@
       "OPEN_TIME": "Apertura",
       "CLOSE_TIME": "Cierre",
       "STATUS": "Estado",
+      "COLOR": "Color",
       "ENABLED": "Habilitado",
       "DISABLED": "Deshabilitado"
     },

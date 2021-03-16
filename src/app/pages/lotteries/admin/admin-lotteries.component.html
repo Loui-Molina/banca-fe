@@ -2,6 +2,7 @@
   <app-abm [columns]="columns"
            [defaultForm]="defaultForm"
            [extraButtons]="extraButtons"
+           [customColumns]="customColumns"
            [fetcherCreate]="fetcherCreate"
            [fetcherDelete]="fetcherDelete"
            [fetcherUpdate]="fetcherUpdate"
@@ -14,6 +15,12 @@
            [title]="'LOTTERIES.TITLE'"
            [viewTemplate]="viewTemplate">
   </app-abm>
+
+  <ng-template let-column let-data="data" #customColumns>
+    <ng-container [ngSwitch]="column.component">
+      <nz-tag *ngSwitchCase="'color'" [nzColor]="data.color">{{data.color}}</nz-tag>
+    </ng-container>
+  </ng-template>
 
 
   <ng-template #formTemplate>

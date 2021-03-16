@@ -6,16 +6,18 @@
            [fetcher]="fetcher"
            [formTemplate]="formTemplate"
            [form]="formABM"
+           [customColumns]="customColumns"
            [getValidators]="getValidators"
            [parseData]="parseData"
            [title]="'RESULTS.TITLE'"
            [viewTemplate]="viewTemplate">
-    <ng-template let-column let-data="data">
-      <ng-container [ngSwitch]="column.component">
-        <app-ball *ngSwitchCase="'ball'" [background]="'red'" [size]="'tiny'" [title]="this.formatResult(data && data.draw && data.draw[column.key])"></app-ball>
-      </ng-container>
-    </ng-template>
   </app-abm>
+
+  <ng-template let-column let-data="data" #customColumns>
+    <ng-container [ngSwitch]="column.component">
+      <app-ball *ngSwitchCase="'ball'" [background]="'red'" [size]="'tiny'" [title]="this.formatResult(data && data.draw && data.draw[column.key])"></app-ball>
+    </ng-container>
+  </ng-template>
 
 
   <ng-template #formTemplate>

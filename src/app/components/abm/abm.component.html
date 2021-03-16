@@ -38,7 +38,7 @@
     <tr *ngFor="let item of basicTable.data">
       <td *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'" class="table-td">
         <ng-container *ngIf="column.component">
-          <ng-container  *ngTemplateOutlet="components; context: { $implicit: column, data: item  }"></ng-container>
+          <ng-container  *ngTemplateOutlet="customColumns; context: { $implicit: column, data: item  }"></ng-container>
         </ng-container>
         <ng-container *ngIf="!column.component">
           {{ column.valueFormatter ? column.valueFormatter(item, column) : getValueKey(item, column.key) }}

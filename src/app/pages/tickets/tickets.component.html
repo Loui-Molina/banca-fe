@@ -3,8 +3,40 @@
   <app-abm [columns]="columns"
            [fetcher]="fetcher"
            [title]="'TICKETS'"
+           [customColumns]="customColumns"
            [viewTemplate]="viewTemplate">
   </app-abm>
+
+  <ng-template let-column let-data="data" #customColumns>
+    <ng-container [ngSwitch]="column.component">
+      <ng-container *ngSwitchCase="'status'">
+        <nz-tag *ngIf="data.betStatus === betStatus.Winner" [nzColor]="'green'"
+                style="padding: 0 2px 0 2px;">
+          GANADOR
+        </nz-tag>
+        <nz-tag *ngIf="data.betStatus === betStatus.Pending" [nzColor]="'blue'"
+                style="padding: 0 2px 0 2px;">
+          PENDIENTE
+        </nz-tag>
+        <nz-tag *ngIf="data.betStatus === betStatus.Cancelled" [nzColor]="'brown'"
+                style="padding: 0 2px 0 2px;">
+          CANCELADO
+        </nz-tag>
+        <nz-tag *ngIf="data.betStatus === betStatus.Loser" [nzColor]="'red'"
+                style="padding: 0 2px 0 2px;">
+          PERDEDOR
+        </nz-tag>
+        <nz-tag *ngIf="data.betStatus === betStatus.Claimed" [nzColor]="'darkgreen'"
+                style="padding: 0 2px 0 2px;">
+          RECLAMADO
+        </nz-tag>
+        <nz-tag *ngIf="data.betStatus === betStatus.Expired" [nzColor]="'red'"
+                style="padding: 0 2px 0 2px;">
+          EXPIRADO
+        </nz-tag>
+      </ng-container>
+    </ng-container>
+  </ng-template>
 
   <ng-template #viewTemplate let-visibleObject>
     <div class="drawer">

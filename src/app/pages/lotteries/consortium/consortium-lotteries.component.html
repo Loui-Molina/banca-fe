@@ -2,6 +2,7 @@
 <div class="inner-content fit-height mb-20" style="min-height: 300px;">
   <app-abm [columns]="columns"
            [defaultForm]="defaultForm"
+           [customColumns]="customColumns"
            [fetcherUpdate]="fetcherUpdate"
            [fetcher]="fetcher"
            [formTemplate]="formTemplate"
@@ -11,6 +12,12 @@
            [title]="'LOTTERIES.TITLE'"
            [viewTemplate]="viewTemplate">
   </app-abm>
+
+  <ng-template let-column let-data="data" #customColumns>
+    <ng-container [ngSwitch]="column.component">
+      <nz-tag *ngSwitchCase="'color'" [nzColor]="data.color">{{data.color}}</nz-tag>
+    </ng-container>
+  </ng-template>
 
   <ng-template #formTemplate let-mode let-visibleObject="visibleObject">
     <form [formGroup]="formABM">
