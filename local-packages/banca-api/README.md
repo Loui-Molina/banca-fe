@@ -1,4 +1,4 @@
-## banca-api@1.0.3
+## restClient@6.9.0
 
 ### Building
 
@@ -19,7 +19,7 @@ Navigate to the folder of your consuming project and run one of next commands.
 _published:_
 
 ```
-npm install banca-api@1.0.3 --save
+npm install restClient@6.9.0 --save
 ```
 
 _without publishing (not recommended):_
@@ -39,7 +39,7 @@ npm link
 
 In your project:
 ```
-npm link banca-api
+npm link restClient
 ```
 
 __Note for Windows users:__ The Angular CLI has troubles to use linked npm packages.
@@ -54,7 +54,7 @@ In your Angular project:
 
 ```
 // without configuring providers
-import { ApiModule } from 'banca-api';
+import { ApiModule } from 'restClient';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -74,7 +74,7 @@ export class AppModule {}
 
 ```
 // configuring providers
-import { ApiModule, Configuration, ConfigurationParameters } from 'banca-api';
+import { ApiModule, Configuration, ConfigurationParameters } from 'restClient';
 
 export function apiConfigFactory (): Configuration => {
   const params: ConfigurationParameters = {
@@ -94,7 +94,7 @@ export class AppModule {}
 
 ```
 // configuring providers with an authentication service that manages your access tokens
-import { ApiModule, Configuration } from 'banca-api';
+import { ApiModule, Configuration } from 'restClient';
 
 @NgModule({
     imports: [ ApiModule ],
@@ -118,7 +118,7 @@ export class AppModule {}
 ```
 
 ```
-import { DefaultApi } from 'banca-api';
+import { DefaultApi } from 'restClient';
 
 export class AppComponent {
 	 constructor(private apiGateway: DefaultApi) { }
@@ -157,7 +157,7 @@ export class AppModule {
 If different than the generated base path, during app bootstrap, you can provide the base path to your service. 
 
 ```
-import { BASE_PATH } from 'banca-api';
+import { BASE_PATH } from 'restClient';
 
 bootstrap(AppComponent, [
     { provide: BASE_PATH, useValue: 'https://your-web-service.com' },
@@ -166,7 +166,7 @@ bootstrap(AppComponent, [
 or
 
 ```
-import { BASE_PATH } from 'banca-api';
+import { BASE_PATH } from 'restClient';
 
 @NgModule({
     imports: [],
@@ -190,7 +190,7 @@ export const environment = {
 
 In the src/app/app.module.ts:
 ```
-import { BASE_PATH } from 'banca-api';
+import { BASE_PATH } from 'restClient';
 import { environment } from '../environments/environment';
 
 @NgModule({

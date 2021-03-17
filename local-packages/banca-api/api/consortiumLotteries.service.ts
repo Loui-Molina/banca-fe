@@ -22,13 +22,16 @@ import { ConsortiumUpdateLotteryDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import {
+    ConsortiumLotteriesServiceInterface
+} from './consortiumLotteries.serviceInterface';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConsortiumLotteriesService {
+export class ConsortiumLotteriesService implements ConsortiumLotteriesServiceInterface {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();

@@ -25,13 +25,16 @@ import { User } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import {
+    AuthServiceInterface
+} from './auth.serviceInterface';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements AuthServiceInterface {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();

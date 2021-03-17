@@ -21,13 +21,16 @@ import { WebUserLotteryDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import {
+    WebUserLotteriesServiceInterface
+} from './webUserLotteries.serviceInterface';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class WebUserLotteriesService {
+export class WebUserLotteriesService implements WebUserLotteriesServiceInterface {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();

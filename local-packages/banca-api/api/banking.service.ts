@@ -24,13 +24,16 @@ import { UpdateBankingDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import {
+    BankingServiceInterface
+} from './banking.serviceInterface';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class BankingService {
+export class BankingService implements BankingServiceInterface {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();

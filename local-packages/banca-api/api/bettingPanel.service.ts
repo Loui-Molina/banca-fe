@@ -26,13 +26,16 @@ import { UpdateBetDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import {
+    BettingPanelServiceInterface
+} from './bettingPanel.serviceInterface';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class BettingPanelService {
+export class BettingPanelService implements BettingPanelServiceInterface {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();

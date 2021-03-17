@@ -21,13 +21,16 @@ import { TicketDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import {
+    TicketsServiceInterface
+} from './tickets.serviceInterface';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class TicketsService {
+export class TicketsService implements TicketsServiceInterface {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();

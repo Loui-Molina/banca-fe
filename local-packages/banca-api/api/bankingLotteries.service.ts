@@ -21,13 +21,16 @@ import { BankingLotteryDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import {
+    BankingLotteriesServiceInterface
+} from './bankingLotteries.serviceInterface';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class BankingLotteriesService {
+export class BankingLotteriesService implements BankingLotteriesServiceInterface {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();

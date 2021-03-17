@@ -30,13 +30,16 @@ import { DashboardWidgetsDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import {
+    DashboardServiceInterface
+} from './dashboard.serviceInterface';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
+export class DashboardService implements DashboardServiceInterface {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();
