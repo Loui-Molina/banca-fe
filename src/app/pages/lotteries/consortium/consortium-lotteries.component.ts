@@ -18,6 +18,7 @@ import endOfMonth from 'date-fns/endOfMonth';
 import {DatePipe} from '@angular/common';
 import PrizeLimitPlayTypeEnum = PrizeLimitDto.PlayTypeEnum;
 import BettingLimitPlayTypeEnum = BettingLimitDto.PlayTypeEnum;
+import {Column} from '../../../components/abm/abm.component';
 
 
 @Component({
@@ -40,10 +41,11 @@ export class ConsortiumLotteriesComponent implements OnInit {
     this.formABM = this.formBuilder.group(this.defaultForm);
   }
 
-  columns = [
+  columns: Column[] = [
     {
       title: 'LOTTERIES.LIST.NAME',
-      key: 'name'
+      key: 'name',
+      showSearch: true,
     },
     {
       title: 'LOTTERIES.LIST.ALIAS',
@@ -70,7 +72,13 @@ export class ConsortiumLotteriesComponent implements OnInit {
     {
       title: 'LOTTERIES.LIST.STATUS',
       key: 'status',
-      valueFormatter: (data) => (data.status) ? this.ts('LOTTERIES.LIST.ENABLED') : this.ts('LOTTERIES.LIST.DISABLED')
+      valueFormatter: (data) => (data.status) ? this.ts('LOTTERIES.LIST.ENABLED') : this.ts('LOTTERIES.LIST.DISABLED'),
+      showSearch: true,
+      searchType: 'select',
+      searchOptions: [
+        {value: true, label: 'LOTTERIES.LIST.ENABLED'},
+        {value: false, label: 'LOTTERIES.LIST.DISABLED'},
+      ]
     },
     {
       title: 'LOTTERIES.LIST.COLOR',

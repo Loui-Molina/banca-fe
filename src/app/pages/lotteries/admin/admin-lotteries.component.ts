@@ -2,15 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {DatePipe} from '@angular/common';
-import {ExtraButton} from '../../../components/abm/abm.component';
+import {Column, ExtraButton} from '../../../components/abm/abm.component';
 import {TranslateService} from '@ngx-translate/core';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {AdminLotteriesService, AdminLotteryResDto} from 'local-packages/banca-api';
 import DayEnum = AdminLotteryResDto.DayEnum;
 
-// TODO check all's working
-// TODO add color to table
+
 @Component({
   selector: 'app-lotteries-admin',
   templateUrl: './admin-lotteries.component.html',
@@ -18,10 +17,11 @@ import DayEnum = AdminLotteryResDto.DayEnum;
 })
 export class AdminLotteriesComponent implements OnInit {
 
-  columns = [
+  columns: Column[] = [
     {
       title: 'LOTTERIES.LIST.NAME',
-      key: 'name'
+      key: 'name',
+      showSearch: true,
     },
     {
       title: 'LOTTERIES.LIST.ALIAS',
@@ -45,7 +45,13 @@ export class AdminLotteriesComponent implements OnInit {
     {
       title: 'LOTTERIES.LIST.STATUS',
       key: 'status',
-      valueFormatter: (data) => (data.status) ? this.ts('LOTTERIES.LIST.ENABLED') : this.ts('LOTTERIES.LIST.DISABLED')
+      valueFormatter: (data) => (data.status) ? this.ts('LOTTERIES.LIST.ENABLED') : this.ts('LOTTERIES.LIST.DISABLED'),
+      showSearch: true,
+      searchType: 'select',
+      searchOptions: [
+        {value: true, label: 'LOTTERIES.LIST.ENABLED'},
+        {value: false, label: 'LOTTERIES.LIST.DISABLED'},
+      ]
     },
     {
       title: 'LOTTERIES.LIST.COLOR',

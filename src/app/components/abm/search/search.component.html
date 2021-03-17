@@ -25,7 +25,7 @@
     </div>
     <div class="search-box" *ngIf="column.searchType === 'select'">
       <nz-select [(ngModel)]="filterValue[column.key]" [nzPlaceHolder]="'UTILS.SEARCH'|translate">
-        <nz-option *ngFor="let option of column.searchOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+        <nz-option *ngFor="let option of column.searchOptions" [nzLabel]="option.label|translate" [nzValue]="option.value"></nz-option>
       </nz-select>
       <div class="actions">
         <button (click)="search(column.key, column.searchType)" class="search-button" nz-button nzSize="small" nzType="primary">

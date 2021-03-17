@@ -20,6 +20,6 @@ export class SearchComponent implements OnInit {
   }
 
   isActive(): boolean {
-    return this.filterValue[this.column.key];
+    return this.filterValue[this.column.key] !== null && this.filterValue[this.column.key] !== undefined;
   }
 }

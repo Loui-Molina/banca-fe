@@ -76,13 +76,15 @@ export class ResultsComponent implements OnInit {
         title: 'RESULTS.LIST.DATE',
         key: 'date',
         valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy'),
-        showSearch: true
+        showSearch: true,
+        searchType: 'date'
       },
       {
         title: 'RESULTS.LIST.CREATION_DATE',
         key: 'createdAt',
         valueFormatter: (data) => this.datePipe.transform(data.createdAt, 'dd/MM/yyyy hh:mm a'),
-        showSearch: true
+        showSearch: true,
+        searchType: 'date'
       }
     ];
   }
