@@ -97,12 +97,24 @@ export function printTicket(bet: BetDto, banking: Banking): void {
 
 export function showParsedNumbers(playNumbers: PlayNumbers): string {
   let numbers = '';
-  // Iterate through the properties of the PlayNumbers
-  const plays: string[] = Object.keys(playNumbers);
-  for (const [i, play] of plays.entries()) {
-    if (playNumbers[play] || playNumbers[play] === 0) {
-      numbers += (((i !== 0) ? ('-') : ('')) + formatResult(playNumbers[play]));
-    }
+  numbers += formatResult(playNumbers.first);
+  if (playNumbers.second) {
+    numbers += '-' + formatResult(playNumbers.second);
+  }
+  if (playNumbers.third) {
+    numbers += '-' + formatResult(playNumbers.third);
+  }
+  if (playNumbers.fourth) {
+    numbers += '-' + formatResult(playNumbers.fourth);
+  }
+  if (playNumbers.fifth) {
+    numbers += '-' + formatResult(playNumbers.fifth);
+  }
+  if (playNumbers.sixth) {
+    numbers += '-' + formatResult(playNumbers.sixth);
+  }
+  if (playNumbers.seventh) {
+    numbers += '-' + formatResult(playNumbers.seventh);
   }
   return numbers;
 }

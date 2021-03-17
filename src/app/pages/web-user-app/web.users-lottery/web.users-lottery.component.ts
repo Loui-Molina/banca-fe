@@ -111,8 +111,6 @@ export class WebUsersLotteryComponent implements OnInit, OnDestroy {
       return true;
     }
     const amount = parseFloat(String(this.amount));
-    console.log('AMOUNT', amount);
-    console.log('limit', this.limit);
     if (this.limit != null && amount > this.limit) {
       return true;
     }
