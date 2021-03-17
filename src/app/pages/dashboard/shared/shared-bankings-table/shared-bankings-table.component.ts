@@ -97,6 +97,15 @@ export class SharedBankingsTableComponent implements OnInit {
       prefix: '$',
       type: 'numeric'
     },
+    {
+      title: 'DASHBOARD.BANKING_SUMMARY.LIST.RED',
+      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_RED',
+      key: 'red',
+      sum: true,
+      prefix: '$',
+      type: 'numeric',
+      red: true
+    },
   ];
   bankings: DashboardBankingDto[] = [];
 
@@ -128,4 +137,5 @@ interface ColumnItem {
   width?: string;
   titleFooter?: string;
   sum: boolean;
+  red?: boolean;
 }

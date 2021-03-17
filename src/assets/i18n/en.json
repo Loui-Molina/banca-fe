@@ -140,6 +140,7 @@
         "TOOLTIP_PRIZES": "tooltipPrizes",
         "TOOLTIP_PENDING_PRIZES": "tooltipPendingPrizes",
         "TOOLTIP_BALANCE": "tooltipBalance",
+        "TOOLTIP_RED": "tooltipRed",
         "BANKING": "banking",
         "WINNER": "winner",
         "LOSER": "loser",
@@ -152,6 +153,7 @@
         "PRIZES": "prizes",
         "PENDING_PRIZES": "pendingPrizes",
         "BALANCE": "balance",
+        "RED": "red",
         "FOOTER_TOTAL": "footerTotal"
       }
     },

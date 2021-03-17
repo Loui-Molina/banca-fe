@@ -39,7 +39,7 @@ export class WebUsersLotteryComponent implements OnInit, OnDestroy {
   interval;
   lottery: WebUserLotteryDto;
   plays: PlayInterface[] = [];
-  limit = 100;
+  limit: number;
   loading = true;
   number: number;
   amount: number;
@@ -111,6 +111,8 @@ export class WebUsersLotteryComponent implements OnInit, OnDestroy {
       return true;
     }
     const amount = parseFloat(String(this.amount));
+    console.log('AMOUNT', amount);
+    console.log('limit', this.limit);
     if (this.limit != null && amount > this.limit) {
       return true;
     }

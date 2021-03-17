@@ -140,6 +140,7 @@
         "TOOLTIP_PRIZES": "Premios",
         "TOOLTIP_PENDING_PRIZES": "Premios pendientes",
         "TOOLTIP_BALANCE": "Balance",
+        "TOOLTIP_RED": "Rojo",
         "BANKING": "Banca",
         "WINNER": "G",
         "LOSER": "P",
@@ -152,6 +153,7 @@
         "PRIZES": "Premios",
         "PENDING_PRIZES": "P. premios",
         "BALANCE": "Balance",
+        "RED": "Rojo",
         "FOOTER_TOTAL": "Total"
       }
     },

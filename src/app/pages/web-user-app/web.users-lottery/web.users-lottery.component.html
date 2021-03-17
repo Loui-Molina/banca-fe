@@ -28,7 +28,7 @@
     <nz-input-number
       autofocus
       #inputAmount
-      [nzMax]="limit"
+      [nzMax]="(limit != null)?limit:10000"
       [nzMin]="1"
       (keyup.enter)="onKeyEnterAmount()"
       [(ngModel)]="amount"
