@@ -18,7 +18,8 @@
   <nz-table #basicTable [nzData]="dataDisplayed" [nzScroll]="{ x: '700px' }" [nzSize]="'small'">
     <thead>
     <tr>
-      <th *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'"
+      <th *ngFor="let column of columns"
+          [class.numeric]="column.type === 'numeric'"
           class="table-th">
         {{column.title | translate}}
         <ng-container *ngIf="column.showSearch">
@@ -31,7 +32,7 @@
           ></app-search>
         </ng-container>
       </th>
-      <th>{{'UTILS.ACTIONS' | translate}}</th>
+      <th *ngIf="viewTemplate || fetcherUpdate || fetcherDelete">{{'UTILS.ACTIONS' | translate}}</th>
     </tr>
     </thead>
     <tbody>
@@ -44,13 +45,14 @@
           {{ column.valueFormatter ? column.valueFormatter(item, column) : getValueKey(item, column.key) }}
         </ng-container>
       </td>
-      <td>
-        <i (click)="extraButton.onClick && extraButton.onClick(item)" *ngFor="let extraButton of extraButtons" [nz-tooltip]="extraButton.tooltip | translate"
+      <td *ngIf="viewTemplate || fetcherUpdate || fetcherDelete">
+        <i (click)="extraButton.onClick && extraButton.onClick(item)"
+           *ngFor="let extraButton of extraButtons" [nz-tooltip]="extraButton.tooltip | translate"
            [nzType]="extraButton.icon"
            class="action-icon"
            nz-icon
            nzTheme="outline"></i>
-        <i (click)="openView(item)" [nz-tooltip]="'UTILS.DETAIL' | translate" class="action-icon" nz-icon nzTheme="outline"
+        <i (click)="openView(item)" *ngIf="viewTemplate" [nz-tooltip]="'UTILS.DETAIL' | translate" class="action-icon" nz-icon nzTheme="outline"
            nzType="eye"></i>
         <i (click)="onEdit(item)" *ngIf="fetcherUpdate" [nz-tooltip]="'UTILS.EDIT' | translate" class="action-icon" nz-icon
            nzTheme="outline"

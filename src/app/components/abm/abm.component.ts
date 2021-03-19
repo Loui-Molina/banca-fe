@@ -237,6 +237,11 @@ export class AbmComponent implements OnInit {
           return item[key] === this.filterValue[key];
         case 'date':
           return this.datesAreOnSameDay(new Date(item[key]), this.filterValue[key]);
+        case 'date-range':
+          if (this.filterValue[key].length === 2) {
+            return this.filterValue[key][0] >= new Date(item[key]) && this.filterValue[key][1] <= new Date(item[key]);
+          }
+          return true;
         case 'string':
         default:
           if (typeof item[key] === 'string' && item[key].indexOf(valueFilter) === -1) {
@@ -261,7 +266,7 @@ export interface Column {
   showSearch?: boolean;
   component?: string;
   type?: 'numeric' | 'string';
-  searchType?: 'date' | 'string' | 'select';
+  searchType?: 'date' | 'string' | 'select' | 'date-range';
   searchOptions?: SearchOption[];
   // tslint:disable-next-line:ban-types
   valueFormatter?: Function;

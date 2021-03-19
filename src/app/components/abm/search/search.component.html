@@ -23,6 +23,15 @@
         <button (click)="reset(column.key, column.searchType)" nz-button nzSize="small">{{'UTILS.CLEAN'|translate}}</button>
       </div>
     </div>
+    <div class="search-box" *ngIf="column.searchType === 'date-range'">
+      <nz-range-picker [(ngModel)]="filterValue[column.key]" [nzPlaceHolder]="[('UTILS.FROM'|translate), ('UTILS.TO'|translate)]"></nz-range-picker>
+      <div class="actions">
+        <button (click)="search(column.key, column.searchType)" class="search-button" nz-button nzSize="small" nzType="primary">
+          {{'UTILS.SEARCH'|translate}}
+        </button>
+        <button (click)="reset(column.key, column.searchType)" nz-button nzSize="small">{{'UTILS.CLEAN'|translate}}</button>
+      </div>
+    </div>
     <div class="search-box" *ngIf="column.searchType === 'select'">
       <nz-select [(ngModel)]="filterValue[column.key]" [nzPlaceHolder]="'UTILS.SEARCH'|translate">
         <nz-option *ngFor="let option of column.searchOptions" [nzLabel]="option.label|translate" [nzValue]="option.value"></nz-option>
