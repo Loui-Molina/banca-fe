@@ -51,7 +51,7 @@ export class BankingsComponent {
       valueFormatter: (data) => (data.status) ? this.ts('BANKINGS.LIST.ENABLED') : this.ts('BANKINGS.LIST.DISABLED')
     }
   ];
-  //FIXME cancellationTime not working on edit
+  // FIXME cancellationTime not working on edit
   defaultForm = {
     name: null,
     status: true,
