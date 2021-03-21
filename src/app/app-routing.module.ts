@@ -54,7 +54,7 @@ const routes: Routes = [
       {
         path: 'tickets',
         canActivate: [RoleGuard, AuthGuard],
-        data: {requiredRoles: [User.RoleEnum.Consortium]},
+        data: {requiredRoles: [User.RoleEnum.Consortium, User.RoleEnum.Admin]},
         loadChildren: () => import('./pages/tickets/tickets.module').then(m => m.TicketsModule)
       },
       {

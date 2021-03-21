@@ -1,0 +1,84 @@
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {DatePipe} from '@angular/common';
+import {BetDto, PlayNumbers, TicketDto, TicketsService, User,} from 'local-packages/banca-api';
+import {NzMessageService} from 'ng-zorro-antd/message';
+import {NzModalService} from 'ng-zorro-antd/modal';
+import {TranslateService} from '@ngx-translate/core';
+import {UserInterface, UserService} from '../../../services/user.service';
+import {Observable} from 'rxjs';
+import {showParsedNumbers} from 'src/utils/utilFunctions';
+import {Column} from '../../../components/abm/abm.component';
+
+@Component({
+  selector: 'app-tickets',
+  templateUrl: './admin-tickets.component.html',
+  styleUrls: ['./admin-tickets.component.scss']
+})
+export class AdminTicketsComponent implements OnInit, OnDestroy {
+  //TODO FINISH UP
+  user: UserInterface;
+  userRole = User.RoleEnum;
+  loading = false;
+  columns: Column[] = [{
+    title: 'CONSORCIO',
+    key: 'consortiumName',
+    showSearch: true
+  }, {
+    title: 'BANCA',
+    key: 'bankingName',
+    showSearch: true
+  }, {
+    title: 'FECHA',
+    key: 'date',
+    valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy hh:mm'),
+    showSearch: true,
+    searchType: 'date'
+  }, {
+    title: 'STATUS',
+    key: 'betStatus',
+    component: 'status',
+    showSearch: true,
+    searchType: 'select',
+    searchOptions: [
+      {label: 'GANADOR', value: BetDto.BetStatusEnum.Winner},
+      {label: 'PENDIENTE', value: BetDto.BetStatusEnum.Pending},
+      {label: 'CANCELADO', value: BetDto.BetStatusEnum.Cancelled},
+      {label: 'PERDEDOR', value: BetDto.BetStatusEnum.Loser},
+      {label: 'RECLAMADO', value: BetDto.BetStatusEnum.Claimed},
+      {label: 'EXPIRADO', value: BetDto.BetStatusEnum.Expired}
+    ]
+  }];
+  betStatus = BetDto.BetStatusEnum;
+  fetcher: Observable<TicketDto[]> = this.ticketsService.ticketsControllerGetAll();
+  columnsPlays = [
+    {title: 'Loteria'},
+    {title: 'Monto'},
+    {title: 'Jugadas'},
+    {title: 'Tipo'},
+  ];
+
+  constructor(private datePipe: DatePipe,
+              private messageService: NzMessageService,
+              private translateService: TranslateService,
+              private ticketsService: TicketsService,
+              private modal: NzModalService,
+              private userService: UserService) {
+    this.user = this.userService.getLoggedUser();
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  ngOnDestroy(): void {
+  }
+
+  showParsedNumbers = (playNumbers: PlayNumbers) => {
+    return showParsedNumbers(playNumbers);
+  };
+
+  private ts(key: string, params?): string {
+    return this.translateService.instant(key, params);
+  }
+
+}
