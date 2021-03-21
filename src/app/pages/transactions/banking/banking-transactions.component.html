@@ -1,24 +1,14 @@
-<app-page-loader-bouncing [loading]="loading"></app-page-loader-bouncing>
-<div class="inner-content mb-20">
-  <div class="inner-content fit-height mb-20" style="min-height: 300px;">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 20px">
-      <app-title-divider [title]="'TRANSACTIONS.TITLE' |translate"></app-title-divider>
-    </div>
-    <nz-table #basicTable [nzData]="transactions" [nzScroll]="{ x: '700px' }" [nzSize]="'small'">
-      <thead>
-      <tr>
-        <th *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'"
-            class="table-th">{{column.title | translate}}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of basicTable.data">
-        <td *ngFor="let column of columns" [class.numeric]="column.type === 'numeric'" class="table-td"
-            [class.red]="column.type === 'numeric' && item[column.key] < 0">
-          {{ column.valueFormatter ? column.valueFormatter(item, column) : item[column.key] }}
-        </td>
-      </tr>
-      </tbody>
-    </nz-table>
-  </div>
+<div class="fit-height mb-20" style="min-height: 300px;">
+  <app-abm [columns]="columns"
+           [fetcher]="fetcher"
+           [customColumns]="customColumns"
+           [title]="'TRANSACTIONS.TITLE'">
+  </app-abm>
+
+  <ng-template let-column let-data="data" #customColumns>
+    <ng-container [ngSwitch]="column.component">
+      <span *ngSwitchCase="'amount'" [class.red]="column.type === 'numeric' && data[column.key] < 0">${{data[column.key]}}</span>
+    </ng-container>
+  </ng-template>
+
 </div>

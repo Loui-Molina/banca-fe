@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {Transaction, TransactionDto, TransactionsService} from 'local-packages/banca-api';
+import {BankingDto, Transaction, TransactionDto, TransactionsService} from 'local-packages/banca-api';
 import {UserService} from '../../../services/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {forkJoin, Observable} from 'rxjs';
@@ -8,6 +8,7 @@ import {FormBuilder} from '@angular/forms';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {TranslateService} from '@ngx-translate/core';
+import {Column} from '../../../components/abm/abm.component';
 
 @Component({
   selector: 'app-banking-transactions',
@@ -15,19 +16,64 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./banking-transactions.component.scss']
 })
 export class BankingTransactionsComponent implements OnInit {
-
-  loading = false;
-  columns = [
-    {title: 'TRANSACTIONS.LIST.DATE', key: 'createdAt', valueFormatter: (item, column) => this.valueFormatterDate(item, column)},
-    {title: 'TRANSACTIONS.LIST.ORIGIN', key: 'originName'},
-    {title: 'TRANSACTIONS.LIST.DESTINATION', key: 'destinationName'},
-    {title: 'TRANSACTIONS.LIST.DESCRIPTION', key: 'description'},
-    {title: 'TRANSACTIONS.LIST.AMOUNT', type: 'numeric', key: 'amount', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'TRANSACTIONS.LIST.LAST_BALANCE', type: 'numeric', key: 'lastBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'TRANSACTIONS.LIST.ACTUAL_BALANCE', type: 'numeric', key: 'actualBalance', valueFormatter: (item, column) => this.valueFormatter(item, column)},
-    {title: 'TRANSACTIONS.LIST.TYPE', key: 'type', valueFormatter: (item, column) => this.valueFormatterTipo(item, column)}
+  columns: Column[] = [
+    { title: 'TRANSACTIONS.LIST.DATE',
+      key: 'createdAt',
+      valueFormatter: (item, column) => this.valueFormatterDate(item, column),
+      showSearch: true,
+      searchType: 'date-range'
+    },
+    {
+      title: 'TRANSACTIONS.LIST.ORIGIN',
+      key: 'originName',
+      showSearch: true
+    },
+    {
+      title: 'TRANSACTIONS.LIST.DESTINATION',
+      key: 'destinationName',
+      showSearch: true
+    },
+    {
+      title: 'TRANSACTIONS.LIST.DESCRIPTION',
+      key: 'description',
+      showSearch: true
+    },
+    {
+      title: 'TRANSACTIONS.LIST.AMOUNT',
+      type: 'numeric',
+      key: 'amount',
+      valueFormatter: (item, column) => this.valueFormatter(item, column),
+      component: 'amount',
+    },
+    {
+      title: 'TRANSACTIONS.LIST.LAST_BALANCE',
+      type: 'numeric',
+      key: 'lastBalance',
+      valueFormatter: (item, column) => this.valueFormatter(item, column),
+      component: 'amount',
+    },
+    {
+      title: 'TRANSACTIONS.LIST.ACTUAL_BALANCE',
+      type: 'numeric',
+      key: 'actualBalance',
+      valueFormatter: (item, column) => this.valueFormatter(item, column),
+      component: 'amount',
+    },
+    {
+      title: 'TRANSACTIONS.LIST.TYPE',
+      key: 'type',
+      valueFormatter: (item, column) => this.valueFormatterTipo(item, column),
+      showSearch: true,
+      searchType: 'select',
+      searchOptions: [
+        // {value: 'adjust', label: 'TRANSACTIONS.LIST.ADJUST'},
+        {value: 'credit', label: 'TRANSACTIONS.LIST.CREDIT'},
+        {value: 'debit', label: 'TRANSACTIONS.LIST.DEBIT'},
+      ]
+    }
   ];
-  transactions: TransactionDto[] = [];
+
+  fetcher: Observable<TransactionDto[]> = this.transactionsService.transactionControllerGetAll();
 
   constructor(private datePipe: DatePipe,
               private userService: UserService,
@@ -61,25 +107,6 @@ export class BankingTransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.init();
-  }
-
-  init(): void {
-    this.loading = true;
-    this.initDataSync().subscribe(responseList => {
-      this.transactions = responseList[0];
-      this.loading = false;
-    }, error => {
-      this.loading = false;
-      throw new HttpErrorResponse(error);
-    });
-  }
-
-  private initDataSync(): Observable<any[]> {
-    const transactionControllerGetAll = this.transactionsService.transactionControllerGetAll();
-    return forkJoin([
-      transactionControllerGetAll
-    ]);
   }
 
   private ts(key: string, params?): string {

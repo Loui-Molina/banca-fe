@@ -3,7 +3,6 @@
   <nz-page-header [nzGhost]="false" class="page-header">
     <nz-page-header-title>{{title | translate}}</nz-page-header-title>
     <nz-page-header-extra>
-      <!--<button nz-button>Operation</button>-->
       <button (click)="onAdd()" *ngIf="fetcherCreate" nz-button nzType="primary">{{'UTILS.NEW' | translate}}</button>
     </nz-page-header-extra>
     <nz-page-header-content>

@@ -239,7 +239,7 @@ export class AbmComponent implements OnInit {
           return this.datesAreOnSameDay(new Date(item[key]), this.filterValue[key]);
         case 'date-range':
           if (this.filterValue[key].length === 2) {
-            return this.filterValue[key][0] >= new Date(item[key]) && this.filterValue[key][1] <= new Date(item[key]);
+            return this.filterValue[key][0] <= new Date(item[key]) && this.filterValue[key][1] >= new Date(item[key]);
           }
           return true;
         case 'string':
