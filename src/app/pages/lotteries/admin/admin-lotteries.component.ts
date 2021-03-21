@@ -58,7 +58,7 @@ export class AdminLotteriesComponent implements OnInit {
       key: 'color',
       component: 'color'
     }
-    ];
+  ];
   fetcher: Observable<AdminLotteryResDto[]> = this.lotteriesService.adminLotteryControllerGetAll();
   formABM: FormGroup;
   extraButtons: ExtraButton[] = [];
@@ -229,10 +229,12 @@ export class AdminLotteriesComponent implements OnInit {
   };
 
   resetOpenAndCloseTime = (): void => {
-    if (this.formABM.touched) {
-      this.formABM.controls.openTime.setValue(null);
-      this.formABM.controls.closeTime.setValue(null);
-    }
+    setTimeout(() => { // THIS SHIT NEEDED
+      if (this.formABM.touched) {
+        this.formABM.controls.openTime.setValue(null);
+        this.formABM.controls.closeTime.setValue(null);
+      }
+    }, 200);
   };
 
   private ts(key: string, params?): string {
