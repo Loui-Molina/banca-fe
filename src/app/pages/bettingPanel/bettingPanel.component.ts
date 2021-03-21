@@ -755,7 +755,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     const navigator = window.navigator as any;
     if (navigator.share && bet && bet._id && this.banking) {
       let text = this.banking.header + '\n';
-      text += 'Este es el detalle de tu ticket:\n';
       text += 'ID:  *' + bet._id.toString() + '*\n';
       text += 'SN:  *' + bet.sn + '*\n';
       text += 'Fecha: ' + this.datePipe.transform(bet.date, 'dd/MM/yyyy hh:mm a') + '\n\n';
@@ -766,8 +765,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
         sum += play.amount;
       }
       text += `Total: $${sum}\n`;
-      text += 'Gracias por elegirnos!';
-      text += 'Y buena suerte!!';
       text += '\n' + this.banking.footer;
       navigator
         .share({
