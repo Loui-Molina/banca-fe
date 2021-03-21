@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {formatResult, getCombinations, printTicket, reverseString, showParsedNumbers, uuidv4} from '../../../utils/utilFunctions';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
@@ -74,6 +74,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   loadingSubmit = false;
   generatedBet: BetDto;
   messages: MessageDto[] = [];
+
+  isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 
   panels = [
     {title: 'DIRECTO', types: [Play.PlayTypeEnum.Direct]},
@@ -540,7 +543,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       const play = playsToCreate[0];
       play.playType = Play.PlayTypeEnum.SuperPale;
       play.lotteryIdSuperpale = playsToCreate[1].lotteryId;
-      play.lotteryNickName +=  '-' + playsToCreate[1].lotteryNickName;
+      play.lotteryNickName += '-' + playsToCreate[1].lotteryNickName;
       playsToCreate = [play];
     }
     if (playsToCreate.length === 0) {
@@ -656,7 +659,8 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       text += 'Tus jugadas son:\n';
       let sum = 0;
       for (const play of bet.plays) {
-        text += `${play.lotteryName} - *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount} - TIPO: ${play.playType}\n`; // TODO traducir el tipo de jugada
+        text += `${play.lotteryName} - *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount} - TIPO: ${play.playType}\n`;
+        // TODO traducir el tipo de jugada
         sum += play.amount;
       }
       text += `Total: $${sum}\n`;
@@ -803,7 +807,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     return Math.floor(size);
   };
 
-    getSumBets(bets: PlayInterface[] | PlayDto[]): number {
+  getSumBets(bets: PlayInterface[] | PlayDto[]): number {
     let sum = 0;
     // @ts-ignore
     bets.map(item => {

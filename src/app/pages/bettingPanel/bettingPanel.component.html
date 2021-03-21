@@ -3,20 +3,26 @@
   <div class="col-style header" nz-col nzSpan="24">
     <div class="left-side">
       <i class="topbar-action" nz-icon nzTheme="outline" nzType="home" routerLink="/"></i>
-      <i (click)="openDrawer(drawerBets, {})" class="topbar-action" nz-icon [nz-tooltip]="'BETTING_PANEL.TOPBAR.SEARCH_TICKET'|translate"
+      <i (click)="openDrawer(drawerBets, {})" class="topbar-action" nz-icon
+         [nz-tooltip]="'BETTING_PANEL.TOPBAR.SEARCH_TICKET'|translate"
          nzTheme="outline"
          nzTooltipPlacement="bottom" nzType="file-search"></i>
-      <i (click)="openDrawer(drawerResumeSells, {})" class="topbar-action" nz-icon [nz-tooltip]="'BETTING_PANEL.TOPBAR.CASH_DESK_CLOSING'|translate" nzTheme="outline"
+      <i (click)="openDrawer(drawerResumeSells, {})" class="topbar-action" nz-icon
+         [nz-tooltip]="'BETTING_PANEL.TOPBAR.CASH_DESK_CLOSING'|translate" nzTheme="outline"
          nzTooltipPlacement="bottom" nzType="wallet"></i>
-      <i (click)="openDrawer(drawerPayBet, {})" class="topbar-action" nz-icon [nz-tooltip]="'BETTING_PANEL.TOPBAR.PAY_TICKET'|translate" nzTheme="outline"
+      <i (click)="openDrawer(drawerPayBet, {})" class="topbar-action" nz-icon
+         [nz-tooltip]="'BETTING_PANEL.TOPBAR.PAY_TICKET'|translate" nzTheme="outline"
          nzTooltipPlacement="bottom" nzType="audit"></i>
-      <i (click)="openDrawer(drawerLotteryLimits, {})" class="topbar-action" nz-icon [nz-tooltip]="'BETTING_PANEL.TOPBAR.LOTTERY_LIMITS'|translate"
+      <i (click)="openDrawer(drawerLotteryLimits, {})" class="topbar-action" nz-icon
+         [nz-tooltip]="'BETTING_PANEL.TOPBAR.LOTTERY_LIMITS'|translate"
          nzTheme="outline"
          nzTooltipPlacement="bottom" nzType="dollar"></i>
-      <i (click)="openDrawer(drawerHelp, {})" class="topbar-action" nz-icon [nz-tooltip]="'BETTING_PANEL.TOPBAR.HELP'|translate" nzTheme="outline"
+      <i (click)="openDrawer(drawerHelp, {})" class="topbar-action" nz-icon
+         [nz-tooltip]="'BETTING_PANEL.TOPBAR.HELP'|translate" nzTheme="outline"
          nzTooltipPlacement="bottom" nzType="question"></i>
       <nz-badge class="custom" [nzDot]="messages.length > 0" [nzShowZero]="false">
-        <i (click)="openDrawer(drawerChat, {})" class="topbar-action" nz-icon [nz-tooltip]="'BETTING_PANEL.TOPBAR.CHAT'|translate" nzTheme="outline"
+        <i (click)="openDrawer(drawerChat, {})" class="topbar-action" nz-icon
+           [nz-tooltip]="'BETTING_PANEL.TOPBAR.CHAT'|translate" nzTheme="outline"
            nzTooltipPlacement="bottom" nzType="message"></i>
       </nz-badge>
     </div>
@@ -55,7 +61,8 @@
               <input #inputLimit [disabled]="true" [type]="'number'" [value]="limit" class="right-input"
                      nz-input placeholder="LIMITE" readonly/>
               <nz-input-number #inputAmount (keyup.enter)="onKeyEnter()" [(ngModel)]="amount"
-                     class="right-input"[nzMin]="0" [name]="'Monto'|translate" [nzPlaceHolder]="'MONTO'| translate"></nz-input-number>
+                               class="right-input" [nzMin]="0" [name]="'Monto'|translate"
+                               [nzPlaceHolder]="'MONTO'| translate"></nz-input-number>
               <span (click)="onCheckSuperPale()" [class.selected]="this.superPale" class="custom-button super-pale"
                     nz-tooltip="SUPERPALE">
                 S
@@ -123,7 +130,8 @@
                 <div class="row-style panel-container" nz-row>
                   <div class="col-style center-column" nz-col nzSpan="8"
                        style="justify-content: flex-start;">{{result.lotteryName}}</div>
-                  <div *ngIf="result.draw" class="col-style center-column" nz-col nzSpan="8" style="justify-content: flex-end">
+                  <div *ngIf="result.draw" class="col-style center-column" nz-col nzSpan="8"
+                       style="justify-content: flex-end">
                     {{result.date | date: 'dd/MM/yyyy'}}
                   </div>
                   <div *ngIf="result.draw" class="col-style center-column" nz-col nzSpan="8"
@@ -210,13 +218,19 @@
             <i class="icon primary" nz-icon nzTheme="outline" nzType="whats-app"></i>
           </div>
         </a>
-        <div *ngIf="canSeeSn(generatedBet)" (click)="printTicket(generatedBet)" class="custom-button-confirm"
-             nz-tooltip="Imprimir">
-          <i class="icon primary" nz-icon nzTheme="outline" nzType="printer"></i>
+        <div *ngIf="!isMobile; else mobile">
+          <div *ngIf="canSeeSn(generatedBet)" (click)="printTicket(generatedBet)" class="custom-button-confirm"
+               nz-tooltip="Imprimir">
+            <i class="icon primary" nz-icon nzTheme="outline" nzType="printer"></i>
+          </div>
         </div>
-      </div>
-      <div style="width: 100%; text-align: center">
-        <span style="color: blue;cursor: pointer" *ngIf="canSeeSn(generatedBet)" (click)="shareTicket(generatedBet)"><i class="icon primary" nz-icon nzTheme="outline" nzType="printer"></i> Imprimir (celular)</span>
+        <ng-template #mobile>
+          <div style="width: 100%; text-align: center" class="custom-button-confirm">
+        <span style="color: blue;cursor: pointer" *ngIf="canSeeSn(generatedBet)" (click)="shareTicket(generatedBet)">
+          <i class="icon primary" nz-icon nzTheme="outline" nzType="printer"></i>
+        </span>
+          </div>
+        </ng-template>
       </div>
     </ng-container>
     <ng-container *ngIf="!generatedBet && !loadingSubmit">
@@ -238,14 +252,14 @@
 
 
 <app-drawer-bets
-#drawerBets
-[nzTitle]="'BUSCAR TICKET'"
-[canSeeSn]="canSeeSn"
-[banking]="banking"
-[getSendWhatsApp]="getSendWhatsApp"
-[openTicket]="openTicket"
-[cloneTicket]="cloneTicket"
-[canCancelTicket]="canCancelTicket"
+  #drawerBets
+  [nzTitle]="'BUSCAR TICKET'"
+  [canSeeSn]="canSeeSn"
+  [banking]="banking"
+  [getSendWhatsApp]="getSendWhatsApp"
+  [openTicket]="openTicket"
+  [cloneTicket]="cloneTicket"
+  [canCancelTicket]="canCancelTicket"
 ></app-drawer-bets>
 
 <app-drawer-bet
