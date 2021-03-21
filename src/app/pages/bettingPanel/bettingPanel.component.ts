@@ -751,15 +751,14 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
   };
 
-  shareTicket = () => {
+  shareTicket = (ticket: BetDto) => {
     const navigator = window.navigator as any;
     if (navigator.share) {
       // TODO remove
       navigator
         .share({
-          title: 'Google',
-          text: 'Save',
-          url: 'https://google.com'
+          title: 'PRUEBA DE IMPRESION',
+          text: JSON.stringify(ticket)
         })
         .then(() => console.log('Successful share'))
         .catch(error => console.log('Error sharing', error));

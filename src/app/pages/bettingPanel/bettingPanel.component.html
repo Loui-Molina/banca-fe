@@ -214,7 +214,9 @@
              nz-tooltip="Imprimir">
           <i class="icon primary" nz-icon nzTheme="outline" nzType="printer"></i>
         </div>
-
+      </div>
+      <div style="width: 100%; text-align: center">
+        <span style="color: blue;cursor: pointer" *ngIf="canSeeSn(generatedBet)" (click)="shareTicket(generatedBet)"><i class="icon primary" nz-icon nzTheme="outline" nzType="printer"></i> Imprimir (celular)</span>
       </div>
     </ng-container>
     <ng-container *ngIf="!generatedBet && !loadingSubmit">
