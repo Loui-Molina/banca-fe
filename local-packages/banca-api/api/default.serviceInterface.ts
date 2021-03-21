@@ -13,8 +13,6 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
-import { InlineResponse200 } from '../model/models';
-import { InlineResponse503 } from '../model/models';
 
 
 import { Configuration }                                     from '../configuration';
@@ -25,12 +23,6 @@ export interface DefaultServiceInterface {
     defaultHeaders: HttpHeaders;
     configuration: Configuration;
     
-
-    /**
-     * 
-     * 
-     */
-    healthControllerCheck(extraHttpRequestParams?: any): Observable<InlineResponse200>;
 
     /**
      * 

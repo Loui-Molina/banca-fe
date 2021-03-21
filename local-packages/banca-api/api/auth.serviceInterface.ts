@@ -59,13 +59,6 @@ export interface AuthServiceInterface {
      * 
      * @param signUpCredentialsDto 
      */
-    authControllerSingUp(signUpCredentialsDto: SignUpCredentialsDto, extraHttpRequestParams?: any): Observable<ResponseDto>;
-
-    /**
-     * 
-     * 
-     * @param signUpCredentialsDto 
-     */
     authControllerSingUpLogged(signUpCredentialsDto: SignUpCredentialsDto, extraHttpRequestParams?: any): Observable<ResponseDto>;
 
 }

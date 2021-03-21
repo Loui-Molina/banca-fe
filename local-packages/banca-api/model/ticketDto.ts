@@ -16,6 +16,7 @@ export interface TicketDto {
     _id: object;
     plays: Array<PlayDto>;
     bankingName: string;
+    consortiumName: string;
     betStatus: TicketDto.BetStatusEnum;
     date: string;
 }

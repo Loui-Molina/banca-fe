@@ -135,10 +135,10 @@
           {{visibleObject.playTime| date: 'HH:mm'}}
         </nz-descriptions-item>
         <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.OPEN_TIME'|translate">
-          {{visibleObject.openTime}}
+          {{visibleObject.openTime| date: 'HH:mm'}}
         </nz-descriptions-item>
         <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.CLOSE_TIME'|translate">
-          {{visibleObject.closeTime}}
+          {{visibleObject.closeTime| date: 'HH:mm'}}
         </nz-descriptions-item>
         <nz-descriptions-item [nzTitle]="'LOTTERIES.VIEW.STATUS'|translate">
           {{visibleObject.status ? ('LOTTERIES.VIEW.ENABLED'|translate) : ('LOTTERIES.VIEW.DISABLED'|translate)}}
@@ -152,44 +152,44 @@
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Mon)" class="schedule-day">
           <span class="title">{{('LOTTERIES.VIEW.'+days.Mon)|translate}}</span>
           <br>
-          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Mon)">{{visibleObject.openTime}}
-            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Mon)">{{visibleObject.openTime| date: 'HH:mm'}}
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime| date: 'HH:mm'}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Tue)" class="schedule-day">
           <span class="title">{{('LOTTERIES.VIEW.'+days.Tue)|translate}}</span>
           <br>
-          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Tue)">{{visibleObject.openTime}}
-            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Tue)">{{visibleObject.openTime| date: 'HH:mm'}}
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime| date: 'HH:mm'}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Wed)" class="schedule-day">
           <span class="title">{{('LOTTERIES.VIEW.'+days.Wed)|translate}}</span>
           <br>
-          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Wed)">{{visibleObject.openTime}}
-            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Wed)">{{visibleObject.openTime| date: 'HH:mm'}}
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime| date: 'HH:mm'}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Thu)" class="schedule-day">
           <span class="title">{{('LOTTERIES.VIEW.'+days.Thu)|translate}}</span>
           <br>
-          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Thu)">{{visibleObject.openTime}}
-            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Thu)">{{visibleObject.openTime| date: 'HH:mm'}}
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime| date: 'HH:mm'}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Fri)" class="schedule-day">
           <span class="title">{{('LOTTERIES.VIEW.'+days.Fri)|translate}}</span>
           <br>
-          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Fri)">{{visibleObject.openTime}}
-            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Fri)">{{visibleObject.openTime| date: 'HH:mm'}}
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime| date: 'HH:mm'}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sat)" class="schedule-day">
           <span class="title">{{('LOTTERIES.VIEW.'+days.Sat)|translate}}</span>
           <br>
-          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sat)">{{visibleObject.openTime}}
-            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sat)">{{visibleObject.openTime| date: 'HH:mm'}}
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime| date: 'HH:mm'}}</p>
         </div>
         <div [class.isOn]="visibleObject.day && visibleObject.day.includes(days.Sun)" class="schedule-day">
           <span class="title">{{('LOTTERIES.VIEW.'+days.Sun)|translate}}</span>
           <br>
-          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sun)">{{visibleObject.openTime}}
-            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime}}</p>
+          <p *ngIf="visibleObject.day && visibleObject.day.includes(days.Sun)">{{visibleObject.openTime| date: 'HH:mm'}}
+            <br>{{'LOTTERIES.VIEW.TO'|translate}}<br>{{visibleObject.closeTime| date: 'HH:mm'}}</p>
         </div>
       </div>
     </ng-container>

@@ -37,7 +37,7 @@ export class UsersComponent implements OnInit {
     this.formABM = this.formBuilder.group(this.defaultForm);
   }
 
-  fetcherCreate: (item) => Observable<ResponseDto> = (item) => this.authService.authControllerSingUp(item);
+  fetcherCreate: (item) => Observable<ResponseDto> = (item) => this.authService.authControllerSingUpLogged(item);
   fetcherUpdate: (item) => Observable<User> = (item) => this.usersService.usersControllerUpdate(item);
   fetcherDelete: (item) => Observable<User> = (item) => this.usersService.usersControllerDelete(item._id);
 

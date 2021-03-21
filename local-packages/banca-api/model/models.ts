@@ -34,8 +34,6 @@ export * from './dashboardPlayedNumbersDto';
 export * from './dashboardWebuserDto';
 export * from './dashboardWidgetsDto';
 export * from './draw';
-export * from './inlineResponse200';
-export * from './inlineResponse503';
 export * from './limitVerifyDto';
 export * from './messageDto';
 export * from './play';

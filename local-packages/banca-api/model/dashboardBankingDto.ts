@@ -25,5 +25,6 @@ export interface DashboardBankingDto {
     prizes: number;
     pendingPrizes: number;
     balance: number;
+    red: number;
 }
 
