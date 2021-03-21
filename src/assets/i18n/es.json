@@ -40,9 +40,9 @@
     "TITLE": "Ingresar",
     "USERNAME": "Usuario",
     "PASSWORD": "Contraseña",
-    "ERROR_USERNAME": "Please input your username!",
-    "ERROR_PASSWORD": "Please input your password!",
-    "ERROR_WITHOUT_CONEXION": "Sin coneccion",
+    "ERROR_USERNAME": "Por favor inserte usuario!",
+    "ERROR_PASSWORD": "Por favor inserte contraseña!",
+    "ERROR_WITHOUT_CONEXION": "Sin Conexión",
     "ERROR_USERNAME_PASSWORD": "Usuario o contraseña incorrectos"
   },
   "SIDENAV": {
@@ -68,7 +68,7 @@
   },
   "TOPBAR": {
     "TRANSLATION": {
-      "ENGLISH": "Ingles",
+      "ENGLISH": "Inglés",
       "SPANISH": "Español"
     },
     "BETTING_PANEL": "Panel de apuestas",

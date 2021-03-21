@@ -1,103 +1,103 @@
 {
   "ERROR": {
     "TITLE": "Error",
-    "ERROR_UNRECOGNIZED": "errorUnrecognized",
-    "SYSTEM_ERROR": "systemError",
-    "NOT_AUTHORIZED": "notAuthorized",
-    "DIMENSION_ERROR": "dimensionError"
+    "ERROR_UNRECOGNIZED": "Unrecognized Error",
+    "SYSTEM_ERROR": "System Error",
+    "NOT_AUTHORIZED": "Not Authorized",
+    "DIMENSION_ERROR": "Dimension Error"
   },
   "UTILS": {
-    "ARE_YOU_SURE": "areYouSure",
-    "CANCEL": "cancel",
-    "ACCEPT": "accept",
-    "SAVED": "saved",
-    "ADD": "add",
-    "CONFIRM": "confirm",
-    "QUANTITY": "quantity",
-    "CLEAN": "clean",
-    "NEW": "new",
-    "SAVE": "save",
-    "ACTIONS": "actions",
-    "SEARCH": "search",
-    "FROM": "Desde",
-    "TO": "Hasta",
-    "DETAIL": "detail",
-    "EDIT": "edit",
-    "DELETE": "delete",
-    "NO_RESULTS": "noResults",
-    "NEW_PASSWORD": "newPassword",
-    "CONFIRM_PASSWORD": "confirmPassword",
-    "PASSWORD_SUCCESS": "passwordSuccess",
-    "TRANSACTION_SUCCESS": "transactionSuccess",
-    "DEPOSIT_BALANCE": "depositBalance",
-    "WITHDRAW_BALANCE": "withdrawBalance",
-    "DEPOSIT": "deposit",
-    "WITHDRAW": "withdraw",
-    "AMOUNT": "amount",
-    "PAGE_NOT_FOUND": "pageNotFound"
+    "ARE_YOU_SURE": "Are you sure?",
+    "CANCEL": "Cancel",
+    "ACCEPT": "Accept",
+    "SAVED": "Saved",
+    "ADD": "Add",
+    "CONFIRM": "Confirm",
+    "QUANTITY": "Quantity",
+    "CLEAN": "Clean",
+    "NEW": "New",
+    "SAVE": "Save",
+    "ACTIONS": "Actions",
+    "SEARCH": "Search",
+    "FROM": "From",
+    "TO": "To",
+    "DETAIL": "Detail",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "NO_RESULTS": "No Results",
+    "NEW_PASSWORD": "New password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "PASSWORD_SUCCESS": "Password Success",
+    "TRANSACTION_SUCCESS": "Transaction Success",
+    "DEPOSIT_BALANCE": "Deposit Balance",
+    "WITHDRAW_BALANCE": "Withdraw Balance",
+    "DEPOSIT": "Deposit",
+    "WITHDRAW": "Withdraw",
+    "AMOUNT": "Amount",
+    "PAGE_NOT_FOUND": "Page Not Found"
   },
   "LOGIN": {
-    "TITLE": "title",
-    "USERNAME": "username",
-    "PASSWORD": "password",
-    "ERROR_USERNAME": "errorUsername",
-    "ERROR_PASSWORD": "errorPassword",
-    "ERROR_WITHOUT_CONEXION": "errorWithoutConexion",
-    "ERROR_USERNAME_PASSWORD": "errorUsernamePassword"
+    "TITLE": "Title",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "ERROR_USERNAME": "Username Error",
+    "ERROR_PASSWORD": "Password Error",
+    "ERROR_WITHOUT_CONEXION": "Without Connection",
+    "ERROR_USERNAME_PASSWORD": "Incorrect username or password"
   },
   "SIDENAV": {
     "HOME": {
-      "TITLE": "title",
-      "DASHBOARD": "dashboard",
-      "TRANSACTIONS": "transactions",
-      "CONSORTIUMS": "consortiums",
-      "CHAT": "chat",
+      "TITLE": "Home",
+      "DASHBOARD": "Dashboard",
+      "TRANSACTIONS": "Transactions",
+      "CONSORTIUMS": "Consortiums",
+      "CHAT": "Chat",
       "TICKETS": "Tickets",
-      "BANKINGS": "bankings",
-      "LOTTERIES": "lotteries",
-      "RESULTS": "results",
-      "WEBUSERS": "webusers",
-      "SUBSCRIPTIONS": "subscriptions",
-      "HELP": "help"
+      "BANKINGS": "Bankings",
+      "LOTTERIES": "Lotteries",
+      "RESULTS": "Results",
+      "WEBUSERS": "Web Users",
+      "SUBSCRIPTIONS": "Subscriptions",
+      "HELP": "Help"
     },
     "SETTINGS": {
-      "TITLE": "title",
-      "USERS": "users",
-      "LOGOUT": "logout"
+      "TITLE": "Configuration",
+      "USERS": "Users",
+      "LOGOUT": "Log out"
     }
   },
   "TOPBAR": {
     "TRANSLATION": {
-      "ENGLISH": "english",
-      "SPANISH": "spanish"
+      "ENGLISH": "English",
+      "SPANISH": "Spanish"
     },
-    "BETTING_PANEL": "bettingPanel",
+    "BETTING_PANEL": "Betting Panel",
     "MESSAGES": {
-      "NO_NEW_MESSAGES": "noNewMessages",
-      "MORE": "more"
+      "NO_NEW_MESSAGES": "No New Messages",
+      "MORE": "More"
     }
   },
   "DASHBOARD": {
     "DAILY_STATS": {
-      "TITLE": "title",
-      "TICKETS": "tickets",
-      "PRIZES": "prizes",
-      "PROFITS": "profits",
-      "BALANCE": "balance"
+      "TITLE": "Statistics of today",
+      "TICKETS": "Tickets",
+      "PRIZES": "Prizes",
+      "PROFITS": "Profits",
+      "BALANCE": "Balance"
     },
     "ORGANIZATION_DIAGRAM": {
-      "TITLE": "title",
-      "CONSORTIUMS": "consortiums",
-      "BANKINGS": "bankings",
-      "WEBUSERS": "webusers"
+      "TITLE": "Title",
+      "CONSORTIUMS": "Consortiums",
+      "BANKINGS": "Bankings",
+      "WEBUSERS": "Web Users"
     },
     "PRIZES_VS_PROFITS": {
-      "TITLE": "title",
-      "PRIZES": "prizes",
-      "PROFITS": "profits"
+      "TITLE": "Title",
+      "PRIZES": "Prizes",
+      "PROFITS": "Profits"
     },
-    "TOP_10_NUMBERS": "top10Numbers",
-    "BALANCE_BY_DAY": "balanceByDay",
+    "TOP_10_NUMBERS": "Top 10 Numbers",
+    "BALANCE_BY_DAY": "Balance by Day",
     "BALANCE_BY_CONSORTIUM": "balanceByConsortium",
     "BALANCE_BY_BANKING": "balanceByBanking",
     "X_LABEL_CONSORTIUM": "xLabelConsortium",
@@ -190,19 +190,19 @@
     }
   },
   "TRANSACTIONS": {
-    "TITLE": "title",
+    "TITLE": "Transactions",
     "LIST": {
-      "DATE": "date",
-      "ORIGIN": "origin",
-      "DESTINATION": "destination",
-      "DESCRIPTION": "description",
-      "AMOUNT": "amount",
-      "LAST_BALANCE": "lastBalance",
-      "ACTUAL_BALANCE": "actualBalance",
-      "TYPE": "type",
-      "ADJUST": "adjust",
-      "CREDIT": "credit",
-      "DEBIT": "debit"
+      "DATE": "Date",
+      "ORIGIN": "Origin",
+      "DESTINATION": "Destination",
+      "DESCRIPTION": "Description",
+      "AMOUNT": "Amount",
+      "LAST_BALANCE": "Last Balance",
+      "ACTUAL_BALANCE": "Actual Balance",
+      "TYPE": "Type",
+      "ADJUST": "Adjust",
+      "CREDIT": "Credit",
+      "DEBIT": "Debit"
     },
     "CREATE": {
       "TITLE": "title",
