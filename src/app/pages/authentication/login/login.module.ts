@@ -10,6 +10,8 @@ import {NzButtonModule} from 'ng-zorro-antd/button';
 import {NzCardModule} from 'ng-zorro-antd/card';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {TranslateModule} from '@ngx-translate/core';
+import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
+import {NzIconModule} from 'ng-zorro-antd/icon';
 
 @NgModule({
   imports: [
@@ -22,7 +24,9 @@ import {TranslateModule} from '@ngx-translate/core';
     NzCheckboxModule,
     NzCardModule,
     NzButtonModule,
-    TranslateModule
+    TranslateModule,
+    NzDropDownModule,
+    NzIconModule
   ],
   declarations: [LoginComponent],
   exports: [LoginComponent],

@@ -14,15 +14,26 @@ import {TranslateService} from '@ngx-translate/core';
 export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
   loading: boolean;
+  langSelected = null;
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private userService: UserService,
               private translateService: TranslateService,
+              private translate: TranslateService,
               private messageService: NzMessageService) {
     if (this.userService.isLogged()) {
       this.router.navigate(['dashboard']);
     }
+    if (this.translate && this.translate.store) {
+      this.langSelected = this.translate.store.currentLang;
+    }
+  }
+
+  selectLanguage(lang: string): void {
+    this.langSelected = lang;
+    this.translate.use(lang);
+    localStorage.setItem('language', lang);
   }
 
   ngOnInit(): void {
