@@ -19,37 +19,37 @@ export class ConsotriumTicketsComponent implements OnInit, OnDestroy {
   userRole = User.RoleEnum;
   loading = false;
   columns: Column[] = [{
-    title: 'BANCA',
+    title: 'TICKETS.LIST.BANKING',
     key: 'bankingName',
     showSearch: true
   }, {
-    title: 'FECHA',
+    title: 'TICKETS.LIST.DATE',
     key: 'date',
     valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy hh:mm'),
     showSearch: true,
-    searchType: 'date'
+    searchType: 'date-range'
   }, {
-    title: 'STATUS',
+    title: 'TICKETS.LIST.STATUS',
     key: 'betStatus',
     component: 'status',
     showSearch: true,
     searchType: 'select',
     searchOptions: [
-      {label: 'GANADOR', value: BetDto.BetStatusEnum.Winner},
-      {label: 'PENDIENTE', value: BetDto.BetStatusEnum.Pending},
-      {label: 'CANCELADO', value: BetDto.BetStatusEnum.Cancelled},
-      {label: 'PERDEDOR', value: BetDto.BetStatusEnum.Loser},
-      {label: 'RECLAMADO', value: BetDto.BetStatusEnum.Claimed},
-      {label: 'EXPIRADO', value: BetDto.BetStatusEnum.Expired}
+      {label: 'TICKETS.LIST.STATUS_LIST.WINNER', value: BetDto.BetStatusEnum.Winner},
+      {label: 'TICKETS.LIST.STATUS_LIST.PENDING', value: BetDto.BetStatusEnum.Pending},
+      {label: 'TICKETS.LIST.STATUS_LIST.CANCELLED', value: BetDto.BetStatusEnum.Cancelled},
+      {label: 'TICKETS.LIST.STATUS_LIST.LOOSER', value: BetDto.BetStatusEnum.Loser},
+      {label: 'TICKETS.LIST.STATUS_LIST.CLAIMED', value: BetDto.BetStatusEnum.Claimed},
+      {label: 'TICKETS.LIST.STATUS_LIST.EXPIRED', value: BetDto.BetStatusEnum.Expired}
     ]
   }];
   betStatus = BetDto.BetStatusEnum;
   fetcher: Observable<TicketDto[]> = this.ticketsService.ticketsControllerGetAll();
   columnsPlays = [
-    {title: 'Loteria'},
-    {title: 'Monto'},
-    {title: 'Jugadas'},
-    {title: 'Tipo'},
+    {title: 'TICKETS.VIEW.LIST.LOTTERY'},
+    {title: 'TICKETS.VIEW.LIST.AMOUNT'},
+    {title: 'TICKETS.VIEW.LIST.PLAYS'},
+    {title: 'TICKETS.VIEW.LIST.TYPE'},
   ];
 
   constructor(private datePipe: DatePipe,

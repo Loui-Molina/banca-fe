@@ -1,6 +1,10 @@
 {
   "ERROR": {
-    "TITLE": "Error"
+    "TITLE": "Error",
+    "ERROR_UNRECOGNIZED": "Desconocido",
+    "SYSTEM_ERROR": "Error de sistema",
+    "NOT_AUTHORIZED": "No autorizado",
+    "DIMENSION_ERROR": "Error de dimension"
   },
   "UTILS": {
     "ARE_YOU_SURE": "Estas seguro?",
@@ -254,6 +258,43 @@
       "BANKINGS": "Bancas",
       "LIST": {
         "NAME": "Nombre"
+      }
+    }
+  },
+  "TICKETS": {
+    "TITLE": "Tickets",
+    "LIST": {
+      "CONSORTIUM": "Consorcio",
+      "BANKING": "Banca",
+      "DATE": "Fecha",
+      "STATUS": "Estado",
+      "STATUS_LIST": {
+        "WINNER": "GANADOR",
+        "PENDING": "PENDIENTE",
+        "CANCELLED": "CANCELADO",
+        "LOOSER": "PERDEDOR",
+        "CLAIMED": "RECLAMADO",
+        "EXPIRED": "EXPIRADO"
+      }
+    },
+    "VIEW": {
+      "ID": "ID",
+      "DATE": "Fecha",
+      "HOUR": "Hora",
+      "WON": "Gano",
+      "STATUS_LIST": {
+        "WINNER": "GANADOR",
+        "PENDING": "PENDIENTE",
+        "CANCELLED": "CANCELADO",
+        "LOOSER": "PERDEDOR",
+        "CLAIMED": "RECLAMADO",
+        "EXPIRED": "EXPIRADO"
+      },
+      "LIST": {
+        "LOTTERY": "Loteria",
+        "AMOUNT": "Monto",
+        "PLAYS": "Jugadas",
+        "TYPE": "Tipo"
       }
     }
   },

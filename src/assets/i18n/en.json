@@ -1,6 +1,10 @@
 {
   "ERROR": {
-    "TITLE": "Error"
+    "TITLE": "Error",
+    "ERROR_UNRECOGNIZED": "errorUnrecognized",
+    "SYSTEM_ERROR": "systemError",
+    "NOT_AUTHORIZED": "notAuthorized",
+    "DIMENSION_ERROR": "dimensionError"
   },
   "UTILS": {
     "ARE_YOU_SURE": "areYouSure",
@@ -254,6 +258,43 @@
       "BANKINGS": "bankings",
       "LIST": {
         "NAME": "name"
+      }
+    }
+  },
+  "TICKETS": {
+    "TITLE": "title",
+    "LIST": {
+      "CONSORTIUM": "consortium",
+      "BANKING": "banking",
+      "DATE": "date",
+      "STATUS": "status",
+      "STATUS_LIST": {
+        "WINNER": "winner",
+        "PENDING": "pending",
+        "CANCELLED": "cancelled",
+        "LOOSER": "looser",
+        "CLAIMED": "claimed",
+        "EXPIRED": "expired"
+      }
+    },
+    "VIEW": {
+      "ID": "id",
+      "DATE": "date",
+      "HOUR": "hour",
+      "WON": "won",
+      "STATUS_LIST": {
+        "WINNER": "winner",
+        "PENDING": "pending",
+        "CANCELLED": "cancelled",
+        "LOOSER": "looser",
+        "CLAIMED": "claimed",
+        "EXPIRED": "expired"
+      },
+      "LIST": {
+        "LOTTERY": "lottery",
+        "AMOUNT": "amount",
+        "PLAYS": "plays",
+        "TYPE": "type"
       }
     }
   },
