@@ -99,20 +99,25 @@ export class AdminLotteriesComponent implements OnInit {
   fetcherDelete: (item) => Observable<any> = (item) => this.lotteriesService.adminLotteryControllerDelete(item._id);
   parseData = (mode: string, valueForm): AdminLotteryResDto => {
     const {day, status, nickname, color, openTime, closeTime, name, playTime} = valueForm;
-    openTime.setSeconds(0, 0);
-    closeTime.setSeconds(0, 0);
-    playTime.setSeconds(0, 0);
+
+    const openDate: Date = new Date(openTime);
+    const closeDate: Date = new Date(closeTime);
+    const playDate: Date = new Date(playTime);
+
+    openDate.setSeconds(0, 0);
+    closeDate.setSeconds(0, 0);
+    playDate.setSeconds(0, 0);
 
     return {
       name,
       nickname,
       color,
       status,
-      playTime,
+      playTime: playDate.toString(),
       results: [],
       day,
-      openTime,
-      closeTime
+      openTime: openDate.toString(),
+      closeTime: closeDate.toString()
     };
   };
   getValidators = (mode: string) => {
