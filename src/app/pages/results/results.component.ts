@@ -110,17 +110,17 @@ export class ResultsComponent implements OnInit {
       first: [
         Validators.required,
         Validators.min(0), Validators.max(99),
-        this.resultsValidator(this.formABM)
+        // this.resultsValidator(this.formABM)
       ],
       second: [
         Validators.required,
         Validators.min(0), Validators.max(99),
-        this.resultsValidator(this.formABM)
+        // this.resultsValidator(this.formABM)
       ],
       third: [
         Validators.required,
         Validators.min(0), Validators.max(99),
-        this.resultsValidator(this.formABM)
+        // this.resultsValidator(this.formABM)
       ],
       lottery: [Validators.required],
       date: [Validators.required]
@@ -148,15 +148,18 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  resultsValidator(form: FormGroup): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      const lista = [form.value.first, form.value.second, form.value.third];
-      if (!(lista.includes(control.value))) {
-        return null;
-      }
-      return {forbiddenName: {value: control.value}};
-    };
-  }
+  /*
+  TODO CHECK IF SHOULD REMOVE FOR EVER
+    resultsValidator(form: FormGroup): ValidatorFn {
+      return (control: AbstractControl): {[key: string]: any} | null => {
+        const lista = [form.value.first, form.value.second, form.value.third];
+        if (!(lista.includes(control.value))) {
+          return null;
+        }
+        return {forbiddenName: {value: control.value}};
+      };
+    }
+  */
 
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
