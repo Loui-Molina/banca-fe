@@ -414,7 +414,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   getPlaysToCreate(lottery: BankingLotteryDto, amount: number): PlayInterface[] {
     const playsToCreate: PlayInterface[] = [];
     let type: Play.PlayTypeEnum = null;
-    const numbers = this.number.toUpperCase();
+    const numbers = this.number.toString().toUpperCase();
     if (numbers.indexOf('.') !== -1) {
       // Contiene '.' Ex: 22235. / 2323.
       const result = numbers.split('.')[0].match(/[0-9]{1,2}/g);
