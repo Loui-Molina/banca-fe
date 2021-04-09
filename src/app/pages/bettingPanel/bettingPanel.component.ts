@@ -1,5 +1,12 @@
 import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {formatResult, getCombinations, printTicket, reverseString, showParsedNumbers, uuidv4} from '../../../utils/utilFunctions';
+import {
+  formatResult,
+  getCombinations,
+  printTicket,
+  reverseString,
+  showParsedNumbers,
+  uuidv4
+} from '../../../utils/utilFunctions';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
@@ -758,15 +765,28 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   shareTicket = (bet: BetDto) => {
     const navigator = window.navigator as any;
     if (navigator.share && bet && bet._id && this.banking) {
-      let text = this.banking.header + '\n';
+      let text = this.banking.header + '\n\n';
       text += 'ID:  *' + bet._id.toString() + '*\n';
       text += 'SN:  *' + bet.sn + '*\n';
       text += 'Fecha: ' + this.datePipe.transform(bet.date, 'dd/MM/yyyy hh:mm a') + '\n\n';
-      text += 'Tus jugadas son:\n';
       let sum = 0;
+      let lastLottery: string;
       for (const play of bet.plays) {
-        text += `${play.lotteryName} - *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount} - TIPO: ${play.playType}\n`; // TODO traducir el tipo de jugada
+        if (lastLottery !== play.lotteryName) {
+          if (lastLottery) {
+            text += '\n\n\n';
+          }
+          text += `${play.lotteryName.toUpperCase()}\n`;
+          for (let i = 0; i < play.lotteryName.length; i++) {
+            text += `-`;
+
+          }
+          text += `\n`;
+
+        }
+        text += `*${showParsedNumbers(play.playNumbers)}*   -   $${play.amount}   -   ${play.playType}\n`; // TODO traducir el tipo de jugada
         sum += play.amount;
+        lastLottery = play.lotteryName;
       }
       text += `Total: $${sum}\n`;
       text += '\n' + this.banking.footer;
