@@ -75,7 +75,7 @@
   [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
   [nzTitle]="(mode === 'C'?'UTILS.NEW':'UTILS.EDIT') | translate"
   [nzVisible]="visibleForm"
-  [nzWidth]="500"
+  nzWrapClassName="drawer-responsive"
 >
   <div>
     <ng-container *ngTemplateOutlet="formTemplate; context: {$implicit: mode, visibleObject: visibleObject}">
@@ -99,7 +99,7 @@
   [nzMaskClosable]="true"
   [nzTitle]="'UTILS.DETAIL' | translate"
   [nzVisible]="visibleView"
-  [nzWidth]="720"
+  nzWrapClassName="drawer-responsive"
 >
   <div>
     <ng-container *ngTemplateOutlet="viewTemplate; context: {$implicit: visibleObject}">

@@ -122,7 +122,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   plays: PlayInterface[] = [];
   lastInput = null;
   lastClick = null;
-  isCollapsed: boolean;
   interval;
   interval2;
 
@@ -140,7 +139,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.drawerLotteryLimits,
     ];
     for (const drawer of drawers) {
-      if (drawer && drawer.isVisible && drawer.isVisible()) {
+      if (drawer.isVisible && drawer.isVisible()) {
         return;
       }
     }
@@ -827,7 +826,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   getPanelSize = (size) => {
     return Math.floor(size);
   };
-
 
   getSumBets(bets: PlayInterface[] | PlayDto[]): number {
     let sum = 0;
