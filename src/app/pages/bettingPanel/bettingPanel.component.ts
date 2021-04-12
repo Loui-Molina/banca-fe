@@ -548,11 +548,14 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
     if (this.superPale) {
       playsToCreate = playsToCreate.filter(play => play.playType === 'pale');
-      const play = playsToCreate[0];
-      play.playType = Play.PlayTypeEnum.SuperPale;
-      play.lotteryIdSuperpale = playsToCreate[1].lotteryId;
-      play.lotteryNickName += '-' + playsToCreate[1].lotteryNickName;
-      playsToCreate = [play];
+      if(playsToCreate && playsToCreate.length > 0){
+        const play = playsToCreate[0];
+        play.playType = Play.PlayTypeEnum.SuperPale;
+        play.lotteryIdSuperpale = playsToCreate[1].lotteryId;
+        play.lotteryNickName += '-' + playsToCreate[1].lotteryNickName;
+        playsToCreate = [play];
+      }
+
     }
     if (playsToCreate.length === 0) {
       this.messageService.create('error', 'Error de formato');
