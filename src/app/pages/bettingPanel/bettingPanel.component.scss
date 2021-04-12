@@ -23,6 +23,7 @@ nz-sider{
 
 .trigger{
   font-size: 18px;
+  cursor: pointer;
 }
 
 .inner-content{
@@ -66,6 +67,24 @@ nz-sider{
   }
 }
 
+.widget{
+  border-radius: 5px;
+  background-color: #001529;
+  color: #fff;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  i{
+    margin-right: 5px;
+  }
+}
+
+.total{
+  background-color: #ccbc00;
+}
+
 .inputs-content{
   margin-top: 5px;
   input, nz-input-number, button{
@@ -81,7 +100,8 @@ nz-sider{
 
 .super-pale{
   &.selected{
-    background-color: orange;
+    background-color: #ccbc00;
+    color: white;
   }
 }
 
@@ -99,14 +119,16 @@ nz-sider{
   margin-top: 5px;
 
   .lottery-panel-header {
-    min-height: 30px;
-    max-height: 30px;
-    height: 100%;
+    background-color: #001529;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px 5px 0px 0px;
   }
 
   .lottery-panel-body {
-    height: calc(100% - 30px);
-    max-height: calc(100% - 30px);
+    height: calc(150px);
+    max-height: calc(150px);
+    border: 1px solid #001529;
     overflow-y: auto;
 
     .lottery {
@@ -129,16 +151,23 @@ nz-sider{
   margin-top: 5px;
 
   .last-plays-panel-header {
-    min-height: 30px;
-    max-height: 30px;
+    border-radius: 5px 5px 0px 0px;
+    background-color: #001529;
+    color: #fff;
+    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
+
+
+
   .last-plays-panel-body {
     overflow-y: auto;
-    max-height: 200px;
+    height: calc(150px);
+    max-height: calc(150px);
+    border: 1px solid #001529;
 
     .play {
       padding: 5px;
@@ -167,7 +196,6 @@ nz-sider{
 
 .column {
   height: 100%;
-  padding: 10px;
 }
 
 .bet-column {
@@ -176,10 +204,11 @@ nz-sider{
   width: 100%;
 }
 .bet-column-header {
-  flex: 2;
+  border-radius: 5px 5px 0px 0px;
+  background-color: #001529;
+  color: #fff;
 
   .bet-column-header-title {
-    color: #000;
     height: 50%;
     display: flex;
     justify-content: center;
@@ -191,13 +220,11 @@ nz-sider{
     height: 50%;
     width: 100%;
     padding: 5px;
-    color: #000;
   }
 }
 
 .bet-column-body {
-  margin-top: 8px;
-  flex: 10;
+  border: 1px solid #001529;
   overflow-y: auto;
 
   .bet {
@@ -205,7 +232,6 @@ nz-sider{
     min-height: 30px;
     width: 100%;
     border-bottom: 1px solid #ccc;
-    margin-bottom: 1px;
 
     .last-column {
       text-align: right;
@@ -214,8 +240,7 @@ nz-sider{
 }
 
 .bet-column-footer {
-  margin-top: 4px;
-  flex: 1;
+  border: 1px solid #001529;
   display: flex;
   justify-content: space-between;
   align-items: center;

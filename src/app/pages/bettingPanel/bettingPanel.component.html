@@ -42,18 +42,18 @@
 
     </ul>
   </nz-sider>
-  <nz-layout>
+  <nz-layout style="overflow: auto;">
     <nz-header>
       <div class="header">
         <div class="header-left">
           <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
              (click)="isCollapsed = !isCollapsed"></i>
           <div class="top-content-topbar" *ngIf="!isMobile">
-            <span class="total">
+            <span class="widget total">
             <i nz-icon nzTheme="outline" nzType="shopping-cart"></i>
-              {{'BETTING_PANEL.TOPBAR.TOTAL'|translate}}: ${{getSumBets(plays)}}
+              <b>{{('BETTING_PANEL.TOPBAR.TOTAL'|translate).toUpperCase()}}: ${{getSumBets(plays)}}</b>
             </span>
-            <span class="date">
+            <span class="widget date">
             <i nz-icon nzTheme="outline" nzType="clock-circle"></i>
               {{now | date: 'dd/MM/yyyy HH:mm'}}
             </span>
@@ -62,39 +62,39 @@
         <div class="header-right">
           <button nz-button (click)="cleanAll()" [disabled]="this.plays.length <= 0">
             <i nz-icon nzTheme="outline" nzType="clear"></i>
-            {{'BETTING_PANEL.TOPBAR.CLEAN'|translate}}
+            {{('BETTING_PANEL.TOPBAR.CLEAN'|translate).toUpperCase()}}
           </button>
-          <button nz-button (click)="onSubmitBet()" [disabled]="this.plays.length <= 0">
+          <button [nzType]="'primary'" nz-button (click)="onSubmitBet()" [disabled]="this.plays.length <= 0">
             <i nz-icon nzTheme="outline" nzType="printer"></i>
-            {{'BETTING_PANEL.TOPBAR.CONFIRM'|translate}}
+            {{('BETTING_PANEL.TOPBAR.CONFIRM'|translate).toUpperCase()}}
           </button>
         </div>
       </div>
     </nz-header>
     <nz-content>
       <div class="inner-content top-content" *ngIf="isMobile">
-        <span class="total">
+        <span class="widget total">
         <i nz-icon nzTheme="outline" nzType="shopping-cart"></i>
           {{'BETTING_PANEL.TOPBAR.TOTAL'|translate}}: ${{getSumBets(plays)}}
         </span>
-        <span class="date">
+        <span class="widget date">
         <i nz-icon nzTheme="outline" nzType="clock-circle"></i>
           {{now | date: 'dd/MM/yyyy HH:mm'}}
         </span>
       </div>
       <div class="inner-content inputs-content">
         <div nz-row [nzGutter]="5">
-          <div nz-col nzXs="24" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
+          <div nz-col nzXs="9" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
             <input #inputNumber class="play-input"
                    (ngModelChange)="searchLimit()"
                    (keyup.enter)="onKeyEnterNumber()" [(ngModel)]="number"
                    autofocus nz-input (input)="regexPlay(inputNumber)" placeholder="JUGADA"/>
           </div>
-          <div nz-col nzXs="24" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
+          <div nz-col nzXs="6" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
             <input #inputLimit [disabled]="true" [type]="'number'" [value]="limit" class="right-input"
                    nz-input placeholder="LIMITE" readonly/>
           </div>
-          <div nz-col nzXs="24" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
+          <div nz-col nzXs="9" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
             <nz-input-number #inputAmount (keyup.enter)="onKeyEnter()" [(ngModel)]="amount"
                              class="right-input" [nzMin]="0" [name]="'Monto'|translate"
                              [nzPlaceHolder]="'MONTO'| translate"></nz-input-number>
@@ -159,7 +159,7 @@
             </div>
           </div>
         </div>
-        <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+        <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="12" nzXl="12" *ngIf="!isMobile">
           <div class="inner-content last-plays-panel">
             <div class="last-plays-panel-header">
               <div class="row-style panel-container" nz-row style="width: 100%">
@@ -198,10 +198,10 @@
       </div>
 
 
-      <div style="margin-top: 5px" nz-row [nzGutter]="5">
+      <div style="margin-top: 5px" class="inner-content" nz-row [nzGutter]="5">
         <ng-container *ngIf="!isMobile">
           <div *ngFor="let panel of panels" [nzLg]="getPanelSize(24 / panels.length)" [nzXs]="24"
-               class="col-style column bet-column inner-content"
+               class="col-style column bet-column "
                nz-col>
             <div class="bet-column-header">
               <div class="bet-column-header-title">
