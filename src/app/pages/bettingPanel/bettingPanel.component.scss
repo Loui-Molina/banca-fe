@@ -11,8 +11,8 @@ nz-content {
   margin: 5px;
 }
 
-nz-sider{
-  &.fixed{
+nz-sider {
+  &.fixed {
     z-index: 9;
     overflow: auto;
     height: 100%;
@@ -21,27 +21,29 @@ nz-sider{
   }
 }
 
-.trigger{
+.trigger {
   font-size: 18px;
   cursor: pointer;
 }
 
-.inner-content{
+.inner-content {
   padding: 20px;
 }
 
-.header{
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
   margin: 0px 10px;
-  .header-left{
+
+  .header-left {
     display: flex;
     align-items: center;
     justify-content: flex-start;
   }
-  .header-right{
+
+  .header-right {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -57,17 +59,18 @@ nz-sider{
   justify-content: space-between;
 }
 
-.top-content-topbar{
+.top-content-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  span{
+
+  span {
     margin-left: 20px;
   }
 }
 
-.widget{
+.widget {
   border-radius: 5px;
   background-color: #001529;
   color: #fff;
@@ -76,39 +79,44 @@ nz-sider{
   align-items: center;
   justify-content: center;
   padding: 5px;
-  i{
+
+  i {
     margin-right: 5px;
   }
 }
 
-.total{
+.total {
   background-color: #ccbc00;
 }
 
-.inputs-content{
+.inputs-content {
   margin-top: 5px;
-  input, nz-input-number, button{
+
+  input, nz-input-number, button {
     width: 100%;
   }
-  .play-input{
+
+  .play-input {
     margin-left: 0px;
   }
-  .play-button{
+
+  .play-button {
     margin-right: 0px;
   }
 }
 
-.super-pale{
-  &.selected{
+.super-pale {
+  &.selected {
     background-color: #ccbc00;
     color: white;
   }
 }
 
-:host ::ng-deep{
-  .nz-badge-custom{
+:host ::ng-deep {
+  .nz-badge-custom {
     color: unset;
-    nz-badge-sup{
+
+    nz-badge-sup {
       transform: translate(-37%, -68%);
     }
   }
@@ -161,8 +169,6 @@ nz-sider{
   }
 
 
-
-
   .last-plays-panel-body {
     overflow-y: auto;
     height: calc(150px);
@@ -203,6 +209,7 @@ nz-sider{
   flex-direction: column;
   width: 100%;
 }
+
 .bet-column-header {
   border-radius: 5px 5px 0px 0px;
   background-color: #001529;
@@ -299,6 +306,7 @@ nz-sider{
     min-width: 100px;
     max-width: 100px;
     transition: 0.5s;
+    background-color: #03DAC6;
 
     i {
       color: #000;

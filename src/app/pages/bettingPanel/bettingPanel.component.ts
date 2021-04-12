@@ -552,7 +552,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
     if (this.superPale) {
       playsToCreate = playsToCreate.filter(play => play.playType === 'pale');
-      if(playsToCreate && playsToCreate.length > 0){
+      if (playsToCreate && playsToCreate.length > 0) {
         const play = playsToCreate[0];
         play.playType = Play.PlayTypeEnum.SuperPale;
         play.lotteryIdSuperpale = playsToCreate[1].lotteryId;
@@ -782,14 +782,10 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       for (const play of bet.plays) {
         if (lastLottery !== play.lotteryName) {
           if (lastLottery) {
-            text += '\n\n\n';
+            text += '\n';
           }
+          text += `--------------\n`;
           text += `${play.lotteryName.toUpperCase()}\n`;
-          for (let i = 0; i < play.lotteryName.length; i++) {
-            text += `-`;
-
-          }
-          text += `\n`;
 
         }
         text += `*${showParsedNumbers(play.playNumbers)}*   -   $${play.amount}   -   ${play.playType}\n`; // TODO traducir el tipo de jugada
