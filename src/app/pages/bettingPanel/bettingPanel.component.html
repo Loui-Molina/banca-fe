@@ -64,7 +64,7 @@
             <i nz-icon nzTheme="outline" nzType="clear"></i>
             {{('BETTING_PANEL.TOPBAR.CLEAN'|translate).toUpperCase()}}
           </button>
-          <button [nzType]="'primary'" nz-button (click)="onSubmitBet()" [disabled]="this.plays.length <= 0">
+          <button [nzType]="'danger'" nz-button (click)="onSubmitBet()" [disabled]="this.plays.length <= 0">
             <i nz-icon nzTheme="outline" nzType="printer"></i>
             {{('BETTING_PANEL.TOPBAR.CONFIRM'|translate).toUpperCase()}}
           </button>
@@ -185,9 +185,9 @@
                        style="justify-content: flex-end">
                     <app-ball *ngIf="result.draw.first || result.draw.first === 0" [background]="'red'" [size]="'tiny'"
                               [title]="this.formatResult(result.draw.first)" style="margin-left: 5px"></app-ball>
-                    <app-ball *ngIf="result.draw.second" [background]="'red'" [size]="'tiny'"
+                    <app-ball *ngIf="result.draw.second || result.draw.second === 0" [background]="'red'" [size]="'tiny'"
                               [title]="this.formatResult(result.draw.second)" style="margin-left: 5px"></app-ball>
-                    <app-ball *ngIf="result.draw.third" [background]="'red'" [size]="'tiny'"
+                    <app-ball *ngIf="result.draw.third || result.draw.third === 0" [background]="'red'" [size]="'tiny'"
                               [title]="this.formatResult(result.draw.third)" style="margin-left: 5px"></app-ball>
                   </div>
                 </div>
