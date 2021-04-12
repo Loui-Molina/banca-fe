@@ -208,6 +208,10 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.lastInput = input.value;
   };
 
+  regexPlayNumber = (input) => {
+    this.lastInput = input.value;
+  };
+
   switchLotterys(type: string): void {
     if (type === 'A') {
       // SWITCH LOTTERYS

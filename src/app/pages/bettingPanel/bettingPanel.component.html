@@ -85,10 +85,19 @@
       <div class="inner-content inputs-content">
         <div nz-row [nzGutter]="5">
           <div nz-col nzXs="9" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
-            <input #inputNumber class="play-input"
-                   (ngModelChange)="searchLimit()"
-                   (keyup.enter)="onKeyEnterNumber()" [(ngModel)]="number"
-                   autofocus nz-input (input)="regexPlay(inputNumber)" placeholder="JUGADA"/>
+            <ng-container *ngIf="!isMobile">
+              <input #inputNumber class="play-input"
+                     (ngModelChange)="searchLimit()"
+                     (keyup.enter)="onKeyEnterNumber()"
+                     [(ngModel)]="number"
+                     autofocus nz-input (input)="regexPlay(inputNumber)" placeholder="JUGADA"/>
+            </ng-container>
+            <ng-container *ngIf="isMobile">
+              <nz-input-number [nzPlaceHolder]="'JUGADA'" #inputNumber class="play-input" (change)="searchLimit()"
+                               (keyup.enter)="onKeyEnterNumber()" [(ngModel)]="number"
+                               autofocus (input)="regexPlayNumber(inputNumber)"
+                               style="width: 100%"></nz-input-number>
+            </ng-container>
           </div>
           <div nz-col nzXs="6" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
             <input #inputLimit [disabled]="true" [type]="'number'" [value]="limit" class="right-input"
