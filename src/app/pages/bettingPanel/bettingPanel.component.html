@@ -93,8 +93,9 @@
                      autofocus nz-input (input)="regexPlay(inputNumber)" placeholder="JUGADA"/>
             </ng-container>
             <ng-container *ngIf="isMobile">
-              <nz-input-number [nzPlaceHolder]="'JUGADA'" #inputNumber class="play-input" (change)="searchLimit()"
-                               (keyup.enter)="onKeyEnterNumber()" [(ngModel)]="number"
+              <nz-input-number [nzPlaceHolder]="'JUGADA'" #inputNumber class="play-input"
+                               (keydown)="onChangeInputNumber($event)"
+                               (keyup.enter)="onKeyEnterNumber()"
                                autofocus (input)="regexPlayNumber(inputNumber)"
                                style="width: 100%"></nz-input-number>
             </ng-container>

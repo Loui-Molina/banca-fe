@@ -346,7 +346,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   onKeyEnterNumber = () => {
     if (this.inputAmount && this.number != null && this.number.length > 0) {
-      console.log(this.inputAmount);
       this.inputAmount.focus();
     }
   };
@@ -534,6 +533,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       return;
     }
     const amount = parseFloat(String(this.amount));
+
     if (!amount) {
       return;
     }
@@ -883,6 +883,12 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
+  }
+
+
+  onChangeInputNumber($event): void {
+    this.number = $event.target.value;
+    this.searchLimit();
   }
 }
 
