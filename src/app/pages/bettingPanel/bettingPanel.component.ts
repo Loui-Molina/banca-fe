@@ -595,6 +595,13 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   resetBet(): void {
     this.number = null;
+    if (this.inputNumber && this.inputNumber.focus) {
+      this.inputNumber.focus();
+    }
+    if (this.inputNumber && this.inputNumber.elementRef &&
+      this.inputNumber.elementRef.nativeElement && this.inputNumber.elementRef.nativeElement.focus) {
+      this.inputNumber.elementRef.nativeElement.focus();
+    }
     if (this.inputNumber && this.inputNumber.nativeElement) {
       this.inputNumber.nativeElement.focus();
     }
