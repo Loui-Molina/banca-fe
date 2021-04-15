@@ -201,7 +201,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   regexPlay = (input) => {
-    const match = input.value.match(/^([0-9]{0,2})([Ss][0-9]{0,2}|[0-9]{0,4})?$/g);
+    const match = input.value.match(/^([0-9]{0,2})([,][0-9]{0,2}|[0-9]{0,4})?$/g);
     if (!match) {
       input.value = this.lastInput;
     }
@@ -286,6 +286,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   onKeyEnter = () => {
+    debugger
     if (!this.disabledBet()) {
       this.createBet();
       this.resetBet();
@@ -463,9 +464,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
         }
         // TODO mejorar combinaciones todavia no son correctas
       }
-    } else if (numbers.indexOf('S') !== -1) {
-      // Contiene S
-      const result = numbers.split('S');
+    } else if (numbers.indexOf(',') !== -1) {
+      // Contiene coma
+      const result = numbers.split(',');
       if (result.length === 2) {
         // Solo si se tiene 2 numeros
         // tslint:disable-next-line:radix
