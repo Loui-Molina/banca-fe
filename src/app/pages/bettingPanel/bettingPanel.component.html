@@ -1,6 +1,7 @@
 <app-page-loader-bouncing [loading]="loading"></app-page-loader-bouncing>
 <nz-layout class="layout">
-  <nz-sider nzCollapsible [class.fixed]="isMobile" nzBreakpoint="lg" [nzCollapsedWidth]="0" [nzTrigger]="null" [(nzCollapsed)]="isCollapsed">
+  <nz-sider nzCollapsible [class.fixed]="isMobile" nzBreakpoint="lg" [nzCollapsedWidth]="0" [nzTrigger]="null"
+            [(nzCollapsed)]="isCollapsed">
     <ul nz-menu nzTheme="dark" nzMode="inline">
       <li nz-menu-item routerLink="/">
         <i nz-icon nzType="home"></i>
@@ -85,20 +86,12 @@
       <div class="inner-content inputs-content">
         <div nz-row [nzGutter]="5">
           <div nz-col nzXs="9" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
-            <ng-container *ngIf="!isMobile">
-              <input #inputNumber class="play-input"
-                     (ngModelChange)="searchLimit()"
-                     (keyup.enter)="onKeyEnterNumber()"
-                     [(ngModel)]="number"
-                     autofocus nz-input (input)="regexPlay(inputNumber)" placeholder="JUGADA"/>
-            </ng-container>
-            <ng-container *ngIf="isMobile">
-              <nz-input-number [nzPlaceHolder]="'JUGADA'" #inputNumber class="play-input"
-                               (keydown)="onChangeInputNumber($event)"
-                               (keyup.enter)="onKeyEnterNumber()"
-                               autofocus (input)="regexPlayNumber(inputNumber)"
-                               style="width: 100%"></nz-input-number>
-            </ng-container>
+            <input #inputNumber class="play-input"
+                   (ngModelChange)="searchLimit()"
+                   (keyup.enter)="onKeyEnterNumber()"
+                   [(ngModel)]="number"
+                   inputmode="numeric"
+                   autofocus nz-input (input)="regexPlay(inputNumber)" placeholder="JUGADA"/>
           </div>
           <div nz-col nzXs="6" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
             <input #inputLimit [disabled]="true" [type]="'number'" [value]="limit" class="right-input"
@@ -195,7 +188,8 @@
                        style="justify-content: flex-end">
                     <app-ball *ngIf="result.draw.first || result.draw.first === 0" [background]="'red'" [size]="'tiny'"
                               [title]="this.formatResult(result.draw.first)" style="margin-left: 5px"></app-ball>
-                    <app-ball *ngIf="result.draw.second || result.draw.second === 0" [background]="'red'" [size]="'tiny'"
+                    <app-ball *ngIf="result.draw.second || result.draw.second === 0" [background]="'red'"
+                              [size]="'tiny'"
                               [title]="this.formatResult(result.draw.second)" style="margin-left: 5px"></app-ball>
                     <app-ball *ngIf="result.draw.third || result.draw.third === 0" [background]="'red'" [size]="'tiny'"
                               [title]="this.formatResult(result.draw.third)" style="margin-left: 5px"></app-ball>
