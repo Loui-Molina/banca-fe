@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {BetDto, PlayNumbers, TicketDto, TicketsService, User,} from 'local-packages/banca-api';
+import {BetDto, PlayDto, PlayNumbers, TicketDto, TicketsService, User,} from 'local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
@@ -76,6 +76,9 @@ export class AdminTicketsWebComponent implements OnInit, OnDestroy {
     return showParsedNumbers(playNumbers);
   };
 
+  getTotal(plays: Array<PlayDto>): number {
+    return plays.reduce((acc, val) => acc += val.amount, 0);
+  }
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
   }

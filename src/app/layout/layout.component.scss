@@ -10,6 +10,17 @@
   overflow-y: hidden;
 }
 
+nz-sider {
+  &.fixed {
+    z-index: 9;
+    overflow: auto;
+    height: 100%;
+    position: fixed;
+    left: 0;
+  }
+}
+
+
 .menu-sidebar {
   position: relative;
   z-index: 10;

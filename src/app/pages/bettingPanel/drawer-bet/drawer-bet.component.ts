@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {printTicket, showParsedNumbers } from '../../../../utils/utilFunctions';
-import {Banking, BetDto, BettingPanelService, PlayNumbers} from '../../../../../local-packages/banca-api';
+import {Banking, BetDto, BettingPanelService, PlayDto, PlayNumbers} from '../../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
@@ -69,5 +69,9 @@ export class DrawerBetComponent implements OnInit {
 
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
+  }
+
+  getTotal(plays: Array<PlayDto>): number {
+    return plays.reduce((acc, val) => acc += val.amount, 0);
   }
 }

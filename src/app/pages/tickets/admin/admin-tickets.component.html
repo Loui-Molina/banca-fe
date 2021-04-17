@@ -70,9 +70,8 @@
         <h2>{{'TICKETS.VIEW.ID'|translate}}: {{visibleObject._id.toString()}}</h2>
         <p>{{'TICKETS.VIEW.DATE'|translate}}: {{visibleObject.date | date: 'dd/MM/yyyy'}}</p>
         <p>{{'TICKETS.VIEW.HOUR'|translate}}: {{visibleObject.date | date: 'HH:mm'}}</p>
-        <ng-container *ngIf="[betStatus.Winner, betStatus.Claimed].includes(visibleObject.betStatus)">
-          <h3>{{'TICKETS.VIEW.WON'|translate}}: ${{visibleObject.amountWin}}</h3>
-        </ng-container>
+        <h3>{{'TICKETS.VIEW.TOTAL'|translate}}: ${{getTotal(visibleObject.plays)}}</h3>
+        <h3>{{'TICKETS.VIEW.WON'|translate}}: ${{visibleObject.amountWin}}</h3>
         <nz-table [nzData]="visibleObject.plays"
                   [nzSize]="'small'"
                   nzLoading="false"

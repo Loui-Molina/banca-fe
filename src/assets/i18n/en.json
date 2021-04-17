@@ -282,6 +282,7 @@
       "ID": "id",
       "DATE": "date",
       "HOUR": "hour",
+      "TOTAL": "total",
       "WON": "won",
       "STATUS_LIST": {
         "WINNER": "winner",

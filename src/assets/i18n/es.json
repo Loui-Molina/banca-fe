@@ -282,7 +282,8 @@
       "ID": "ID",
       "DATE": "Fecha",
       "HOUR": "Hora",
-      "WON": "Gano",
+      "TOTAL": "Total",
+      "WON": "Total ganado",
       "STATUS_LIST": {
         "WINNER": "GANADOR",
         "PENDING": "PENDIENTE",

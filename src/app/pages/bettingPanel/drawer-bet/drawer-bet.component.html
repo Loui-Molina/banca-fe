@@ -35,12 +35,11 @@
           EXPIRADO
         </nz-tag>
       </div>
-      <h2>ID: {{bet._id.toString()}}</h2>
+      <h3>ID: {{bet._id.toString()}}</h3>
       <p>Fecha: {{bet.date | date: 'dd/MM/yyyy'}}</p>
       <p>Hora: {{bet.date | date: 'HH:mm'}}</p>
-      <ng-container *ngIf="[betStatusEnum.Winner, betStatusEnum.Claimed].includes(bet.betStatus)">
-        <h3>GANO: ${{bet.amountWin}}</h3>
-      </ng-container>
+      <h3>TOTAL: ${{getTotal(bet.plays)}}</h3>
+      <h3>TOTAL GANADO: ${{bet.amountWin}}</h3>
       <nz-table [nzData]="bet.plays"
                 [nzSize]="'small'"
                 nzLoading="false"

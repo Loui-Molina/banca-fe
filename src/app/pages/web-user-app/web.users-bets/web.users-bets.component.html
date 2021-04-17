@@ -11,7 +11,7 @@
       <p class="date">{{bet?.date| date: 'dd/MM/yyyy HH:mm'}}</p>
     </div>
     <div class="icon-container">
-      <p class="win" *ngIf="bet?.betStatus === betStatusEnum?.Winner">${{bet?.amountWin}}</p>
+      <p class="win" *ngIf="bet && bet.amountWin">${{bet?.amountWin}}</p>
       <p class="balance">
         <nz-tag *ngIf="[betStatusEnum?.Winner, betStatusEnum?.Claimed].includes(bet?.betStatus)" [nzColor]="'green'" style="padding: 0 2px 0 2px;">
           GANADOR

@@ -18,7 +18,7 @@
           <h2>ID: {{payTicketFounded._id.toString()}}</h2>
           <p>Fecha: {{payTicketFounded.date | date: 'dd/MM/yyyy'}}</p>
           <p>Hora: {{payTicketFounded.date | date: 'HH:mm'}}</p>
-          <h3>Monto ganador: ${{payTicketFounded.amountWin}}</h3>
+          <h3>Total ganado: ${{payTicketFounded.amountWin}}</h3>
         </div>
         <button (click)="payTicket()" [disabled]="!payTicketValue" nz-button>Pagar ticket</button>
       </ng-container>

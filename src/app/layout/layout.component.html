@@ -1,18 +1,19 @@
 <nz-layout class="app-layout">
 
-  <nz-sider [(nzCollapsed)]="isCollapsed"
+  <nz-sider nzCollapsible
+            [class.fixed]="isMobile"
+            nzBreakpoint="lg"
+            [nzCollapsedWidth]="0"
             [nzTrigger]="null"
-            class="menu-sidebar"
-            nzBreakpoint="md"
-            style="overflow-y: auto"
-            nzCollapsible
-            nzWidth="256px">
+            [(nzCollapsed)]="isCollapsed"
+            nzWidth="256px"
+            style="overflow-y: auto">
     <div class="sidebar-logo">
       <img alt="logo" src="assets/imgs/logobanca.png">
       <h1>{{establishmentName}}</h1>
     </div>
     <ul [nzInlineCollapsed]="isCollapsed" nz-menu nzMode="inline" nzTheme="dark">
-      <li nz-submenu nzIcon="home" nzOpen nzTitle="{{'SIDENAV.HOME.TITLE' | translate}}">
+      <li (click)="(isMobile)? isCollapsed = true: null" nz-submenu nzIcon="home" nzOpen nzTitle="{{'SIDENAV.HOME.TITLE' | translate}}">
         <ul>
           <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker, userRole.Webuser].includes(user?.role)"
               nz-menu-item
@@ -68,7 +69,7 @@
           </li>-->
         </ul>
       </li>
-      <li nz-submenu nzIcon="form" nzOpen nzTitle="{{'SIDENAV.SETTINGS.TITLE' | translate}}">
+      <li (click)="(isMobile)? isCollapsed = true: null" nz-submenu nzIcon="form" nzOpen nzTitle="{{'SIDENAV.SETTINGS.TITLE' | translate}}">
         <ul>
           <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="team"></i>
@@ -80,6 +81,13 @@
             <a>{{'SIDENAV.SETTINGS.LOGOUT' | translate}}</a>
           </li>
         </ul>
+      </li>
+      <li nz-menu-item (click)="isCollapsed = !isCollapsed" *ngIf="isMobile" style="display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #034a8e;
+    color: white;">
+        <i nz-icon nzType="left"></i>
       </li>
     </ul>
   </nz-sider>

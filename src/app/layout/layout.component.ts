@@ -13,6 +13,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class LayoutComponent implements OnInit, OnDestroy {
   isCollapsed = false;
   langSelected = null;
+  isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   user: UserInterface;
   userRole = User.RoleEnum;
   establishmentName: string;

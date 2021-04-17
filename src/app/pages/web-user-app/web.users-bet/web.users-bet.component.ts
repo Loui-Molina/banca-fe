@@ -39,17 +39,12 @@ export class WebUsersBetComponent implements OnInit {
     });
   }
 
-  showParsedNumbers = (playNumbers: PlayNumbers) => {
-    return showParsedNumbers(playNumbers);
+  getTotal(plays: Array<PlayDto>): number {
+    return plays.reduce((acc, val) => acc += val.amount, 0);
   }
 
-  getSumBets(bets: PlayInterface[] | PlayDto[]): number {
-    let sum = 0;
-    // @ts-ignore
-    bets.map(item => {
-      sum += item.amount;
-    });
-    return sum;
+  showParsedNumbers = (playNumbers: PlayNumbers) => {
+    return showParsedNumbers(playNumbers);
   }
 
   goBack(): void {
