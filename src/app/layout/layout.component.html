@@ -105,7 +105,7 @@
             <a routerLink="/bettingPanel">
               <button [nzSize]="'large'" nz-button nzType="primary">
                 <i nz-icon nzType="shop"></i>
-                {{'TOPBAR.BETTING_PANEL'|translate}}
+                <ng-container *ngIf="!isMobile">{{'TOPBAR.BETTING_PANEL'|translate}}</ng-container>
               </button>
             </a>
           </span>
