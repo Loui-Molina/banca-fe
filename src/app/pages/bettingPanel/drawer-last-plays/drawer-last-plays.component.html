@@ -1,0 +1,18 @@
+<nz-drawer
+  (nzOnClose)="close()"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="true"
+  [nzMaskStyle]="{ backgroundColor: '#0000006e' }"
+  [nzTitle]="nzTitle"
+  [nzVisible]="nzVisible"
+  nzWrapClassName="drawer-responsive"
+>
+  <div class="drawer">
+    <ng-container *ngIf="loading">
+      <div class="lottery-loading">
+        <i nz-icon nzTheme="outline" nzType="loading"></i>
+      </div>
+    </ng-container>
+    <ng-content></ng-content>
+  </div>
+</nz-drawer>

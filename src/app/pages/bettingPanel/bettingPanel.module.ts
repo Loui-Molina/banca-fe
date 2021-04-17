@@ -35,6 +35,7 @@ import { DrawerPayBetComponent } from './drawer-pay-bet/drawer-pay-bet.component
 import { DrawerResumeSellsComponent } from './drawer-resume-sells/drawer-resume-sells.component';
 import {DrawerChatComponent} from './drawer-chat/drawer-chat.component';
 import {NzBadgeModule} from 'ng-zorro-antd/badge';
+import {DrawerLastPlaysComponent} from './drawer-last-plays/drawer-last-plays.component';
 
 @NgModule({
   imports: [
@@ -77,6 +78,7 @@ import {NzBadgeModule} from 'ng-zorro-antd/badge';
     DrawerLotteriesComponent,
     DrawerPayBetComponent,
     DrawerResumeSellsComponent,
+    DrawerLastPlaysComponent,
     DrawerChatComponent
   ],
   exports: [BettingPanelComponent]

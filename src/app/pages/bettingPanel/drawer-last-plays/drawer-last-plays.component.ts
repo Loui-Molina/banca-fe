@@ -6,12 +6,12 @@ import {TranslateService} from '@ngx-translate/core';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
-  selector: 'app-drawer-resume-sells',
-  templateUrl: './drawer-resume-sells.component.html',
-  styleUrls: ['./drawer-resume-sells.component.scss']
+  selector: 'app-drawer-last-plays',
+  templateUrl: './drawer-last-plays.component.html',
+  styleUrls: ['./drawer-last-plays.component.scss']
 })
 
-export class DrawerResumeSellsComponent implements OnInit {
+export class DrawerLastPlaysComponent implements OnInit {
 
 
   @Input() nzTitle: string;
