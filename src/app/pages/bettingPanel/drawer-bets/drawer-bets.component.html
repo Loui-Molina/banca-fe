@@ -8,37 +8,25 @@
   nzWrapClassName="drawer-responsive"
 >
   <div class="drawer">
+
     <ng-container *ngIf="reloadingTickets">
       <div class="lottery-loading">
         <i nz-icon nzTheme="outline" nzType="loading"></i>
       </div>
     </ng-container>
     <ng-container *ngIf="!reloadingTickets">
+      <button nz-button (click)="exportExcel(bets)" style="margin-bottom: 10px" *ngIf="bets.length > 0">
+        <i nz-icon nzType="file-excel" nzTheme="outline"></i>
+        EXPORTAR A EXCEL
+      </button>
       <nz-list *ngIf="bets.length > 0" nzBordered nzSize="small">
         <nz-list-item class="custom-list" *ngFor="let item of bets">
           <div class="left-side">
             <b>#{{item?._id?.toString()}}</b> <br> {{item?.date | date: 'dd/MM/yyyy HH:mm'}}
           </div>
           <div class="right-side">
-            <nz-tag *ngIf="item?.betStatus === betStatusEnum?.Winner" [nzColor]="'green'" style="padding: 0 2px 0 2px;">
-              GANADOR
-            </nz-tag>
-            <nz-tag *ngIf="item?.betStatus === betStatusEnum?.Pending" [nzColor]="'blue'" style="padding: 0 2px 0 2px;">
-              PENDIENTE
-            </nz-tag>
-            <nz-tag *ngIf="item?.betStatus === betStatusEnum?.Cancelled" [nzColor]="'brown'"
-                    style="padding: 0 2px 0 2px;">
-              CANCELADO
-            </nz-tag>
-            <nz-tag *ngIf="item?.betStatus === betStatusEnum?.Loser" [nzColor]="'red'" style="padding: 0 2px 0 2px;">
-              PERDEDOR
-            </nz-tag>
-            <nz-tag *ngIf="item?.betStatus === betStatusEnum?.Claimed" [nzColor]="'darkgreen'"
-                    style="padding: 0 2px 0 2px;">
-              RECLAMADO
-            </nz-tag>
-            <nz-tag *ngIf="item?.betStatus === betStatusEnum?.Expired" [nzColor]="'red'" style="padding: 0 2px 0 2px;">
-              EXPIRADO
+            <nz-tag [nzColor]="this.getBetStatusColor(item)" style="padding: 0 2px 0 2px;">
+              {{this.getBetStatus(item)}}
             </nz-tag>
           </div>
           <ul nz-list-item-actions>

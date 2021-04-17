@@ -1,10 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {Banking, BetDto, BettingPanelService, UpdateBetDto} from '../../../../../local-packages/banca-api';
+import {Banking, BetDto, BettingPanelService, PlayDto, UpdateBetDto} from '../../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
-import { printTicket } from 'src/utils/utilFunctions';
+import {exportAsExcelFile, getBetStatus, getBetStatusColor, getTotalPlays, printTicket} from 'src/utils/utilFunctions';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-drawer-bets',
@@ -37,6 +38,7 @@ export class DrawerBetsComponent implements OnInit {
 
   constructor(private bettingPanelService: BettingPanelService,
               private modalService: NzModalService,
+              private datePipe: DatePipe,
               private translateService: TranslateService,
               private messageService: NzMessageService) { }
 
@@ -108,4 +110,32 @@ export class DrawerBetsComponent implements OnInit {
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
   }
+
+  getBetStatus(bet: BetDto): string{
+    return getBetStatus(bet);
+  }
+
+  getBetStatusColor(bet: BetDto): string{
+    return getBetStatusColor(bet);
+  }
+
+  exportExcel = (bets: BetDto[]) => {
+    const array = [];
+    bets.map(bet => {
+      array.push({
+        Id: bet._id.toString(),
+        Fecha: this.datePipe.transform(bet.date, 'dd/MM/yyyy'),
+        Total: this.getTotalPlays(bet.plays),
+        'Total ganado': bet.amountWin,
+        Status: this.getBetStatus(bet),
+      });
+    });
+    exportAsExcelFile(array, 'BETS');
+  }
+
+  getTotalPlays(plays: Array<PlayDto>): number {
+    return getTotalPlays(plays);
+  }
+
+
 }

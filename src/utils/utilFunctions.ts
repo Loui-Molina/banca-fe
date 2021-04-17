@@ -1,4 +1,6 @@
-import {Banking, BetDto, PlayNumbers} from '../../local-packages/banca-api';
+import {Banking, BetDto, PlayDto, PlayNumbers} from '../../local-packages/banca-api';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 export function uuidv4(): string {
   // tslint:disable-next-line:only-arrow-functions
@@ -109,4 +111,61 @@ export function showParsedNumbers(playNumbers: PlayNumbers): string {
 
 export function formatResult(value: number): string {
   return String(value).padStart(2, '0');
+}
+
+
+export function exportAsExcelFile(json: any[], excelFileName: string): void {
+  const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+  const workbook: XLSX.WorkBook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+  const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  saveAsExcelFile(excelBuffer, excelFileName);
+}
+
+export function saveAsExcelFile(buffer: any, fileName: string): void {
+  const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  const EXCEL_EXTENSION = '.xlsx';
+  const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
+  FileSaver.saveAs(data, fileName + '-' + new  Date().getTime() + EXCEL_EXTENSION);
+}
+
+export function  getBetStatus(bet: BetDto): string{
+  switch (bet.betStatus){
+    case 'cancelled':
+      return 'CANCELADO';
+    case 'claimed':
+      return 'RECLAMADO';
+    case 'expired':
+      return 'EXPIRADO';
+    case 'loser':
+      return 'PERDEDOR';
+    case 'pending':
+      return 'PENDIENTE';
+    case 'winner':
+      return 'GANADOR';
+    default:
+      return 'Undefined';
+  }
+}
+
+export function getBetStatusColor(bet: BetDto): string{
+  switch (bet.betStatus){
+    case 'cancelled':
+      return 'brown';
+    case 'claimed':
+      return 'darkgreen';
+    case 'expired':
+      return 'red';
+    case 'loser':
+      return 'red';
+    case 'pending':
+      return 'blue';
+    case 'winner':
+      return 'green';
+    default:
+      return '#000';
+  }
+}
+
+export function getTotalPlays(plays: Array<PlayDto>): number {
+  return plays.reduce((acc, val) => acc += val.amount, 0);
 }
