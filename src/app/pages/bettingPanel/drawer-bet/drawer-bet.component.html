@@ -52,6 +52,7 @@
           <th *ngFor="let column of columnsPlays">
             {{column.title}}
           </th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -60,6 +61,7 @@
           <td>{{ data.amount }}</td>
           <td>{{ showParsedNumbers(data.playNumbers) }} </td>
           <td>{{ data.playType }} </td>
+          <td><i *ngIf="data.playWinner" style="color: #9bb50b" nz-icon nzType="check-circle" nzTheme="outline"></i></td>
         </tr>
         </tbody>
       </nz-table>

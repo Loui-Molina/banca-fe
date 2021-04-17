@@ -1,0 +1,102 @@
+<app-page-loader-bouncing [loading]="loading"></app-page-loader-bouncing>
+<div class="content fit-height mb-20" style="min-height: 300px;">
+  <app-abm [columns]="columns"
+           [fetcher]="fetcher"
+           [title]="'TICKETS.TITLE'"
+           [customColumns]="customColumns"
+           [viewTemplate]="viewTemplate">
+  </app-abm>
+
+  <ng-template let-column let-data="data" #customColumns>
+    <ng-container [ngSwitch]="column.component">
+      <ng-container *ngSwitchCase="'status'">
+        <nz-tag *ngIf="data.betStatus === betStatus.Winner" [nzColor]="'green'"
+                style="padding: 0 2px 0 2px;">
+          {{'TICKETS.LIST.STATUS_LIST.WINNER'|translate}}
+        </nz-tag>
+        <nz-tag *ngIf="data.betStatus === betStatus.Pending" [nzColor]="'blue'"
+                style="padding: 0 2px 0 2px;">
+          {{'TICKETS.LIST.STATUS_LIST.PENDING'|translate}}
+        </nz-tag>
+        <nz-tag *ngIf="data.betStatus === betStatus.Cancelled" [nzColor]="'brown'"
+                style="padding: 0 2px 0 2px;">
+          {{'TICKETS.LIST.STATUS_LIST.CANCELLED'|translate}}
+        </nz-tag>
+        <nz-tag *ngIf="data.betStatus === betStatus.Loser" [nzColor]="'red'"
+                style="padding: 0 2px 0 2px;">
+          {{'TICKETS.LIST.STATUS_LIST.LOOSER'|translate}}
+        </nz-tag>
+        <nz-tag *ngIf="data.betStatus === betStatus.Claimed" [nzColor]="'darkgreen'"
+                style="padding: 0 2px 0 2px;">
+          {{'TICKETS.LIST.STATUS_LIST.CLAIMED'|translate}}
+        </nz-tag>
+        <nz-tag *ngIf="data.betStatus === betStatus.Expired" [nzColor]="'red'"
+                style="padding: 0 2px 0 2px;">
+          {{'TICKETS.LIST.STATUS_LIST.EXPIRED'|translate}}
+        </nz-tag>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+
+  <ng-template #viewTemplate let-visibleObject>
+    <div class="drawer">
+      <ng-container *ngIf="visibleObject">
+        <div class="status">
+          <nz-tag *ngIf="visibleObject.betStatus === betStatus.Winner" [nzColor]="'green'"
+                  style="padding: 0 2px 0 2px;">
+            {{'TICKETS.VIEW.STATUS_LIST.WINNER'|translate}}
+          </nz-tag>
+          <nz-tag *ngIf="visibleObject.betStatus === betStatus.Pending" [nzColor]="'blue'"
+                  style="padding: 0 2px 0 2px;">
+            {{'TICKETS.VIEW.STATUS_LIST.PENDING'|translate}}
+          </nz-tag>
+          <nz-tag *ngIf="visibleObject.betStatus === betStatus.Cancelled" [nzColor]="'brown'"
+                  style="padding: 0 2px 0 2px;">
+            {{'TICKETS.VIEW.STATUS_LIST.CANCELLED'|translate}}
+          </nz-tag>
+          <nz-tag *ngIf="visibleObject.betStatus === betStatus.Loser" [nzColor]="'red'"
+                  style="padding: 0 2px 0 2px;">
+            {{'TICKETS.VIEW.STATUS_LIST.LOOSER'|translate}}
+          </nz-tag>
+          <nz-tag *ngIf="visibleObject.betStatus === betStatus.Claimed" [nzColor]="'darkgreen'"
+                  style="padding: 0 2px 0 2px;">
+            {{'TICKETS.VIEW.STATUS_LIST.CLAIMED'|translate}}
+          </nz-tag>
+          <nz-tag *ngIf="visibleObject.betStatus === betStatus.Expired" [nzColor]="'red'"
+                  style="padding: 0 2px 0 2px;">
+            {{'TICKETS.VIEW.STATUS_LIST.EXPIRED'|translate}}
+          </nz-tag>
+        </div>
+        <h2>{{'TICKETS.VIEW.ID'|translate}}: {{visibleObject._id.toString()}}</h2>
+        <p>{{'TICKETS.VIEW.DATE'|translate}}: {{visibleObject.date | date: 'dd/MM/yyyy'}}</p>
+        <p>{{'TICKETS.VIEW.HOUR'|translate}}: {{visibleObject.date | date: 'HH:mm'}}</p>
+        <ng-container *ngIf="[betStatus.Winner, betStatus.Claimed].includes(visibleObject.betStatus)">
+          <h3>{{'TICKETS.VIEW.WON'|translate}}: ${{visibleObject.amountWin}}</h3>
+        </ng-container>
+        <nz-table [nzData]="visibleObject.plays"
+                  [nzSize]="'small'"
+                  nzLoading="false"
+                  nzShowPagination="false"
+                  nzTableLayout="auto"
+                  style="margin-top: 20px">
+          <thead>
+          <tr>
+            <th *ngFor="let column of columnsPlays">
+              {{column.title|translate}}
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of visibleObject.plays">
+            <td>{{ data.lotteryName }}</td>
+            <td>{{ data.amount }}</td>
+            <td>{{ showParsedNumbers(data.playNumbers) }} </td>
+            <td>{{ data.playType }} </td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </div>
+  </ng-template>
+
+</div>

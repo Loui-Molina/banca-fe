@@ -17,6 +17,7 @@ export interface Play {
     amount: number;
     playNumbers: PlayNumbers;
     lotteryId: object;
+    playWinner?: boolean;
     lotteryIdSuperpale?: object;
     winSuperPalePending?: number;
 }

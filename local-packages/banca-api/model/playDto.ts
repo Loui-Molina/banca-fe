@@ -19,6 +19,7 @@ export interface PlayDto {
     lotteryId: object;
     lotteryIdSuperpale?: object;
     lotteryName: string;
+    playWinner?: boolean;
 }
 export namespace PlayDto {
     export type PlayTypeEnum = 'direct' | 'pale' | 'tripleta' | 'superPale' | 'cash3straight' | 'cash3Box' | 'play4Straight' | 'play4Box' | 'pick5Straigh' | 'pick5Box' | 'singulation' | 'bolita';

@@ -153,7 +153,7 @@
 
                     <!--<nz-countdown #cd [nzValue]="lottery.leftTime" [nzFormat]="'HH:mm'" *ngIf="lottery.leftTime"></nz-countdown>-->
                     <countdown #cd (event)="onChangeCounter($event, lottery)" *ngIf="lottery.leftTime"
-                               [config]="{leftTime:lottery.leftTime, format: 'HH:mm:ss'}"></countdown>
+                               [config]="{leftTime:lottery.leftTime, format: 'HH:mm'}"></countdown>
                   </div>
                   <div class="center-column last-column" nz-col nzSpan="2">
                     <label (nzCheckedChange)="onChangeLottery(lottery, $event)"

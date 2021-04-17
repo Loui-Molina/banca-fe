@@ -10,7 +10,7 @@ import {showParsedNumbers} from 'src/utils/utilFunctions';
 import {Column} from '../../../components/abm/abm.component';
 
 @Component({
-  selector: 'app-tickets',
+  selector: 'app-admin-tickets',
   templateUrl: './admin-tickets.component.html',
   styleUrls: ['./admin-tickets.component.scss']
 })

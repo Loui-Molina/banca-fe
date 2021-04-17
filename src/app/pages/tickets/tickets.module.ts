@@ -13,7 +13,7 @@ import {NzListModule} from 'ng-zorro-antd/list';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {NzSwitchModule} from 'ng-zorro-antd/switch';
 import {NzIconModule} from 'ng-zorro-antd/icon';
-import {ConsotriumTicketsComponent} from './consortium/consotrium-tickets.component';
+import {ConsortiumTicketsComponent} from './consortium/consortium-tickets.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {TicketsRoutingModule} from './tickets-routing.module';
@@ -53,8 +53,8 @@ import {AdminTicketsComponent} from './admin/admin-tickets.component';
     FormsModule,
     NzTagModule
   ],
-  declarations: [TicketsComponent, ConsotriumTicketsComponent, AdminTicketsComponent],
-  exports: [ConsotriumTicketsComponent],
+  declarations: [TicketsComponent, ConsortiumTicketsComponent, AdminTicketsComponent],
+  exports: [ConsortiumTicketsComponent],
   providers: [DatePipe]
 })
 export class TicketsModule {
