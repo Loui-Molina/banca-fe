@@ -65,7 +65,8 @@
         </tbody>
       </nz-table>
       <br>
-      <button *ngIf="canSeeSn(bet)" (click)="printTicket(bet)">IMPRIMIR</button>
+      <button *ngIf="canSeeSn(bet)" (click)="getPrinter(bet)">IMPRIMIR</button>
+
       <br>
       <br>
       <button (click)="cloneTicket(bet)">CLONAR TICKET</button>

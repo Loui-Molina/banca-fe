@@ -897,6 +897,14 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.number = $event.target.value;
     this.searchLimit();
   }
+
+  getPrinter(generatedBet: BetDto): void {
+    if (this.isMobile) {
+      this.printTicket(generatedBet);
+    } else {
+      this.shareTicket(generatedBet);
+    }
+  }
 }
 
 
