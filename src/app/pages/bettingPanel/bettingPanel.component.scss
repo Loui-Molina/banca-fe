@@ -12,6 +12,7 @@ nz-content {
 }
 
 nz-sider {
+  overflow-y: auto;
   &.fixed {
     z-index: 9;
     overflow: auto;
@@ -19,6 +20,17 @@ nz-sider {
     position: fixed;
     left: 0;
   }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+nz-sider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+nz-sider {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .trigger {

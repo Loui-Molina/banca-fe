@@ -67,7 +67,7 @@
             {{'TICKETS.VIEW.STATUS_LIST.EXPIRED'|translate}}
           </nz-tag>
         </div>
-        <h2>{{'TICKETS.VIEW.ID'|translate}}: {{visibleObject._id.toString()}}</h2>
+        <h3>{{'TICKETS.VIEW.ID'|translate}}: {{visibleObject._id.toString()}}</h3>
         <p>{{'TICKETS.VIEW.DATE'|translate}}: {{visibleObject.date | date: 'dd/MM/yyyy'}}</p>
         <p>{{'TICKETS.VIEW.HOUR'|translate}}: {{visibleObject.date | date: 'HH:mm'}}</p>
         <h3>{{'TICKETS.VIEW.TOTAL'|translate}}: ${{getTotal(visibleObject.plays)}}</h3>

@@ -286,7 +286,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   onKeyEnter = () => {
-    debugger
     if (!this.disabledBet()) {
       this.createBet();
       this.resetBet();
