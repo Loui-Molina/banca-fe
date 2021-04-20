@@ -868,9 +868,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   getPrinter = (generatedBet: BetDto) => {
     if (this.isMobile) {
-      this.printTicket(generatedBet);
-    } else {
       this.shareTicket(generatedBet);
+    } else {
+      this.printTicket(generatedBet);
     }
   };
 }

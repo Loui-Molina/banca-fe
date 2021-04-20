@@ -37,7 +37,7 @@ export function shareTicket(bet: BetDto, banking: Banking): void {
       let text = banking.header + '\n\n';
       text += 'ID:  *' + bet._id.toString() + '*\n';
       text += 'SN:  *' + bet.sn + '*\n';
-      text += 'Fecha: ' + this.datePipe.transform(bet.date, 'dd/MM/yyyy hh:mm a') + '\n\n';
+      text += 'Fecha: ' + new Date(bet.date).toLocaleString() + '\n\n';
       let sum = 0;
       let lastLottery: string;
 
