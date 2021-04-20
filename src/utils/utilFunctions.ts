@@ -29,6 +29,51 @@ export function getCombinations(chars: string[], length: number = null, separato
   return result;
 }
 
+export function shareTicket(bet: BetDto, banking: Banking): void {
+  {
+    const navigator = window.navigator as any;
+    if (navigator.share && bet && bet._id && banking) {
+
+      let text = banking.header + '\n\n';
+      text += 'ID:  *' + bet._id.toString() + '*\n';
+      text += 'SN:  *' + bet.sn + '*\n';
+      text += 'Fecha: ' + this.datePipe.transform(bet.date, 'dd/MM/yyyy hh:mm a') + '\n\n';
+      let sum = 0;
+      let lastLottery: string;
+
+      bet.plays
+        .sort((a, b) => (a.lotteryName.toLowerCase() < b.lotteryName.toLowerCase()
+          ? -1 : (a.lotteryName.toLowerCase() > b.lotteryName.toLowerCase()
+            ? 1 : 0))).map(play => {
+          if (lastLottery !== play.lotteryName) {
+            if (lastLottery) {
+              text += '\n';
+            }
+            text += `--------------\n`;
+            text += `${play.lotteryName.toUpperCase()}\n`;
+
+          }
+          text += `*${showParsedNumbers(play.playNumbers)}*   -   $${play.amount}   -   ${play.playType}\n`;
+          // TODO traducir el tipo de jugada
+          sum += play.amount;
+          lastLottery = play.lotteryName;
+        }
+      );
+      text += `Total: $${sum}\n`;
+      text += '\n' + banking.footer;
+      navigator
+        .share({
+          title: 'TICKET ' + bet._id.toString(),
+          text
+        })
+        .then(() => console.log('Successful share'))
+        .catch(error => console.log('Error sharing', error));
+    } else {
+      alert('share not supported');
+    }
+  }
+}
+
 export function printTicket(bet: BetDto, banking: Banking): void {
   const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
   let toWrite = '<html>\n' +
@@ -116,8 +161,8 @@ export function formatResult(value: number): string {
 
 export function exportAsExcelFile(json: any[], excelFileName: string): void {
   const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-  const workbook: XLSX.WorkBook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
-  const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  const workbook: XLSX.WorkBook = {Sheets: {data: worksheet}, SheetNames: ['data']};
+  const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
   saveAsExcelFile(excelBuffer, excelFileName);
 }
 
@@ -125,11 +170,11 @@ export function saveAsExcelFile(buffer: any, fileName: string): void {
   const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   const EXCEL_EXTENSION = '.xlsx';
   const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
-  FileSaver.saveAs(data, fileName + '-' + new  Date().getTime() + EXCEL_EXTENSION);
+  FileSaver.saveAs(data, fileName + '-' + new Date().getTime() + EXCEL_EXTENSION);
 }
 
-export function  getBetStatus(bet: BetDto): string{
-  switch (bet.betStatus){
+export function getBetStatus(bet: BetDto): string {
+  switch (bet.betStatus) {
     case 'cancelled':
       return 'CANCELADO';
     case 'claimed':
@@ -147,8 +192,8 @@ export function  getBetStatus(bet: BetDto): string{
   }
 }
 
-export function getBetStatusColor(bet: BetDto): string{
-  switch (bet.betStatus){
+export function getBetStatusColor(bet: BetDto): string {
+  switch (bet.betStatus) {
     case 'cancelled':
       return 'brown';
     case 'claimed':

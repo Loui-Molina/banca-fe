@@ -3,7 +3,7 @@ import {
   formatResult,
   getCombinations,
   printTicket,
-  reverseString,
+  reverseString, shareTicket,
   showParsedNumbers,
   uuidv4
 } from '../../../utils/utilFunctions';
@@ -778,39 +778,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   };
 
   shareTicket = (bet: BetDto) => {
-    const navigator = window.navigator as any;
-    if (navigator.share && bet && bet._id && this.banking) {
-      let text = this.banking.header + '\n\n';
-      text += 'ID:  *' + bet._id.toString() + '*\n';
-      text += 'SN:  *' + bet.sn + '*\n';
-      text += 'Fecha: ' + this.datePipe.transform(bet.date, 'dd/MM/yyyy hh:mm a') + '\n\n';
-      let sum = 0;
-      let lastLottery: string;
-      for (const play of bet.plays) {
-        if (lastLottery !== play.lotteryName) {
-          if (lastLottery) {
-            text += '\n';
-          }
-          text += `--------------\n`;
-          text += `${play.lotteryName.toUpperCase()}\n`;
-
-        }
-        text += `*${showParsedNumbers(play.playNumbers)}*   -   $${play.amount}   -   ${play.playType}\n`; // TODO traducir el tipo de jugada
-        sum += play.amount;
-        lastLottery = play.lotteryName;
-      }
-      text += `Total: $${sum}\n`;
-      text += '\n' + this.banking.footer;
-      navigator
-        .share({
-          title: 'TICKET ' + bet._id.toString(),
-          text
-        })
-        .then(() => console.log('Successful share'))
-        .catch(error => console.log('Error sharing', error));
-    } else {
-      alert('share not supported');
-    }
+    shareTicket(bet, this.banking);
   };
 
   canCancelTicket = (ticket: BetDto): boolean => {
