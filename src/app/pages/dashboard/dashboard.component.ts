@@ -20,6 +20,8 @@ export class DashboardComponent {
       routeCommands.push('admin');
     } else if (this.userService.checkRoles([User.RoleEnum.Webuser])) {
       routeCommands.push('webuser');
+    }else if (this.userService.checkRoles([User.RoleEnum.Sysadmin])){
+      routeCommands.push('sysadmin');
     } else {
       alert('No role');
     }

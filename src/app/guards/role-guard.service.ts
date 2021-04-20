@@ -10,9 +10,7 @@ import {User} from '../../../local-packages/banca-api';
 export class RoleGuard implements CanActivate {
 
   constructor(private router: Router,
-              private userService: UserService) {
-    // TODO REFACTOR INTO ACTUAL USERSERVICE AFTER PROTO IS DONE
-  }
+              private userService: UserService) {}
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -24,13 +22,12 @@ export class RoleGuard implements CanActivate {
       return true;
     }
 
-    if (this.userService.checkRoles(requiredRoles)) {
+    if (this.userService.checkRoles([...requiredRoles, User.RoleEnum.Sysadmin])) {
       return true;
     }
+
     this.router.navigate(['']);
     console.log('Missing required roles');
     return false;
   }
-
-
 }

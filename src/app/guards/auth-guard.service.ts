@@ -12,7 +12,6 @@ export class AuthGuard implements CanActivate {
               private userService: UserService) {
   }
 
-  // TODO REFACTOR INTO ACTUAL USER AFTER PROTO IS DONE
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const isLogged = this.userService.isLogged();

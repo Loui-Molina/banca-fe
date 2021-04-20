@@ -8,6 +8,7 @@ import {RoleGuard} from '../../guards/role-guard.service';
 import {AuthGuard} from '../../guards/auth-guard.service';
 import {User} from '../../../../local-packages/banca-api';
 import {WebUsersComponent} from './web-users/web.users.component';
+import {SysadminComponent} from './sysadmin/sysadmin.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,11 @@ const routes: Routes = [
     path: 'webuser', component: WebUsersComponent,
     canActivate: [RoleGuard, AuthGuard],
     data: {requiredRoles: [User.RoleEnum.Webuser]},
+  },
+  {
+    path: 'sysadmin', component: SysadminComponent,
+    canActivate: [RoleGuard, AuthGuard],
+    data: {requiredRoles: [User.RoleEnum.Sysadmin]},
   },
 ];
 

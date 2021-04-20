@@ -14,7 +14,7 @@
     <ul [nzInlineCollapsed]="isCollapsed" nz-menu nzMode="inline" nzTheme="dark">
       <li (click)="(isMobile)? isCollapsed = true: null" nz-submenu nzIcon="home" nzOpen nzTitle="{{'SIDENAV.HOME.TITLE' | translate}}">
         <ul>
-          <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker, userRole.Webuser].includes(user?.role)"
+          <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker, userRole.Webuser, userRole.Sysadmin].includes(user?.role)"
               nz-menu-item
               nzMatchRouter>
             <i nz-icon nzTheme="outline" nzType="dashboard"></i>
@@ -28,6 +28,10 @@
           <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="apartment"></i>
             <a routerLink="/consortiums">{{'SIDENAV.HOME.CONSORTIUMS' | translate}}</a>
+          </li>
+          <li *ngIf="false && user?.role === userRole.Admin || user?.role === userRole.Sysadmin" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="fund-view"></i>
+            <a routerLink="/collection">{{'Cobranzas' | translate}}</a>
           </li>
           <li *ngIf="[userRole.Consortium, userRole.Banker].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="message"></i>
@@ -70,7 +74,7 @@
       </li>
       <li (click)="(isMobile)? isCollapsed = true: null" nz-submenu nzIcon="form" nzOpen nzTitle="{{'SIDENAV.SETTINGS.TITLE' | translate}}">
         <ul>
-          <li *ngIf="user?.role === userRole.Admin" nz-menu-item nzMatchRouter>
+          <li *ngIf="user?.role === userRole.Admin || user?.role == userRole.Sysadmin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="team"></i>
             <a routerLink="/users">{{'SIDENAV.SETTINGS.USERS' | translate}}</a>
           </li>

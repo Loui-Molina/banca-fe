@@ -23,31 +23,33 @@ import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
 import {WebUsersComponent} from './web-users/web.users.component';
 import {SharedWebusersTableComponent} from './shared/shared-webusers-table/shared-webusers-table.component';
+import {SysadminComponent} from './sysadmin/sysadmin.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        DashboardRoutingModule,
-        NzListModule,
-        NzTypographyModule,
-        LineChartModule,
-        PieChartModule,
-        NzGridModule,
-        ComponentsModule,
-        NzIconModule,
-        NzCalendarModule,
-        NzDividerModule,
-        TranslateModule,
-        NgxGraphModule,
-        NzButtonModule,
-        NzTableModule,
-        NzToolTipModule
-    ],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    NzListModule,
+    NzTypographyModule,
+    LineChartModule,
+    PieChartModule,
+    NzGridModule,
+    ComponentsModule,
+    NzIconModule,
+    NzCalendarModule,
+    NzDividerModule,
+    TranslateModule,
+    NgxGraphModule,
+    NzButtonModule,
+    NzTableModule,
+    NzToolTipModule
+  ],
   declarations: [DashboardComponent,
     BankingComponent,
     ConsortiumComponent,
     WebUsersComponent,
     AdminComponent,
+    SysadminComponent,
     SharedBankingsTableComponent,
     SharedWebusersTableComponent,
     AdminConsortiumsTableComponent],

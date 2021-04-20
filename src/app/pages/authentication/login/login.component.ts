@@ -67,17 +67,6 @@ export class LoginComponent implements OnInit {
   }
 
   private navigate(): Promise<boolean> {
-    /*let routeCommands;
-    if (this.userService.checkRoles([User.RoleEnum.Banker])) {
-      routeCommands = ['banker'];
-    } else if (this.userService.checkRoles([User.RoleEnum.Consortium])) {
-      routeCommands = ['consortium'];
-    } else if (this.userService.checkRoles([User.RoleEnum.Admin])) {
-      routeCommands = ['admin'];
-    } else {
-      alert('No role');
-    }
-*/
     return this.router.navigate(['']);
   }
 
