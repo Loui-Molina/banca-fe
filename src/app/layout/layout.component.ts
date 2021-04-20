@@ -36,7 +36,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.initData();
   }
 
-  reloadMessages(): void{
+  reloadMessages(): void {
     this.messagesService.chatControllerGetAllUnreadMessages().subscribe(data => {
       this.messages = data;
     }, error => {
@@ -48,7 +48,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     return this.messages.slice(0, 5);
   }
 
-  goToChat(): void{
+  goToChat(): void {
     this.router.navigate(['chat']);
   }
 
@@ -76,16 +76,20 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   private initData(): void {
     this.user = this.userService.getLoggedUser();
-    this.commonService.commonControllerGetEstablishmentName().subscribe(res => {
-      this.establishmentName = res.name;
-    }, error => {
-      throw new HttpErrorResponse(error);
-    });
-    if ([this.userRole.Consortium, this.userRole.Banker].includes(this.user?.role)) {
-      this.reloadMessages();
-      this.interval = setInterval(() => {
+    if (this.user.role !== User.RoleEnum.Sysadmin) {
+      this.commonService.commonControllerGetEstablishmentName().subscribe(res => {
+        this.establishmentName = res.name;
+      }, error => {
+        throw new HttpErrorResponse(error);
+      });
+      if ([this.userRole.Consortium, this.userRole.Banker].includes(this.user?.role)) {
         this.reloadMessages();
-      }, 15000);
+        this.interval = setInterval(() => {
+          this.reloadMessages();
+        }, 15000);
+      }
+    } else {
+      this.establishmentName = 'System Admin';
     }
   }
 }

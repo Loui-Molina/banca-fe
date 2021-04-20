@@ -898,13 +898,13 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.searchLimit();
   }
 
-  getPrinter(generatedBet: BetDto): void {
+  getPrinter = (generatedBet: BetDto) => {
     if (this.isMobile) {
       this.printTicket(generatedBet);
     } else {
       this.shareTicket(generatedBet);
     }
-  }
+  };
 }
 
 

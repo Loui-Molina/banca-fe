@@ -29,7 +29,7 @@
             <i nz-icon nzType="apartment"></i>
             <a routerLink="/consortiums">{{'SIDENAV.HOME.CONSORTIUMS' | translate}}</a>
           </li>
-          <li *ngIf="false && user?.role === userRole.Admin || user?.role === userRole.Sysadmin" nz-menu-item nzMatchRouter>
+          <li *ngIf="false && (user?.role === userRole.Admin || user?.role === userRole.Sysadmin)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="fund-view"></i>
             <a routerLink="/collection">{{'Cobranzas' | translate}}</a>
           </li>
