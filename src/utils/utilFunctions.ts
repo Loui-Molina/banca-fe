@@ -29,6 +29,34 @@ export function getCombinations(chars: string[], length: number = null, separato
   return result;
 }
 
+export function whatsappShare(bet: BetDto, banking: Banking): string {
+  // TODO Ver si tiene user y ponerle el numero como &phone=+5493543573840
+  if (bet && bet._id && banking) {
+    let text = 'Hola! 👋🏼👋🏼 \n\n'; // TODO poner nombre de usuario
+    text += banking.header + '\n';
+    text += 'Este es el detalle de tu ticket 🎟️:\n';
+    text += '🆔:  *' + bet._id.toString() + '*\n';
+    text += '🆔 SN:  *' + bet.sn + '*\n';
+    text += '📅: ' + new Date(bet.date).toLocaleString() + '\n\n';
+    text += 'Tus jugadas son:\n';
+    let sum = 0;
+    bet.plays
+      .sort((a, b) => (a.lotteryName.toLowerCase() < b.lotteryName.toLowerCase()
+        ? -1 : (a.lotteryName.toLowerCase() > b.lotteryName.toLowerCase()
+          ? 1 : 0))).map(play => {
+      text += `${play.lotteryName} - *${showParsedNumbers(play.playNumbers)}* - MONTO: $${play.amount} - TIPO: ${play.playType}\n`;
+      // TODO traducir el tipo de jugada
+      sum += play.amount;
+    });
+    text += `Total: $${sum}\n`;
+    text += 'Gracias por elegirnos! 🙏🏼🙏🏼';
+    text += 'Y buena suerte!! 🤞🏼🍀';
+    text += '\n' + banking.footer;
+    return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+  }
+}
+
+
 export function shareTicket(bet: BetDto, banking: Banking): void {
   {
     const navigator = window.navigator as any;
