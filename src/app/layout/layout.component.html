@@ -49,6 +49,10 @@
             <i nz-icon nzType="shop"></i>
             <a routerLink="/bankings">{{'SIDENAV.HOME.BANKINGS' | translate}}</a>
           </li>
+          <li *ngIf="false && [userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="book"></i>
+            <a routerLink="/balance">{{'Balance' | translate}}</a>
+          </li>
           <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="trophy"></i>
             <a routerLink="/lotteries">{{'SIDENAV.HOME.LOTTERIES' | translate}}</a>
