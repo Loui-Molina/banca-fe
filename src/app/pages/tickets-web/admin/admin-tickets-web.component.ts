@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {BetDto, PlayDto, PlayNumbers, TicketDto, TicketsService, User,} from 'local-packages/banca-api';
+import {BetDto, PlayDto, PlayNumbers, TicketDto, TicketsService, TicketsWebService, TicketWebDto, User,} from 'local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
@@ -27,6 +27,11 @@ export class AdminTicketsWebComponent implements OnInit, OnDestroy {
     key: 'bankingName',
     showSearch: true
   }, {
+    title: 'TICKETS.LIST.WEB_USER',
+    key: 'username',
+    showSearch: true
+  },
+    {
     title: 'TICKETS.LIST.DATE',
     key: 'date',
     valueFormatter: (data) => this.datePipe.transform(data.date, 'dd/MM/yyyy hh:mm'),
@@ -48,7 +53,7 @@ export class AdminTicketsWebComponent implements OnInit, OnDestroy {
     ]
   }];
   betStatus = BetDto.BetStatusEnum;
-  fetcher: Observable<TicketDto[]> = this.ticketsService.ticketsControllerGetAll();
+  fetcher: Observable<TicketWebDto[]> = this.ticketsService.ticketsWebControllerGetAll();
   columnsPlays = [
     {title: 'TICKETS.VIEW.LIST.LOTTERY'},
     {title: 'TICKETS.VIEW.LIST.AMOUNT'},
@@ -59,7 +64,7 @@ export class AdminTicketsWebComponent implements OnInit, OnDestroy {
   constructor(private datePipe: DatePipe,
               private messageService: NzMessageService,
               private translateService: TranslateService,
-              private ticketsService: TicketsService,
+              private ticketsService: TicketsWebService,
               private modal: NzModalService,
               private userService: UserService) {
     this.user = this.userService.getLoggedUser();

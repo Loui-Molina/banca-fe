@@ -51,6 +51,7 @@ export * from './resumeSellsDto';
 export * from './signInCredentialsDto';
 export * from './signUpCredentialsDto';
 export * from './ticketDto';
+export * from './ticketWebDto';
 export * from './transaction';
 export * from './transactionDto';
 export * from './updateBankingDto';

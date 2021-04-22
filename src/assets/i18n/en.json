@@ -267,6 +267,7 @@
     "LIST": {
       "CONSORTIUM": "consortium",
       "BANKING": "banking",
+      "WEB_USER": "web User",
       "DATE": "date",
       "STATUS": "status",
       "STATUS_LIST": {

@@ -41,10 +41,10 @@
             <i nz-icon nzType="file-text"></i>
             <a routerLink="/tickets">{{'SIDENAV.HOME.TICKETS' | translate}}</a>
           </li>
-          <!--<li *ngIf="[userRole.Consortium, userRole.Admin, userRole.Banker].includes(user?.role)" nz-menu-item nzMatchRouter>
+          <li *ngIf="[userRole.Consortium, userRole.Admin, userRole.Banker].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="file-text"></i>
             <a routerLink="/tickets-web">{{'SIDENAV.HOME.TICKETS_WEB' | translate}}</a>
-          </li>-->
+          </li>
           <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="shop"></i>
             <a routerLink="/bankings">{{'SIDENAV.HOME.BANKINGS' | translate}}</a>

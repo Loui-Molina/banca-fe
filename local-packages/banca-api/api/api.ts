@@ -40,6 +40,9 @@ export * from './results.serviceInterface'
 export * from './tickets.service';
 import { TicketsService } from './tickets.service';
 export * from './tickets.serviceInterface'
+export * from './ticketsWeb.service';
+import { TicketsWebService } from './ticketsWeb.service';
+export * from './ticketsWeb.serviceInterface'
 export * from './transactions.service';
 import { TransactionsService } from './transactions.service';
 export * from './transactions.serviceInterface'
@@ -52,4 +55,4 @@ export * from './webUserLotteries.serviceInterface'
 export * from './webusers.service';
 import { WebusersService } from './webusers.service';
 export * from './webusers.serviceInterface'
-export const APIS = [AdminLotteriesService, AuthService, AuthPasswordService, BankingService, BankingLotteriesService, BettingPanelService, CommonService, ConsortiumLotteriesService, ConsortiumsService, DashboardService, DefaultService, MessagesService, ResultsService, TicketsService, TransactionsService, UsersService, WebUserLotteriesService, WebusersService];
+export const APIS = [AdminLotteriesService, AuthService, AuthPasswordService, BankingService, BankingLotteriesService, BettingPanelService, CommonService, ConsortiumLotteriesService, ConsortiumsService, DashboardService, DefaultService, MessagesService, ResultsService, TicketsService, TicketsWebService, TransactionsService, UsersService, WebUserLotteriesService, WebusersService];

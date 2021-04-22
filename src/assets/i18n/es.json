@@ -267,6 +267,7 @@
     "LIST": {
       "CONSORTIUM": "Consorcio",
       "BANKING": "Banca",
+      "WEB_USER": "Usuario web",
       "DATE": "Fecha",
       "STATUS": "Estado",
       "STATUS_LIST": {
