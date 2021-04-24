@@ -1,1 +1,40 @@
-<div> TODO TERMINAR </div>
+<div class="fit-height mb-20" style="min-height: 300px;">
+  <app-abm [columns]="columns"
+           [defaultForm]="defaultForm"
+           [fetcherCreate]="fetcherCreate"
+           [fetcherDelete]="fetcherDelete"
+           [fetcherUpdate]="fetcherUpdate"
+           [fetcher]="fetcher"
+           [formTemplate]="formTemplate"
+           [form]="formABM"
+           [getValidators]="getValidators"
+           [title]="'BALANCE'"
+           [viewTemplate]="viewTemplate">
+  </app-abm>
+
+  <ng-template #formTemplate let-mode let-visibleObject="visibleObject">
+    <form [formGroup]="formABM">
+      <nz-divider [nzText]="'CREAR BANCA'|translate" class="title" nzOrientation="left"
+                  style="margin-top: 0"></nz-divider>
+      <div class="form-element">
+        <label for="name">
+          {{'NOMBRE'|translate}}
+        </label>
+        <input formControlName="name" id="name" nz-input type="text">
+      </div>
+
+    </form>
+  </ng-template>
+
+  <ng-template #viewTemplate let-visibleObject>
+    <ng-container *ngIf="visibleObject">
+      <nz-divider [nzText]="'EDITAR BALANCE'|translate" class="title" nzOrientation="left"></nz-divider>
+      <nz-descriptions>
+        <nz-descriptions-item [nzTitle]="'NOMBRE'|translate">
+          {{visibleObject.name}}
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </ng-container>
+  </ng-template>
+
+</div>

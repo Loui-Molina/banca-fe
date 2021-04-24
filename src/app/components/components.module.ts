@@ -32,12 +32,13 @@ import {PageLoaderComponent} from './loaders/page-loader/page-loader.component';
 import {PageLoaderBouncingComponent} from './loaders/page-loader-bouncing/page-loader-bouncing.component';
 import {BoxSpinnerComponent} from './loaders/box-spinner/box-spinner.component';
 import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
-import { ModalChangePasswordComponent } from './modals/modal-change-password/modal-change-password.component';
+import {ModalChangePasswordComponent} from './modals/modal-change-password/modal-change-password.component';
 import {ModalAddTransactionComponent} from './modals/modal-add-transaction/modal-add-transaction.component';
 import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
-import { SearchComponent } from './abm/search/search.component';
+import {SearchComponent} from './abm/search/search.component';
+import {ListFilterPipe} from '../pipes/list-filter.pipe';
 
-
+const pipes = [ListFilterPipe];
 const components = [
   LineChartComponent,
   PieChartComponent,
@@ -51,7 +52,8 @@ const components = [
   BoxSpinnerComponent,
   PageLoaderBouncingComponent,
   ModalChangePasswordComponent,
-  ModalAddTransactionComponent
+  ModalAddTransactionComponent,
+  SearchComponent
 ];
 
 
@@ -82,8 +84,8 @@ const components = [
     FormsModule,
     NzInputNumberModule
   ],
-  declarations: [...components, SearchComponent],
-    exports: [...components, SearchComponent],
+  declarations: [...components, ...pipes],
+  exports: [...components, ...pipes],
   providers: [NzModalService, NzMessageService]
 })
 export class ComponentsModule {

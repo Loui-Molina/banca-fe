@@ -21,8 +21,9 @@ export class AdminBalanceComponent implements OnInit {
     {
       title: 'LOTTERIES.LIST.NAME',
       key: 'name',
+      hidden: false,
       showSearch: true,
-    },
+    }/*, TODO
     {
       title: 'LOTTERIES.LIST.ALIAS',
       key: 'nickname'
@@ -57,20 +58,13 @@ export class AdminBalanceComponent implements OnInit {
       title: 'LOTTERIES.LIST.COLOR',
       key: 'color',
       component: 'color'
-    }
+    }*/
   ];
-  fetcher: Observable<AdminLotteryResDto[]> = this.lotteriesService.adminLotteryControllerGetAll();
+  fetcher: Observable<AdminLotteryResDto[]> = this.lotteriesService.adminLotteryControllerGetAll(); /* TODO */
   formABM: FormGroup;
   extraButtons: ExtraButton[] = [];
   defaultForm = {
-    closeTime: null,
-    openTime: null,
-    day: [],
-    name: null,
-    nickname: null,
-    playTime: null,
-    color: '#000000',
-    status: true
+    /*TODO*/
   };
   days = DayEnum;
 
@@ -97,31 +91,8 @@ export class AdminBalanceComponent implements OnInit {
   fetcherCreate: (item) => Observable<AdminLotteryResDto> = (item) => this.lotteriesService.adminLotteryControllerCreate(item);
   fetcherUpdate: (item) => Observable<AdminLotteryResDto> = (item) => this.lotteriesService.adminLotteryControllerUpdate(item);
   fetcherDelete: (item) => Observable<any> = (item) => this.lotteriesService.adminLotteryControllerDelete(item._id);
-  parseData = (mode: string, valueForm): AdminLotteryResDto => {
-    const {day, status, nickname, color, openTime, closeTime, name, playTime} = valueForm;
-
-    const openDate: Date = new Date(openTime);
-    const closeDate: Date = new Date(closeTime);
-    const playDate: Date = new Date(playTime);
-
-    openDate.setSeconds(0, 0);
-    closeDate.setSeconds(0, 0);
-    playDate.setSeconds(0, 0);
-
-    return {
-      name,
-      nickname,
-      color,
-      status,
-      playTime: playDate.toString(),
-      results: [],
-      day,
-      openTime: openDate.toString(),
-      closeTime: closeDate.toString()
-    };
-  };
   getValidators = (mode: string) => {
-    return {
+    return {/* TODO
       closeTime: [Validators.required],
       openTime: [Validators.required],
       day: [Validators.required],
@@ -130,110 +101,8 @@ export class AdminBalanceComponent implements OnInit {
       playTime: [Validators.required],
       color: [Validators.required],
       status: [Validators.required]
+    */
     };
-  };
-  setValueForm = (mode: string, defaultForm, item) => {
-    return {
-      closeTime: item?.closeTime,
-      openTime: item?.openTime,
-      day: item.day,
-      name: item.name,
-      nickname: item.nickname,
-      playTime: item?.playTime,
-      color: item.color,
-      status: item.status
-    };
-  };
-
-  getClosingDisabledMinutes = (hour: number): Array<number> => {
-    if (this.formABM && this.formABM.value) {
-      const playTime: Date = this.formABM.value.playTime;
-      const openTime: Date = this.formABM.value.openTime;
-      if (playTime && openTime) {
-        const playHour: number = playTime.getHours();
-        const openHour: number = openTime.getHours();
-        const minutes: Array<number> = [];
-        if (hour === playHour) {
-          for (let i = playTime.getMinutes() + 1; i < 60; i++) {
-            minutes.push(i);
-          }
-          return minutes;
-        } else if (hour === openHour) {
-          for (let i = 0; i < openTime.getMinutes(); i++) {
-            minutes.push(i);
-          }
-          return minutes;
-        }
-      }
-    }
-    return [];
-  };
-
-  getClosingDisabledHours = (): Array<number> => {
-    if (this.formABM && this.formABM.value) {
-      const playTime: Date = this.formABM.value.playTime;
-      const openTime: Date = this.formABM.value.openTime;
-      if (playTime && openTime) {
-        const hours: Array<number> = [];
-        for (let i = 0; i < openTime.getHours(); i++) {
-          hours.push(i);
-        }
-        for (let i = playTime.getHours() + 1; i < 24; i++) {
-          hours.push(i);
-        }
-        return hours;
-      }
-    }
-    return [];
-  };
-
-  getOpeningDisabledMinutes = (hour: number): Array<number> => {
-    if (this.formABM && this.formABM.value) {
-      const playTime: Date = this.formABM.value.playTime;
-      if (playTime) {
-        const playHour: number = playTime.getHours();
-        const minutes: Array<number> = [];
-        if (hour === playHour) {
-          for (let i = playTime.getMinutes() + 1; i < 60; i++) {
-            minutes.push(i);
-          }
-          return minutes;
-        }
-      }
-    }
-    return [];
-  };
-
-  getOpeningDisabledHours = (): Array<number> => {
-    if (this.formABM && this.formABM.value) {
-      const playTime: Date = this.formABM.value.playTime;
-      if (playTime) {
-        const hours: Array<number> = [];
-        for (let i = playTime.getHours() + 1; i < 24; i++) {
-          hours.push(i);
-        }
-        return hours;
-      }
-    }
-    return [];
-  };
-
-
-  isOpeningTimeEnabled = (): boolean => {
-    return !(this.formABM.value.playTime);
-  };
-
-  isClosingTimeEnabled = (): boolean => {
-    return !(this.formABM.value.playTime && this.formABM.value.openTime);
-  };
-
-  resetOpenAndCloseTime = (): void => {
-    setTimeout(() => { // THIS SHIT NEEDED
-      if (this.formABM.touched) {
-        this.formABM.controls.openTime.setValue(null);
-        this.formABM.controls.closeTime.setValue(null);
-      }
-    }, 200);
   };
 
   private ts(key: string, params?): string {

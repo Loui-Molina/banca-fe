@@ -270,6 +270,7 @@ export interface Column {
   searchOptions?: SearchOption[];
   // tslint:disable-next-line:ban-types
   valueFormatter?: Function;
+  hidden?: boolean;
 }
 
 export interface SearchOption {

@@ -26,6 +26,7 @@ import {JWTUserService, UserService} from './services/user.service';
 import {httpInterceptorProviders} from './interceptors';
 import {NZ_CONFIG, NzConfig} from 'ng-zorro-antd/core/config';
 import {WebUsersAppModule} from './pages/web-user-app/web.users-app.module';
+import {ListFilterPipe} from './pipes/list-filter.pipe';
 
 
 registerLocaleData(es);
@@ -71,7 +72,6 @@ const ngZorroConfig: NzConfig = {
     BrowserAnimationsModule,
     NgxPermissionsModule.forRoot()
   ],
-  exports: [],
   providers: [
     {provide: NZ_I18N, useValue: en_US},
     {provide: BASE_PATH_API, useValue: environment.urlApi},

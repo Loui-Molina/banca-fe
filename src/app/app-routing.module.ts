@@ -87,13 +87,12 @@ const routes: Routes = [
         data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium, User.RoleEnum.Banker]},
         loadChildren: () => import('./pages/web-users/web.users.module').then(m => m.WebUsersModule)
       },
-      /*{
       {
-        path: 'subscriptions',
+        path: 'balance',
         canActivate: [RoleGuard, AuthGuard],
-        data: {requiredRoles: [User.RoleEnum.Admin]},
-        loadChildren: () => import('./pages/subscriptions/subscriptions.module').then(m => m.SubscriptionsModule)
-      },*/
+        data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
+        loadChildren: () => import('./pages/balance/balance.module').then(m => m.BalanceModule)
+      },
       /*{
         path: 'help',
         canActivate: [RoleGuard, AuthGuard],
