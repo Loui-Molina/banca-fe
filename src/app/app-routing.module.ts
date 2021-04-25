@@ -88,10 +88,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/web-users/web.users.module').then(m => m.WebUsersModule)
       },
       {
-        path: 'balance',
+        path: 'accounting',
         canActivate: [RoleGuard, AuthGuard],
         data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
-        loadChildren: () => import('./pages/balance/balance.module').then(m => m.BalanceModule)
+        loadChildren: () => import('./pages/accounting/accounting.module').then(m => m.AccountingModule)
       },
       /*{
         path: 'help',

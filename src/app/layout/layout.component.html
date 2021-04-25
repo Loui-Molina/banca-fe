@@ -12,11 +12,13 @@
       <h1>{{establishmentName}}</h1>
     </div>
     <ul [nzInlineCollapsed]="isCollapsed" nz-menu nzMode="inline" nzTheme="dark">
-      <li (click)="(isMobile)? isCollapsed = true: null" nz-submenu nzIcon="home" nzOpen nzTitle="{{'SIDENAV.HOME.TITLE' | translate}}">
+      <li (click)="(isMobile)? isCollapsed = true: null" nz-submenu nzIcon="home" nzOpen
+          nzTitle="{{'SIDENAV.HOME.TITLE' | translate}}">
         <ul>
-          <li *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker, userRole.Webuser, userRole.Sysadmin].includes(user?.role)"
-              nz-menu-item
-              nzMatchRouter>
+          <li
+            *ngIf="[userRole.Admin, userRole.Consortium, userRole.Banker, userRole.Webuser, userRole.Sysadmin].includes(user?.role)"
+            nz-menu-item
+            nzMatchRouter>
             <i nz-icon nzTheme="outline" nzType="dashboard"></i>
             <a routerLink="/dashboard">{{'SIDENAV.HOME.DASHBOARD' | translate}}</a>
           </li>
@@ -29,7 +31,8 @@
             <i nz-icon nzType="apartment"></i>
             <a routerLink="/consortiums">{{'SIDENAV.HOME.CONSORTIUMS' | translate}}</a>
           </li>
-          <li *ngIf="false && (user?.role === userRole.Admin || user?.role === userRole.Sysadmin)" nz-menu-item nzMatchRouter>
+          <li *ngIf="false && (user?.role === userRole.Admin || user?.role === userRole.Sysadmin)" nz-menu-item
+              nzMatchRouter>
             <i nz-icon nzType="fund-view"></i>
             <a routerLink="/collection">{{'Cobranzas' | translate}}</a>
           </li>
@@ -41,7 +44,8 @@
             <i nz-icon nzType="file-text"></i>
             <a routerLink="/tickets">{{'SIDENAV.HOME.TICKETS' | translate}}</a>
           </li>
-          <li *ngIf="[userRole.Consortium, userRole.Admin, userRole.Banker].includes(user?.role)" nz-menu-item nzMatchRouter>
+          <li *ngIf="[userRole.Consortium, userRole.Admin, userRole.Banker].includes(user?.role)" nz-menu-item
+              nzMatchRouter>
             <i nz-icon nzType="mobile"></i>
             <a routerLink="/tickets-web">{{'SIDENAV.HOME.TICKETS_WEB' | translate}}</a>
           </li>
@@ -51,8 +55,10 @@
           </li>
           <li *ngIf="false && [userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="book"></i>
-            <a routerLink="/balance">{{'Balance' | translate}}</a>
-          </li><li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter><i nz-icon nzType="trophy"></i>
+            <a routerLink="/accounting">{{'Contabilidad' | translate}}</a>
+          </li>
+          <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter><i nz-icon
+                                                                                                               nzType="trophy"></i>
             <a routerLink="/lotteries">{{'SIDENAV.HOME.LOTTERIES' | translate}}</a>
           </li>
           <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
@@ -74,7 +80,8 @@
           </li>-->
         </ul>
       </li>
-      <li (click)="(isMobile)? isCollapsed = true: null" nz-submenu nzIcon="form" nzOpen nzTitle="{{'SIDENAV.SETTINGS.TITLE' | translate}}">
+      <li (click)="(isMobile)? isCollapsed = true: null" nz-submenu nzIcon="form" nzOpen
+          nzTitle="{{'SIDENAV.SETTINGS.TITLE' | translate}}">
         <ul>
           <li *ngIf="user?.role === userRole.Admin || user?.role == userRole.Sysadmin" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="team"></i>
