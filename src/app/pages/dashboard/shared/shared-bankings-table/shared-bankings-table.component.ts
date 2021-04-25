@@ -79,7 +79,8 @@ export class SharedBankingsTableComponent implements OnInit {
       key: 'prizes',
       sum: true,
       prefix: '$',
-      type: 'numeric'
+      type: 'numeric',
+      red: true
     },
     {
       title: 'DASHBOARD.BANKING_SUMMARY.LIST.PENDING_PRIZES',
@@ -87,7 +88,8 @@ export class SharedBankingsTableComponent implements OnInit {
       key: 'pendingPrizes',
       sum: true,
       prefix: '$',
-      type: 'numeric'
+      type: 'numeric',
+      red: true
     },
     {
       title: 'DASHBOARD.BANKING_SUMMARY.LIST.BALANCE',

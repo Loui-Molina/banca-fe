@@ -72,7 +72,8 @@ export class SharedWebusersTableComponent implements OnInit {
       key: 'prizes',
       sum: true,
       prefix: '$',
-      type: 'numeric'
+      type: 'numeric',
+      red: true
     },
     {
       title: 'DASHBOARD.WEBUSERS_SUMMARY.LIST.PENDING_PRIZES',
@@ -80,7 +81,8 @@ export class SharedWebusersTableComponent implements OnInit {
       key: 'pendingPrizes',
       sum: true,
       prefix: '$',
-      type: 'numeric'
+      type: 'numeric',
+      red: true
     },
     {
       title: 'DASHBOARD.WEBUSERS_SUMMARY.LIST.BALANCE',
@@ -121,4 +123,5 @@ interface ColumnItem {
   width?: string;
   titleFooter?: string;
   sum: boolean;
+  red?: boolean;
 }

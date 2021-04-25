@@ -15,14 +15,14 @@
     </thead>
     <tbody>
     <tr *ngFor="let data of table.data">
-      <td class="table-td" *ngFor="let column of columns" [class.red]="column.type === 'numeric' && data[column.key] < 0">
+      <td class="table-td" *ngFor="let column of columns" [class.red]="column.type === 'numeric' && data[column.key] < 0 || column.red">
         {{column.prefix}}{{data[column.key]}}
       </td>
     </tr>
     </tbody>
     <tfoot *ngIf="table && table.data.length > 0">
     <tr>
-      <td class="tableFooter" *ngFor="let column of columns" [class.red]="column.type === 'numeric' && getColumnTotal(column.key) < 0">
+      <td class="tableFooter" *ngFor="let column of columns" [class.red]="column.type === 'numeric' && getColumnTotal(column.key) < 0 || column.red">
         <ng-container *ngIf="column.sum">
           {{column.prefix}}{{getColumnTotal(column.key)}}
         </ng-container>
