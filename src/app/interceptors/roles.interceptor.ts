@@ -1,14 +1,9 @@
-import {
-  HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest, HttpErrorResponse
-} from '@angular/common/http';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {UserInterface, UserService} from '../services/user.service';
 import jwtDecode from 'jwt-decode';
-import {AuthService, DefaultService} from 'local-packages/banca-api';
+import {AuthService} from 'local-packages/banca-api';
 import {catchError, retry, switchMap} from 'rxjs/operators';
 
 @Injectable({
@@ -16,7 +11,7 @@ import {catchError, retry, switchMap} from 'rxjs/operators';
 })
 export class RolesInterceptor implements HttpInterceptor {
 
-    constructor(private userService: UserService, private defaultService: DefaultService, private authService: AuthService) { }
+    constructor(private userService: UserService, private authService: AuthService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const apiToken = this.userService.getApiToken();

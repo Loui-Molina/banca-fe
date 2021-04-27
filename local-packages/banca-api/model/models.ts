@@ -1,3 +1,4 @@
+export * from './accountingDto';
 export * from './addResultDto';
 export * from './adminLotteryReqDto';
 export * from './adminLotteryResDto';

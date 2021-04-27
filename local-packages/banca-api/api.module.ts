@@ -3,6 +3,7 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
+import { AccountingService } from './api/accounting.service';
 import { AdminLotteriesService } from './api/adminLotteries.service';
 import { AuthService } from './api/auth.service';
 import { AuthPasswordService } from './api/authPassword.service';
@@ -13,9 +14,9 @@ import { CommonService } from './api/common.service';
 import { ConsortiumLotteriesService } from './api/consortiumLotteries.service';
 import { ConsortiumsService } from './api/consortiums.service';
 import { DashboardService } from './api/dashboard.service';
-import { DefaultService } from './api/default.service';
 import { MessagesService } from './api/messages.service';
 import { ResultsService } from './api/results.service';
+import { SubscriptionsService } from './api/subscriptions.service';
 import { TicketsService } from './api/tickets.service';
 import { TicketsWebService } from './api/ticketsWeb.service';
 import { TransactionsService } from './api/transactions.service';

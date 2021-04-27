@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {AuthService, DefaultService} from 'local-packages/banca-api';
+import {AuthService} from 'local-packages/banca-api';
 import {UserService} from './services/user.service';
 import {Router} from '@angular/router';
 
