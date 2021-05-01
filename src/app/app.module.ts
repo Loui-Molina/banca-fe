@@ -40,6 +40,9 @@ const ngZorroConfig: NzConfig = {
     nzColumn: 1,
     nzBordered: true,
     nzSize: 'small'
+  }, notification: {
+    nzPauseOnHover: false,
+    nzMaxStack: 2
   }
 };
 

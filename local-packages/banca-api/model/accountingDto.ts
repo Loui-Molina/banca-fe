@@ -12,10 +12,13 @@
 
 
 export interface AccountingDto { 
-    bankingName: string;
-    consortiumName: string;
-    dueBalance: number;
-    week: object;
-    isPayed: boolean;
+    bankingId: object;
+    weekId: object;
+    week?: string;
+    isPayed?: boolean;
+    banking?: string;
+    consortium?: string;
+    dueBalance?: number;
+    percentage?: number;
 }
 

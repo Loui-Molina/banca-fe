@@ -1,12 +1,12 @@
-<button (click)="createData()"> create data</button>
-
 <div class="fit-height mb-20" style="min-height: 300px;">
   <app-abm [columns]="columns"
            [defaultForm]="defaultForm"
            [fetcher]="fetcher"
            [formTemplate]="formTemplate"
            [form]="formABM"
+           [fetcherUpdate]="fetcherUpdate"
            [getValidators]="getValidators"
+           [parseData]="parseData"
            [title]="'BANKINGS.TITLE'"
            [viewTemplate]="viewTemplate">
   </app-abm>
@@ -14,33 +14,53 @@
   <ng-template #formTemplate let-mode let-visibleObject="visibleObject">
     <form [formGroup]="formABM">
 
-<!--
-      <nz-divider [nzText]="'BANKINGS.CREATE.BANKING_DATA'|translate" class="title" nzOrientation="left"
-                  style="margin-top: 0">
-      </nz-divider>
-      <div class="form-element">
-        <label for="name">
-          {{'BANKINGS.CREATE.NAME'|translate}}
-        </label>
-        <input formControlName="name" id="name" nz-input type="text">
-      </div>
--->
+      <nz-divider [nzText]="visibleObject?.banking " class="title" nzOrientation="left"></nz-divider>
 
+      <div class="form-element">
+        <label for="dueBalance">
+          {{'Monto'|translate}}
+        </label>
+        <nz-input-number
+          [nzMin]="0"
+          id="dueBalance"
+          formControlName="dueBalance"
+          style="width:100%">
+        </nz-input-number>
+      </div>
+      <div class="form-element">
+        <label for="isPayed">
+          {{'Pagado'|translate}}
+        </label>
+        <nz-switch formControlName="isPayed" id="isPayed" style="padding-left: 10px"></nz-switch>
+      </div>
+
+
+      <!--      banking
+            consortium
+            week
+            dueBalance
+            isPayed-->
     </form>
   </ng-template>
 
   <ng-template #viewTemplate let-visibleObject>
-    <ng-container *ngIf="visibleObject"><!--
-      <nz-divider [nzText]="'BANKINGS.VIEW.BANKING_DATA'|translate" class="title" nzOrientation="left"></nz-divider>
+    <ng-container *ngIf="visibleObject">
+      <nz-divider [nzText]="visibleObject.banking " class="title" nzOrientation="left"></nz-divider>
       <nz-descriptions>
-        <nz-descriptions-item [nzTitle]="'BANKINGS.VIEW.NAME'|translate">
-          {{visibleObject.name}}
+        <nz-descriptions-item [nzTitle]="'Consorcio'|translate">
+          {{visibleObject.consortium}}
         </nz-descriptions-item>
-        <nz-descriptions-item [nzTitle]="'BANKINGS.VIEW.STATUS'|translate">
-          {{(visibleObject.status) ? ('BANKINGS.VIEW.ENABLED'| translate) : ('BANKINGS.VIEW.DISABLED' | translate)}}
+        <nz-descriptions-item [nzTitle]="'Semana'|translate">
+          {{visibleObject.week}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Monto'|translate">
+          {{visibleObject.dueBalance}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzTitle]="'Pagado'|translate">
+          {{(visibleObject.isPayed) ? ('SI'| translate) : ('NO' | translate)}}
         </nz-descriptions-item>
       </nz-descriptions>
-    --></ng-container>
+    </ng-container>
   </ng-template>
 
 </div>

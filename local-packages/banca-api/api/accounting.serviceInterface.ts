@@ -29,12 +29,19 @@ export interface AccountingServiceInterface {
      * 
      * 
      */
-    accountingControllerCreateTest(extraHttpRequestParams?: any): Observable<{}>;
+    accountingControllerGet(extraHttpRequestParams?: any): Observable<{}>;
 
     /**
      * 
      * 
      */
     accountingControllerGetAll(extraHttpRequestParams?: any): Observable<{}>;
+
+    /**
+     * 
+     * 
+     * @param accountingDto 
+     */
+    accountingControllerUpdate(accountingDto: AccountingDto, extraHttpRequestParams?: any): Observable<AccountingDto>;
 
 }

@@ -14,13 +14,14 @@ import {NzDividerModule} from 'ng-zorro-antd/divider';
 import {TranslateModule} from '@ngx-translate/core';
 import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzToolTipModule} from 'ng-zorro-antd/tooltip';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
 import {NzSelectModule} from 'ng-zorro-antd/select';
 import {NzSwitchModule} from 'ng-zorro-antd/switch';
 import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
+import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
 
 @NgModule({
   imports: [
@@ -44,7 +45,9 @@ import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
     NzSelectModule,
     NzSwitchModule,
     NzInputNumberModule,
-    NzDescriptionsModule
+    NzDescriptionsModule,
+    NzDatePickerModule,
+    FormsModule
   ],
   declarations: [AccountingComponent],
   exports: [AccountingComponent],
