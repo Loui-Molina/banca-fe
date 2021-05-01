@@ -244,10 +244,10 @@ export class AbmComponent implements OnInit {
           return true;
         case 'string':
         default:
-          if (typeof item[key] === 'string' && item[key].indexOf(valueFilter) === -1) {
-            return false;
-          } else if (typeof item[key] === 'number' && item[key] !== (parseInt(valueFilter, 0) || null)) {
-            return false;
+          if (typeof item[key] === 'string' && item[key].indexOf(valueFilter) !== -1) {
+            return true;
+          } else if (typeof item[key] === 'number' && item[key] === (parseInt(valueFilter, 0) || null)) {
+            return true;
           }
       }
       return false;
