@@ -39,7 +39,11 @@ export class ErrorsHandler implements ErrorHandler {
         default:
           break;
       }
-
+      if (error.status === 401) {
+        localStorage.clear();
+        window.location.replace(window.location.origin);
+        return;
+      }
       switch (Math.floor(status / 100)) {
         // 4XX family errors
         case 4:
