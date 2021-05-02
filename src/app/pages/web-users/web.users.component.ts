@@ -141,10 +141,12 @@ export class WebUsersComponent {
       status: [Validators.required],
       selectedBanking: [this.userRole.Admin, this.userRole.Consortium].includes(this.user?.role) ? [Validators.required] : [],
       ownerName: [Validators.required],
-      username: [Validators.required],
+      username: [Validators.required, Validators.pattern(/^(\S)+$/g)
+      ],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
-        Validators.maxLength(35)
+        Validators.maxLength(35),
+        Validators.pattern(/^(\S)+$/g)
       ] : []
     };
   };

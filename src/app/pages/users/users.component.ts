@@ -53,10 +53,11 @@ export class UsersComponent implements OnInit {
   getValidators(mode: string): any {
     return {
       name: [Validators.required],
-      username: [Validators.required, Validators.minLength(4)],
+      username: [Validators.required, Validators.minLength(4), Validators.pattern(/^(\S)+$/g)],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
-        Validators.maxLength(35)
+        Validators.maxLength(35),
+        Validators.pattern(/^(\S)+$/g)
       ] : [],
       role: [Validators.required]
     };

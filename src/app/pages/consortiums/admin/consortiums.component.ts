@@ -69,10 +69,12 @@ export class ConsortiumsComponent implements OnInit {
       name: [Validators.required],
       status: [Validators.required],
       ownerName: [Validators.required],
-      ownerUsername: [Validators.required, Validators.minLength(4)],
+      ownerUsername: [Validators.required, Validators.minLength(4), Validators.pattern(/^(\S)+$/g)
+      ],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
-        Validators.maxLength(35)
+        Validators.maxLength(35),
+        Validators.pattern(/^(\S)+$/g)
       ] : []
     };
   }

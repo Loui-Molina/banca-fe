@@ -174,10 +174,13 @@ export class BankingsComponent {
       cancellationTime: [Validators.required],
       footer: [Validators.required],
       ownerName: [Validators.required],
-      username: [Validators.required],
+      username: [Validators.required,
+        Validators.pattern(/^(\S)+$/g)
+      ],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
-        Validators.maxLength(35)
+        Validators.maxLength(35),
+        Validators.pattern(/^(\S)+$/g)
       ] : []
     };
   };
