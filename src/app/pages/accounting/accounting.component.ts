@@ -71,7 +71,7 @@ export class AccountingComponent {
     return {
       dueBalance: valueForm.dueBalance,
       isPayed: valueForm.isPayed,
-      weekId: visibleObject._id,
+      weekId: visibleObject.weekId,
       bankingId: visibleObject.bankingId,
     } as AccountingDto;
   };
