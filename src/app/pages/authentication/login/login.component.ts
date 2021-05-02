@@ -56,10 +56,10 @@ export class LoginComponent implements OnInit {
         this.navigate();
       }).catch(err => {
         this.loading = false;
-        if (err.status === 0) {
-          this.messageService.create('error', this.ts('LOGIN.ERROR_WITHOUT_CONEXION'));
-        } else {
+        if (err.status > 400 && err.status < 500) {
           this.messageService.create('error', this.ts('LOGIN.ERROR_USERNAME_PASSWORD'));
+        } else {
+          this.messageService.create('error', this.ts('LOGIN.ERROR_WITHOUT_CONEXION'));
 
         }
       });
