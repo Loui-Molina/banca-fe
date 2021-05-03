@@ -23,31 +23,33 @@ import {NzTableModule} from 'ng-zorro-antd/table';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
 import {NzTagModule} from 'ng-zorro-antd/tag';
 import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
+import {NzRadioModule} from 'ng-zorro-antd/radio';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    LotteriesRoutingModule,
-    ComponentsModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    NzSelectModule,
-    NzSwitchModule,
-    NzInputNumberModule,
-    NzInputModule,
-    NzGridModule,
-    NzIconModule,
-    NzToolTipModule,
-    NzTimePickerModule,
-    NzDrawerModule,
-    FormsModule,
-    NzButtonModule,
-    NzDividerModule,
-    NzTableModule,
-    NzDescriptionsModule,
-    NzTagModule,
-    NzDatePickerModule
-  ],
+    imports: [
+        CommonModule,
+        LotteriesRoutingModule,
+        ComponentsModule,
+        ReactiveFormsModule,
+        TranslateModule,
+        NzSelectModule,
+        NzSwitchModule,
+        NzInputNumberModule,
+        NzInputModule,
+        NzGridModule,
+        NzIconModule,
+        NzToolTipModule,
+        NzTimePickerModule,
+        NzDrawerModule,
+        FormsModule,
+        NzButtonModule,
+        NzDividerModule,
+        NzTableModule,
+        NzDescriptionsModule,
+        NzTagModule,
+        NzDatePickerModule,
+        NzRadioModule
+    ],
   providers: [FormBuilder, DatePipe],
   declarations: [LotteriesComponent, AdminLotteriesComponent, ConsortiumLotteriesComponent],
   exports: [LotteriesComponent, TranslateModule]

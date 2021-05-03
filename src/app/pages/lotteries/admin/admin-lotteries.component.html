@@ -116,7 +116,10 @@
         <label for="status">
           {{'LOTTERIES.CREATE.STATUS'|translate}}
         </label>
-        <nz-switch formControlName="status" id="status" style="padding-left: 10px"></nz-switch>
+        <nz-radio-group id="status" formControlName="status" nzButtonStyle="solid">
+          <label nz-radio-button [nzValue]="true">{{'LOTTERIES.CREATE.AVAILABLE'|translate}}</label>
+          <label nz-radio-button [nzValue]="false">{{'LOTTERIES.CREATE.UNAVAILABLE'|translate}}</label>
+        </nz-radio-group>
       </div>
 
 

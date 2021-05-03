@@ -369,6 +369,8 @@
       "DAYS": "Dias",
       "SELECT_DAYS": "Seleccione los dias",
       "STATUS": "Estado",
+      "AVAILABLE": "Habilitado",
+      "UNAVAILABLE": "Deshabilitado",
       "mon": "Lun",
       "tue": "Mar",
       "wed": "Mie",
