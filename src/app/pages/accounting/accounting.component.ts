@@ -31,7 +31,7 @@ export class AccountingComponent {
       key: 'week',
       valueFormatter: (data) => this.datePipe.transform(data.week, 'dd/MM/yy'),
       showSearch: true,
-      searchType: 'date-range'
+      searchType: 'select'
     },
     {
       title: 'Balance',
