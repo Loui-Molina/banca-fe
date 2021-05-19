@@ -18,6 +18,7 @@ import {ModalChangePasswordComponent} from '../../components/modals/modal-change
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {ModalAddTransactionComponent} from '../../components/modals/modal-add-transaction/modal-add-transaction.component';
 import {TranslateService} from '@ngx-translate/core';
+import {noSpaceRegex} from '../../../utils/constants';
 
 @Component({
   selector: 'app-web-users',
@@ -141,12 +142,12 @@ export class WebUsersComponent {
       status: [Validators.required],
       selectedBanking: [this.userRole.Admin, this.userRole.Consortium].includes(this.user?.role) ? [Validators.required] : [],
       ownerName: [Validators.required],
-      username: [Validators.required, Validators.pattern(/^(\S)+$/g)
+      username: [Validators.required, Validators.pattern(noSpaceRegex)
       ],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35),
-        Validators.pattern(/^(\S)+$/g)
+        Validators.pattern(noSpaceRegex)
       ] : []
     };
   };

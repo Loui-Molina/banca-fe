@@ -18,6 +18,7 @@ import {UserInterface, UserService} from '../../services/user.service';
 import {ModalChangePasswordComponent} from '../../components/modals/modal-change-password/modal-change-password.component';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
+import {noSpaceRegex} from '../../../utils/constants';
 
 @Component({
   selector: 'app-bankings',
@@ -25,6 +26,33 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./bankings.component.scss']
 })
 export class BankingsComponent {
+
+  constructor(private datePipe: DatePipe,
+              private formBuilder: FormBuilder,
+              private bankingService: BankingService,
+              private translateService: TranslateService,
+              private userService: UserService,
+              private nzModalService: NzModalService,
+              private consortiumsService: ConsortiumsService) {
+
+    this.formABM = this.formBuilder.group(this.defaultForm);
+    this.user = this.userService.getLoggedUser();
+    if (this.user?.role === this.userRole.Admin) {
+      this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
+          this.consortiums = [];
+          this.consortiums = consortiums;
+        }, error => {
+          throw new HttpErrorResponse(error);
+        }
+      );
+    } else if (this.user?.role === this.userRole.Consortium) {
+      this.consortiumsService.consortiumControllerGetConsortiumOfUser().subscribe(consortium => {
+        console.log(consortium);
+        this.consortiums = [];
+        this.consortiums.push(consortium);
+      });
+    }
+  }
 
   columns = [
     {
@@ -70,33 +98,6 @@ export class BankingsComponent {
   formABM: FormGroup;
   consortiums: Consortium[];
   fetcher: Observable<BankingDto[]> = this.bankingService.bankingsControllerFindAll();
-
-  constructor(private datePipe: DatePipe,
-              private formBuilder: FormBuilder,
-              private bankingService: BankingService,
-              private translateService: TranslateService,
-              private userService: UserService,
-              private nzModalService: NzModalService,
-              private consortiumsService: ConsortiumsService) {
-
-    this.formABM = this.formBuilder.group(this.defaultForm);
-    this.user = this.userService.getLoggedUser();
-    if (this.user?.role === this.userRole.Admin) {
-      this.consortiumsService.consortiumControllerGetAll().subscribe(consortiums => {
-          this.consortiums = [];
-          this.consortiums = consortiums;
-        }, error => {
-          throw new HttpErrorResponse(error);
-        }
-      );
-    } else if (this.user?.role === this.userRole.Consortium) {
-      this.consortiumsService.consortiumControllerGetConsortiumOfUser().subscribe(consortium => {
-        console.log(consortium);
-        this.consortiums = [];
-        this.consortiums.push(consortium);
-      });
-    }
-  }
 
   fetcherCreate: (item) => Observable<Banking> = (item) => this.bankingService.bankingsControllerCreate(item);
   fetcherUpdate: (item) => Observable<Banking> = (item) => this.bankingService.bankingsControllerUpdate(item);
@@ -175,12 +176,12 @@ export class BankingsComponent {
       footer: [Validators.required],
       ownerName: [Validators.required],
       username: [Validators.required,
-        Validators.pattern(/^(\S)+$/g)
+        Validators.pattern(noSpaceRegex)
       ],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35),
-        Validators.pattern(/^(\S)+$/g)
+        Validators.pattern(noSpaceRegex)
       ] : []
     };
   };

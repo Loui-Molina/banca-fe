@@ -6,6 +6,7 @@ import {Consortium, ConsortiumDto, ConsortiumsService, CreateConsortiumDto, User
 import {ModalChangePasswordComponent} from '../../../components/modals/modal-change-password/modal-change-password.component';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
+import {noSpaceRegex} from '../../../../utils/constants';
 
 @Component({
   selector: 'app-consortiums',
@@ -69,12 +70,12 @@ export class ConsortiumsComponent implements OnInit {
       name: [Validators.required],
       status: [Validators.required],
       ownerName: [Validators.required],
-      ownerUsername: [Validators.required, Validators.minLength(4), Validators.pattern(/^(\S)+$/g)
+      ownerUsername: [Validators.required, Validators.minLength(4), Validators.pattern(noSpaceRegex)
       ],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35),
-        Validators.pattern(/^(\S)+$/g)
+        Validators.pattern(noSpaceRegex)
       ] : []
     };
   }

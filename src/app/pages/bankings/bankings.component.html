@@ -16,7 +16,8 @@
 
   <ng-template #formTemplate let-mode let-visibleObject="visibleObject">
     <form [formGroup]="formABM">
-      <nz-divider [nzText]="'BANKINGS.CREATE.BANKING_DATA'|translate" class="title" nzOrientation="left" style="margin-top: 0"></nz-divider>
+      <nz-divider [nzText]="'BANKINGS.CREATE.BANKING_DATA'|translate" class="title" nzOrientation="left"
+                  style="margin-top: 0"></nz-divider>
       <div class="form-element">
         <label for="name">
           {{'BANKINGS.CREATE.NAME'|translate}}
@@ -32,7 +33,8 @@
       </div>
 
       <div class="form-element">
-        <nz-input-group class="add-on-input" id="percentage" nzAddOnBefore="{{'BANKINGS.CREATE.SHOW_PERCENTAGE'|translate}}">
+        <nz-input-group class="add-on-input" id="percentage"
+                        nzAddOnBefore="{{'BANKINGS.CREATE.SHOW_PERCENTAGE'|translate}}">
           <div nz-row>
             <div class="container-switch" nz-col nzSpan="8">
               <nz-switch formControlName="showPercentage" nzSize="small"></nz-switch>
@@ -110,7 +112,8 @@
       </ng-container>
 
       <ng-container *ngIf="mode === 'U'">
-        <p class="button-link" (click)="changePassword(visibleObject.ownerUserId)">{{'BANKINGS.CREATE.CHANGE_PASSWORD'|translate}}</p>
+        <p class="button-link"
+           (click)="changePassword(visibleObject.ownerUserId)">{{'BANKINGS.CREATE.CHANGE_PASSWORD'|translate}}</p>
       </ng-container>
 
     </form>

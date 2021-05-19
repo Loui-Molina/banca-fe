@@ -6,6 +6,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {AuthService, ResponseDto, User, UsersService} from 'local-packages/banca-api';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {ModalChangePasswordComponent} from '../../components/modals/modal-change-password/modal-change-password.component';
+import {noSpaceRegex} from '../../../utils/constants';
 
 @Component({
   selector: 'app-users',
@@ -28,6 +29,7 @@ export class UsersComponent implements OnInit {
     role: null
   };
   fetcher: Observable<User[]> = this.usersService.usersControllerGetAll();
+
 
   constructor(private formBuilder: FormBuilder,
               private usersService: UsersService,
@@ -53,11 +55,11 @@ export class UsersComponent implements OnInit {
   getValidators(mode: string): any {
     return {
       name: [Validators.required],
-      username: [Validators.required, Validators.minLength(4), Validators.pattern(/^(\S)+$/g)],
+      username: [Validators.required, Validators.minLength(4), Validators.pattern(noSpaceRegex)],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35),
-        Validators.pattern(/^(\S)+$/g)
+        Validators.pattern(noSpaceRegex)
       ] : [],
       role: [Validators.required]
     };
