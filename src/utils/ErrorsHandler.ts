@@ -39,7 +39,7 @@ export class ErrorsHandler implements ErrorHandler {
         default:
           break;
       }
-      if (error.status === 401) {
+      if (error.status === 401 || error.status === 0) {
         localStorage.clear();
         window.location.replace(window.location.origin);
         return;
