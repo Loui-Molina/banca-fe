@@ -94,30 +94,30 @@
       </div>
       <div class="inner-content inputs-content">
         <div nz-row [nzGutter]="5">
-          <div nz-col nzXs="9" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
-            <input #inputNumber class="play-input"
+          <div nz-col nzXs="24" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
+            <input style="font-size: 17px;" #inputNumber class="play-input"
                    (ngModelChange)="searchLimit()"
                    (keyup.enter)="onKeyEnterNumber()"
                    [(ngModel)]="number"
                    inputmode="numeric"
                    autofocus nz-input (input)="regexPlay(inputNumber)" placeholder="JUGADA"/>
           </div>
-          <div nz-col nzXs="6" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
-            <input #inputLimit [disabled]="true" [type]="'number'" [value]="limit" class="right-input"
+          <div nz-col nzXs="24" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
+            <input style="font-size: 17px;" #inputLimit [disabled]="true" [type]="'number'" [value]="limit" class="right-input"
                    nz-input placeholder="LIMITE" readonly/>
           </div>
-          <div nz-col nzXs="9" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
-            <nz-input-number #inputAmount (keyup.enter)="onKeyEnter()" [(ngModel)]="amount"
+          <div nz-col nzXs="24" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
+            <nz-input-number style="font-size: 17px;height: 100%;" #inputAmount (keyup.enter)="onKeyEnter()" (keydown)="onKeyDownAmount($event)" [(ngModel)]="amount"
                              class="right-input" [nzMin]="0" [name]="'Monto'|translate"
                              [nzPlaceHolder]="'MONTO'| translate"></nz-input-number>
           </div>
           <div nz-col nzXs="12" nzSm="5" nzMd="5" nzLg="5" nzXl="5">
-            <button nz-button (click)="onCheckSuperPale()" [class.selected]="this.superPale" class="super-pale">
+            <button style="height: 100%;" nz-button (click)="onCheckSuperPale()" [class.selected]="this.superPale" class="super-pale">
               SUPERPALE
             </button>
           </div>
           <div nz-col nzXs="12" nzSm="4" nzMd="4" nzLg="4" nzXl="4">
-            <button class="play-button" nz-button (click)="onKeyEnter()" [disabled]="disabledBet()">
+            <button style="height: 100%;" class="play-button" nz-button (click)="onKeyEnter()" [disabled]="disabledBet()">
               <i nz-icon nzTheme="outline" [nzType]="loadingSearchLimit ? 'loading' : 'caret-right'"></i>
             </button>
           </div>

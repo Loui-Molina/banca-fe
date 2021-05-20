@@ -112,6 +112,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   selectedLotteries: string[] = [];
   loading = false;
   superPale = false;
+  mustResetAmount = false;
   reloadingResults = false;
   reloadingResumeSells = false;
   reloadingLotteries = false;
@@ -591,6 +592,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     });
     aux.push(play);
     this.plays = aux;
+    this.mustResetAmount = true;
   }
 
   resetBet(): void {
@@ -873,6 +875,13 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.printTicket(generatedBet);
     }
   };
+
+  onKeyDownAmount($event): void {
+    if (this.mustResetAmount && $event.keyCode !== 13) {
+      this.mustResetAmount = false;
+      this.amount = null;
+    }
+  }
 }
 
 
