@@ -18,8 +18,9 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { CreateTransactionDto } from '../model/models';
+import { PaginationQueryDto } from '../model/models';
+import { ResponseQueryDto } from '../model/models';
 import { Transaction } from '../model/models';
-import { TransactionDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -297,13 +298,17 @@ export class TransactionsService implements TransactionsServiceInterface {
     }
 
     /**
+     * @param paginationQueryDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public transactionControllerGetAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public transactionControllerGetAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public transactionControllerGetAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public transactionControllerGetAll(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public transactionControllerGetAll(paginationQueryDto: PaginationQueryDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public transactionControllerGetAll(paginationQueryDto: PaginationQueryDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public transactionControllerGetAll(paginationQueryDto: PaginationQueryDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public transactionControllerGetAll(paginationQueryDto: PaginationQueryDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (paginationQueryDto === null || paginationQueryDto === undefined) {
+            throw new Error('Required parameter paginationQueryDto was null or undefined when calling transactionControllerGetAll.');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -320,12 +325,22 @@ export class TransactionsService implements TransactionsServiceInterface {
         }
 
 
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
         let responseType: 'text' | 'json' = 'json';
         if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/transactions`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/api/transactions/getAll`,
+            paginationQueryDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

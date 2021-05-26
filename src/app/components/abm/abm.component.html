@@ -8,13 +8,23 @@
     <nz-page-header-content>
       <nz-descriptions [nzBordered]="false" nzSize="small">
         <nz-descriptions-item [nzSpan]="3" nzTitle="{{'UTILS.QUANTITY' | translate}}">
-          {{dataDisplayed.length}}
+          {{pagination?total:dataDisplayed.length}}
         </nz-descriptions-item>
       </nz-descriptions>
     </nz-page-header-content>
   </nz-page-header>
 
-  <nz-table #basicTable [nzData]="dataDisplayed" [nzScroll]="{ x: '700px' }" [nzSize]="'small'">
+  <nz-table #basicTable
+            [nzData]="dataDisplayed"
+            [nzScroll]="{ x: '700px' }"
+            [nzSize]="'small'"
+            [nzFrontPagination]="!pagination"
+            [nzShowSizeChanger]="pagination"
+            [nzTotal]="pagination?total:dataDisplayed.length"
+            [nzPageSize]="limit"
+            [nzPageIndex]="pageIndex"
+            (nzQueryParams)="onQueryParamsChange($event)"
+  >
     <thead>
     <tr>
       <th *ngFor="let column of columns | listFilter:{field:'hiden', value:false}"

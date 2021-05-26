@@ -17,6 +17,7 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
+import { PaginationQueryDto } from '../model/models';
 import { User } from '../model/models';
 import { UserDto } from '../model/models';
 
@@ -178,13 +179,17 @@ export class UsersService implements UsersServiceInterface {
     }
 
     /**
+     * @param paginationQueryDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public usersControllerGetAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public usersControllerGetAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public usersControllerGetAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public usersControllerGetAll(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+    public usersControllerGetAll(paginationQueryDto: PaginationQueryDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public usersControllerGetAll(paginationQueryDto: PaginationQueryDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public usersControllerGetAll(paginationQueryDto: PaginationQueryDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public usersControllerGetAll(paginationQueryDto: PaginationQueryDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (paginationQueryDto === null || paginationQueryDto === undefined) {
+            throw new Error('Required parameter paginationQueryDto was null or undefined when calling usersControllerGetAll.');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -201,12 +206,22 @@ export class UsersService implements UsersServiceInterface {
         }
 
 
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
         let responseType: 'text' | 'json' = 'json';
         if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/api/users`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/api/users`,
+            paginationQueryDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

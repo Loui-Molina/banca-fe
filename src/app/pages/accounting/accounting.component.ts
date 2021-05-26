@@ -54,7 +54,7 @@ export class AccountingComponent {
     isPayed: null
   };
   formABM: FormGroup;
-  fetcher: Observable<BankingDto[]> = this.accountingService.accountingControllerGetAll();
+  fetcher: Observable<BankingDto[]> = null; // = this.accountingService.accountingControllerGetAll({});
 
   constructor(private datePipe: DatePipe,
               private formBuilder: FormBuilder,

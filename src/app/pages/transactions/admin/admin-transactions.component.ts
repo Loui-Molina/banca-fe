@@ -7,7 +7,6 @@ import {
   ConsortiumsService,
   CreateTransactionDto,
   Transaction,
-  TransactionDto,
   TransactionsService
 } from 'local-packages/banca-api';
 import {UserService} from '../../../services/user.service';
@@ -17,9 +16,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {TranslateService} from '@ngx-translate/core';
+import {Column} from '../../../components/abm/abm.component';
 import OriginObjectEnum = Transaction.OriginObjectEnum;
 import DestinationObjectEnum = Transaction.DestinationObjectEnum;
-import {Column} from '../../../components/abm/abm.component';
 
 @Component({
   selector: 'app-admin-transactions',
@@ -84,7 +83,7 @@ export class AdminTransactionsComponent implements OnInit {
       ]
     }
   ];
-  fetcher: Observable<TransactionDto[]> = this.transactionsService.transactionControllerGetAll();
+  // fetcher: Observable<any> = this.transactionsService.transactionControllerGetAll();
   formABM: FormGroup;
   defaultForm = {
     originObject: null,
@@ -94,7 +93,7 @@ export class AdminTransactionsComponent implements OnInit {
     description: null,
     amount: null,
   };
-  transactions: TransactionDto[] = [];
+  transactions: any[] = [];
   consortiums: ConsortiumDto[] = [];
   bankings: BankingDto[] = [];
   originObjectEnum = OriginObjectEnum;

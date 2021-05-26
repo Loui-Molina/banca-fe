@@ -1,14 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {BankingDto, Transaction, TransactionDto, TransactionsService} from 'local-packages/banca-api';
+import {PaginationQueryDto, Transaction, TransactionsService} from 'local-packages/banca-api';
 import {UserService} from '../../../services/user.service';
-import {HttpErrorResponse} from '@angular/common/http';
-import {forkJoin, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {FormBuilder} from '@angular/forms';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {TranslateService} from '@ngx-translate/core';
 import {Column} from '../../../components/abm/abm.component';
+
+export type PageFetcher<RSP, FLT> = (offset: number, limit: number, filters: any[]) => Observable<RSP>;
 
 @Component({
   selector: 'app-banking-transactions',
@@ -72,8 +73,14 @@ export class BankingTransactionsComponent implements OnInit {
       ]
     }
   ];
-
-  fetcher: Observable<TransactionDto[]> = this.transactionsService.transactionControllerGetAll();
+  fetcher: PageFetcher<any, PaginationQueryDto> = (offset: number, limit: number, filters) => {
+    const req: PaginationQueryDto = {
+      offset,
+      limit,
+      filters
+    };
+    return this.transactionsService.transactionControllerGetAll(req);
+  };
 
   constructor(private datePipe: DatePipe,
               private userService: UserService,
@@ -81,7 +88,7 @@ export class BankingTransactionsComponent implements OnInit {
               private translateService: TranslateService,
               private modalService: NzModalService,
               private messageService: NzMessageService,
-              private transactionsService: TransactionsService
+              public transactionsService: TransactionsService
   ) {
   }
 

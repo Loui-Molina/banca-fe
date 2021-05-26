@@ -28,7 +28,7 @@ export class UsersComponent implements OnInit {
     password: null,
     role: null
   };
-  fetcher: Observable<User[]> = this.usersService.usersControllerGetAll();
+  fetcher: Observable<User[]> = null; //  this.usersService.usersControllerGetAll();
 
 
   constructor(private formBuilder: FormBuilder,

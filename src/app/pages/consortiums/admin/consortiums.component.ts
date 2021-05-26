@@ -95,7 +95,12 @@ export class ConsortiumsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usersService.usersControllerGetAll().subscribe(res => {
+    //TODO pagination
+    this.usersService.usersControllerGetAll({
+      limit: 10000,
+      offset: 0,
+      filters: []
+    }).subscribe(res => {
       this.enumUsers = res;
     });
   }

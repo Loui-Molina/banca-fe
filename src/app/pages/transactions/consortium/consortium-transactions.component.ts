@@ -1,15 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {
-  Banking,
   BankingDto,
   BankingService,
   ConsortiumDto,
-  ConsortiumsService, CreateBankingDto,
-  CreateTransactionDto, SignUpCredentialsDto,
+  ConsortiumsService,
+  CreateTransactionDto,
   Transaction,
-  TransactionDto,
-  TransactionsService, UpdateBankingDto
+  TransactionsService
 } from 'local-packages/banca-api';
 import {UserService} from '../../../services/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -18,10 +16,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {TranslateService} from '@ngx-translate/core';
+import {Column} from '../../../components/abm/abm.component';
 import OriginObjectEnum = Transaction.OriginObjectEnum;
 import DestinationObjectEnum = Transaction.DestinationObjectEnum;
-import TypeEnum = TransactionDto.TypeEnum;
-import {Column} from '../../../components/abm/abm.component';
 
 @Component({
   selector: 'app-consortium-transactions',
@@ -97,7 +94,7 @@ export class ConsortiumTransactionsComponent implements OnInit {
       ]
     }
   ];
-  fetcher: Observable<TransactionDto[]> = this.transactionsService.transactionControllerGetAll();
+  // fetcher: Observable<any> = this.transactionsService.transactionControllerGetAll();
   formABM: FormGroup;
   defaultForm = {
     originObject: null,
@@ -113,7 +110,6 @@ export class ConsortiumTransactionsComponent implements OnInit {
   bankings: BankingDto[] = [];
   originObjectEnum = OriginObjectEnum;
   destinationObjectEnum = DestinationObjectEnum;
-  transactionEnum = TypeEnum;
 
   fetcherCreate: (item) => Observable<CreateTransactionDto> = (item) =>
     this.transactionsService.transactionControllerCreateTransactionConsortium(item);
