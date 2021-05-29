@@ -89,12 +89,6 @@ export interface BettingPanelServiceInterface {
      * 
      * 
      */
-    bettingPanelControllerGetLimits(extraHttpRequestParams?: any): Observable<{}>;
-
-    /**
-     * 
-     * 
-     */
     bettingPanelControllerGetResumeSells(extraHttpRequestParams?: any): Observable<{}>;
 
     /**
