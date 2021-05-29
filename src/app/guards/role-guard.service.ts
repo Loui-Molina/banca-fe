@@ -26,6 +26,7 @@ export class RoleGuard implements CanActivate {
       return true;
     }
 
+    debugger
     this.router.navigate(['']);
     console.log('Missing required roles');
     return false;

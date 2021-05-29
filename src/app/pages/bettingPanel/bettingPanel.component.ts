@@ -3,7 +3,8 @@ import {
   formatResult,
   getCombinations,
   printTicket,
-  reverseString, shareTicket,
+  reverseString,
+  shareTicket,
   showParsedNumbers,
   uuidv4
 } from '../../../utils/utilFunctions';
@@ -41,6 +42,24 @@ import {DrawerLotteriesComponent} from './drawer-lotteries/drawer-lotteries.comp
 import PrizeLimitPlayTypeEnum = PrizeLimitDto.PlayTypeEnum;
 import BettingLimitPlayTypeEnum = BettingLimitDto.PlayTypeEnum;
 
+interface Limits {
+  defaultLimits: DefaultLimit[];
+  remainingLimits: RemainingLimit[];
+}
+
+export interface DefaultLimit {
+  lotto: string;
+  playType: Play.PlayTypeEnum;
+  limit: number;
+}
+
+export interface RemainingLimit {
+  lotto: string;
+  play: PlayNumbers;
+  limit: number;
+}
+
+
 @Component({
   selector: 'app-betting-panel',
   templateUrl: './bettingPanel.component.html',
@@ -48,20 +67,6 @@ import BettingLimitPlayTypeEnum = BettingLimitDto.PlayTypeEnum;
 })
 export class BettingPanelComponent implements OnInit, OnDestroy {
 
-
-  constructor(private modalService: NzModalService,
-              private resultsService: ResultsService,
-              private bankingLotteriesService: BankingLotteriesService,
-              private bettingPanelService: BettingPanelService,
-              private bankingService: BankingService,
-              private datePipe: DatePipe,
-              private messagesService: MessagesService,
-              private translateService: TranslateService,
-              private messageService: NzMessageService) {
-    setInterval(() => {
-      this.now = new Date();
-    }, 1000);
-  }
 
   @ViewChild('drawerBets') drawerBets: DrawerBetsComponent;
   @ViewChild('drawerBet') drawerBet: DrawerBetComponent;
@@ -81,10 +86,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   loadingSubmit = false;
   generatedBet: BetDto;
   messages: MessageDto[] = [];
-
   isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-
   panels = [
     {title: 'DIRECTO', types: [Play.PlayTypeEnum.Direct]},
     {title: 'PALE', types: [Play.PlayTypeEnum.Pale]},
@@ -126,8 +128,23 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   isCollapsed: boolean;
   interval;
   interval2;
-
   a: number;
+  private limits: Limits;
+
+  constructor(private modalService: NzModalService,
+              private resultsService: ResultsService,
+              private bankingLotteriesService: BankingLotteriesService,
+              private bettingPanelService: BettingPanelService,
+              private bankingService: BankingService,
+              private datePipe: DatePipe,
+              private messagesService: MessagesService,
+              private translateService: TranslateService,
+              private messageService: NzMessageService) {
+    this.reloadLimits();
+    setInterval(() => {
+      this.now = new Date();
+    }, 1000);
+  }
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
@@ -330,6 +347,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.generatedBet = data;
       this.plays = [];
       this.loadingSubmit = false;
+      this.reloadLimits();
     }, error => {
       this.loadingSubmit = false;
       throw new HttpErrorResponse(error);
@@ -351,70 +369,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     }
   };
 
-  searchLimit = () => {
-    this.loadingSearchLimit = true;
-    this.limit = null;
-    const key = Math.random();
-    this.a = key;
-    setTimeout(() => {
-      if (this.a !== key) {
-        return;
-      }
-      if (this.number === null || this.number === undefined || this.selectedLotteries.length === 0) {
-        this.loadingSearchLimit = false;
-        return null;
-      }
-      this.loadingSearchLimit = true;
-      let playsToCreate: PlayInterface[] = [];
-      // tslint:disable-next-line:no-shadowed-variable
-      for (const lottery of this.lotteries) {
-        if (this.selectedLotteries.includes(lottery._id.toString())) {
-          playsToCreate = playsToCreate.concat(this.getPlaysToCreate(lottery, 0));
-        }
-      }
-      const reqs: LimitVerifyDto[] = [];
-      if (playsToCreate.length === 0) {
-        this.loadingSearchLimit = false;
-        return null;
-      }
-      for (const play of playsToCreate) {
-        const lottery = this.lotteries.filter(lot => play.lotteryId.toString() === lot._id.toString()).pop();
-        reqs.push({
-          playType: play.playType,
-          playNumbers: play.playNumbers,
-          lotteryId: lottery._id.toString(),
-        });
-      }
-      this.searchLimitSync(reqs).subscribe(responseArray => {
-        let minor: number = null;
-        for (const res of responseArray) {
-          if (res != null) {
-            if (minor === null || res < minor) {
-              minor = res;
-            }
-          }
-        }
-        if (this.a !== key) {
-          return;
-        }
-        this.loadingSearchLimit = false;
-        this.limit = minor;
-      }, error => {
-        this.loadingSearchLimit = false;
-        throw new HttpErrorResponse(error);
-      });
-    }, 500);
-
-  };
-
-  private searchLimitSync(reqs: LimitVerifyDto[]): Observable<any[]> {
-    const array = [];
-    for (const req of reqs) {
-      const result = this.bettingPanelService.bettingPanelControllerVerifyLimit(req);
-      array.push(result);
-    }
-    return forkJoin(array);
-  }
 
   getPlaysToCreate(lottery: BankingLotteryDto, amount: number): PlayInterface[] {
     const playsToCreate: PlayInterface[] = [];
@@ -626,7 +580,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       return true;
     }
 
-    const lotteries = this.lotteries.filter(lottery => this.selectedLotteries.includes(lottery._id.toString()));
+    // const lotteries = this.lotteries.filter(lottery => this.selectedLotteries.includes(lottery._id.toString()));
     // for (const lottery of lotteries) {
     //   for (const blocking of lottery.blockedNumbers) {
     //     const blockingInit = blocking.dates[0];
@@ -762,17 +716,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.plays = plays;
   };
 
-  private searchSync(plays: PlayDto[]): Observable<any[]> {
-    const arrayService = [];
-    for (const item of plays) {
-      const reqs: LimitVerifyDto[] = [
-        {playType: item.playType, lotteryId: item.lotteryId.toString(), playNumbers: item.playNumbers}
-      ];
-      arrayService.push(this.searchLimitSync(reqs));
-    }
-    return forkJoin(arrayService);
-  }
-
   printTicket = (ticket: BetDto) => {
     if (this.canSeeSn(ticket)) {
       printTicket(ticket, this.banking);
@@ -808,7 +751,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     return Math.floor(size);
   };
 
-
   getSumBets(bets: PlayInterface[] | PlayDto[]): number {
     let sum = 0;
     // @ts-ignore
@@ -816,6 +758,183 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       sum += item.amount;
     });
     return sum;
+  }
+
+  reloadLimits(): void {
+    this.bettingPanelService.bettingPanelControllerGetLimits()
+      .subscribe((limits: Limits) => this.limits = limits);
+  }
+
+  searchLimit = () => {
+    this.loadingSearchLimit = true;
+    this.limit = null;
+    const key = Math.random();
+    this.a = key;
+    setTimeout(() => {
+      if (this.a !== key) {
+        return;
+      }
+      if (this.number === null || this.number === undefined || this.selectedLotteries.length === 0) {
+        this.loadingSearchLimit = false;
+        return null;
+      }
+      this.loadingSearchLimit = true;
+      let playsToCreate: PlayInterface[] = [];
+      // tslint:disable-next-line:no-shadowed-variable
+      for (const lottery of this.lotteries) {
+        if (this.selectedLotteries.includes(lottery._id.toString())) {
+          playsToCreate = playsToCreate.concat(this.getPlaysToCreate(lottery, 0));
+        }
+      }
+      const reqs: LimitVerifyDto[] = [];
+      if (playsToCreate.length === 0) {
+        this.loadingSearchLimit = false;
+        return null;
+      }
+      for (const play of playsToCreate) {
+        const lottery = this.lotteries.filter(lot => play.lotteryId.toString() === lot._id.toString()).pop();
+        reqs.push({
+          playType: play.playType,
+          playNumbers: play.playNumbers,
+          lotteryId: lottery._id.toString(),
+        });
+      }
+      const limits = this.searchLimitSync(reqs);
+      if (limits) {
+        let minor: number = null;
+        for (const limit of limits) {
+          if (limit != null) {
+            if (minor === null || limit < minor) {
+              minor = limit;
+            }
+          }
+        }
+        if (this.a !== key) {
+          return;
+        }
+        this.loadingSearchLimit = false;
+        this.limit = minor;
+      }
+
+    }, 500);
+
+  };
+
+
+  verifyLimit = (req: LimitVerifyDto) => {
+    const limit = this.limits.defaultLimits.find(
+      (bettingLimit) => bettingLimit.playType === req.playType && bettingLimit.lotto === req.lotteryId,
+    );
+    if (!limit) {
+      return null;
+    }
+    let sum = 0;
+    const date = new Date();
+    const month = `${date.getMonth() + 1}`.padStart(2, '0');
+    const day = `${date.getDate()}`.padStart(2, '0');
+    const filterDateA = new Date(`${date.getFullYear()}-${month}-${day}T00:00:00.000Z`);
+
+    let filter: any[] = [];
+    if (req.playType === LimitVerifyDto.PlayTypeEnum.Direct) {
+      filter = [{'playNumbers.first': req.playNumbers.first}];
+    }
+    if (req.playType === LimitVerifyDto.PlayTypeEnum.Pale) {
+      filter = [
+        {
+          $or: [
+            {'playNumbers.first': req.playNumbers.first, 'playNumbers.second': req.playNumbers.second},
+            {'playNumbers.first': req.playNumbers.second, 'playNumbers.second': req.playNumbers.first},
+          ],
+        },
+      ];
+    }
+    if (req.playType === LimitVerifyDto.PlayTypeEnum.Tripleta) {
+      filter = [
+        {
+          $or: [
+            {
+              'playNumbers.first': req.playNumbers.first,
+              'playNumbers.second': req.playNumbers.second,
+              'playNumbers.third': req.playNumbers.third,
+            },
+            {
+              'playNumbers.first': req.playNumbers.third,
+              'playNumbers.second': req.playNumbers.first,
+              'playNumbers.third': req.playNumbers.second,
+            },
+            {
+              'playNumbers.first': req.playNumbers.second,
+              'playNumbers.second': req.playNumbers.third,
+              'playNumbers.third': req.playNumbers.first,
+            },
+            {
+              'playNumbers.first': req.playNumbers.first,
+              'playNumbers.second': req.playNumbers.third,
+              'playNumbers.third': req.playNumbers.second,
+            },
+            {
+              'playNumbers.first': req.playNumbers.second,
+              'playNumbers.second': req.playNumbers.first,
+              'playNumbers.third': req.playNumbers.third,
+            },
+            {
+              'playNumbers.first': req.playNumbers.third,
+              'playNumbers.second': req.playNumbers.second,
+              'playNumbers.third': req.playNumbers.first,
+            },
+          ],
+        },
+      ];
+    }
+    const playPools = this.limits.remainingLimits.filter((playPool) => playPool.lotto === req.lotteryId);
+    for (const play of playPools) {
+      sum += play.limit;
+    }
+    let finalLimit = limit.limit - sum;
+    if (finalLimit < 0) {
+      finalLimit = 0;
+    }
+    return finalLimit;
+  };
+
+  onChangeInputNumber($event): void {
+    this.number = $event.target.value;
+    this.searchLimit();
+  }
+
+  getPrinter = (generatedBet: BetDto) => {
+    if (this.isMobile) {
+      this.shareTicket(generatedBet);
+    } else {
+      this.printTicket(generatedBet);
+    }
+  };
+
+  onKeyDownAmount($event): void {
+    if (this.mustResetAmount && $event.keyCode !== 13) {
+      this.mustResetAmount = false;
+      this.amount = null;
+    }
+  }
+
+  private searchLimitSync(reqs: LimitVerifyDto[]): any[] {
+    const array = [];
+    for (const req of reqs) {
+      const result = this.verifyLimit(req);
+      array.push(result);
+    }
+    return array;
+  }
+
+  private searchSync(plays: PlayDto[]): Observable<any[]> {
+    const arrayService = [];
+    for (const item of plays) {
+      const reqs: LimitVerifyDto[] = [
+        {playType: item.playType, lotteryId: item.lotteryId.toString(), playNumbers: item.playNumbers}
+      ];
+      arrayService.push(this.searchLimitSync(reqs));
+    }
+    return forkJoin(arrayService);
   }
 
   private initDataSync(): Observable<any[]> {
@@ -833,6 +952,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     this.interval = setInterval(() => {
       this.reloadResults();
       this.reloadLotterys();
+      this.reloadLimits();
     }, 15000);
   }
 
@@ -860,27 +980,6 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
 
   private ts(key: string, params?): string {
     return this.translateService.instant(key, params);
-  }
-
-
-  onChangeInputNumber($event): void {
-    this.number = $event.target.value;
-    this.searchLimit();
-  }
-
-  getPrinter = (generatedBet: BetDto) => {
-    if (this.isMobile) {
-      this.shareTicket(generatedBet);
-    } else {
-      this.printTicket(generatedBet);
-    }
-  };
-
-  onKeyDownAmount($event): void {
-    if (this.mustResetAmount && $event.keyCode !== 13) {
-      this.mustResetAmount = false;
-      this.amount = null;
-    }
   }
 }
 
