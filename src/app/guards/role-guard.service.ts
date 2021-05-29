@@ -10,7 +10,8 @@ import {User} from '../../../local-packages/banca-api';
 export class RoleGuard implements CanActivate {
 
   constructor(private router: Router,
-              private userService: UserService) {}
+              private userService: UserService) {
+  }
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -26,7 +27,6 @@ export class RoleGuard implements CanActivate {
       return true;
     }
 
-    debugger
     this.router.navigate(['']);
     console.log('Missing required roles');
     return false;
