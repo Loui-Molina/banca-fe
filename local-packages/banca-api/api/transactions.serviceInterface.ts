@@ -14,8 +14,9 @@ import { HttpHeaders }                                       from '@angular/comm
 import { Observable }                                        from 'rxjs';
 
 import { CreateTransactionDto } from '../model/models';
+import { PaginationQueryDto } from '../model/models';
+import { ResponseQueryDto } from '../model/models';
 import { Transaction } from '../model/models';
-import { TransactionDto } from '../model/models';
 
 
 import { Configuration }                                     from '../configuration';
@@ -58,8 +59,9 @@ export interface TransactionsServiceInterface {
     /**
      * 
      * 
+     * @param paginationQueryDto 
      */
-    transactionControllerGetAll(extraHttpRequestParams?: any): Observable<{}>;
+    transactionControllerGetAll(paginationQueryDto: PaginationQueryDto, extraHttpRequestParams?: any): Observable<{}>;
 
     /**
      * 

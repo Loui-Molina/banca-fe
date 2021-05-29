@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {NzTableQueryParams} from 'ng-zorro-antd/table';
 
 
 @Component({
@@ -14,6 +15,7 @@ import {NzMessageService} from 'ng-zorro-antd/message';
 })
 export class AbmComponent implements OnInit {
   @Input() title: string;
+  @Input() pagination = false;
   @Input() formTemplate: TemplateRef<any>;
   @Input() viewTemplate: TemplateRef<any>;
   @Input() columns: Column[] = [];
@@ -27,7 +29,7 @@ export class AbmComponent implements OnInit {
   @Input() setValueForm: Function;
   @Input() defaultForm: any;
   @Input() extraButtons: ExtraButton[];
-  @Input() fetcher: Observable<any[]>;
+  @Input() fetcher;
   @Input() fetcherCreate: (item) => Observable<any>;
   @Input() fetcherUpdate: (item) => Observable<any>;
   @Input() fetcherDelete: (item) => Observable<Response>;
@@ -41,6 +43,10 @@ export class AbmComponent implements OnInit {
   dataDisplayed: any[] = [];
   loadingSave = false;
   loading = false;
+  limit = 10;
+  pageIndex = 1;
+  offset = 0;
+  total = 0;
 
   constructor(private formBuilder: FormBuilder,
               private modal: NzModalService,
@@ -50,7 +56,9 @@ export class AbmComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadFetcher();
+    if (!this.pagination) {
+      this.loadFetcher();
+    }
   }
 
   getValueKey(item, key: string): any {
@@ -73,15 +81,54 @@ export class AbmComponent implements OnInit {
   loadFetcher(): void {
     if (this.fetcher) {
       this.loading = true;
-      this.fetcher.subscribe(data => {
-        this.loading = false;
-        this.data = data;
-        this.dataDisplayed = data;
-      }, error => {
-        this.loading = false;
-        throw new HttpErrorResponse(error);
-      });
+      if (this.pagination){
+        const filters = [];
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < Object.keys(this.filterValue).length; i++) {
+          const key = Object.keys(this.filterValue)[i];
+          const value = this.filterValue[key];
+          if (key != null && value !== null) {
+            filters.push({
+              key,
+              value,
+              type: 'string' // TODO
+            });
+          }
+        }
+        this.fetcher(this.offset, this.limit, filters).subscribe(data => {
+          this.loading = false;
+          this.data = data.data;
+          this.total = data.total;
+          this.dataDisplayed = data.data;
+          this.calculatePages();
+        }, error => {
+          this.loading = false;
+          throw new HttpErrorResponse(error);
+        });
+      } else {
+        this.fetcher.subscribe(data => {
+          this.loading = false;
+          this.data = data;
+          this.dataDisplayed = data;
+        }, error => {
+          this.loading = false;
+          throw new HttpErrorResponse(error);
+        });
+      }
     }
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    if (this.pagination) {
+      const { pageSize, pageIndex, sort, filter } = params;
+      this.limit = pageSize;
+      this.offset = ( pageIndex - 1 ) * pageSize;
+      this.loadFetcher();
+    }
+  }
+
+  calculatePages(): void{
+    this.pageIndex = 1;
   }
 
   refresh(): void {
@@ -227,31 +274,37 @@ export class AbmComponent implements OnInit {
 
   search = (key, searchType: string) => {
     this.visibleFilter[key] = false;
-    this.dataDisplayed = this.data.filter(item => {
-      const valueFilter = this.filterValue[key];
-      if (valueFilter === null || valueFilter === undefined) {
-        return true;
-      }
-      switch (searchType) {
-        case 'select':
-          return item[key] === this.filterValue[key];
-        case 'date':
-          return this.datesAreOnSameDay(new Date(item[key]), this.filterValue[key]);
-        case 'date-range':
-          if (this.filterValue[key].length === 2) {
-            return this.filterValue[key][0] <= new Date(item[key]) && this.filterValue[key][1] >= new Date(item[key]);
-          }
+    if (this.pagination) {
+      // BE searchs
+      this.loadFetcher();
+    } else {
+      // FE searchs
+      this.dataDisplayed = this.data.filter(item => {
+        const valueFilter = this.filterValue[key];
+        if (valueFilter === null || valueFilter === undefined) {
           return true;
-        case 'string':
-        default:
-          if (typeof item[key] === 'string' && item[key].indexOf(valueFilter) !== -1) {
+        }
+        switch (searchType) {
+          case 'select':
+            return item[key] === this.filterValue[key];
+          case 'date':
+            return this.datesAreOnSameDay(new Date(item[key]), this.filterValue[key]);
+          case 'date-range':
+            if (this.filterValue[key].length === 2) {
+              return this.filterValue[key][0] <= new Date(item[key]) && this.filterValue[key][1] >= new Date(item[key]);
+            }
             return true;
-          } else if (typeof item[key] === 'number' && item[key] === (parseInt(valueFilter, 0) || null)) {
-            return true;
-          }
-      }
-      return false;
-    });
+          case 'string':
+          default:
+            if (typeof item[key] === 'string' && item[key].indexOf(valueFilter) !== -1) {
+              return true;
+            } else if (typeof item[key] === 'number' && item[key] === (parseInt(valueFilter, 0) || null)) {
+              return true;
+            }
+        }
+        return false;
+      });
+    }
   }
 
   private ts(key: string, params?): string {

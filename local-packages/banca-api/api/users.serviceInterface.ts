@@ -13,6 +13,7 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
+import { PaginationQueryDto } from '../model/models';
 import { User } from '../model/models';
 import { UserDto } from '../model/models';
 
@@ -43,8 +44,9 @@ export interface UsersServiceInterface {
     /**
      * 
      * 
+     * @param paginationQueryDto 
      */
-    usersControllerGetAll(extraHttpRequestParams?: any): Observable<{}>;
+    usersControllerGetAll(paginationQueryDto: PaginationQueryDto, extraHttpRequestParams?: any): Observable<{}>;
 
     /**
      * 

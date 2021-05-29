@@ -5,9 +5,8 @@ import {
   BankingService,
   ConsortiumDto,
   ConsortiumsService,
-  CreateTransactionDto,
+  CreateTransactionDto, PaginationQueryDto,
   Transaction,
-  TransactionDto,
   TransactionsService
 } from 'local-packages/banca-api';
 import {UserService} from '../../../services/user.service';
@@ -17,9 +16,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {TranslateService} from '@ngx-translate/core';
+import {Column} from '../../../components/abm/abm.component';
 import OriginObjectEnum = Transaction.OriginObjectEnum;
 import DestinationObjectEnum = Transaction.DestinationObjectEnum;
-import {Column} from '../../../components/abm/abm.component';
+import {PageFetcher} from '../banking/banking-transactions.component';
 
 @Component({
   selector: 'app-admin-transactions',
@@ -32,18 +32,18 @@ export class AdminTransactionsComponent implements OnInit {
     { title: 'TRANSACTIONS.LIST.DATE',
       key: 'createdAt',
       valueFormatter: (item, column) => this.valueFormatterDate(item, column),
-      showSearch: true,
-      searchType: 'date-range'
+      // showSearch: true,
+      // searchType: 'date-range'
     },
     {
       title: 'TRANSACTIONS.LIST.ORIGIN',
       key: 'originName',
-      showSearch: true
+      // showSearch: true
     },
     {
       title: 'TRANSACTIONS.LIST.DESTINATION',
       key: 'destinationName',
-      showSearch: true
+      // showSearch: true
     },
     {
       title: 'TRANSACTIONS.LIST.DESCRIPTION',
@@ -84,7 +84,15 @@ export class AdminTransactionsComponent implements OnInit {
       ]
     }
   ];
-  fetcher: Observable<TransactionDto[]> = this.transactionsService.transactionControllerGetAll();
+  fetcher: PageFetcher<any, PaginationQueryDto> = (offset: number, limit: number, filters) => {
+    const req: PaginationQueryDto = {
+      offset,
+      limit,
+      filters
+    };
+    return this.transactionsService.transactionControllerGetAll(req);
+  };
+
   formABM: FormGroup;
   defaultForm = {
     originObject: null,
@@ -94,7 +102,7 @@ export class AdminTransactionsComponent implements OnInit {
     description: null,
     amount: null,
   };
-  transactions: TransactionDto[] = [];
+  transactions: any[] = [];
   consortiums: ConsortiumDto[] = [];
   bankings: BankingDto[] = [];
   originObjectEnum = OriginObjectEnum;

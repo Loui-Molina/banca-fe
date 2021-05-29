@@ -1,9 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PlayInterface} from '../../bettingPanel/bettingPanel.component';
-import {BankingLotteryDto, Play, PlayNumbers, TransactionDto, TransactionsService} from '../../../../../local-packages/banca-api';
+import {TransactionsService} from '../../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {getCombinations, reverseString, showParsedNumbers, uuidv4} from '../../../../utils/utilFunctions';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -14,8 +12,8 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./web.users-transactions.component.scss']
 })
 export class WebUsersTransactionsComponent implements OnInit {
-  transactions: TransactionDto[] = [];
-  selectedTransaction: TransactionDto;
+  transactions: any[] = [];
+  selectedTransaction: any;
   loading = true;
   modalConfirm = false;
   constructor(private route: ActivatedRoute,
@@ -27,9 +25,14 @@ export class WebUsersTransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.transactionsService.transactionControllerGetAll().subscribe(data => {
+    // TODO pagination with scroll
+    this.transactionsService.transactionControllerGetAll({
+      offset: 0,
+      limit: 10000,
+      filters: []
+    }).subscribe(data => {
       this.loading = false;
-      this.transactions = data;
+      this.transactions = data.data;
     }, error => {
       this.loading = false;
       throw new HttpErrorResponse(error);
@@ -40,7 +43,7 @@ export class WebUsersTransactionsComponent implements OnInit {
     this.router.navigate(['app/main']);
   }
 
-  openTransaction(transaction: TransactionDto): void {
+  openTransaction(transaction): void {
     this.selectedTransaction = transaction;
     this.modalConfirm = true;
   }
