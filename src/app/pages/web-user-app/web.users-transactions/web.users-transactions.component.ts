@@ -4,6 +4,7 @@ import {TransactionsService} from '../../../../../local-packages/banca-api';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-web.users-transactions',
@@ -24,13 +25,18 @@ export class WebUsersTransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*this.transactionsService.transactionControllerGetAll().subscribe(data => {
+    // TODO pagination with scroll
+    this.transactionsService.transactionControllerGetAll({
+      offset: 0,
+      limit: 10000,
+      filters: []
+    }).subscribe(data => {
       this.loading = false;
-      this.transactions = data;
+      this.transactions = data.data;
     }, error => {
       this.loading = false;
       throw new HttpErrorResponse(error);
-    });*/
+    });
   }
 
   goBack(): void {

@@ -5,7 +5,7 @@ import {
   BankingService,
   ConsortiumDto,
   ConsortiumsService,
-  CreateTransactionDto,
+  CreateTransactionDto, PaginationQueryDto,
   Transaction,
   TransactionsService
 } from 'local-packages/banca-api';
@@ -19,6 +19,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {Column} from '../../../components/abm/abm.component';
 import OriginObjectEnum = Transaction.OriginObjectEnum;
 import DestinationObjectEnum = Transaction.DestinationObjectEnum;
+import {PageFetcher} from '../banking/banking-transactions.component';
 
 @Component({
   selector: 'app-admin-transactions',
@@ -31,18 +32,18 @@ export class AdminTransactionsComponent implements OnInit {
     { title: 'TRANSACTIONS.LIST.DATE',
       key: 'createdAt',
       valueFormatter: (item, column) => this.valueFormatterDate(item, column),
-      showSearch: true,
-      searchType: 'date-range'
+      // showSearch: true,
+      // searchType: 'date-range'
     },
     {
       title: 'TRANSACTIONS.LIST.ORIGIN',
       key: 'originName',
-      showSearch: true
+      // showSearch: true
     },
     {
       title: 'TRANSACTIONS.LIST.DESTINATION',
       key: 'destinationName',
-      showSearch: true
+      // showSearch: true
     },
     {
       title: 'TRANSACTIONS.LIST.DESCRIPTION',
@@ -83,7 +84,15 @@ export class AdminTransactionsComponent implements OnInit {
       ]
     }
   ];
-  // fetcher: Observable<any> = this.transactionsService.transactionControllerGetAll();
+  fetcher: PageFetcher<any, PaginationQueryDto> = (offset: number, limit: number, filters) => {
+    const req: PaginationQueryDto = {
+      offset,
+      limit,
+      filters
+    };
+    return this.transactionsService.transactionControllerGetAll(req);
+  };
+
   formABM: FormGroup;
   defaultForm = {
     originObject: null,

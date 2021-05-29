@@ -3,10 +3,11 @@ import {Column} from '../../components/abm/abm.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
-import {AuthService, ResponseDto, User, UsersService} from 'local-packages/banca-api';
+import {AuthService, PaginationQueryDto, ResponseDto, User, UsersService} from 'local-packages/banca-api';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {ModalChangePasswordComponent} from '../../components/modals/modal-change-password/modal-change-password.component';
 import {noSpaceRegex} from '../../../utils/constants';
+import {PageFetcher} from '../transactions/banking/banking-transactions.component';
 
 @Component({
   selector: 'app-users',
@@ -28,7 +29,14 @@ export class UsersComponent implements OnInit {
     password: null,
     role: null
   };
-  fetcher: Observable<User[]> = null; //  this.usersService.usersControllerGetAll();
+  fetcher: PageFetcher<any, PaginationQueryDto> = (offset: number, limit: number, filters) => {
+    const req: PaginationQueryDto = {
+      offset,
+      limit,
+      filters
+    };
+    return this.usersService.usersControllerGetAll(req);
+  };
 
 
   constructor(private formBuilder: FormBuilder,

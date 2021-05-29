@@ -14,5 +14,6 @@
 export interface FilterQueryDto { 
     key: string;
     value?: object;
+    type: string;
 }
 

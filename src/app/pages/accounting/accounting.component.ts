@@ -2,9 +2,10 @@ import {Component} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AccountingDto, AccountingService, BankingDto, User} from 'local-packages/banca-api';
+import {AccountingDto, AccountingService, BankingDto, PaginationQueryDto, User} from 'local-packages/banca-api';
 import {TranslateService} from '@ngx-translate/core';
 import {UserService} from '../../services/user.service';
+import {PageFetcher} from '../transactions/banking/banking-transactions.component';
 
 @Component({
   selector: 'app-accounting',
@@ -54,8 +55,14 @@ export class AccountingComponent {
     isPayed: null
   };
   formABM: FormGroup;
-  fetcher: Observable<BankingDto[]> = null; // = this.accountingService.accountingControllerGetAll({});
-
+  fetcher: PageFetcher<any, PaginationQueryDto> = (offset: number, limit: number, filters) => {
+    const req: PaginationQueryDto = {
+      offset,
+      limit,
+      filters
+    };
+    return this.accountingService.accountingControllerGetAll(req);
+  };
   constructor(private datePipe: DatePipe,
               private formBuilder: FormBuilder,
               private translateService: TranslateService,

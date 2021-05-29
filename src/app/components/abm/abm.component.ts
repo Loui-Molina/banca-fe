@@ -87,10 +87,13 @@ export class AbmComponent implements OnInit {
         for (let i = 0; i < Object.keys(this.filterValue).length; i++) {
           const key = Object.keys(this.filterValue)[i];
           const value = this.filterValue[key];
-          filters.push({
-            key,
-            value,
-          });
+          if (key != null && value !== null) {
+            filters.push({
+              key,
+              value,
+              type: 'string' // TODO
+            });
+          }
         }
         this.fetcher(this.offset, this.limit, filters).subscribe(data => {
           this.loading = false;

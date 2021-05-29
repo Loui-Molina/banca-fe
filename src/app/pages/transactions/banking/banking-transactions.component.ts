@@ -21,18 +21,18 @@ export class BankingTransactionsComponent implements OnInit {
     { title: 'TRANSACTIONS.LIST.DATE',
       key: 'createdAt',
       valueFormatter: (item, column) => this.valueFormatterDate(item, column),
-      showSearch: true,
-      searchType: 'date-range'
+      // showSearch: true,
+      // searchType: 'date-range'
     },
     {
       title: 'TRANSACTIONS.LIST.ORIGIN',
       key: 'originName',
-      showSearch: true
+      // showSearch: true
     },
     {
       title: 'TRANSACTIONS.LIST.DESTINATION',
       key: 'destinationName',
-      showSearch: true
+      // showSearch: true
     },
     {
       title: 'TRANSACTIONS.LIST.DESCRIPTION',
