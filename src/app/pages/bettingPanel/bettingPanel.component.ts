@@ -56,6 +56,7 @@ export interface DefaultLimit {
 export interface RemainingLimit {
   lotto: string;
   play: PlayNumbers;
+  playType: Play.PlayTypeEnum;
   limit: number;
 }
 
@@ -766,7 +767,7 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   searchLimit = () => {
-    this.loadingSearchLimit = true;
+
     this.limit = null;
     const key = Math.random();
     this.a = key;
@@ -775,10 +776,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
         return;
       }
       if (this.number === null || this.number === undefined || this.selectedLotteries.length === 0) {
-        this.loadingSearchLimit = false;
         return null;
       }
-      this.loadingSearchLimit = true;
+
       let playsToCreate: PlayInterface[] = [];
       // tslint:disable-next-line:no-shadowed-variable
       for (const lottery of this.lotteries) {
@@ -788,9 +788,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       }
       const reqs: LimitVerifyDto[] = [];
       if (playsToCreate.length === 0) {
-        this.loadingSearchLimit = false;
         return null;
       }
+      this.loadingSearchLimit = true;
       for (const play of playsToCreate) {
         const lottery = this.lotteries.filter(lot => play.lotteryId.toString() === lot._id.toString()).pop();
         reqs.push({
@@ -825,68 +825,55 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     const limit = this.limits.defaultLimits.find(
       (bettingLimit) => bettingLimit.playType === req.playType && bettingLimit.lotto === req.lotteryId,
     );
-    if (!limit) {
+    if (!limit && this.limits.remainingLimits.length > 0) {
       return null;
     }
-    let sum = 0;
-    const date = new Date();
-    const month = `${date.getMonth() + 1}`.padStart(2, '0');
-    const day = `${date.getDate()}`.padStart(2, '0');
-    const filterDateA = new Date(`${date.getFullYear()}-${month}-${day}T00:00:00.000Z`);
+    const playPools = this.limits.remainingLimits.filter(t => t.lotto === req.lotteryId && t.playType === req.playType
+      && (
 
-    let filter: any[] = [];
-    if (req.playType === LimitVerifyDto.PlayTypeEnum.Direct) {
-      filter = [{'playNumbers.first': req.playNumbers.first}];
-    }
-    if (req.playType === LimitVerifyDto.PlayTypeEnum.Pale) {
-      filter = [
-        {
-          $or: [
-            {'playNumbers.first': req.playNumbers.first, 'playNumbers.second': req.playNumbers.second},
-            {'playNumbers.first': req.playNumbers.second, 'playNumbers.second': req.playNumbers.first},
-          ],
-        },
-      ];
-    }
-    if (req.playType === LimitVerifyDto.PlayTypeEnum.Tripleta) {
-      filter = [
-        {
-          $or: [
-            {
-              'playNumbers.first': req.playNumbers.first,
-              'playNumbers.second': req.playNumbers.second,
-              'playNumbers.third': req.playNumbers.third,
-            },
-            {
-              'playNumbers.first': req.playNumbers.third,
-              'playNumbers.second': req.playNumbers.first,
-              'playNumbers.third': req.playNumbers.second,
-            },
-            {
-              'playNumbers.first': req.playNumbers.second,
-              'playNumbers.second': req.playNumbers.third,
-              'playNumbers.third': req.playNumbers.first,
-            },
-            {
-              'playNumbers.first': req.playNumbers.first,
-              'playNumbers.second': req.playNumbers.third,
-              'playNumbers.third': req.playNumbers.second,
-            },
-            {
-              'playNumbers.first': req.playNumbers.second,
-              'playNumbers.second': req.playNumbers.first,
-              'playNumbers.third': req.playNumbers.third,
-            },
-            {
-              'playNumbers.first': req.playNumbers.third,
-              'playNumbers.second': req.playNumbers.second,
-              'playNumbers.third': req.playNumbers.first,
-            },
-          ],
-        },
-      ];
-    }
-    const playPools = this.limits.remainingLimits.filter((playPool) => playPool.lotto === req.lotteryId);
+        (t.playType === LimitVerifyDto.PlayTypeEnum.Direct && t.play.first === req.playNumbers.first) ||
+
+        (t.playType === LimitVerifyDto.PlayTypeEnum.Pale &&
+                                   ((t.play.first === req.playNumbers.first && t.play.second === req.playNumbers.second) ||
+                                   (t.play.second === req.playNumbers.first && t.play.second === req.playNumbers.first))) ||
+        (
+          t.playType === LimitVerifyDto.PlayTypeEnum.Tripleta &&
+          (
+            (
+              t.play.first === req.playNumbers.first &&
+              t.play.second === req.playNumbers.second &&
+              t.play.third === req.playNumbers.third
+            ) ||
+            (
+              t.play.first === req.playNumbers.third &&
+              t.play.second === req.playNumbers.first &&
+              t.play.third === req.playNumbers.second
+            ) ||
+            (
+              t.play.first === req.playNumbers.second &&
+              t.play.second === req.playNumbers.third &&
+              t.play.third === req.playNumbers.first
+            ) ||
+            (
+              t.play.first === req.playNumbers.first &&
+              t.play.second === req.playNumbers.third &&
+              t.play.third === req.playNumbers.second
+            ) ||
+            (
+              t.play.first === req.playNumbers.second &&
+              t.play.second === req.playNumbers.first &&
+              t.play.third === req.playNumbers.third
+            ) ||
+            (
+              t.play.first === req.playNumbers.third &&
+              t.play.second === req.playNumbers.second &&
+              t.play.third === req.playNumbers.first
+            )
+          )
+        )
+      )
+    );
+    let sum = 0;
     for (const play of playPools) {
       sum += play.limit;
     }

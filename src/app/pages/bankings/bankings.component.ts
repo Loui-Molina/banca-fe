@@ -47,7 +47,6 @@ export class BankingsComponent {
       );
     } else if (this.user?.role === this.userRole.Consortium) {
       this.consortiumsService.consortiumControllerGetConsortiumOfUser().subscribe(consortium => {
-        console.log(consortium);
         this.consortiums = [];
         this.consortiums.push(consortium);
       });
