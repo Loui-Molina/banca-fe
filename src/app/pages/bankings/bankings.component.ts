@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
   Banking,
-  BankingDto,
+  BankingDto, BankingPercentage,
   BankingService,
   Consortium,
   ConsortiumsService,
@@ -84,7 +84,10 @@ export class BankingsComponent {
     status: true,
     selectedConsortium: null,
     showPercentage: false,
-    earningPercentage: null,
+    bankingPercentageDirect: 0,
+    bankingPercentagePale: 0,
+    bankingPercentageTripleta: 0,
+    bankingPercentageSuperPale: 0,
     cancellationTime: null,
     header: null,
     footer: null,
@@ -109,7 +112,10 @@ export class BankingsComponent {
         status: true,
         selectedConsortium: null,
         showPercentage: false,
-        earningPercentage: null,
+        bankingPercentageDirect: 0,
+        bankingPercentagePale: 0,
+        bankingPercentageTripleta: 0,
+        bankingPercentageSuperPale: 0,
         cancellationTime: 5,
         header: null,
         footer: null,
@@ -123,7 +129,14 @@ export class BankingsComponent {
         status: visibleObject.status,
         selectedConsortium: visibleObject.consortiumId,
         showPercentage: visibleObject.showPercentage,
-        earningPercentage: visibleObject.earningPercentage,
+        bankingPercentageDirect: visibleObject.bankingPercentage.find(bp =>
+          bp.playType ===  BankingPercentage.PlayTypeEnum.Direct)?.amount,
+        bankingPercentagePale: visibleObject.bankingPercentage.find(bp =>
+          bp.playType ===  BankingPercentage.PlayTypeEnum.Pale)?.amount,
+        bankingPercentageTripleta: visibleObject.bankingPercentage.find(bp =>
+          bp.playType ===  BankingPercentage.PlayTypeEnum.Tripleta)?.amount,
+        bankingPercentageSuperPale: visibleObject.bankingPercentage.find(bp =>
+          bp.playType ===  BankingPercentage.PlayTypeEnum.SuperPale)?.amount,
         cancellationTime: visibleObject.cancellationTime ? visibleObject.cancellationTime : null,
         header: visibleObject.header,
         footer: visibleObject.footer,
@@ -135,13 +148,31 @@ export class BankingsComponent {
   }
 
   parseData = (mode: string, valueForm, visibleObject): CreateBankingDto | UpdateBankingDto => {
+    console.log('VALUEFORM', valueForm);
     if (mode === 'C') {
       return {
         banking: {
           name: valueForm.name,
           status: valueForm.status,
           showPercentage: valueForm.showPercentage,
-          earningPercentage: valueForm.earningPercentage,
+          bankingPercentage: [
+            {
+              playType: BankingPercentage.PlayTypeEnum.Direct,
+              amount: valueForm.bankingPercentageDirect
+            },
+            {
+              playType: BankingPercentage.PlayTypeEnum.Pale,
+              amount: valueForm.bankingPercentagePale
+            },
+            {
+              playType: BankingPercentage.PlayTypeEnum.Tripleta,
+              amount: valueForm.bankingPercentageTripleta
+            },
+            {
+              playType: BankingPercentage.PlayTypeEnum.SuperPale,
+              amount: valueForm.bankingPercentageSuperPale
+            },
+          ],
           cancellationTime: valueForm.cancellationTime,
           header: valueForm.header,
           footer: valueForm.footer
@@ -155,6 +186,24 @@ export class BankingsComponent {
         name: valueForm.name,
         status: valueForm.status,
         showPercentage: valueForm.showPercentage,
+        bankingPercentage: [
+          {
+            playType: BankingPercentage.PlayTypeEnum.Direct,
+            amount: valueForm.bankingPercentageDirect
+          },
+          {
+            playType: BankingPercentage.PlayTypeEnum.Pale,
+            amount: valueForm.bankingPercentagePale
+          },
+          {
+            playType: BankingPercentage.PlayTypeEnum.Tripleta,
+            amount: valueForm.bankingPercentageTripleta
+          },
+          {
+            playType: BankingPercentage.PlayTypeEnum.SuperPale,
+            amount: valueForm.bankingPercentageSuperPale
+          },
+        ],
         cancellationTime: valueForm.cancellationTime,
         ownerUserId: visibleObject.ownerUserId,
         user: {username: valueForm.username, password: null, name: valueForm.ownerName} as SignUpCredentialsDto,
@@ -175,12 +224,12 @@ export class BankingsComponent {
       footer: [Validators.required],
       ownerName: [Validators.required],
       username: [Validators.required,
-        Validators.pattern(noSpaceRegex)
+        // TODO fix Validators.pattern(noSpaceRegex)
       ],
       password: (mode === 'C') ? [Validators.required,
         Validators.minLength(8),
         Validators.maxLength(35),
-        Validators.pattern(noSpaceRegex)
+        // Validators.pattern(noSpaceRegex) TODO fix
       ] : []
     };
   };

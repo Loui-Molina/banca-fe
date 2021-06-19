@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { BankingPercentage } from './bankingPercentage';
 
 
 export interface BankingDto { 
@@ -22,7 +23,7 @@ export interface BankingDto {
     createdAt: string;
     startOfOperation: string;
     showPercentage: boolean;
-    earningPercentage: number;
+    bankingPercentage: Array<BankingPercentage>;
     cancellationTime: number;
     header: string;
     footer: string;

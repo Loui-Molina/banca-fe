@@ -5,6 +5,7 @@ export * from './adminLotteryResDto';
 export * from './banking';
 export * from './bankingDto';
 export * from './bankingLotteryDto';
+export * from './bankingPercentage';
 export * from './betDto';
 export * from './bettingLimitDto';
 export * from './bettingLimitUpdateLotteryDto';

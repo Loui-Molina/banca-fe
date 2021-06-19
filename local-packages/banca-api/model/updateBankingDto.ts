@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { BankingPercentage } from './bankingPercentage';
 import { SignUpCredentialsDto } from './signUpCredentialsDto';
 
 
@@ -18,6 +19,7 @@ export interface UpdateBankingDto {
     status: boolean;
     ownerUserId?: object;
     user: SignUpCredentialsDto;
+    bankingPercentage: Array<BankingPercentage>;
     showPercentage: boolean;
     cancellationTime: number;
     selectedConsortium: object;

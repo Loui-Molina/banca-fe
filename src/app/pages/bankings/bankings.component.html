@@ -33,23 +33,72 @@
       </div>
 
       <div class="form-element">
-        <nz-input-group class="add-on-input" id="percentage"
-                        nzAddOnBefore="{{'BANKINGS.CREATE.SHOW_PERCENTAGE'|translate}}">
-          <div nz-row>
-            <div class="container-switch" nz-col nzSpan="8">
-              <nz-switch formControlName="showPercentage" nzSize="small"></nz-switch>
-            </div>
-            <div nz-col nzSpan="16">
-              <nz-input-number
-                [nzMin]="0"
-                [nzMax]="100"
-                formControlName="earningPercentage"
-                style="width:100%">
-              </nz-input-number>
-            </div>
-          </div>
-        </nz-input-group>
+        <label for="status">
+          {{'BANKINGS.CREATE.SHOW_PERCENTAGE'|translate}}
+        </label>
+        <nz-switch formControlName="showPercentage" id="showPercentage" style="padding-left: 10px"></nz-switch>
       </div>
+
+
+      <div class="form-element">
+        <label for="status">
+          {{'Porcentaje Directo'|translate}}
+        </label>
+        <div nz-col nzSpan="24">
+          <nz-input-number
+            [nzMin]="0"
+            [nzMax]="100"
+            formControlName="bankingPercentageDirect"
+            style="width:100%">
+          </nz-input-number>
+        </div>
+      </div>
+
+      <div class="form-element">
+        <label for="status">
+          {{'Porcentaje Pale'|translate}}
+        </label>
+        <div nz-col nzSpan="24">
+          <nz-input-number
+            [nzMin]="0"
+            [nzMax]="100"
+            formControlName="bankingPercentagePale"
+            style="width:100%">
+          </nz-input-number>
+        </div>
+      </div>
+
+      <div class="form-element">
+        <label for="status">
+          {{'Porcentaje Tripleta'|translate}}
+        </label>
+        <div nz-col nzSpan="24">
+          <nz-input-number
+            [nzMin]="0"
+            [nzMax]="100"
+            formControlName="bankingPercentageTripleta"
+            style="width:100%">
+          </nz-input-number>
+        </div>
+      </div>
+
+      <div class="form-element">
+        <label for="status">
+          {{'Porcentaje Superpale'|translate}}
+        </label>
+        <div nz-col nzSpan="24">
+          <nz-input-number
+            [nzMin]="0"
+            [nzMax]="100"
+            formControlName="bankingPercentageSuperPale"
+            style="width:100%">
+          </nz-input-number>
+        </div>
+      </div>
+
+
+
+
 
       <div class="form-element">
         <label for="selectedConsortium">
@@ -135,8 +184,9 @@
         <nz-descriptions-item [nzTitle]="'BANKINGS.VIEW.SHOW_PERCENTAGE'| translate">
           {{(visibleObject.showPercentage) ? ('BANKINGS.VIEW.ENABLED'| translate) : ('BANKINGS.VIEW.DISABLED' | translate)}}
         </nz-descriptions-item>
-        <nz-descriptions-item [nzTitle]="'BANKINGS.VIEW.PERCENTAGE'| translate">
-          {{visibleObject.earningPercentage}}%
+        <nz-descriptions-item *ngFor="let item of visibleObject.bankingPercentage"
+                              [nzTitle]="('BANKINGS.VIEW.PERCENTAGE'| translate) + ' '  + item.playType ">
+         {{item.amount}}%
         </nz-descriptions-item>
         <nz-descriptions-item [nzTitle]="'BANKINGS.VIEW.CANCELLATION_TIME'| translate">
           {{visibleObject.cancellationTime}}

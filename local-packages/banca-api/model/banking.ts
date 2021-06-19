@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { BankingPercentage } from './bankingPercentage';
 
 
 export interface Banking { 
@@ -19,5 +20,6 @@ export interface Banking {
     status: boolean;
     header: string;
     footer: string;
+    bankingPercentage: Array<BankingPercentage>;
 }
 
