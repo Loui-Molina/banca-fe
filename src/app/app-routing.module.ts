@@ -93,6 +93,12 @@ const routes: Routes = [
         data: {requiredRoles: [User.RoleEnum.Admin, User.RoleEnum.Consortium]},
         loadChildren: () => import('./pages/accounting/accounting.module').then(m => m.AccountingModule)
       },
+      {
+        path: 'accountingPanel',
+        canActivate: [RoleGuard, AuthGuard],
+        data: {requiredRoles: [User.RoleEnum.Consortium]},
+        loadChildren: () => import('./pages/accountingPanel/accountingPanel.module').then(m => m.AccountingPanelModule)
+      },
       /*{
         path: 'help',
         canActivate: [RoleGuard, AuthGuard],

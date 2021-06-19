@@ -53,9 +53,13 @@
             <i nz-icon nzType="shop"></i>
             <a routerLink="/bankings">{{'SIDENAV.HOME.BANKINGS' | translate}}</a>
           </li>
-          <li *ngIf=" [userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
+          <!--<li *ngIf=" [userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="book"></i>
             <a routerLink="/accounting">{{'Contabilidad' | translate}}</a>
+          </li>-->
+          <li *ngIf=" [userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="book"></i>
+            <a routerLink="/accountingPanel">{{'Contabilidad' | translate}}</a>
           </li>
           <li *ngIf="[userRole.Admin, userRole.Consortium].includes(user?.role)" nz-menu-item nzMatchRouter><i nz-icon
                                                                                                                nzType="trophy"></i>
