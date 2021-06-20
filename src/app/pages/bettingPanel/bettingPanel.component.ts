@@ -688,41 +688,28 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.plays = plays;
       return;
     }
-    this.loading = true;
-    this.searchSync(ticket.plays).subscribe(value => {
-      let i = 0;
-      for (const play of ticket.plays) {
-        const lottery = this.lotteries.find((lot) => lot._id.toString() === play.lotteryId.toString());
-        let lottery2;
-        if (play.playType === 'superPale' && play.lotteryIdSuperpale) {
-          lottery2 = this.lotteries.find((lot) => lot._id.toString() === play.lotteryIdSuperpale.toString());
-        }
-        let x = value[i];
-        if (x.length > 0) {
-          x = x[0];
-        }
-        if (lottery && lottery.status && (x === null || play.amount <= x)) {
-          let lotteryNickName = lottery.nickname;
-          if (play.playType === 'superPale' && lottery2) {
-            lotteryNickName += ' - ' + lottery2.nickname;
-          }
-          plays.push({
-            lotteryNickName,
-            uuid: uuidv4(),
-            playNumbers: play.playNumbers,
-            lotteryId: play.lotteryId,
-            lotteryIdSuperpale: play.lotteryIdSuperpale,
-            playType: play.playType,
-            amount: play.amount
-          });
-        }
-        i++;
+    for (const play of ticket.plays) {
+      const lottery = this.lotteries.find((lot) => lot._id.toString() === play.lotteryId.toString());
+      let lottery2;
+      if (play.playType === 'superPale' && play.lotteryIdSuperpale) {
+        lottery2 = this.lotteries.find((lot) => lot._id.toString() === play.lotteryIdSuperpale.toString());
       }
-      this.loading = false;
-    }, error => {
-      this.loading = false;
-      throw new HttpErrorResponse(error);
-    });
+      if (lottery && lottery.status) {
+        let lotteryNickName = lottery.nickname;
+        if (play.playType === 'superPale' && lottery2) {
+          lotteryNickName += ' - ' + lottery2.nickname;
+        }
+        plays.push({
+          lotteryNickName,
+          uuid: uuidv4(),
+          playNumbers: play.playNumbers,
+          lotteryId: play.lotteryId,
+          lotteryIdSuperpale: play.lotteryIdSuperpale,
+          playType: play.playType,
+          amount: play.amount
+        });
+      }
+    }
 
     this.plays = plays;
   };
