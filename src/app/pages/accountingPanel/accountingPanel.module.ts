@@ -22,6 +22,8 @@ import {NzSwitchModule} from 'ng-zorro-antd/switch';
 import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
 import {NzDescriptionsModule} from 'ng-zorro-antd/descriptions';
 import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
+import {NzPageHeaderModule} from 'ng-zorro-antd/page-header';
+import {NzButtonModule} from 'ng-zorro-antd/button';
 
 @NgModule({
   imports: [
@@ -47,7 +49,9 @@ import {NzDatePickerModule} from 'ng-zorro-antd/date-picker';
     NzInputNumberModule,
     NzDescriptionsModule,
     NzDatePickerModule,
-    FormsModule
+    FormsModule,
+    NzPageHeaderModule,
+    NzButtonModule
   ],
   declarations: [AccountingPanelComponent],
   exports: [AccountingPanelComponent],

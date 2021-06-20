@@ -1,3 +1,54 @@
 <div class="fit-height mb-20" style="min-height: 300px;">
-  TABLA FILTRO
+  <div class="inner-content">
+    <nz-page-header [nzGhost]="false" class="page-header">
+      <nz-page-header-title>
+        {{'Accounting' | translate}}
+      </nz-page-header-title>
+      <nz-page-header-content>
+        <nz-descriptions [nzBordered]="false" nzSize="small">
+          <nz-descriptions-item [nzSpan]="3" nzTitle="{{'UTILS.QUANTITY' | translate}}">
+            <!-- TODO            {{pagination ? total : dataDisplayed.length}}-->
+          </nz-descriptions-item>
+        </nz-descriptions>
+        <nz-range-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
+        <button nz-button nzType="primary" (click)="filter($event)"> filter</button>
+      </nz-page-header-content>
+    </nz-page-header>
+    <nz-table #table
+              [nzData]="bankings"
+              [nzPageSize]="10"
+              [nzScroll]="{ x: '700px' }"
+              [nzSize]="'small'"
+              nzLoading="false"
+              nzTableLayout="auto">
+      <thead>
+      <tr>
+        <th *ngFor="let column of columns" [nzWidth]="column.width">
+          <span [nz-tooltip]="column.tooltip | translate">{{column.title | translate}}</span>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of table.data">
+        <td class="table-td" *ngFor="let column of columns"
+            [class.red]="column.type === 'numeric' && data[column.key] < 0 || column.red">
+          {{column.prefix}}{{data[column.key]}}
+        </td>
+      </tr>
+      </tbody>
+      <tfoot *ngIf="table && table.data.length > 0">
+      <tr>
+        <td class="tableFooter" *ngFor="let column of columns"
+            [class.red]="column.type === 'numeric' && getColumnTotal(column.key) < 0 || column.red">
+          <ng-container *ngIf="column.sum">
+            {{column.prefix}}{{getColumnTotal(column.key)}}
+          </ng-container>
+          <ng-container *ngIf="column.titleFooter">
+            {{column.titleFooter | translate}}
+          </ng-container>
+        </td>
+      </tr>
+      </tfoot>
+    </nz-table>
+  </div>
 </div>
