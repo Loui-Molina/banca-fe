@@ -42,6 +42,10 @@
         </nz-badge>
         <span>{{'BETTING_PANEL.TOPBAR.CHAT'|translate}}</span>
       </li>
+      <li (click)="logout()" nz-menu-item>
+        <i nz-icon nzType="logout"></i>
+        <a>{{'SIDENAV.SETTINGS.LOGOUT' | translate}}</a>
+      </li>
       <li nz-menu-item (click)="isCollapsed = !isCollapsed" *ngIf="isMobile" style="display: flex;
     align-items: center;
     justify-content: center;

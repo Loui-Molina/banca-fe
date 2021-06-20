@@ -12,6 +12,7 @@ import {NzModalService} from 'ng-zorro-antd/modal';
 import {TranslateService} from '@ngx-translate/core';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {
+  AuthService,
   Banking,
   BankingLotteriesService,
   BankingLotteryDto,
@@ -41,6 +42,8 @@ import {DrawerResumeSellsComponent} from './drawer-resume-sells/drawer-resume-se
 import {DrawerLotteriesComponent} from './drawer-lotteries/drawer-lotteries.component';
 import PrizeLimitPlayTypeEnum = PrizeLimitDto.PlayTypeEnum;
 import BettingLimitPlayTypeEnum = BettingLimitDto.PlayTypeEnum;
+import {Router} from "@angular/router";
+import {UserService} from "../../services/user.service";
 
 interface Limits {
   defaultLimits: DefaultLimit[];
@@ -138,6 +141,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
               private bettingPanelService: BettingPanelService,
               private bankingService: BankingService,
               private datePipe: DatePipe,
+              private router: Router,
+              private userService: UserService,
+              private authService: AuthService,
               private messagesService: MessagesService,
               private translateService: TranslateService,
               private messageService: NzMessageService) {
@@ -284,13 +290,17 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.reloadMessages();
     }, 15000);
     this.initDataSync().subscribe(responseList => {
-      this.lastResults = responseList[0];
-      this.lotteries = responseList[1];
-      this.banking = responseList[2];
+      this.lotteries = responseList[0];
+      this.banking = responseList[1];
       this.startReloadResults();
       this.loading = false;
     }, error => {
       this.loading = false;
+      throw new HttpErrorResponse(error);
+    });
+    this.initResultsSync().subscribe(responseList => {
+      this.lastResults = responseList[0];
+    }, error => {
       throw new HttpErrorResponse(error);
     });
   }
@@ -828,6 +838,9 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
     if (!limit && this.limits.remainingLimits.length > 0) {
       return null;
     }
+    if(!limit){
+      return null;
+    }
     const playPools = this.limits.remainingLimits.filter(t => t.lotto === req.lotteryId && t.playType === req.playType
       && (
 
@@ -925,14 +938,16 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
   }
 
   private initDataSync(): Observable<any[]> {
-    const resultsControllerGetAll = this.resultsService.resultsControllerGetAll();
     const bankingLotteryControllerGetAll = this.bankingLotteriesService.bankingLotteryControllerGetAll();
     const bankingsControllerGetBankingOfBanquer = this.bankingService.bankingsControllerGetUserBanking();
     return forkJoin([
-      resultsControllerGetAll,
       bankingLotteryControllerGetAll,
       bankingsControllerGetBankingOfBanquer,
     ]);
+  }
+
+  private initResultsSync(): Observable<any[]> {
+    return forkJoin([this.resultsService.resultsControllerGetAll()]);
   }
 
   private startReloadResults(): void {
@@ -963,6 +978,16 @@ export class BettingPanelComponent implements OnInit, OnDestroy {
       this.reloadingLotteries = false;
       throw new HttpErrorResponse(error);
     });
+  }
+
+  logout(): void {
+    this.authService.authControllerLogOut().subscribe(value => {
+      console.log('Logout successfully');
+    }, error => {
+      console.log('Logout Err');
+    });
+    this.userService.logout();
+    this.router.navigate(['login']);
   }
 
   private ts(key: string, params?): string {
