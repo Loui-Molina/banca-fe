@@ -37,6 +37,7 @@ import {ModalAddTransactionComponent} from './modals/modal-add-transaction/modal
 import {NzInputNumberModule} from 'ng-zorro-antd/input-number';
 import {SearchComponent} from './abm/search/search.component';
 import {ListFilterPipe} from '../pipes/list-filter.pipe';
+import { FilteredTableComponent } from './filtered-table/filtered-table/filtered-table.component';
 
 const pipes = [ListFilterPipe];
 const components = [
@@ -84,7 +85,7 @@ const components = [
     FormsModule,
     NzInputNumberModule
   ],
-  declarations: [...components, ...pipes],
+  declarations: [...components, ...pipes, FilteredTableComponent],
   exports: [...components, ...pipes],
   providers: [NzModalService, NzMessageService]
 })
