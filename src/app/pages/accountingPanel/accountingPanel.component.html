@@ -5,13 +5,7 @@
         {{'Accounting' | translate}}
       </nz-page-header-title>
       <nz-page-header-content>
-        <nz-descriptions [nzBordered]="false" nzSize="small">
-          <nz-descriptions-item [nzSpan]="3" nzTitle="{{'UTILS.QUANTITY' | translate}}">
-            <!-- TODO            {{pagination ? total : dataDisplayed.length}}-->
-          </nz-descriptions-item>
-        </nz-descriptions>
         <nz-range-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
-        <button nz-button nzType="primary" (click)="filter($event)"> filter</button>
       </nz-page-header-content>
     </nz-page-header>
     <nz-table #table

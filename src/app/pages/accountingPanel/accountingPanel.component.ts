@@ -1,13 +1,16 @@
-import {Component} from '@angular/core';
-import {DashboardBankingDto, DashboardService} from '../../../../local-packages/banca-api';
-import {HttpErrorResponse} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {AccountingService, PaginationQueryDto} from '../../../../local-packages/banca-api';
+import {PageFetcher} from '../transactions/banking/banking-transactions.component';
 
 @Component({
   selector: 'app-accounting-panel',
   templateUrl: './accountingPanel.component.html',
   styleUrls: ['./accountingPanel.component.scss']
 })
-export class AccountingPanelComponent {
+export class AccountingPanelComponent implements OnInit {
+
+  constructor(private accountingService: AccountingService) {
+  }
 
   columns: ColumnItem[] = [
     {
@@ -119,19 +122,9 @@ export class AccountingPanelComponent {
       red: true
     },
   ];
-  bankings: DashboardBankingDto[] = [];
+  bankings: any[] = [];
   date: any;
 
-  constructor(private dashboardService: DashboardService) {
-  }
-
-  ngOnInit(): void {
-    this.dashboardService.dashboardControllerGetBankingsStatistics().subscribe(res => {
-      this.bankings = res;
-    }, error => {
-      throw new HttpErrorResponse(error);
-    });
-  }
 
   getColumnTotal(field: string): number {
     // tslint:disable-next-line:only-arrow-functions
@@ -140,12 +133,34 @@ export class AccountingPanelComponent {
     }, 0);
   }
 
-  onChange($event: any): void {
-    console.log('date changed' + $event);
+  onChange(dates: any): void {
+    if (dates) {
+      const [initialDate, finalDate] = dates;
+      this.loadBankings({
+        offset: null,
+        filters: [{key: 'dates', value: [initialDate, finalDate], type: 'daterange'}],
+        limit: null
+      });
+    }
   }
 
-  filter($event: MouseEvent): void {
+  fetcher: PageFetcher<any, PaginationQueryDto> = (offset: number, limit: number, filters) => {
+    const req: PaginationQueryDto = {
+      offset,
+      limit,
+      filters
+    };
+    return this.accountingService.accountingControllerGetAll(req);
+  };
 
+  ngOnInit(): void {
+    this.loadBankings(null);
+  }
+
+  private loadBankings(filter: PaginationQueryDto): void {
+    this.fetcher(filter?.offset, filter?.limit, filter?.filters).subscribe(rsp => {
+      this.bankings = rsp?.data;
+    });
   }
 }
 
