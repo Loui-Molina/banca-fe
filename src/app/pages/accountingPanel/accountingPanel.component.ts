@@ -21,55 +21,6 @@ export class AccountingPanelComponent implements OnInit {
       width: '100px'
     },
     {
-      title: 'DASHBOARD.BANKING_SUMMARY.LIST.WINNER',
-      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_WINNER',
-      key: 'winner',
-      sum: true,
-      type: 'numeric'
-    },
-    {
-      title: 'DASHBOARD.BANKING_SUMMARY.LIST.LOSER',
-      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_LOSER',
-      key: 'loser',
-      sum: true,
-      type: 'numeric'
-    },
-    {
-      title: 'DASHBOARD.BANKING_SUMMARY.LIST.PENDING',
-      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_PENDING',
-      key: 'pending',
-      sum: true,
-      type: 'numeric'
-    },
-    {
-      title: 'DASHBOARD.BANKING_SUMMARY.LIST.CLAIMED',
-      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_CLAIMED',
-      key: 'claimed',
-      sum: true,
-      type: 'numeric'
-    },
-    {
-      title: 'DASHBOARD.BANKING_SUMMARY.LIST.EXPIRED',
-      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_EXPIRED',
-      key: 'expired',
-      sum: true,
-      type: 'numeric'
-    },
-    {
-      title: 'DASHBOARD.BANKING_SUMMARY.LIST.CANCELLED',
-      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_CANCELLED',
-      key: 'cancelled',
-      sum: true,
-      type: 'numeric'
-    },
-    {
-      title: 'DASHBOARD.BANKING_SUMMARY.LIST.TOTAL',
-      tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_TOTAL',
-      key: 'total',
-      sum: true,
-      type: 'numeric'
-    },
-    {
       title: 'DASHBOARD.BANKING_SUMMARY.LIST.PROFITS',
       tooltip: 'DASHBOARD.BANKING_SUMMARY.LIST.TOOLTIP_PROFITS',
       key: 'profits',
@@ -127,21 +78,22 @@ export class AccountingPanelComponent implements OnInit {
 
 
   getColumnTotal(field: string): number {
-    // tslint:disable-next-line:only-arrow-functions
-    return this.bankings.reduce(function(acc, item): number {
+    return this.bankings.reduce((acc, item): number => {
       return acc + (item[field] ? item[field] : 0);
     }, 0);
   }
 
   onChange(dates: any): void {
-    if (dates) {
+    let filters = null;
+    if (dates && dates[0] && dates[1]) {
       const [initialDate, finalDate] = dates;
-      this.loadBankings({
-        offset: null,
-        filters: [{key: 'dates', value: [initialDate, finalDate], type: 'daterange'}],
-        limit: null
-      });
+      filters = [{key: 'dates', value: [initialDate, finalDate], type: 'daterange'}];
     }
+    this.loadBankings({
+      offset: null,
+      filters,
+      limit: null
+    });
   }
 
   fetcher: PageFetcher<any, PaginationQueryDto> = (offset: number, limit: number, filters) => {
