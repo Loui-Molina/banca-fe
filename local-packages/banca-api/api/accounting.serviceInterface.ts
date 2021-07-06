@@ -14,7 +14,6 @@ import { HttpHeaders }                                       from '@angular/comm
 import { Observable }                                        from 'rxjs';
 
 import { AccountingDto } from '../model/models';
-import { PaginationQueryDto } from '../model/models';
 
 
 import { Configuration }                                     from '../configuration';
@@ -35,9 +34,9 @@ export interface AccountingServiceInterface {
     /**
      * 
      * 
-     * @param paginationQueryDto 
+     * @param requestBody 
      */
-    accountingControllerGetAll(paginationQueryDto: PaginationQueryDto, extraHttpRequestParams?: any): Observable<{}>;
+    accountingControllerGetAll(requestBody: Array<string>, extraHttpRequestParams?: any): Observable<{}>;
 
     /**
      * 

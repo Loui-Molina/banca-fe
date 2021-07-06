@@ -102,7 +102,7 @@ export class AccountingPanelComponent implements OnInit {
       limit,
       filters
     };
-    return this.accountingService.accountingControllerGetAll(req);
+    return this.accountingService.accountingControllerGetAll(filters);
   };
 
   ngOnInit(): void {
