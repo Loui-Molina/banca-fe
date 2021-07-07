@@ -18,6 +18,7 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { AccountingDto } from '../model/models';
+import { PaginationQueryDto } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -129,16 +130,16 @@ export class AccountingService implements AccountingServiceInterface {
     }
 
     /**
-     * @param requestBody 
+     * @param paginationQueryDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public accountingControllerGetAll(requestBody: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public accountingControllerGetAll(requestBody: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public accountingControllerGetAll(requestBody: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
-    public accountingControllerGetAll(requestBody: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (requestBody === null || requestBody === undefined) {
-            throw new Error('Required parameter requestBody was null or undefined when calling accountingControllerGetAll.');
+    public accountingControllerGetAll(paginationQueryDto: PaginationQueryDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
+    public accountingControllerGetAll(paginationQueryDto: PaginationQueryDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
+    public accountingControllerGetAll(paginationQueryDto: PaginationQueryDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public accountingControllerGetAll(paginationQueryDto: PaginationQueryDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (paginationQueryDto === null || paginationQueryDto === undefined) {
+            throw new Error('Required parameter paginationQueryDto was null or undefined when calling accountingControllerGetAll.');
         }
 
         let headers = this.defaultHeaders;
@@ -171,7 +172,7 @@ export class AccountingService implements AccountingServiceInterface {
         }
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/api/accounting/getAll`,
-            requestBody,
+            paginationQueryDto,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AccountingService, PaginationQueryDto} from '../../../../local-packages/banca-api';
+import {AccountingService, FilterQueryDto, PaginationQueryDto} from '../../../../local-packages/banca-api';
 import {PageFetcher} from '../transactions/banking/banking-transactions.component';
 
 @Component({
@@ -102,7 +102,7 @@ export class AccountingPanelComponent implements OnInit {
       limit,
       filters
     };
-    return this.accountingService.accountingControllerGetAll(filters);
+    return this.accountingService.accountingControllerGetAll(req);
   };
 
   ngOnInit(): void {
