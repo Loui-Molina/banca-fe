@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   jwtEnabled: true,
-  urlApi: 'http://localhost:3000'
+  urlApi: 'https://0cae-190-195-238-56.sa.ngrok.io' /*|| 'http://localhost:3000'*/
 };
 
 /*

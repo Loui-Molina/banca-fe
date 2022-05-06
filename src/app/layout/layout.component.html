@@ -10,6 +10,7 @@
     <div class="sidebar-logo">
       <img alt="logo" src="assets/imgs/logobanca.png">
       <h1>{{establishmentName}}</h1>
+      <p>{{user?.role}}</p>
     </div>
     <ul [nzInlineCollapsed]="isCollapsed" nz-menu nzMode="inline" nzTheme="dark">
       <li (click)="(isMobile)? isCollapsed = true: null" nz-submenu nzIcon="home" nzOpen
